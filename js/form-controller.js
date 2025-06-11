@@ -183,12 +183,12 @@ class FormSubmitter {
     }
 }
 
-let signupSubmitter;
-document.addEventListener('DOMContentLoaded', () => {
-    signupSubmitter = new FormSubmitter('sign_up_frm');
-});
-
-// ■ 기존 submitForm 함수 재정의: 생성된 인스턴스의 submit() 호출
 function submitForm(formId) {
-    signupSubmitter.submit();
+    const formEl = document.getElementById(formId);
+    if (!formEl) {
+        console.error(`Form with id="${formId}" not found.`);
+        return;
+    }
+    const submitter = new FormSubmitter(formId);
+    submitter.submit();
 }
