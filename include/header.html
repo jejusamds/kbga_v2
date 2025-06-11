@@ -1,6 +1,6 @@
 <?php
 
-    include_once($_SERVER["DOCUMENT_ROOT"] . "/inc/global.inc");
+    include_once($_SERVER["DOCUMENT_ROOT"] . "/include/common.php");
 
 	// 현재 페이지 url
 	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http');
@@ -336,7 +336,7 @@
 								</ul>
 							</div>
 						</td>
-						<td align="left" class="sm_td"><!--login-->
+						<td align="left" class="sm_td<?=$is_login ? ' login' : ''?>"><!--login-->
 							<div class="search_con">
 								<form action="" method="" autocomplete="off">
 									<div class="input_con">
@@ -364,6 +364,36 @@
 
 							<div class="member_con">
 								<ul>
+									<!--
+									로그인 후
+									#header > .contents_con > table > tbody > tr > .sm_td 
+									#header > .sub_nav > .contents_con > table > tbody > tr > .sm_td
+									클래스 login 추가해주세요
+									-->
+									<?php if ($is_login) { ?>
+									<li>
+										<a href="/mypage/modify.html">
+											<div class="icon">
+												<img src="/img/main/header_member_list_mypage_icon.svg" alt="아이콘" class="fx off" />
+												<img src="/img/main/header_member_list_mypage_icon_on.svg" alt="아이콘" class="fx on" />
+											</div>
+
+											<span>
+												마이페이지
+											</span>
+										</a>
+									</li>
+									<li class="bar_li">
+										<div class="bar"></div>
+									</li>
+									<li>
+										<a href="/controller/member_controller.php?mode=logout">
+											<span>
+												로그아웃
+											</span>
+										</a>
+									</li>
+									<?php } else { ?>
 									<li>
 										<a href="/member/login.html">
 											<span>
@@ -381,34 +411,8 @@
 											</span>
 										</a>
 									</li>
-									<!--
-									로그인 후
-									#header > .contents_con > table > tbody > tr > .sm_td 
-									#header > .sub_nav > .contents_con > table > tbody > tr > .sm_td
-									클래스 login 추가해주세요
-									<li>
-										<a href="/mypage/modify.html">
-											<div class="icon">
-												<img src="/img/main/header_member_list_mypage_icon.svg" alt="아이콘" class="fx off" />
-												<img src="/img/main/header_member_list_mypage_icon_on.svg" alt="아이콘" class="fx on" />
-											</div>
+									<?php } ?>
 
-											<span>
-												마이페이지
-											</span>
-										</a>
-									</li>
-									<li class="bar_li">
-										<div class="bar"></div>
-									</li>
-									<li>
-										<a href="#">
-											<span>
-												로그아웃
-											</span>
-										</a>
-									</li>
-									-->
 								</ul>
 							</div>
 						</td>
@@ -593,7 +597,7 @@
 									</table>
 								</div>
 							</td>
-							<td align="left" class="sm_td"><!--login-->
+							<td align="left" class="sm_td<?=$is_login ? ' login' : ''?>"><!--login-->
 								&nbsp;
 							</td>
 						</tr>
