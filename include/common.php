@@ -17,6 +17,11 @@ function generate_csrf_token()
 }
 
 // 헤더에서 사용하는 메뉴 배열
-include 'get_menu.php';
-include 'privacy.php';
+// include 'get_menu.php';
+// include 'privacy.php';
+
+$is_login = false;
+if (!empty($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '') {
+    $is_login = true;
+}
 
