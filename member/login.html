@@ -1,77 +1,83 @@
 <?php
-	$Menu = "06";
-	$sMenu = "06-1";
+$Menu = "06";
+$sMenu = "06-1";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
 ?>
 
-	<div id="container">
-		<div id="sub_con">
-			<div class="contents_con width_100 pt_0 pr_0 pb_0 pl_0">
+<script src="/js/form-controller.js"></script>
+<div id="container">
+    <div id="sub_con">
+        <div class="contents_con width_100 pt_0 pr_0 pb_0 pl_0">
 
-				<form action="" method="" autocomplete="off">
-					<div class="login_con">
-						<div class="contents_con">
-							<div class="write_con">
-								<div class="logo_con">
-									<img src="/img/member/login_con_logo.svg" alt="로고" class="fx" />
-								</div>
+            <form id="loginForm" action="/controller/member_controller.php" method="POST">
+                <input type="hidden" name="mode" value="login" />
+                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
+                <div class="login_con">
+                    <div class="contents_con">
+                        <div class="write_con">
+                            <div class="logo_con">
+                                <img src="/img/member/login_con_logo.svg" alt="로고" class="fx" />
+                            </div>
 
-								<div class="input_con">
-									<ul>
-										<li>
-											<input type="text" name="" placeholder="아이디/ID" class="input" />
-										</li>
-										<li>
-											<input type="password" name="" maxlength="12" placeholder="비밀번호/Password" class="input" autocomplete="new-password" />
-										</li>
-									</ul>
-								</div>
+                            <div class="input_con">
+                                <ul>
+                                    <li>
+                                        <input type="text" name="f_user_id" id="f_user_id" data-required="y"
+                                            data-label="아이디를" placeholder="아이디/ID" class="input" />
+                                    </li>
+                                    <li>
+                                        <input type="password" name="f_password" id="f_password" data-required="y"
+                                            data-label="비밀번호를" maxlength="12" placeholder="비밀번호/Password" class="input"
+                                            autocomplete="new-password" />
+                                    </li>
+                                </ul>
+                            </div>
 
-								<div class="btn_con">
-									<div class="btn_con">
-										<a href="#" class="a_btn">
-											로그인
-										</a>
-									</div>
+                            <div class="btn_con">
+                                <div class="btn_con">
+                                    <a href="javascript:void(0);" onclick="submitForm('loginForm');" class="a_btn">
+                                        로그인
+                                    </a>
+                                </div>
 
-									<div class="member_con">
-										<div class="list_con">
-											<ul>
-												<li>
-													<a href="/member/find_id.html">
-														아이디 찾기
-													</a>
-												</li>
-												<li class="bar_li">
-													<div class="bar"></div>
-												</li>
-												<li>
-													<a href="/member/find_pw.html">
-														비밀번호 찾기
-													</a>
-												</li>
-												<li class="bar_li">
-													<div class="bar"></div>
-												</li>
-												<li>
-													<a href="/member/join_step01.html">
-														회원가입
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
+                                <div class="member_con">
+                                    <div class="list_con">
+                                        <ul>
+                                            <li>
+                                                <a href="/member/find_id.html">
+                                                    아이디 찾기
+                                                </a>
+                                            </li>
+                                            <li class="bar_li">
+                                                <div class="bar"></div>
+                                            </li>
+                                            <li>
+                                                <a href="/member/find_pw.html">
+                                                    비밀번호 찾기
+                                                </a>
+                                            </li>
+                                            <li class="bar_li">
+                                                <div class="bar"></div>
+                                            </li>
+                                            <li>
+                                                <a href="/member/join_step01.html">
+                                                    회원가입
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+</div>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
-?>	
+include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
+?>
