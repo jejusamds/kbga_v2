@@ -2,6 +2,13 @@
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/global.inc";
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/util_lib.inc";
 
+if (isset($_GET['mode']) && $_GET['mode'] === 'logout') {
+    unset($_SESSION['kbga_user_id']);
+    // 로그아웃 후 로그인 페이지로 리다이렉트
+    header('Location: /member/login.html');
+    exit;
+}
+
 /**
  * 보안 필터
  */
@@ -22,7 +29,7 @@ function return_json(array $ret): void
 
 $approved = ['sign_up', 'reset_csrf_token', 'check_id'];
 if (empty($_POST['mode']) || !in_array($_POST['mode'], $approved, true)) {
-    return_json(['result' => 'error', 'msg' => '잘못된 요청입니다.']);
+    //return_json(['result' => 'error', 'msg' => '잘못된 요청입니다.']);
 }
 
 $filtered = array_map('auto_filter_input', $_POST);
@@ -251,7 +258,7 @@ if ($filtered['mode'] === 'sign_up') {
         // 4) 아이디 중복 체크
         $sql = "SELECT COUNT(*) AS cnt FROM df_site_member WHERE f_user_id = :f_user_id";
         $row = $db->row($sql, ['f_user_id' => $filtered['f_user_id']]);
-        $cnt = $row['cnt']; 
+        $cnt = $row['cnt'];
         if ($cnt) {
             return_json([
                 'result' => 'error',
@@ -335,3 +342,46 @@ if ($filtered['mode'] === 'sign_up') {
         ]);
     }
 }
+
+// ----------------------
+// 로그인 처리
+// ----------------------
+if ($filtered['mode'] === 'login') {
+    // 1) 필수 필드 검증
+    $required = [
+        'f_user_id' => '아이디를 입력해주세요.',
+        'f_password' => '비밀번호를 입력해주세요.',
+    ];
+    foreach ($required as $field => $msg) {
+        if (empty($filtered[$field])) {
+            return_json([
+                'result' => 'blank',
+                'field' => $field,
+                'msg' => $msg
+            ]);
+        }
+    }
+
+    // 2) 사용자 조회
+    $sql = "SELECT f_password FROM df_site_member WHERE f_user_id = :f_user_id";
+    $row = $db->row($sql, ['f_user_id' => $filtered['f_user_id']]);
+    if (!$row) {
+        return_json(['result' => 'error', 'msg' => '아이디 또는 비밀번호가 일치하지 않습니다.']);
+    }
+
+    // 3) 비밀번호 검증
+    if (!password_verify($filtered['f_password'], $row['f_password'])) {
+        return_json(['result' => 'error', 'msg' => '아이디 또는 비밀번호가 일치하지 않습니다.']);
+    }
+
+    // 4) 세션 설정
+    $_SESSION['kbga_user_id'] = $filtered['f_user_id'];
+
+    // 5) 성공 응답
+    return_json([
+        'result' => 'ok',
+        'msg' => '로그인 되었습니다.',
+        'redirect' => '/'  // 로그인 후 이동할 페이지
+    ]);
+}
+
