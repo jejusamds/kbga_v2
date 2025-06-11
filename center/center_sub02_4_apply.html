@@ -1,0 +1,656 @@
+<?php
+	$Menu = "03";
+	$sMenu = "03-2";
+	$ssMenu = "03-2-4";
+	$ssMenu_slide = "3";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+?>
+
+	<div id="container">
+		<div id="sub_con" class="center_sub02">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+				
+				<div class="apply_con">
+					<div class="title_con">
+						<div class="text01_con">
+							<span>
+								EXAM & CERTIFICATE APPLICATION
+							</span>
+						</div>
+						
+						<div class="text02_con">
+							<span>
+								자격시험 접수 및 발급 신청
+							</span>
+						</div>
+					</div>
+
+					<div class="nav">
+						<div class="list_con">
+							<ul>
+								<li>
+									<a href="/center/center_sub02_4_apply.html" class="on">
+										개인접수
+									</a>
+								</li>
+								<li>
+									<a href="/center/center_sub02_4_apply02.html">
+										단체접수
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="intro_con">
+						<ul>
+							<li>
+								<table cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td valign="top" align="left" class="dot_td">
+												<div class="dot"></div>
+											</td>
+											<td valign="top" align="left" class="text_td">
+												<span>
+													단체접수는 협회에서 제공하는 <br class="m_br" /><span class="color_text">[자격증신청서 양식]</span>을 다운로드 하신 후에 <br class="m_br" />세부내용을 작성하여 파일로 첨부 하시면 됩니다.
+												</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</li>
+							<li>
+								<table cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td valign="top" align="left" class="dot_td">
+												<div class="dot"></div>
+											</td>
+											<td valign="top" align="left" class="text_td">
+												<span>
+													협회 계좌번호 <br class="m_br" />(신한은행  100-037-545315  한국미용총연합회)
+												</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="contents_con">
+
+						<form action="" method="" autocomplete="off">
+							<div class="write_con">
+								<div class="contents_con">
+									<div class="input_con">
+										<div class="form01_con">
+											<ul>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			자격분야
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<select name="" class="select">
+																			<option value="">자격분야를 선택해주세요.</option>
+																		</select>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			자격종목
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<select name="" class="select">
+																			<option value="">자격종목을 선택해주세요.</option>
+																		</select>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+													<div class="list_div fr">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td title_td04">
+																		<span>
+																			시험일정 선택
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<select name="" class="select">
+																			<option value="">시험일정 선택을 선택해주세요.</option>
+																		</select>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			이름
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<input type="text" name="" placeholder="이름을 적어주세요." class="input" />
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+													<div class="list_div fr">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			영문이름
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<input type="text" name="" placeholder="영문이름을 적어주세요." class="input" />
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			연락처
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<input type="tel" name="" maxlength="13" placeholder="000-0000-0000" class="input tel_input" />
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+													<div class="list_div fr">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			생년월일
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<input type="tel" name="" placeholder="0000.00.00" id="birthdate_input" class="input" />
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			우편번호
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<div class="post_con">
+																			<table cellpadding="0" cellspacing="0">
+																				<tbody>
+																					<tr>
+																						<td align="left" class="input_td">
+																							<input type="text" name="" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" />
+																						</td>
+																						<td align="left" class="btn_td">
+																							<a href="#" class="a_btn">
+																								검색
+																							</a>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			기본주소
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<input type="text" name="" placeholder="기본주소를 적어주세요." class="input" readonly="readonly" />
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												
+													<div class="list_div fr">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			상세주소
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<input type="text" name="" placeholder="상세주소를 적어주세요." class="input" />
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			이메일
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<input type="text" name="" placeholder="이메일을 적어주세요." class="input" />
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+													<div class="list_div fr">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td">
+																		<span>
+																			신청 구분
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<div class="application_con">
+																			<ul>
+																				<li>
+																					<label class="radio_label">
+																						<input type="radio" name="application_type" value="시험접수" checked="checked" />
+																						<div class="check_icon"></div>
+																						<span>
+																							시험접수
+																						</span>
+																					</label>
+																				</li>
+																				<li>
+																					<label class="radio_label">
+																						<input type="radio" name="application_type" value="자격증 발급" />
+																						<div class="check_icon"></div>
+																						<span>
+																							자격증 발급
+																						</span>
+																					</label>
+																				</li>
+																			</ul>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+												<li>
+													<div class="list_div fl">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td title_td05">
+																		<span>
+																			자격증 <br class="m_br" />발급희망 여부
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<div class="hope_con">
+																			<ul>
+																				<li>
+																					<label class="radio_label">
+																						<input type="radio" name="hope_type" value="희망" checked="checked" />
+																						<div class="check_icon"></div>
+																						<span>
+																							희망
+																						</span>
+																					</label>
+																				</li>
+																				<li>
+																					<label class="radio_label">
+																						<input type="radio" name="hope_type" value="희망하지 않음" />
+																						<div class="check_icon"></div>
+																						<span>
+																							희망하지 않음
+																						</span>
+																					</label>
+																				</li>
+																			</ul>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+													<div class="list_div fr">
+														<table cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td align="left" class="title_td title_td06">
+																		<span>
+																			발급희망 시
+																		</span>
+																	</td>
+																	<td align="left" class="info_td">
+																		<div class="file_con">
+																			<table cellpadding="0" cellspacing="0">
+																				<tbody>
+																					<tr>
+																						<td align="left" class="title_td">
+																							<span>
+																								사진첨부
+																							</span>
+																						</td>
+																						<td align="left" class="info_td">
+																							<div class="input_con">
+																								<table cellpadding="0" cellspacing="0">
+																									<tbody>
+																										<tr>
+																											<td align="left" class="input_td">
+																												<input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
+																											</td>
+																											<td align="left" class="btn_td">
+																												<label>
+																													<span>
+																														파일선택
+																													</span>
+																													<input type="file" name="upfile" class="input" onchange="file_upload(this.value)" />
+																												</label>
+																											</td>
+																										</tr>
+																									</tbody>
+																								</table>
+																							</div>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</li>
+											</ul>
+										</div>
+
+										<div class="form02_con">
+											<div class="form02_div">
+												<div class="title_con">
+													<span>
+														입금여부 확인
+													</span>
+												</div>
+
+												<div class="input_con">
+													<ul>
+														<li>
+															<div class="list_div">
+																<table cellpadding="0" cellspacing="0">
+																	<tbody>
+																		<tr>
+																			<td align="left" class="title_td">
+																				<span>
+																					입금자
+																				</span>
+																			</td>
+																			<td align="left" class="info_td">
+																				<input type="text" name="" placeholder="입금자명을 적어주세요." class="input" />
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</li>
+														<li>
+															<div class="list_div">
+																<table cellpadding="0" cellspacing="0">
+																	<tbody>
+																		<tr>
+																			<td align="left" class="title_td">
+																				<span>
+																					은행(입금자)
+																				</span>
+																			</td>
+																			<td align="left" class="info_td">
+																				<select name="" class="select">
+																					<option value="">은행(입금자)를 선택해주세요.</option>
+																				</select>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+
+											<div class="form02_div">
+												<div class="title_con">
+													<span>
+														입금구분(중복체크가능)
+													</span>
+												</div>
+
+												<div class="input_con">
+													<ul>
+														<li>
+															<div class="list_div">
+																<table cellpadding="0" cellspacing="0">
+																	<tbody>
+																		<tr>
+																			<td align="left" class="title_td">
+																				<span>
+																					접수비
+																				</span>
+																			</td>
+																			<td align="left" class="info_td">
+																				<div class="title_con m_con">
+																					<span>
+																						접수비
+																					</span>
+																				</div>
+
+																				<div class="exam_fee_con">
+																					<ul>
+																						<li>
+																							<label class="checkbox_label">
+																								<input type="checkbox" name="exam_fee_type" value="필기" />
+																								<div class="check_icon"></div>
+																								<span>
+																									필기
+																								</span>
+																							</label>
+																						</li>
+																						<li>
+																							<label class="checkbox_label">
+																								<input type="checkbox" name="exam_fee_type" value="실기" />
+																								<div class="check_icon"></div>
+																								<span>
+																									실기
+																								</span>
+																							</label>
+																						</li>
+																						<li>
+																							<label class="checkbox_label">
+																								<input type="checkbox" name="exam_fee_type" value="발급비" />
+																								<div class="check_icon"></div>
+																								<span>
+																									발급비
+																								</span>
+																							</label>
+																						</li>
+																					</ul>
+																				</div>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="agree_con">
+										<div class="agree_div agree02">
+											<div class="text_con">
+												<div class="contents_con">
+													<span>
+														개인정보의 수집 및 이용 목적 <br />
+														서비스 이용에 따른 본인식별,실명확인, 가입의사 확인,연력제한 서비스 이용 <br />
+														신규서비스 등 최신정보 안내 및 개인 맞춤서비스 제공을 위한 자료 <br />
+														기타 원활한 양질의 서비스를 제공 등 <br />
+														<br />
+														수집하는 개인정보의 항목 <br />
+														이름,이메일,주민등록번호,주소,연락처, 핸드폰 번호, 그 외 선택항목
+													</span>
+												</div>
+											</div>
+
+											<div class="check_con">
+												<label class="checkbox_label">
+													<input type="checkbox" name="" />
+													<div class="check_icon"></div>
+													<span>
+														개인정보수집 및 이용에 동의합니다.
+													</span>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="btn_con">
+									<a href="#" class="a_btn a_btn01">
+										접수/신청
+									</a>
+
+									<a href="/index_tmp.html" class="a_btn a_btn02">
+										취소
+									</a>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" language="javascript">
+		// 생년월일
+		const input = document.getElementById('birthdate_input');
+		input.addEventListener('input', function () {
+			let value = input.value.replace(/\D/g, ''); // 숫자 이외 제거
+			if (value.length > 8) value = value.slice(0, 8); // 최대 8자리
+
+			let formatted = '';
+			if (value.length <= 4) {
+				formatted = value;
+			} else if (value.length <= 6) {
+				formatted = `${value.slice(0, 4)}.${value.slice(4)}`;
+			} else {
+				formatted = `${value.slice(0, 4)}.${value.slice(4, 6)}.${value.slice(6)}`;
+			}
+
+			input.value = formatted;
+		});
+
+		// 연락처
+		$(document).on("keyup", ".tel_input", function() { 
+			addHyphen(this);
+		});
+		
+		// 연락처
+		function addHyphen(element) {
+			var phoneNumber = element.value.replace(/[^\d]/g, '');
+
+			var formattedPhoneNumber = '';
+			for (var i = 0; i < phoneNumber.length && i < 11; i++) {
+				if (i === 3 || i === 7) {
+				formattedPhoneNumber += '-';
+				}
+				formattedPhoneNumber += phoneNumber[i];
+			}
+
+			element.value = formattedPhoneNumber;
+		}
+
+		// 사진첨부
+		function file_upload(val){
+			$(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
+		}
+	</script>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	

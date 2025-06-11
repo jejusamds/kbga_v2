@@ -1,0 +1,243 @@
+<?php
+	$Menu = "02";
+	$sMenu = "02-2";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+?>
+
+	<div id="container">
+		<div id="sub_con">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+				
+				<div class="notice_list_con">
+					<div class="ts_con">
+						<div class="title_con">
+							<div class="text01_con">
+								<span>
+									EDUCATIONAL NEWS
+								</span>
+							</div>
+
+							<div class="text02_con">
+								<span>
+									한국미용총연합회의 <br />
+									교육포스터 / 교육안내공간입니다.
+								</span>
+							</div>
+						</div>
+
+						<div class="search_con">
+							<form action="" method="" autocomplete="off">
+								<div class="input_con">
+									<table cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td align="left" class="select_td">
+													<select name="" class="select">
+														<option value="">전체</option>
+													</select>
+												</td>
+												<td align="left" class="blank01_td">
+													&nbsp;
+												</td>
+												<td align="left" class="input_td">
+													<input type="text" name="" placeholder="검색해주세요." class="input" />
+												</td>
+												<td align="left" class="blank02_td">
+													&nbsp;
+												</td>
+												<td align="left" class="btn_td">
+													<a href="#">
+														<img src="/img/sub/notice_search_btn.svg" alt="검색 버튼" class="fx" />
+													</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="poster_notice_con">
+						<ul>
+							<li>
+								<div class="list_div">
+									<div class="img_con m_con">
+										<img src="/img/sub/m_poster_notice_list_img_con_blank_img.png" alt="모바일 블랭크 이미지" class="fx" />
+
+										<div class="img_con" style="background-image:url('/img/sub/poster_notice_list_img_con_none_img.png');">
+											<img src="/img/sub/poster_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
+										</div>
+									</div>
+
+									<div class="text_con">
+										<div class="text01_con">
+											<div class="text01_con">
+												<span>
+													지점명
+												</span>
+											</div>
+
+											<div class="text02_con">
+												<span>
+													게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다.
+												</span>
+											</div>
+										</div>
+
+										<div class="text02_con">
+											<table cellpadding="0" cellspacing="0">
+												<tbody>
+													<tr>
+														<td align="left" class="title_td">
+															<span>
+																기간
+															</span>
+														</td>
+														<td align="right" class="date_td">
+															<span>
+																2025.02.09 ~ 2025.02.28
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+									<div class="img_con w_con" style="background-image:url('/img/sub/poster_notice_list_img_con_none_img.png');">
+										<img src="/img/sub/poster_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
+									</div>
+
+									<div class="btn_con">
+										<ul>
+											<li>
+												<a href="/news/news_sub02_view.html" class="a_btn a_btn01">
+													자세히보기
+												</a>
+											</li>
+											<li>
+												<a href="/news/news_sub02_apply.html" class="a_btn a_btn02">
+													교육신청하기
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<!--
+							<li class="none_li">
+								<span>
+									등록된 게시글이 없습니다.
+								</span>
+							</li>
+							-->
+						</ul>
+					</div>
+
+					<div class="number_list_con">
+						<div class="contents_con">
+							<div class="btn_con">
+								<a href="#">
+									<img src="/img/sub/number_list_prev_btn2.svg" alt="번호목록 이전2 버튼" class="fx" />
+								</a>
+
+								<a href="#">
+									<img src="/img/sub/number_list_prev_btn.svg" alt="번호목록 이전 버튼" class="fx" />
+								</a>
+							</div>
+						
+							<div class="list_con">
+								<a href="#" class="list_a">
+									01
+								</a>
+
+								<a href="#" class="list_a">
+									04
+								</a>
+
+								<div class="bar"></div>
+							</div>
+						
+							<div class="btn_con">
+								<a href="#">
+									<img src="/img/sub/number_list_next_btn.svg" alt="번호목록 다음 버튼" class="fx" />
+								</a>
+
+								<a href="#">
+									<img src="/img/sub/number_list_next_btn2.svg" alt="번호목록 다음2 버튼" class="fx" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" language="javascript">
+		// 초기 화면 크기 저장
+		var news_sub02_initialWidth = window.innerWidth;
+		var news_sub02_isFirstLoad = true;
+
+		// 리사이즈 예외처리
+		var news_sub02_resizeTimer;
+
+		// 화면 리사이징
+		$(window).resize(function(){
+			// 현재 window 너비
+			var currentWidth = window.innerWidth;
+			
+			// 너비가 변경되지 않은 경우(스크롤, 상태바 동작) 무시
+			if(currentWidth === news_sub02_initialWidth && !news_sub02_isFirstLoad) {
+				return;
+			}
+			
+			clearTimeout(news_sub02_resizeTimer);
+
+			// 화면 너비
+			if (window.innerWidth > 1024) {
+				// 텍스트 영역 지점 예외처리
+				$(".poster_notice_con > ul > li .list_div > .text_con > .text01_con > .text01_con span").each(function(){
+					$(this).parent().parent(".text01_con").css("padding-left","0px");
+				});
+			}else{
+				// 텍스트 영역 지점 예외처리
+				$(".poster_notice_con > ul > li .list_div > .text_con > .text01_con > .text01_con span").each(function(){
+					$(this).parent().parent(".text01_con").css("padding-left",($(this).innerWidth() + 2 + 10)+"px");
+				});
+			}
+
+			news_sub02_resizeTimer = setTimeout(function() {
+				// 실제 리사이징이 발생한 경우에만 처리
+				if(currentWidth !== news_sub02_initialWidth || news_sub02_isFirstLoad) {
+					
+					// 화면 너비
+					if (window.innerWidth > 1024) {
+						// 텍스트 영역 지점 예외처리
+						$(".poster_notice_con > ul > li .list_div > .text_con > .text01_con > .text01_con span").each(function(){
+							$(this).parent().parent(".text01_con").css("padding-left","0px");
+						});
+					}else{
+						// 텍스트 영역 지점 예외처리
+						$(".poster_notice_con > ul > li .list_div > .text_con > .text01_con > .text01_con span").each(function(){
+							$(this).parent().parent(".text01_con").css("padding-left",($(this).innerWidth() + 2 + 10)+"px");
+						});
+					}
+
+					news_sub02_initialWidth = currentWidth;
+					news_sub02_isFirstLoad = false;
+				}
+			}, 500);
+		});
+	</script>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	

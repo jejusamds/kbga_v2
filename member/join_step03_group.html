@@ -1,0 +1,87 @@
+<?php
+	$Menu = "06";
+	$sMenu = "06-2";
+	$ssMenu = "06-2-2";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+
+    $member_type = "O";
+?>
+
+	<div id="container">
+		<div id="sub_con">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+
+				<div class="join_step_con">
+					<div class="contents_con">
+						<div class="step_con">
+							<div class="nav">
+								<div class="list_con">
+									<div class="line"></div>
+
+									<ul>
+										<li>
+											<div class="list_div">
+												<div class="dot_con">
+													<div class="dot"></div>
+												</div>
+
+												<div class="text_con">
+													<span>
+														정보입력
+													</span>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="list_div on">
+												<div class="dot_con">
+													<div class="dot"></div>
+												</div>
+
+												<div class="text_con">
+													<span>
+														가입완료
+													</span>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="contents_con">
+							<div class="end_con">
+								<div class="icon_con">
+									<img src="/img/member/join_step_end_icon.svg" alt="아이콘" class="fx" />
+								</div>
+
+								<div class="text_con">
+									<span>
+										회원가입이 완료되었습니다. <br />
+										환영합니다!
+									</span>
+								</div>
+							</div>
+							
+							<div class="btn_con">
+								<a href="/index_tmp.html" class="a_btn">
+									메인으로
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	

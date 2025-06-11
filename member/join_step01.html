@@ -1,0 +1,105 @@
+<?php
+	$Menu = "06";
+	$sMenu = "06-2";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+?>
+
+	<div id="container">
+		<div id="sub_con">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+				
+				<div class="join_step_con">
+					<div class="contents_con">
+						<div class="contents_con">
+							<div class="step01_con">
+								<div class="text_con">
+									<span>
+										회원유형에 따라 가입 절차가 상이합니다. <br />
+										해당하는 회원 유형을 선택하여 <br class="m_br" />진행해 주시기 바랍니다.
+									</span>
+								</div>
+
+								<div class="nav">
+									<ul>
+										<li>
+											<a href="/member/join_step02_individual.html">
+												<div class="list_div">
+													<table cellpadding="0" cellspacing="0">
+														<tbody>
+															<tr>
+																<td align="center" class="icon_td">
+																	<img src="/img/member/join_step01_nav_list_icon01.svg" alt="아이콘" class="fx" />
+																</td>
+																<td align="left" class="text_td">
+																	<div class="title_con">
+																		<span>
+																			개인 회원
+																		</span>
+																	</div>
+
+																	<div class="info_con">
+																		<span>
+																			일반 개인 또는 14세 이상의 개인
+																		</span>
+																	</div>
+																</td>
+																<td align="left" class="arrow_td">
+																	<img src="/img/member/join_step01_nav_list_arrow.svg" alt="화살표" class="fx" />
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="/member/join_step02_group.html">
+												<div class="list_div">
+													<table cellpadding="0" cellspacing="0">
+														<tbody>
+															<tr>
+																<td align="center" class="icon_td">
+																	<img src="/img/member/join_step01_nav_list_icon02.svg" alt="아이콘" class="fx" />
+																</td>
+																<td align="left" class="text_td">
+																	<div class="title_con">
+																		<span>
+																			단체/기업 회원
+																		</span>
+																	</div>
+
+																	<div class="info_con">
+																		<span>
+																			사업자등록번호가 있는 기업 또는 <br />
+																			사업자등록번호가 없는 단체
+																		</span>
+																	</div>
+																</td>
+																<td align="left" class="arrow_td">
+																	<img src="/img/member/join_step01_nav_list_arrow.svg" alt="화살표" class="fx" />
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	

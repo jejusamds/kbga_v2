@@ -1,0 +1,369 @@
+Time : 14:43:05
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1324324' for key 'f_user_id'
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_affiliation_flag,
+                f_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_affiliation_flag,
+                :f_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:42:55
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1' for key 'f_user_id'
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_affiliation_flag,
+                f_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_affiliation_flag,
+                :f_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:41:36
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_affiliation_flag,
+                f_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_org_flag,
+                :f_org_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:39:50
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_affiliation_flag,
+                f_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_org_flag,
+                :f_org_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:39:43
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_affiliation_flag,
+                f_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_org_flag,
+                :f_org_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:38:16
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_affiliation_flag,
+                f_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_org_flag,
+                :f_org_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:36:58
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_affiliation_flag,
+                f_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_org_flag,
+                :f_org_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:32:26
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_org_flag' in 'field list'
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_org_flag,
+                f_org_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_org_flag,
+                :f_org_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 14:29:55
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_org_flag' in 'field list'
+Raw SQL : INSERT INTO df_site_member (
+                f_member_type,
+                f_user_name,
+                f_birth_date,
+                f_gender,
+                f_tel,
+                f_mobile,
+                f_org_flag,
+                f_org_affiliation_name,
+                f_zip,
+                f_address1,
+                f_address2,
+                f_user_id,
+                f_password,
+                f_email,
+                f_email_consent
+            ) VALUES (
+                :f_member_type,
+                :f_user_name,
+                :f_birth_date,
+                :f_gender,
+                :f_tel,
+                :f_mobile,
+                :f_org_flag,
+                :f_org_affiliation_name,
+                :f_zip,
+                :f_address1,
+                :f_address2,
+                :f_user_id,
+                :f_password,
+                :f_email,
+                :f_email_consent
+            )
+
+Time : 13:18:38
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_category' doesn't exist
+Raw SQL : SELECT f_idx AS idx, f_name AS name
+      FROM df_site_category
+      WHERE f_depth = :depth
+     ORDER BY f_order
+
+Time : 13:18:38
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_product' doesn't exist
+Raw SQL : SELECT COUNT(*) 
+                                    FROM df_site_product b
+                                    LEFT JOIN df_site_category AS c3 ON b.f_cat_idx     = c3.f_idx
+                                    LEFT JOIN df_site_category AS c2 ON c3.f_parent_idx = c2.f_idx
+                                    LEFT JOIN df_site_category AS c1 ON c2.f_parent_idx = c1.f_idx
+                                    WHERE 1=1 
+                                
+
+Time : 13:14:58
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_category' doesn't exist
+Raw SQL : SELECT f_idx AS idx, f_name AS name
+      FROM df_site_category
+      WHERE f_depth = :depth
+     ORDER BY f_order
+
+Time : 13:14:57
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_product' doesn't exist
+Raw SQL : SELECT COUNT(*) 
+                                    FROM df_site_product b
+                                    LEFT JOIN df_site_category AS c3 ON b.f_cat_idx     = c3.f_idx
+                                    LEFT JOIN df_site_category AS c2 ON c3.f_parent_idx = c2.f_idx
+                                    LEFT JOIN df_site_category AS c1 ON c2.f_parent_idx = c1.f_idx
+                                    WHERE 1=1 
+                                
+
+Time : 13:14:56
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_main_slide' doesn't exist
+Raw SQL : 	Select	COUNT(*) 	From	df_site_main_slide 	Where	1 = 1  AND code = 'best'
+
+Time : 13:14:55
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_main_slide' doesn't exist
+Raw SQL : 	Select	COUNT(*) 	From	df_site_main_slide 	Where	1 = 1  AND code = 'main'
+
+Time : 13:14:54
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_main_slide' doesn't exist
+Raw SQL : 	Select	COUNT(*) 	From	df_site_main_slide 	Where	1 = 1  AND code = 'best'

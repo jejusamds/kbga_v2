@@ -1,0 +1,388 @@
+<?php
+	$Menu = "06";
+	$sMenu = "06-3";
+	$ssMenu = "06-3-2";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+?>
+
+	<div id="container">
+		<div id="sub_con">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+
+				<form action="" method="" autocomplete="off">
+					<div class="find_con">
+						<div class="contents_con">
+							<div class="write_con">
+								<div class="text_con">
+									<span>
+										등록된 회원정보로 아이디를 찾을 수 있습니다. <br />
+										입력하신 정보는 아이디 찾기에만 <br class="m_br" />사용되며 저장되지 않습니다.
+									</span>
+								</div>
+
+								<div class="nav">
+									<ul>
+										<li>
+											<a href="javascript:void(0);" class="on" val="tel">
+												휴대폰 번호
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0);" val="email">
+												이메일 주소
+											</a>
+										</li>
+									</ul>
+								</div>
+							
+								<div class="contents_con">
+									<div class="nav">
+										<ul>
+											<li>
+												<label class="radio_label">
+													<input type="radio" name="member_type" value="개인" checked="checked" />
+													<div class="check_icon"></div>
+													<span>
+														개인
+													</span>
+												</label>
+											</li>
+											<li>
+												<label class="radio_label">
+													<input type="radio" name="member_type" value="단체/기업" />
+													<div class="check_icon"></div>
+													<span>
+														단체/기업
+													</span>
+												</label>
+											</li>
+										</ul>
+									</div>
+
+									<div class="input_con">
+										<ul>
+											<li>
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															아이디 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<input type="text" name="" placeholder="아이디를 적어주세요." class="input" />
+													</div>
+												</div>
+											</li>
+											<li class="individual_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															이름 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<input type="text" name="" placeholder="이름을 적어주세요." class="input" />
+													</div>
+												</div>
+											</li>
+											<li class="individual_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															생년월일 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<div class="birthdate_con">
+															<table cellpadding="0" cellspacing="0">
+																<tbody>
+																	<tr>
+																		<td align="left" class="input01_td">
+																			<input type="tel" name="" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="center" class="text01_td">
+																			<span>
+																				년
+																			</span>
+																		</td>
+																		<td align="left" class="input02_td">
+																			<input type="tel" name="" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="center" class="text02_td">
+																			<span>
+																				월
+																			</span>
+																		</td>
+																		<td align="left" class="input03_td">
+																			<input type="tel" name="" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="right" class="text03_td">
+																			<span>
+																				일
+																			</span>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="group_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															단체명 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<input type="text" name="" placeholder="단체명을 적어주세요." class="input" />
+													</div>
+												</div>
+											</li>
+											<li class="group_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															담당자명 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<input type="text" name="" placeholder="담당자명을 적어주세요." class="input" />
+													</div>
+												</div>
+											</li>
+											<li class="tel_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															휴대전화번호 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<div class="tel_con">
+															<table cellpadding="0" cellspacing="0">
+																<tbody>
+																	<tr>
+																		<td align="left" class="input_td">
+																			<input type="tel" name="" maxlength="3" class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="center" class="text_td">
+																			-
+																		</td>
+																		<td align="left" class="input_td">
+																			<input type="tel" name="" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="center" class="text_td">
+																			-
+																		</td>
+																		<td align="left" class="input_td">
+																			<input type="tel" name="" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="left" class="blank_td">
+																			&nbsp;
+																		</td>
+																		<td align="left" class="btn_td">
+																			<a href="javascript:code_tel();" class="a_btn a_btn01">
+																				인증요청
+																			</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="tel_li code_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															인증번호 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<div class="code_con">
+															<table cellpadding="0" cellspacing="0">
+																<tbody>
+																	<tr>
+																		<td align="left" class="input_td">
+																			<input type="tel" name="" maxlength="" placeholder="인증번호을 적어주세요." class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="left" class="blank_td">
+																			&nbsp;
+																		</td>
+																		<td align="left" class="btn_td">
+																			<a href="#" class="a_btn a_btn02">
+																				인증확인
+																			</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="email_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															이메일 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<div class="email_con">
+															<table cellpadding="0" cellspacing="0">
+																<tbody>
+																	<tr>
+																		<td align="left" class="input_td">
+																			<input type="text" name="" placeholder="이메일을 적어주세요." class="input" />
+																		</td>
+																		<td align="left" class="blank_td">
+																			&nbsp;
+																		</td>
+																		<td align="left" class="btn_td">
+																			<a href="javascript:code_email();" class="a_btn a_btn01">
+																				인증요청
+																			</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li class="email_li code_li">
+												<div class="list_div">
+													<div class="title_con">
+														<span>
+															인증번호 <span class="dot">*</span>
+														</span>
+													</div>
+
+													<div class="info_con">
+														<div class="code_con">
+															<table cellpadding="0" cellspacing="0">
+																<tbody>
+																	<tr>
+																		<td align="left" class="input_td">
+																			<input type="tel" name="" maxlength="" placeholder="인증번호을 적어주세요." class="input" onkeydown="onlyNumber(this);" />
+																		</td>
+																		<td align="left" class="blank_td">
+																			&nbsp;
+																		</td>
+																		<td align="left" class="btn_td">
+																			<a href="#" class="a_btn a_btn02">
+																				인증확인
+																			</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="btn_con">
+							<a href="/member/login.html" class="a_btn a_btn01">
+								취소
+							</a>
+							
+							<a href="/member/find_pw_end.html" class="a_btn a_btn02">
+								다음
+							</a>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" language="javascript">
+		// 휴대폰번호 ~ 이메일 주소 클릭 시
+		$(document).on("click", ".find_con > .contents_con > .write_con > .nav > ul > li a", function() {
+			$(".find_con > .contents_con > .write_con > .nav > ul > li a").each(function(){
+				$(this).removeClass("on");
+			});
+			$(this).addClass("on");
+
+			$(".find_con > .contents_con > .write_con > .contents_con > .nav > ul > li:first-child .radio_label input[type=radio]").prop("checked",true);
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > li .list_div > .info_con .input").val("");	
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .individual_li").show();
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .group_li").hide();
+
+			if( $(this).attr("val") == "tel" ){
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li").show();
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li").hide();
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li.code_li").hide();
+			}else{
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li").hide();
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li").show();
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li.code_li").hide();
+			}
+		});
+		
+		// 개인 ~ 단체/기업 클릭 시
+		$(document).on("click","input[name=member_type]",function(){	
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > li .list_div > .info_con .input").val("");			
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li.code_li").hide();
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li.code_li").hide();
+
+			if( $(this).val() == "개인" ){
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .individual_li").show();
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .group_li").hide();
+			}else{
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .individual_li").hide();
+				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .group_li").show();
+			}
+		});
+
+		// 전화번호 인증번호
+		function code_tel(){
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("재발송");
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li.code_li").show();
+		}
+
+		// 이메일 인증번호
+		function code_email(){
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li .list_div > .info_con .email_con > table > tbody > tr > .btn_td .a_btn").html("재발송");
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li.code_li").show();
+		}
+
+		// 숫자만 입력
+		function onlyNumber(obj) {
+			$(obj).keyup(function(){
+				$(this).val($(this).val().replace(/[^0-9]/g,""));
+			}); 
+		}
+	</script>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	
