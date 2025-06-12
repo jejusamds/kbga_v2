@@ -82,7 +82,7 @@ $param = "code=" . $code . "&searchgrp=" . $searchgrp . "&search_option=" . $sea
 <div class="pageWrap">
     <div class="page-heading">
         <h3>
-            <?= $bbs_info['title'] ?>
+            <?= $bbs_info['bbs_category'] ?> - <?= $bbs_info['title'] ?>
         </h3>
         <ul class="breadcrumb">
             <li>게시판 관리</li>

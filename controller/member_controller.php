@@ -57,14 +57,13 @@ if ($filtered['mode'] === 'check_id') {
 }
 
 if ($filtered['mode'] === 'sign_up') {
-    // 허니팟 (스팸 방지)
+
     if (!empty($filtered['f_honey'])) {
         return_json(['result' => 'error', 'msg' => '잘못된 요청입니다.']);
     }
 
     // 개인회원
     if ($filtered['member_type'] == 'P') {
-        // 필수 필드 검증
         $required = [
             'f_user_name' => '이름을 입력해주세요.',
             'f_birth_date_1' => '생년월일을 입력해주세요.',
@@ -94,7 +93,6 @@ if ($filtered['mode'] === 'sign_up') {
             }
         }
 
-        // 비밀번호 확인
         if ($filtered['f_password'] !== $filtered['f_password_chk']) {
             return_json(['result' => 'error', 'msg' => '비밀번호가 일치하지 않습니다.']);
         }
@@ -127,7 +125,6 @@ if ($filtered['mode'] === 'sign_up') {
             ]);
         }
 
-        // 데이터 조합
         $birth_date = sprintf(
             '%04d-%02d-%02d',
             (int) $filtered['f_birth_date_1'],
@@ -137,7 +134,6 @@ if ($filtered['mode'] === 'sign_up') {
         $tel = "{$filtered['f_tel_1']}-{$filtered['f_tel_2']}-{$filtered['f_tel_3']}";
         $mobile = "{$filtered['f_mobile_1']}-{$filtered['f_mobile_2']}-{$filtered['f_mobile_3']}";
 
-        // 파라미터 준비
         $params = [
             'f_member_type' => $filtered['member_type'],
             'f_user_name' => $filtered['f_user_name'],
@@ -156,7 +152,6 @@ if ($filtered['mode'] === 'sign_up') {
             'f_email_consent' => ($filtered['f_email_consent'] === 'Y' ? 'Y' : 'N'),
         ];
 
-        // 회원 정보 삽입
         $sql = "INSERT INTO df_site_member (
                 f_member_type,
                 f_user_name,
@@ -196,7 +191,6 @@ if ($filtered['mode'] === 'sign_up') {
             return_json(['result' => 'error', 'msg' => '회원가입 중 오류가 발생했습니다.']);
         }
 
-        // 가입 완료
         return_json([
             'result' => 'ok',
             'msg' => '회원가입이 완료되었습니다.',
@@ -205,8 +199,6 @@ if ($filtered['mode'] === 'sign_up') {
     } else {
 
         // 단체회원
-
-        // 1) 필수 필드 검증
         $required = [
             'f_org_name' => '단체명을 입력해주세요.',
             'f_org_phone_1' => '단체 전화번호를 입력해주세요.',
@@ -233,12 +225,10 @@ if ($filtered['mode'] === 'sign_up') {
             }
         }
 
-        // 2) 비밀번호 확인
         if ($filtered['f_password'] !== $filtered['f_password_chk']) {
             return_json(['result' => 'error', 'msg' => '비밀번호가 일치하지 않습니다.']);
         }
 
-        // 3) 아이디/비밀번호 형식 검증
         if (!preg_match('/^[A-Za-z0-9]{4,11}$/', $filtered['f_user_id'])) {
             return_json([
                 'result' => 'error',
@@ -255,7 +245,6 @@ if ($filtered['mode'] === 'sign_up') {
             ]);
         }
 
-        // 4) 아이디 중복 체크
         $sql = "SELECT COUNT(*) AS cnt FROM df_site_member WHERE f_user_id = :f_user_id";
         $row = $db->row($sql, ['f_user_id' => $filtered['f_user_id']]);
         $cnt = $row['cnt'];
@@ -267,7 +256,6 @@ if ($filtered['mode'] === 'sign_up') {
             ]);
         }
 
-        // 5) 전화번호 조합 (3개 파트)
         $org_phone = sprintf(
             '%s-%s-%s',
             $filtered['f_org_phone_1'],
@@ -281,7 +269,6 @@ if ($filtered['mode'] === 'sign_up') {
             $filtered['f_contact_phone_3']
         );
 
-        // 6) 파라미터 준비
         $params = [
             'f_member_type' => 'O',
             'f_org_name' => $filtered['f_org_name'],
@@ -297,7 +284,6 @@ if ($filtered['mode'] === 'sign_up') {
             'f_email_consent' => ($filtered['f_email_consent'] === 'Y' ? 'Y' : 'N'),
         ];
 
-        // 7) 회원 정보 삽입
         $sql = "
         INSERT INTO df_site_member (
             f_member_type,
@@ -331,8 +317,6 @@ if ($filtered['mode'] === 'sign_up') {
             return_json(['result' => 'error', 'msg' => '단체회원가입 중 오류가 발생했습니다.']);
         }
 
-
-        // 가입 완료
         return_json([
             'result' => 'ok',
             'msg' => '회원가입이 완료되었습니다.',
@@ -347,7 +331,6 @@ if ($filtered['mode'] === 'sign_up') {
 // 로그인 처리
 // ----------------------
 if ($filtered['mode'] === 'login') {
-    // 1) 필수 필드 검증
     $required = [
         'f_user_id' => '아이디를 입력해주세요.',
         'f_password' => '비밀번호를 입력해주세요.',
@@ -362,26 +345,188 @@ if ($filtered['mode'] === 'login') {
         }
     }
 
-    // 2) 사용자 조회
-    $sql = "SELECT f_password FROM df_site_member WHERE f_user_id = :f_user_id";
+    $sql = "SELECT f_password, f_member_type FROM df_site_member WHERE f_user_id = :f_user_id";
     $row = $db->row($sql, ['f_user_id' => $filtered['f_user_id']]);
     if (!$row) {
         return_json(['result' => 'error', 'msg' => '아이디 또는 비밀번호가 일치하지 않습니다.']);
     }
 
-    // 3) 비밀번호 검증
     if (!password_verify($filtered['f_password'], $row['f_password'])) {
         return_json(['result' => 'error', 'msg' => '아이디 또는 비밀번호가 일치하지 않습니다.']);
     }
 
-    // 4) 세션 설정
     $_SESSION['kbga_user_id'] = $filtered['f_user_id'];
+    $_SESSION['kbga_member_type'] = $row['f_member_type'];
 
-    // 5) 성공 응답
     return_json([
         'result' => 'ok',
-        'msg' => '로그인 되었습니다.',
+        'msg' => '',
         'redirect' => '/'  // 로그인 후 이동할 페이지
     ]);
 }
+
+
+if ($filtered['mode'] === 'modify_profile') {
+
+    if (!empty($filtered['f_honey'])) {
+        return_json(['result' => 'error', 'msg' => '잘못된 요청입니다.']);
+    }
+
+    //  - f_user_name, birth, gender, tel/mobile parts, 주소, 비밀번호 확인, 이메일 등
+
+
+
+    if (empty($filtered['f_password_old'])) {
+        return_json([
+            'result' => 'blank',
+            'field' => 'f_password_old',
+            'msg' => '기존 비밀번호를 입력해주세요.'
+        ]);
+    }
+
+    $rowPass = $db->row(
+        "SELECT f_password FROM df_site_member WHERE f_user_id = :f_user_id",
+        ['f_user_id' => $_SESSION['kbga_user_id']]
+    );
+    if (!$rowPass || !password_verify($filtered['f_password_old'], $rowPass['f_password'])) {
+        return_json(['result' => 'error', 'msg' => '기존 비밀번호가 일치하지 않습니다.']);
+    }
+
+    if (!empty($filtered['f_password'])) {
+        // 비밀번호 확인
+        if ($filtered['f_password'] !== $filtered['f_password_chk']) {
+            return_json(['result' => 'error', 'msg' => '새 비밀번호가 일치하지 않습니다.']);
+        }
+        // 형식 검증: 4자 이상 12자 미만 영자/숫자 조합
+        if (!preg_match('/^[A-Za-z0-9]{4,11}$/', $filtered['f_password'])) {
+            return_json([
+                'result' => 'error',
+                'field' => 'f_password',
+                'msg' => '비밀번호는 4자리 이상 12자 미만의 영자/숫자 조합만 가능하며, 영문은 대소문자 구분합니다.'
+            ]);
+        }
+        $changePwd = true;
+    }
+
+    if ($_SESSION['kbga_member_type'] === 'P') {
+
+        $setParts = [
+            'f_user_name = :f_user_name',
+            'f_birth_date = :f_birth_date',
+            'f_gender = :f_gender',
+            'f_tel = :f_tel',
+            'f_mobile = :f_mobile',
+            'f_zip = :f_zip',
+            'f_address1 = :f_address1',
+            'f_address2 = :f_address2',
+            'f_email = :f_email',
+            'f_email_consent = :f_email_consent',
+            'f_affiliation_flag = :f_affiliation_flag',
+            'f_affiliation_name = :f_affiliation_name'
+        ];
+        $params = [
+            'f_user_name' => $filtered['f_user_name'],
+            'f_birth_date' => sprintf(
+                '%04d-%02d-%02d',
+                $filtered['f_birth_date_1'],
+                $filtered['f_birth_date_2'],
+                $filtered['f_birth_date_3']
+            ),
+            'f_gender' => $filtered['f_gender'],
+            'f_tel' => "{$filtered['f_tel_1']}-{$filtered['f_tel_2']}-{$filtered['f_tel_3']}",
+            'f_mobile' => "{$filtered['f_mobile_1']}-{$filtered['f_mobile_2']}-{$filtered['f_mobile_3']}",
+            'f_zip' => $filtered['f_zip'],
+            'f_address1' => $filtered['f_address1'],
+            'f_address2' => $filtered['f_address2'] ?? null,
+            'f_email' => $filtered['f_email'],
+            'f_email_consent' => ($filtered['f_email_consent'] === 'Y' ? 'Y' : 'N'),
+            'f_affiliation_flag' => ($filtered['f_affiliation_flag'] === 'Y' ? 'Y' : 'N'),
+            'f_affiliation_name' => $filtered['f_affiliation_name'] ?? null,
+            'f_user_id' => $_SESSION['kbga_user_id']
+        ];
+
+        if ($changePwd) {
+            $setParts[] = 'f_password = :f_password';
+            $params['f_password'] = password_hash($filtered['f_password'], PASSWORD_DEFAULT);
+        }
+
+        $sql = "
+            UPDATE df_site_member
+            SET " . implode(",\n            ", $setParts) . "
+            WHERE f_user_id = :f_user_id
+        ";
+        $result = $db->query($sql, $params);
+
+        if ($result === false) {
+            return_json(['result' => 'error', 'msg' => '회원정보 수정 중 오류가 발생했습니다.', 'sql' => $sql, 'params' => $params]);
+        }
+    } else {
+        // 단체회원인 경우
+
+        $org_phone = sprintf(
+            '%s-%s-%s',
+            $filtered['f_org_phone_1'],
+            $filtered['f_org_phone_2'],
+            $filtered['f_org_phone_3']
+        );
+        $contact_phone = sprintf(
+            '%s-%s-%s',
+            $filtered['f_contact_phone_1'],
+            $filtered['f_contact_phone_2'],
+            $filtered['f_contact_phone_3']
+        );
+
+        $setParts = [
+            'f_org_name       = :f_org_name',
+            'f_org_phone      = :f_org_phone',
+            'f_contact_name   = :f_contact_name',
+            'f_contact_phone  = :f_contact_phone',
+            'f_zip            = :f_zip',
+            'f_address1       = :f_address1',
+            'f_address2       = :f_address2',
+            'f_email          = :f_email',
+            'f_email_consent  = :f_email_consent'
+        ];
+
+        $params = [
+            'f_org_name' => $filtered['f_org_name'],
+            'f_org_phone' => $org_phone,
+            'f_contact_name' => $filtered['f_contact_name'],
+            'f_contact_phone' => $contact_phone,
+            'f_zip' => $filtered['f_zip'],
+            'f_address1' => $filtered['f_address1'],
+            'f_address2' => $filtered['f_address2'] ?? null,
+            'f_email' => $filtered['f_email'],
+            'f_email_consent' => ($filtered['f_email_consent'] === 'Y' ? 'Y' : 'N'),
+            'f_user_id' => $_SESSION['kbga_user_id']
+        ];
+
+        if (!empty($filtered['f_password'])) {
+            $setParts[] = 'f_password = :f_password';
+            $params['f_password'] = password_hash($filtered['f_password'], PASSWORD_DEFAULT);
+        }
+
+        $sql = "
+            UPDATE df_site_member
+            SET " . implode(",\n                ", $setParts) . "
+            WHERE f_user_id = :f_user_id
+        ";
+        $result = $db->query($sql, $params);
+        if ($result === false) {
+            return_json([
+                'result' => 'error',
+                'msg' => '회원정보 수정 중 오류가 발생했습니다.',
+                'sql' => $sql,
+                'params' => $params
+            ]);
+        }
+    }
+
+    return_json([
+        'result' => 'ok',
+        'msg' => '회원정보가 수정되었습니다.',
+        'redirect' => '/mypage/modify.html'
+    ]);
+}
+
 

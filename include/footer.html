@@ -315,6 +315,7 @@
 			if (currentWidth !== basic_initialWidth || basic_isFirstLoad) {
 				// 화면 너비
 				if (window.innerWidth > 1024) {
+					/*
 					// 헤더 오버 시
 					$("#header").hover(
 						function() {
@@ -330,6 +331,40 @@
 							setTimeout(function(){
 								$("#header").stop().removeClass("over");
 							}, 500);
+						}
+					);
+					*/
+
+					// 타이머 변수 선언
+					let headerOverTimer = null;
+					let headerOutTimer = null;
+
+					$("#header").hover(
+						function() {
+							// 아웃 타이머가 있다면 제거
+							if (headerOutTimer) {
+								clearTimeout(headerOutTimer);
+								headerOutTimer = null;
+							}
+							// 오버 타이머 중복 방지
+							if (headerOverTimer) {
+								clearTimeout(headerOverTimer);
+							}
+							headerOverTimer = setTimeout(function(){
+								$("#header").addClass("over");
+								$("#header > .sub_nav").stop(true, true).slideDown(350);
+							}, 100);
+						},
+						function() {
+							// 오버 타이머가 있다면 제거
+							if (headerOverTimer) {
+								clearTimeout(headerOverTimer);
+								headerOverTimer = null;
+							}
+							$("#header > .sub_nav").stop(true, true).slideUp(350);
+							headerOutTimer = setTimeout(function(){
+								$("#header").removeClass("over");
+							}, 350);
 						}
 					);
 

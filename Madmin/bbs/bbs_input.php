@@ -222,7 +222,7 @@ if ($mode == "insert" || $mode == "") {
 <div class="pageWrap">
     <div class="page-heading">
         <h3>
-            <?= $bbs_info['title'] ?>
+            <?= $bbs_info['bbs_category'] ?> - <?= $bbs_info['title'] ?>
         </h3>
         <ul class="breadcrumb">
             <li>게시판 관리</li>
@@ -320,51 +320,16 @@ if ($mode == "insert" || $mode == "") {
                             </label-->
                         </td>
                     </tr>
-                    <?php if ($code == 'award') { ?>
+                    <?php if ($code == 'c_media_gallery') { ?>
                         <tr>
-                            <th>대상</th>
+                            <th>영상주소</th>
                             <td class="comALeft" colspan="3">
                                 <input type="text" name="media_url" value="<?= $bbs_row['media_url'] ?>"
                                     class="form-control" style="width:88%;" />
                             </td>
                         </tr>
                     <?php } ?>
-                    <?php
-                    if ($code == 'job') {
-                        $grp_2 = explode(",", $bbs_info['grp_2']);
-                        $grp_3 = explode(",", $bbs_info['grp_3']);
-                        ?>
-                        <tr>
-                            <th>상태</th>
-                            <td class="comALeft" colspan="">
-                                <select name="grp_2" class="form-control" style="width:auto;" onchange="">
-                                    <?php
-                                    for ($ii = 0; $ii < count($grp_2); $ii++) {
-                                        if ($bbs_row['grp_2'] == $grp_2[$ii])
-                                            $selected = "selected";
-                                        else
-                                            $selected = "";
-                                        ?>
-                                        <option value="<?= $grp_2[$ii] ?>" <?= $selected ?>><?= $grp_2[$ii] ?></option>
-                                    <?php } ?>
-                                </select>
-                            </td>
-                            <th>구분</th>
-                            <td class="comALeft" colspan="">
-                                <select name="grp_3" class="form-control" style="width:auto;" onchange="">
-                                    <?php
-                                    for ($ii = 0; $ii < count($grp_3); $ii++) {
-                                        if ($bbs_row['grp_3'] == $grp_3[$ii])
-                                            $selected = "selected";
-                                        else
-                                            $selected = "";
-                                        ?>
-                                        <option value="<?= $grp_3[$ii] ?>" <?= $selected ?>><?= $grp_3[$ii] ?></option>
-                                    <?php } ?>
-                                </select>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                
                     <?php
                     if ($mode == "reply") {
                         ?>
@@ -411,7 +376,7 @@ if ($mode == "insert" || $mode == "") {
                             </script>
                         </td>
                     </tr>
-                    <?php if ($code == "job") {
+                    <?php if ($code == "education_news") {
                         $str = "기간";
                         ?>
                         <tr>

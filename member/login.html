@@ -78,7 +78,19 @@ include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
         </div>
     </div>
 </div>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById('loginForm');
+        // 폼 내부의 모든 입력(input, textarea)에서 Enter 키 처리
+        loginForm.addEventListener('keydown', function (e) {
+            // 키가 Enter이고, Shift나 Ctrl 등 조합키가 아닐 때
+            if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+                e.preventDefault();               // 기본 폼 서브밋 방지
+                submitForm('loginForm');          // form-controller.js 의 함수 호출
+            }
+        });
+    });
+</script>
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
 ?>

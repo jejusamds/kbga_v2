@@ -1,4 +1,5 @@
 <?php
+
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/global.inc";
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/util_lib.inc";
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/Eadmin_check.inc";
@@ -13,6 +14,8 @@ $gb = @str_replace("contents/", "", $gb);
 $gb = @str_replace("delivery/", "", $gb);
 $gb = @str_replace("marketing/", "", $gb);
 $gb = @str_replace("main_manage/", "", $gb);
+$gb = @str_replace("business/", "", $gb);
+
 $gb = substr("$gb", 0, strpos($gb, ".php"));
 
 $menu01 = array("page_privacy");
@@ -48,6 +51,12 @@ $menu04 = array(
 
 $menu05 = array(
     "main_slide_list", "main_slide_input", "sub_slide_list", "sub_slide_input"
+);
+
+$menu06 = array(
+    "sigong_list", "sigong_input",
+    "sihang_list", 
+    "sihang_input",
 );
 
 
@@ -358,10 +367,9 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             </div>
             <div class="lnb-submenu"
                 style="display:<? if (in_array($gb, $menu01)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if ($admin_type == "privacy") { ?>on<? } ?>"
-                    href="/Madmin/page/page_privacy.php?admin_type=privacy">개인정보처리방침</div>
-                <div class="lnb-submenu-item <? if ($admin_type == "use") { ?>on<? } ?>"
-                    href="/Madmin/page/page_privacy.php?admin_type=use">이용약관</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "privacy") { ?>on<? } ?>" href="/Madmin/page/page_privacy.php?admin_type=privacy">개인정보처리방침</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "use") { ?>on<? } ?>" href="/Madmin/page/page_privacy.php?admin_type=use">이용약관</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "email") { ?>on<? } ?>" href="/Madmin/page/page_privacy.php?admin_type=email">이메일무단수집거부</div>
             </div>
 
 
@@ -382,7 +390,8 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/page/mobile_popup.php">팝업관리 - MOBILE</div>
             </div>
 
-            <div class="lnb-menu <? if (in_array($gb, $menu05)) { ?>on<? } ?>">
+        
+            <!-- <div class="lnb-menu <? if (in_array($gb, $menu05)) { ?>on<? } ?>">
                 <span class="left">
                     <i class="fa fa-desktop fa-lg"></i>
                     <span>메인 관리</span>
@@ -394,10 +403,10 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             <div class="lnb-submenu" style="display:<? if (in_array($gb, $menu05)) { ?>block;<? } else { ?>none;<? } ?>">
                 <div class="lnb-submenu-item <? if ($code == 'main' || $code == 'main') { ?>on<? } ?>" href="/Madmin/main_manage/main_slide_list.php?code=main">메인 슬라이드</div>
                 <div class="lnb-submenu-item <? if ($code == 'best' || $code == 'best') { ?>on<? } ?>" href="/Madmin/main_manage/main_slide_list.php?code=best">베스트 제품 슬라이드</div>
-            </div>
+            </div> -->
 
 
-            <div class="lnb-menu <? if (in_array($gb, $menu03)) { ?>on<? } ?>">
+            <!-- <div class="lnb-menu <? if (in_array($gb, $menu03)) { ?>on<? } ?>">
                 <span class="left">
                     <i class="fa fa-gift fa-lg"></i>
                     <span>제품 관리</span>
@@ -412,7 +421,7 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/contents/category_list.php">카테고리 관리</div>
                 <div class="lnb-submenu-item <? if (in_array($gb, $menu03_1)) { ?>on<? } ?>"
                     href="/Madmin/contents/contents_list.php">제품 관리</div>
-            </div>
+            </div> -->
 
             <div class="lnb-menu <? if (in_array($gb, $menu02)) { ?>on<? } ?>">
                 <span class="left">
@@ -423,16 +432,14 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     <i class="fa fa-<? if (in_array($gb, $menu02)) { ?>minus<? } else { ?>plus<? } ?>"></i>
                 </span>
             </div>
-            <div class="lnb-submenu"
-                style="display:<? if (in_array($gb, $menu02)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if ($code == 'notice') { ?>on<? } ?>"
-                    href="/Madmin/bbs/bbs_list.php?code=notice">공지사항</div>
-                <div class="lnb-submenu-item <? if ($code == 'review') { ?>on<? } ?>"
-                    href="/Madmin/bbs/bbs_list.php?code=review">제품사용후기</div>
-                <div class="lnb-submenu-item <? if ($code == 'buy') { ?>on<? } ?>"
-                    href="/Madmin/bbs/bbs_list.php?code=buy">상품 및 구매후기</div>
-                <div class="lnb-submenu-item <? if ($code == 'inquiry') { ?>on<? } ?>"
-                    href="/Madmin/bbs/bbs_list.php?code=inquiry">견적문의</div>
+            <div class="lnb-submenu" style="display:<? if (in_array($gb, $menu02)) { ?>block;<? } else { ?>none;<? } ?>">
+                <?php 
+                $sql = "select * from df_site_bbsinfo order by bbs_order";
+                $list = $db->query($sql);
+                foreach ($list as $row) {
+                ?>
+                <div class="lnb-submenu-item <? if ($code == $row['code']) { ?>on<? } ?>" href="/Madmin/bbs/bbs_list.php?code=<?=$row['code']?>"><?=$row['bbs_category']?> - <?=$row['title']?></div>
+                <?php } ?>
             </div>
 
 

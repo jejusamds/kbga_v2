@@ -149,8 +149,14 @@ class FormSubmitter {
 
     handleResponse(data) {
         console.log(data);
-        alert(data.msg);
+        if (data.result != 'ok') {
+            alert(data.msg);
+        }
+        
         if (data.result === 'ok') {
+            if (data.msg != '') {
+                alert(data.msg);
+            }
             if (data.redirect != '') {
                 location.href = data.redirect;
             }
