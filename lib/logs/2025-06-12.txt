@@ -1,0 +1,6 @@
+Time : 16:35:43
+SQLSTATE[HY093]: Invalid parameter number
+Raw SQL : SELECT COUNT(*) AS cnt
+       FROM df_site_bbs
+      WHERE code = :code
+       AND (subject LIKE :search OR content LIKE :search)

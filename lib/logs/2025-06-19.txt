@@ -1,0 +1,22 @@
+Time : 16:33:25
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_sigong_files' doesn't exist
+Raw SQL : SELECT * FROM df_site_sigong_files WHERE bbsidx=:idx ORDER BY idx ASC
+
+Time : 16:33:24
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_sigong_files' doesn't exist
+Raw SQL : SELECT * FROM df_site_sigong_files WHERE bbsidx=:idx ORDER BY idx ASC
+
+Time : 16:31:53
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_sigong_files' doesn't exist
+Raw SQL : SELECT * FROM df_site_sigong_files WHERE bbsidx='' ORDER BY idx ASC
+
+Time : 16:28:54
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_sigong_files' doesn't exist
+Raw SQL : SELECT * FROM df_site_sigong_files WHERE bbsidx='' ORDER BY idx ASC
+
+Time : 15:40:38
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_application' doesn't exist
+Raw SQL : 
+    SELECT COUNT(*)
+    FROM df_site_application s
+    WHERE 1 = 1 
