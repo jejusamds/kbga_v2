@@ -264,62 +264,64 @@ if ($mode == "insert" || $mode == "") {
                         <td class="comALeft"><input type="text" name="count" value="<?= $bbs_row['count'] ?>"
                                 class="form-control" style="width:88%;" /></td> -->
                     </tr>
-                    <?php if ($bbs_info['upfile'] == 'Y') { ?>
+                    <?php if ($code != 'faq') { ?>
+                        <?php if ($bbs_info['upfile'] == 'Y') { ?>
+                            <tr>
+                                <th>썸네일 <br />(000 x 000 px)</th>
+                                <td class="comALeft" colspan="3">
+                                    <input type="file" name="upfile_thumb" class="form-control" style="width:50%;" />
+                                    <?php if ($bbs_row['upfile'] != "") { ?>
+                                        <div class="thumb_del_wrap" style="display: inline-block; margin-left:10px;">
+                                            <a href="/userfiles/<?= $code ?>/<?= $bbs_row['upfile'] ?>" target="_blank">
+                                                <img src="/userfiles/<?= $code ?>/<?= $bbs_row['upfile'] ?>" height="32"
+                                                    align="absmiddle" id="upfile_prev_img" />
+                                            </a>
+                                            <button class="btn btn-warning btn-xs comMLeft15 btnDelFiles_thumb" type="button"
+                                                style="margin-left:10px;">썸네일 삭제</button>
+                                            <input type="hidden" name="old_idx_thumb" value="<?= $bbs_row['idx'] ?>" />
+                                        </div>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        <?php } ?>
                         <tr>
-                            <th>썸네일 <br />(000 x 000 px)</th>
+                            <th>제 목</th>
                             <td class="comALeft" colspan="3">
-                                <input type="file" name="upfile_thumb" class="form-control" style="width:50%;" />
-                                <?php if ($bbs_row['upfile'] != "") { ?>
-                                    <div class="thumb_del_wrap" style="display: inline-block; margin-left:10px;">
-                                        <a href="/userfiles/<?= $code ?>/<?= $bbs_row['upfile'] ?>" target="_blank">
-                                            <img src="/userfiles/<?= $code ?>/<?= $bbs_row['upfile'] ?>" height="32"
-                                                align="absmiddle" id="upfile_prev_img" />
-                                        </a>
-                                        <button class="btn btn-warning btn-xs comMLeft15 btnDelFiles_thumb" type="button"
-                                            style="margin-left:10px;">썸네일 삭제</button>
-                                        <input type="hidden" name="old_idx_thumb" value="<?= $bbs_row['idx'] ?>" />
-                                    </div>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    <?php } ?>
-
-                    <tr>
-                        <th>제 목</th>
-                        <td class="comALeft" colspan="3">
-                            <?php
-                            if ($bbs_info['grp'] != "") {
-                                $catlist = explode(",", $bbs_info['grp']);
-                                ?>
-                                <select name="grp" class="form-control" style="width:auto;">
-                                    <!-- <option value="">분류</option> -->
-                                    <?
-                                    for ($ii = 0; $ii < count($catlist); $ii++) {
-                                        if ($bbs_row['grp'] == $catlist[$ii])
-                                            $selected = "selected";
-                                        else
-                                            $selected = "";
-                                        ?>
-                                        <option value="<?= $catlist[$ii] ?>" <?= $selected ?>><?= $catlist[$ii] ?></option>
-                                        <?
-                                    }
+                                <?php
+                                if ($bbs_info['grp'] != "") {
+                                    $catlist = explode(",", $bbs_info['grp']);
                                     ?>
-                                </select>
-                                <?
-                            }
-                            ?>
-                            <input type="text" name="subject" value="<?= $bbs_row['subject'] ?>" class="form-control"
-                                style="width:60%;" />
-                            <label style="margin-left:15px;">
-                                <input type="checkbox" name="notice" value="Y" <? if ($bbs_row['notice'] == "Y")
-                                    echo "checked"; ?>> 공지글
-                            </label>
-                            <!--<label style="margin-left:15px;">
+                                    <select name="grp" class="form-control" style="width:auto;">
+                                        <!-- <option value="">분류</option> -->
+                                        <?
+                                        for ($ii = 0; $ii < count($catlist); $ii++) {
+                                            if ($bbs_row['grp'] == $catlist[$ii])
+                                                $selected = "selected";
+                                            else
+                                                $selected = "";
+                                            ?>
+                                            <option value="<?= $catlist[$ii] ?>" <?= $selected ?>><?= $catlist[$ii] ?></option>
+                                            <?
+                                        }
+                                        ?>
+                                    </select>
+                                    <?
+                                }
+                                ?>
+                                <input type="text" name="subject" value="<?= $bbs_row['subject'] ?>" class="form-control"
+                                    style="width:60%;" />
+                                <!-- <label style="margin-left:15px;">
+                                    <input type="checkbox" name="notice" value="Y" <? if ($bbs_row['notice'] == "Y")
+                                        echo "checked"; ?>> 공지글
+                                </label> -->
+                                <!--<label style="margin-left:15px;">
                                 <input type="checkbox" name="privacy" value="Y" <? if ($bbs_row['privacy'] == "Y" || ($mode != "update" && $bbs_info['privacy'] == "Y"))
                                     echo "checked"; ?>> 비밀글
                             </label-->
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    
                     <?php if ($code == 'c_media_gallery') { ?>
                         <tr>
                             <th>영상주소</th>
@@ -329,7 +331,17 @@ if ($mode == "insert" || $mode == "") {
                             </td>
                         </tr>
                     <?php } ?>
-                
+
+                    <?php if ($code == 'education_news') { ?>
+                        <tr>
+                            <th>지점명</th>
+                            <td class="comALeft" colspan="3">
+                                <input type="text" name="center_name" value="<?= $bbs_row['center_name'] ?>"
+                                    class="form-control" style="width:88%;" />
+                            </td>
+                        </tr>
+                    <?php } ?>
+
                     <?php
                     if ($mode == "reply") {
                         ?>
@@ -360,8 +372,8 @@ if ($mode == "insert" || $mode == "") {
                     }
                     ?>
                     <tr>
-                        <th><? if ($mode == "reply" || $reply_mode == true) { ?>답변내용<? } else { ?>내 용<? } ?></th>
-                        <td class="comALeft" colspan="3">
+                        <th><? if ($code == "faq") { ?>Q.<? } else { ?>내 용<? } ?></th>
+                        <td class="comALeft" colspan="3" style="padding-top: 7px; padding-bottom: 7px;">
                             <textarea name="content" id="content"
                                 class="textarea"><? if ($mode != "reply" || $reply_mode == true) { ?><?= $bbs_row['content'] ?><? } else { ?><? } ?></textarea>
                             <script type="text/javascript">
@@ -369,13 +381,32 @@ if ($mode == "insert" || $mode == "") {
                                 CKEDITOR.replace('content', {
                                     enterMode: '2',
                                     shiftEnterMode: '3',
-                                    height: 400,
+                                    height: <?= $code == 'faq' ? 100 : 400 ?>,
                                     filebrowserImageUploadUrl: "/ckeditor/upload.php?type=Images"
                                 });
                                 //]]
                             </script>
                         </td>
                     </tr>
+                    <?php if ($code == "faq") { ?>
+                        <tr>
+                            <th>A.</th>
+                            <td class="comALeft" colspan="3" style="padding-top: 7px; padding-bottom: 7px;">
+                                <textarea name="faq_a" id="faq_a"
+                                    class="textarea"><? if ($mode != "reply" || $reply_mode == true) { ?><?= $bbs_row['faq_a'] ?><? } else { ?><? } ?></textarea>
+                                <script type="text/javascript">
+                                    //<![CDATA[
+                                    CKEDITOR.replace('faq_a', {
+                                        enterMode: '2',
+                                        shiftEnterMode: '3',
+                                        height: 100,
+                                        filebrowserImageUploadUrl: "/ckeditor/upload.php?type=Images"
+                                    });
+                                    //]]
+                                </script>
+                            </td>
+                        </tr>
+                    <?php } ?>
                     <?php if ($code == "education_news") {
                         $str = "기간";
                         ?>

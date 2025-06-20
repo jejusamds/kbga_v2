@@ -1,3 +1,37 @@
+Time : 18:15:41
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 's.f_round ASC, 
+        LIMIT 0, 15' at line 4
+Raw SQL : SELECT *
+        FROM df_site_application s
+        WHERE 1 = 1  AND s.f_year = '2025'
+        ORDER BY s.idx ASC s.f_round ASC, 
+        LIMIT 0, 15
+
+Time : 18:15:40
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 's.f_round ASC, 
+        LIMIT 0, 15' at line 4
+Raw SQL : SELECT *
+        FROM df_site_application s
+        WHERE 1 = 1  AND s.f_year = '2025'
+        ORDER BY s.idx ASC s.f_round ASC, 
+        LIMIT 0, 15
+
+Time : 18:15:35
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIMIT 0, 15' at line 5
+Raw SQL : SELECT *
+        FROM df_site_application s
+        WHERE 1 = 1  AND s.f_year = '2025'
+        ORDER BY s.idx ASC, s.f_round ASC, 
+        LIMIT 0, 15
+
+Time : 17:42:29
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_exam_date_written' in 'field list'
+Raw SQL : INSERT INTO df_site_application (f_category,f_year,f_round,f_registration_period,f_exam_date_written,f_pass_announce_written,f_registration_period_practical,f_exam_date_practical,f_pass_announce_practical,f_cert_application, wdate) VALUES (:f_category,:f_year,:f_round,:f_registration_period,:f_exam_date_written,:f_pass_announce_written,:f_registration_period_practical,:f_exam_date_practical,:f_pass_announce_practical,:f_cert_application, NOW())
+
+Time : 17:41:45
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_registration_period_written' in 'field list'
+Raw SQL : INSERT INTO df_site_application (f_category,f_year,f_round,f_registration_period_written,f_exam_date_written,f_pass_announce_written,f_registration_period_practical,f_exam_date_practical,f_pass_announce_practical,f_cert_application, wdate) VALUES (:f_category,:f_year,:f_round,:f_registration_period_written,:f_exam_date_written,:f_pass_announce_written,:f_registration_period_practical,:f_exam_date_practical,:f_pass_announce_practical,:f_cert_application, NOW())
+
 Time : 16:33:25
 SQLSTATE[42S02]: Base table or view not found: 1146 Table 'df77_kbga.df_site_sigong_files' doesn't exist
 Raw SQL : SELECT * FROM df_site_sigong_files WHERE bbsidx=:idx ORDER BY idx ASC

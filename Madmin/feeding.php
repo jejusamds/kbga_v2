@@ -3,11 +3,11 @@
 exit;
 
 try {
-    $username = 'kci9874';
-    $password = 'kci63707290!!@';
-    $db_name = 'kci9874';    
+    $username = 'df77_kbga';
+    $password = 'elvor0810!';
+    $db_name = 'df77_kbga';    
 
-    $dsn = 'mysql:host=127.0.0.1;dbname='.$db_name.';charset=utf8mb4';
+    $dsn = 'mysql:host=localhost;dbname='.$db_name.';charset=utf8mb4';
     
     $db = new PDO($dsn, $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -85,6 +85,9 @@ try {
             }
             
             $value = generateFakeData($field, $types[$field]);
+            if ($field == 'code') {
+                $value = 'notice';
+            }
             $data[$field] = $value;
             $placeholders[] = "?";
             $insert_values[] = $value;

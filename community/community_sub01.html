@@ -1,200 +1,265 @@
 <?php
-	$Menu = "05";
-	$sMenu = "05-1";
+$Menu = "05";
+$sMenu = "05-1";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
+
+$code = 'membership';
+
+$searchField = $_GET['search_field'] ?? '';
+$searchQuery = trim($_GET['search_query'] ?? '');
+
+$searchSql = '';
+$params = ['code' => $code];
+
+if ($searchQuery !== '') {
+    $like = "%{$searchQuery}%";
+
+    switch ($searchField) {
+        case 'subject':
+            $searchSql = " AND subject LIKE :search_subject";
+            $params['search_subject'] = $like;
+            break;
+
+        case 'name':
+            $searchSql = " AND name LIKE :search_name";
+            $params['search_name'] = $like;
+            break;
+
+        default:
+            $searchSql = " AND (subject LIKE :search_subject OR content LIKE :search_content)";
+            $params['search_subject'] = $like;
+            $params['search_content'] = $like;
+            break;
+    }
+}
+
+$page = 1;
+if (
+    isset($_GET['page'])
+    && $_GET['page'] !== ''
+    && ctype_digit($_GET['page'])
+    && (int) $_GET['page'] > 0
+) {
+    $page = (int) $_GET['page'];
+}
+$perPage = 10;
+$offset = ($page - 1) * $perPage;
+
+$totalRow = $db->row(
+    "SELECT COUNT(*) AS cnt
+       FROM df_site_bbs
+      WHERE code = :code
+      {$searchSql}",
+    $params
+);
+$total = (int) $totalRow['cnt'];
+$totalPages = (int) ceil($total / $perPage);
+
+$listSql = "
+    SELECT idx, subject, name, wdate, `count`
+      FROM df_site_bbs
+     WHERE code = :code
+     {$searchSql}
+     ORDER BY wdate DESC
+     LIMIT :offset, :perPage
+";
+$paramsList = $params;
+$paramsList['offset'] = $offset;
+$paramsList['perPage'] = $perPage;
+$rows = $db->query($listSql, $paramsList);
+
+$queryExtra = '';
+if ($searchQuery !== '') {
+    $queryExtra = '&search_field=' . urlencode($searchField)
+        . '&search_query=' . urlencode($searchQuery);
+}
+
+$startNum = $total - $offset;
+$firstPage = 1;
+$lastPage = $totalPages;
+$prevPage = $page > 1 ? $page - 1 : $firstPage;
+$nextPage = $page < $lastPage ? $page + 1 : $lastPage;
 ?>
 
-	<div id="container">
-		<div id="sub_con">
-			<?php
-				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
-			?>
+<div id="container">
+    <div id="sub_con">
+        <?php
+        include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.html';
+        ?>
 
-			<div class="contents_con">
-				
-				<div class="notice_list_con">
-					<div class="ts_con">
-						<div class="title_con">
-							<div class="text01_con">
-								<span>
-									MEMBERSHIP AGREEMENT
-								</span>
-							</div>
+        <div class="contents_con">
 
-							<div class="text02_con">
-								<span>
-									한국미용총연합회의 <br />
-									회원동정 입니다.
-								</span>
-							</div>
-						</div>
+            <div class="notice_list_con">
+                <div class="ts_con">
+                    <div class="title_con">
+                        <div class="text01_con">
+                            <span>
+                                MEMBERSHIP AGREEMENT
+                            </span>
+                        </div>
 
-						<div class="search_con">
-							<form action="" method="" autocomplete="off">
-								<div class="input_con">
-									<table cellpadding="0" cellspacing="0">
-										<tbody>
-											<tr>
-												<td align="left" class="select_td">
-													<select name="" class="select">
-														<option value="">전체</option>
-													</select>
-												</td>
-												<td align="left" class="blank01_td">
-													&nbsp;
-												</td>
-												<td align="left" class="input_td">
-													<input type="text" name="" placeholder="검색해주세요." class="input" />
-												</td>
-												<td align="left" class="blank02_td">
-													&nbsp;
-												</td>
-												<td align="left" class="btn_td">
-													<a href="#">
-														<img src="/img/sub/notice_search_btn.svg" alt="검색 버튼" class="fx" />
-													</a>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</form>
-						</div>
-					</div>
+                        <div class="text02_con">
+                            <span>
+                                한국미용총연합회의 <br />
+                                회원동정 입니다.
+                            </span>
+                        </div>
+                    </div>
 
-					<div class="normal_notice_con">
-						<div class="title_con">
-							<table cellpadding="0" cellspacing="0">
-								<tbody>
-									<tr>
-										<td align="center" class="no_td">
-											<span>
-												번호
-											</span>
-										</td>
-										<td align="center" class="title_td">
-											<span>
-												제목
-											</span>
-										</td>
-										<td align="center" class="name_td">
-											<span>
-												작성자
-											</span>
-										</td>
-										<td align="center" class="date_td">
-											<span>
-												등록일
-											</span>
-										</td>
-										<td align="center" class="views_td">
-											<span>
-												조회
-											</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+                    <div class="search_con">
+                        <form action="" method="GET" autocomplete="off">
+                            <div class="input_con">
+                                <table cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="select_td">
+                                                <select name="search_field" class="select">
+                                                    <option value="" <?= $searchField === '' ? 'selected' : '' ?>>전체
+                                                    </option>
+                                                    <!-- <option value="subject" <?= $searchField === 'subject' ? 'selected' : '' ?>>제목</option>
+                                                    <option value="name" <?= $searchField === 'name' ? 'selected' : '' ?>>
+                                                        작성자</option> -->
+                                                </select>
+                                            </td>
+                                            <td class="blank01_td">&nbsp;</td>
+                                            <td class="input_td">
+                                                <input type="text" name="search_query" placeholder="검색해주세요."
+                                                    class="input"
+                                                    value="<?= htmlspecialchars($searchQuery, ENT_QUOTES) ?>" />
+                                            </td>
+                                            <td class="blank02_td">&nbsp;</td>
+                                            <td class="btn_td">
+                                                <a href="javascript:;" onclick="this.closest('form').submit();">
+                                                    <img src="/img/sub/notice_search_btn.svg" alt="검색 버튼" class="fx" />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-						<div class="list_con">
-							<ul>
-								<li>
-									<a href="/community/community_sub01_view.html">
-										<table cellpadding="0" cellspacing="0">
-											<tbody>
-												<tr>
-													<td align="center" class="no_td">
-														<span>
-															01
-														</span>
-													</td>
-													<td align="left" class="title_td">
-														<div class="title_con">
-															<span>
-																게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다.
-															</span>
-														</div>
+                <div class="normal_notice_con">
+                    <div class="title_con">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td align="center" class="no_td">
+                                        <span>
+                                            번호
+                                        </span>
+                                    </td>
+                                    <td align="center" class="title_td">
+                                        <span>
+                                            제목
+                                        </span>
+                                    </td>
+                                    <td align="center" class="name_td">
+                                        <span>
+                                            작성자
+                                        </span>
+                                    </td>
+                                    <td align="center" class="date_td">
+                                        <span>
+                                            등록일
+                                        </span>
+                                    </td>
+                                    <td align="center" class="views_td">
+                                        <span>
+                                            조회
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-														<div class="info_con m_con">
-															<span>
-																관리자 <span class="bar">｜</span> 2025.01.01
-															</span>
-														</div>
-													</td>
-													<td align="center" class="name_td">
-														<span>
-															관리자
-														</span>
-													</td>
-													<td align="center" class="date_td">
-														<span>
-															2025.01.01
-														</span>
-													</td>
-													<td align="center" class="views_td">
-														<span>
-															999
-														</span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</a>
-								</li>
-								<!--
-								<li class="none_li">
-									<span>
-										등록된 게시글이 없습니다.
-									</span>
-								</li>
-								-->
-							</ul>
-						</div>
-					</div>
+                    <div class="list_con">
+                        <ul>
+                            <?php if (empty($rows)): ?>
+                                <li class="none_li"><span>등록된 게시글이 없습니다.</span></li>
+                            <?php else: ?>
+                                <?php foreach ($rows as $row): ?>
+                                    <li>
+                                        <a href="/community/community_sub01_view.html?idx=<?= $row['idx'] ?><?= $queryExtra ?>">
+                                            <table cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td align="center" class="no_td">
+                                                            <span><?= str_pad($startNum--, 2, '0', STR_PAD_LEFT) ?></span>
+                                                        </td>
+                                                        <td align="left" class="title_td">
+                                                            <div class="title_con">
+                                                                <span><?= htmlspecialchars($row['subject'], ENT_QUOTES) ?></span>
+                                                            </div>
+                                                            <div class="info_con m_con">
+                                                                <span>
+                                                                    <?= htmlspecialchars($row['name'], ENT_QUOTES) ?>
+                                                                    <span class="bar">｜</span>
+                                                                    <?= date('Y.m.d', strtotime($row['wdate'])) ?>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                        <td align="center" class="name_td">
+                                                            <span><?= htmlspecialchars($row['name'], ENT_QUOTES) ?></span>
+                                                        </td>
+                                                        <td align="center" class="date_td">
+                                                            <span><?= date('Y.m.d', strtotime($row['wdate'])) ?></span>
+                                                        </td>
+                                                        <td align="center" class="views_td">
+                                                            <span><?= (int) $row['count'] ?></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
 
-					<div class="number_list_con">
-						<div class="contents_con">
-							<div class="btn_con">
-								<a href="#">
-									<img src="/img/sub/number_list_prev_btn2.svg" alt="번호목록 이전2 버튼" class="fx" />
-								</a>
+                <div class="number_list_con">
+                    <div class="contents_con">
+                        <div class="btn_con">
+                            <a href="?page=<?= $firstPage . $queryExtra ?>">
+                                <img src="/img/sub/number_list_prev_btn2.svg" alt="처음" class="fx" />
+                            </a>
+                            <a href="?page=<?= $prevPage . $queryExtra ?>">
+                                <img src="/img/sub/number_list_prev_btn.svg" alt="이전" class="fx" />
+                            </a>
+                        </div>
+                        <div class="list_con">
+                            <a href="?page=<?= $page ?><?= $queryExtra ?>"
+                                class="list_a<?= $page === 1 ? ' active' : '' ?>"><?= str_pad($page, 2, '0', STR_PAD_LEFT) ?></a>
+                            <?php if ($lastPage > 1): ?>
+                                <a href="?page=<?= $lastPage . $queryExtra ?>"
+                                    class="list_a<?= $page === $lastPage ? ' active' : '' ?>">
+                                    <?= str_pad($lastPage, 2, '0', STR_PAD_LEFT) ?>
+                                </a>
+                                <div class="bar"></div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="btn_con">
+                            <a href="?page=<?= $nextPage . $queryExtra ?>">
+                                <img src="/img/sub/number_list_next_btn.svg" alt="다음" class="fx" />
+                            </a>
+                            <a href="?page=<?= $lastPage . $queryExtra ?>">
+                                <img src="/img/sub/number_list_next_btn2.svg" alt="마지막" class="fx" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-								<a href="#">
-									<img src="/img/sub/number_list_prev_btn.svg" alt="번호목록 이전 버튼" class="fx" />
-								</a>
-							</div>
-						
-							<div class="list_con">
-								<a href="#" class="list_a">
-									01
-								</a>
-
-								<a href="#" class="list_a">
-									04
-								</a>
-
-								<div class="bar"></div>
-							</div>
-						
-							<div class="btn_con">
-								<a href="#">
-									<img src="/img/sub/number_list_next_btn.svg" alt="번호목록 다음 버튼" class="fx" />
-								</a>
-
-								<a href="#">
-									<img src="/img/sub/number_list_next_btn2.svg" alt="번호목록 다음2 버튼" class="fx" />
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+</div>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
-?>	
+include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
+?>

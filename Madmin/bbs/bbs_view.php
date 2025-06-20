@@ -83,7 +83,7 @@ $bbs_row = $db->row($sql);
                     <td class="comALeft" colspan="3"><?= $bbs_row['subject'] ?></td>
                 </tr>
                 <tr>
-                    <th>내 용</th>
+                    <th><? if ($code == "faq") { ?>Q.<? } else { ?>내 용<? } ?></th>
                     <td class="comALeft" id="Contents" colspan="3" style="padding-top:7px; padding-bottom:7px;">
                         <? if ($bbs_row['ctype'] == "T") { ?>
                             <?= nl2br($bbs_row['content']) ?>
@@ -92,6 +92,14 @@ $bbs_row = $db->row($sql);
                         <? } ?>
                     </td>
                 </tr>
+                <?php if ($code == 'faq') { ?>
+                    <tr>
+                        <th>A.</th>
+                        <td class="comALeft" id="Contents" colspan="3" style="padding-top:7px; padding-bottom:7px;">
+                            <?= $bbs_row['faq_a'] ?>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <?
                 $sql = " Select * From df_site_bbs Where depno>0 And parno='$idx'  order by prino desc";
                 $reply = $db->row($sql);
@@ -168,7 +176,8 @@ $bbs_row = $db->row($sql);
     <div class="box comMTop20 comMBottom20" style="width:978px;">
         <div class="comPTop20 comPBottom20">
             <div class="comFLeft comACenter" style="width:10%;">
-                <button class="btn btn-primary btn-sm" type="button" onClick="location.href='bbs_list.php?page=<?= $page ?>&<?= $param ?>';">목록</button>
+                <button class="btn btn-primary btn-sm" type="button"
+                    onClick="location.href='bbs_list.php?page=<?= $page ?>&<?= $param ?>';">목록</button>
             </div>
             <div class="comFRight comARight" style="width:85%; padding-right:20px;">
                 <button class="btn btn-info btn-sm" type="button"

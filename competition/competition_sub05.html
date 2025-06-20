@@ -1,112 +1,148 @@
 <?php
-	$Menu = "04";
-	$sMenu = "04-5";
+$Menu = "04";
+$sMenu = "04-5";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
+
+// 게시판 코드
+$code = 'c_media_gallery';
+
+$page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+if ($page === false || $page === null) {
+    $page = 1;
+}
+$perPage = 10;
+$offset = ($page - 1) * $perPage;
+
+$totalRow = $db->row(
+    "SELECT COUNT(*) AS cnt
+           FROM df_site_bbs
+          WHERE code = :code",
+    ['code' => $code]
+);
+$total = (int) $totalRow['cnt'];
+$totalPages = $total > 0 ? (int) ceil($total / $perPage) : 1;
+
+$rows = $db->query(
+    "SELECT idx, upfile, subject, wdate
+           FROM df_site_bbs
+          WHERE code = :code
+          ORDER BY wdate DESC
+          LIMIT :offset, :perPage",
+    [
+        'code' => $code,
+        'offset' => $offset,
+        'perPage' => $perPage,
+    ]
+);
+
+$firstPage = 1;
+$lastPage = $totalPages;
+$prevPage = $page > $firstPage ? $page - 1 : $firstPage;
+$nextPage = $page < $lastPage ? $page + 1 : $lastPage;
 ?>
 
-	<div id="container">
-		<div id="sub_con">
-			<?php
-				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
-			?>
+<div id="container">
+    <div id="sub_con">
+        <?php
+        include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.html';
+        ?>
 
-			<div class="contents_con">
-				
-				<div class="notice_list_con">
-					<div class="ts_con">
-						<div class="title_con">
-							<div class="text01_con">
-								<span>
-									VIDEO GALLERY
-								</span>
-							</div>
+        <div class="contents_con">
 
-							<div class="text02_con">
-								<span>
-									한국미용총연합회의 <br />
-									영상갤러리 입니다.
-								</span>
-							</div>
-						</div>
-					</div>
+            <div class="notice_list_con">
+                <div class="ts_con">
+                    <div class="title_con">
+                        <div class="text01_con">
+                            <span>
+                                VIDEO GALLERY
+                            </span>
+                        </div>
 
-					<div class="video_notice_con">
-						<ul>
-							<li>
-								<a href="/competition/competition_sub05_view.html">
-									<div class="list_div">
-										<div class="img_con" style="background-image:url('/img/sub/video_notice_list_img_con_none_img.png');">
-											<img src="/img/sub/video_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
-										</div>
+                        <div class="text02_con">
+                            <span>
+                                한국미용총연합회의 <br />
+                                영상갤러리 입니다.
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-										<div class="text_con">
-											<div class="title_con">
-												<span>
-													게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다.
-												</span>
-											</div>
+                <div class="video_notice_con">
+                    <ul>
+                        <?php if (empty($rows)): ?>
+                            <li class="none_li">
+                                <span>등록된 게시글이 없습니다.</span>
+                            </li>
+                        <?php else:
+                            foreach ($rows as $row): ?>
+                                <li>
+                                    <a href="/competition/competition_sub05_view.html?idx=<?= $row['idx'] ?>&page=<?= $page ?>">
+                                        <div class="list_div">
+                                            <div class="img_con"
+                                                style="background-image:url('/userfiles/<?= $code ?>/<?= rawurlencode($row['upfile']) ?>');">
+                                                <img src="/img/sub/video_notice_list_img_con_blank_img.png" alt="블랭크 이미지"
+                                                    class="fx" />
+                                            </div>
 
-											<div class="date_con">
-												<span>
-													2025.01.01
-												</span>
-											</div>
-										</div>
-									</div>
-								</a>
-							</li>
-							<!--
-							<li class="none_li">
-								<span>
-									등록된 게시글이 없습니다.
-								</span>
-							</li>
-							-->
-						</ul>
-					</div>
+                                            <div class="text_con">
+                                                <div class="title_con">
+                                                    <span>
+                                                        <?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
+                                                    </span>
+                                                </div>
 
-					<div class="number_list_con">
-						<div class="contents_con">
-							<div class="btn_con">
-								<a href="#">
-									<img src="/img/sub/number_list_prev_btn2.svg" alt="번호목록 이전2 버튼" class="fx" />
-								</a>
+                                                <div class="date_con">
+                                                    <span><?= date('Y.m.d', strtotime($row['wdate'])) ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php endforeach; endif; ?>
+                    </ul>
+                </div>
 
-								<a href="#">
-									<img src="/img/sub/number_list_prev_btn.svg" alt="번호목록 이전 버튼" class="fx" />
-								</a>
-							</div>
-						
-							<div class="list_con">
-								<a href="#" class="list_a">
-									01
-								</a>
+                <div class="number_list_con">
+                    <div class="contents_con">
+                        <div class="btn_con">
+                            <a href="/competition/competition_sub05.html?page=<?= $firstPage ?>">
+                                <img src="/img/sub/number_list_prev_btn2.svg" alt="번호목록 처음으로" class="fx" />
+                            </a>
+                            <a href="/competition/competition_sub05.html?page=<?= $prevPage ?>">
+                                <img src="/img/sub/number_list_prev_btn.svg" alt="번호목록 이전" class="fx" />
+                            </a>
+                        </div>
 
-								<a href="#" class="list_a">
-									04
-								</a>
+                        <div class="list_con">
+                            <a href="/competition/competition_sub05.html?page=1" class="list_a<?= $page === 1 ? ' active' : '' ?>">
+                                01
+                            </a>
+                            <?php if ($lastPage > 1): ?>
+                                <a href="/competition/competition_sub05.html?page=<?= $lastPage ?>"
+                                    class="list_a<?= $page === $lastPage ? ' active' : '' ?>">
+                                    <?= str_pad($lastPage, 2, '0', STR_PAD_LEFT) ?>
+                                </a>
+                                <div class="bar"></div>
+                            <?php endif; ?>
+                        </div>
 
-								<div class="bar"></div>
-							</div>
-						
-							<div class="btn_con">
-								<a href="#">
-									<img src="/img/sub/number_list_next_btn.svg" alt="번호목록 다음 버튼" class="fx" />
-								</a>
+                        <div class="btn_con">
+                            <a href="/competition/competition_sub05.html?page=<?= $nextPage ?>">
+                                <img src="/img/sub/number_list_next_btn.svg" alt="번호목록 다음" class="fx" />
+                            </a>
+                            <a href="/competition/competition_sub05.html?page=<?= $lastPage ?>">
+                                <img src="/img/sub/number_list_next_btn2.svg" alt="번호목록 마지막으로" class="fx" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-								<a href="#">
-									<img src="/img/sub/number_list_next_btn2.svg" alt="번호목록 다음2 버튼" class="fx" />
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+</div>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
-?>	
+include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
+?>

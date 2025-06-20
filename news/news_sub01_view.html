@@ -1,101 +1,153 @@
 <?php
-	$Menu = "02";
-	$sMenu = "02-1";
+// 1) 메뉴 설정
+$Menu = "02";
+$sMenu = "02-1";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
+
+$code = "notice";
+
+$idx = isset($_GET['idx']) && ctype_digit($_GET['idx'])
+    ? (int) $_GET['idx']
+    : 0;
+if ($idx < 1) {
+    echo "<script>alert('잘못된 접근입니다.');history.back();</script>";
+    exit;
+}
+
+// 목록으로 돌아갈 때 쓸 페이징/검색 파라미터
+$page = 1;
+if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int) $_GET['page'] > 0) {
+    $page = (int) $_GET['page'];
+}
+$searchField = $_GET['search_field'] ?? '';
+$searchQuery = trim($_GET['search_query'] ?? '');
+$queryExtra = '';
+if ($searchQuery !== '') {
+    $queryExtra = '&search_field=' . urlencode($searchField)
+        . '&search_query=' . urlencode($searchQuery);
+}
+
+$db->query(
+    "UPDATE df_site_bbs
+            SET `count` = `count` + 1
+          WHERE idx = :idx",
+    ['idx' => $idx]
+);
+
+$row = $db->row(
+    "SELECT *
+           FROM df_site_bbs
+          WHERE idx = :idx
+          LIMIT 1",
+    ['idx' => $idx]
+);
+if (!$row) {
+    echo "<script>alert('존재하지 않는 게시글입니다.');history.back();</script>";
+    exit;
+}
+
+$attachments = $db->query(
+    "SELECT upfile, upfile_name
+           FROM df_site_bbs_files
+          WHERE bbsidx = :idx
+          ORDER BY idx ASC",
+    ['idx' => $idx]
+);
+
 ?>
 
-	<div id="container">
-		<div id="sub_con">
-			<?php
-				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
-			?>
+<div id="container">
+    <div id="sub_con">
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.html'; ?>
 
-			<div class="contents_con">
-				
-				<div class="notice_view_con">
-					<div class="view_con">
-						<div class="title_con">
-							<table cellpadding="0" cellspacing="0">
-								<tbody>
-									<tr>
-										<td align="left" class="text_td">
-											<div class="title_con">
-												<span>
-													게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다.
-												</span>
-											</div>
+        <div class="contents_con">
 
-											<div class="info_con w_con">
-												<span>
-													관리자 <span class="bar">｜</span> 조회수 : 53
-												</span>
-											</div>
+            <div class="notice_view_con">
+                <div class="view_con">
+                    <div class="title_con">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td align="left" class="text_td">
+                                        <div class="title_con">
+                                            <span>
+                                                <?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
+                                            </span>
+                                        </div>
 
-											<div class="info_con m_con">
-												<span>
-													2025.01.01 <span class="bar">｜</span> 관리자 <span class="bar">｜</span> 조회수 : 53
-												</span>
-											</div>
-										</td>
-										<td align="center" class="date_td">
-											<span>
-												2025.01.01
-											</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+                                        <div class="info_con w_con">
+                                            <span>
+                                                <?= htmlspecialchars($row['name'], ENT_QUOTES) ?>
+                                                <span class="bar">｜</span>
+                                                조회수 : <?= (int) $row['count'] ?>
+                                            </span>
+                                        </div>
 
-						<div class="contents_con">
-							<div class="posts_con">
-								게시판 게시글 입니다.
-							</div>
+                                        <div class="info_con m_con">
+                                            <span>
+                                                <?= date('Y.m.d', strtotime($row['wdate'])) ?>
+                                                <span class="bar">｜</span>
+                                                <?= htmlspecialchars($row['name'], ENT_QUOTES) ?>
+                                                <span class="bar">｜</span>
+                                                조회수 : <?= (int) $row['count'] ?>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td align="center" class="date_td">
+                                        <span>
+                                            <?= date('Y.m.d', strtotime($row['wdate'])) ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-							<div class="file_con">
-								<table cellpadding="0" cellspacing="0">
-									<tbody>
-										<tr>
-											<td align="left" class="title_td">
-												<img src="/img/sub/notice_file_icon.svg" alt="파일 아이콘" class="fx" />
+                    <div class="contents_con">
+                        <div class="posts_con">
+                            <?= $row['content'] ?>
+                        </div>
 
-												<span>
-													첨부파일
-												</span>
-											</td>
-											<td align="left" class="info_td">
-												<ul>
-													<li>
-														<a href="#">
-															첨부파일명
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															첨부파일명
-														</a>
-													</li>
-												</ul>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+                        <!-- 첨부파일 -->
+                        <?php if (!empty($attachments)): ?>
+                            <div class="file_con">
+                                <table cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left" class="title_td">
+                                                <img src="/img/sub/notice_file_icon.svg" alt="파일 아이콘" class="fx" />
+                                                <span>첨부파일</span>
+                                            </td>
+                                            <td align="left" class="info_td">
+                                                <ul>
+                                                    <?php foreach ($attachments as $file): ?>
+                                                        <li>
+                                                            <a href="/userfiles/<?= $code ?>/<?= rawurlencode($file['upfile']) ?>"
+                                                                download="<?= htmlspecialchars($file['upfile_name'], ENT_QUOTES) ?>">
+                                                                <?= htmlspecialchars($file['upfile_name'], ENT_QUOTES) ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
 
-					<div class="btn_con">
-						<a href="/news/news_sub01.html" class="a_btn">
-							목록
-						</a>
-					</div>
-				</div>
+                <div class="btn_con">
+                    <a href="/news/news_sub01.html?page=<?= $page . $queryExtra ?>" class="a_btn">
+                        목록
+                    </a>
+                </div>
+            </div>
 
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+</div>
 
-<?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
-?>	
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html'; ?>

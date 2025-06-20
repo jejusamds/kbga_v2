@@ -1,5 +1,4 @@
 <?php
-
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/global.inc";
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/util_lib.inc";
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/Eadmin_check.inc";
@@ -15,11 +14,11 @@ $gb = @str_replace("delivery/", "", $gb);
 $gb = @str_replace("marketing/", "", $gb);
 $gb = @str_replace("main_manage/", "", $gb);
 $gb = @str_replace("business/", "", $gb);
+$gb = @str_replace("application/", "", $gb);
 
 $gb = substr("$gb", 0, strpos($gb, ".php"));
 
 $menu01 = array("page_privacy");
-
 
 $menu02 = array("bbs_list", "bbs_input", "bbs_view");    // 문의
 $menu03 = array(
@@ -29,17 +28,6 @@ $menu03 = array(
     "category_list",
 );
 
-$menu03_1 = array(
-    "contents_list",
-    "contents_input",
-    "contents_view",
-);
-
-$menu03_2 = array(
-    "category_list"
-);
-
-
 $menu04 = array(
     "page_popup",
     "popup_input",
@@ -48,26 +36,25 @@ $menu04 = array(
     "banner_main",
     "banner_main_input"
 );
-
 $menu05 = array(
-    "main_slide_list", "main_slide_input", "sub_slide_list", "sub_slide_input"
+    "main_slide_list",
+    "main_slide_input",
+    "sub_slide_list",
+    "sub_slide_input"
 );
-
 $menu06 = array(
-    "sigong_list", "sigong_input",
-    "sihang_list", 
+    "sigong_list",
+    "sigong_input",
+    "sihang_list",
     "sihang_input",
 );
 
+$menu07 = array(
+    "application_list",
+    "application_input",
+);
 
 $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
-
-// 이벤트
-// $sql  = "";
-// $sql .= "	Select 	COUNT(*) ";
-// $sql .= "	From 	df_site_event ";
-// $sql .= "	Where 	DATE_FORMAT(wdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')";
-// $leftContact = $db->single($sql);
 
 ?>
 
@@ -367,9 +354,12 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             </div>
             <div class="lnb-submenu"
                 style="display:<? if (in_array($gb, $menu01)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if ($admin_type == "privacy") { ?>on<? } ?>" href="/Madmin/page/page_privacy.php?admin_type=privacy">개인정보처리방침</div>
-                <div class="lnb-submenu-item <? if ($admin_type == "use") { ?>on<? } ?>" href="/Madmin/page/page_privacy.php?admin_type=use">이용약관</div>
-                <div class="lnb-submenu-item <? if ($admin_type == "email") { ?>on<? } ?>" href="/Madmin/page/page_privacy.php?admin_type=email">이메일무단수집거부</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "privacy") { ?>on<? } ?>"
+                    href="/Madmin/page/page_privacy.php?admin_type=privacy">개인정보처리방침</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "use") { ?>on<? } ?>"
+                    href="/Madmin/page/page_privacy.php?admin_type=use">이용약관</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "email") { ?>on<? } ?>"
+                    href="/Madmin/page/page_privacy.php?admin_type=email">이메일무단수집거부</div>
             </div>
 
 
@@ -390,7 +380,7 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/page/mobile_popup.php">팝업관리 - MOBILE</div>
             </div>
 
-        
+
             <!-- <div class="lnb-menu <? if (in_array($gb, $menu05)) { ?>on<? } ?>">
                 <span class="left">
                     <i class="fa fa-desktop fa-lg"></i>
@@ -423,6 +413,20 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/contents/contents_list.php">제품 관리</div>
             </div> -->
 
+            <div class="lnb-menu <? if (in_array($gb, $menu07)) { ?>on<? } ?>">
+                <span class="left">
+                    <i class="fa fa-calendar fa-lg"></i>
+                    <span>시험일정 관리</span>
+                </span>
+                <span class="right">
+                    <i class="fa fa-<? if (in_array($gb, $menu07)) { ?>minus<? } else { ?>plus<? } ?>"></i>
+                </span>
+            </div>
+            <div class="lnb-submenu"
+                style="display:<? if (in_array($gb, $menu07)) { ?>block;<? } else { ?>none;<? } ?>">
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu07)) { ?>on<? } ?>" href="/Madmin/application/application_list.php">시험일정 관리</div>
+            </div>
+
             <div class="lnb-menu <? if (in_array($gb, $menu02)) { ?>on<? } ?>">
                 <span class="left">
                     <i class="fa fa-comments fa-lg"></i>
@@ -432,13 +436,16 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     <i class="fa fa-<? if (in_array($gb, $menu02)) { ?>minus<? } else { ?>plus<? } ?>"></i>
                 </span>
             </div>
-            <div class="lnb-submenu" style="display:<? if (in_array($gb, $menu02)) { ?>block;<? } else { ?>none;<? } ?>">
-                <?php 
+            <div class="lnb-submenu"
+                style="display:<? if (in_array($gb, $menu02)) { ?>block;<? } else { ?>none;<? } ?>">
+                <?php
                 $sql = "select * from df_site_bbsinfo order by bbs_order";
                 $list = $db->query($sql);
                 foreach ($list as $row) {
-                ?>
-                <div class="lnb-submenu-item <? if ($code == $row['code']) { ?>on<? } ?>" href="/Madmin/bbs/bbs_list.php?code=<?=$row['code']?>"><?=$row['bbs_category']?> - <?=$row['title']?></div>
+                    ?>
+                    <div class="lnb-submenu-item <? if ($code == $row['code']) { ?>on<? } ?>"
+                        href="/Madmin/bbs/bbs_list.php?code=<?= $row['code'] ?>"><?= $row['bbs_category'] ?> -
+                        <?= $row['title'] ?></div>
                 <?php } ?>
             </div>
 
@@ -474,33 +481,6 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                 </a>
             </div>
 
-            <!--div class="gnb-menu">
-                <i class="fa fa-bolt fa-lg"></i>
-                <span>바로가기</span>
-                <i class="fa fa-caret-down fa-lg"></i>
-
-                <div class="gnb-menu-list">
-                    
-                <div class="gnb-menu-item" href="http://design-factory.co.kr/cms" target="blank">
-                    <span class="square">■</span>
-                    <span>디팩CMS 관리자</span>
-                </div>
-                <div class="gnb-menu-item" href="https://admin8.kcp.co.kr" target="blank">
-                    <span class="square">■</span>
-                    <span>KCP PG관리자</span>
-                </div>
-                <div class="gnb-menu-item" href="javascript:alert('심사 전 입니다.');">
-                    <span class="square">■</span>
-                    <span>네이버페이 관리자</span>
-                </div>
-                <div class="gnb-menu-item" href="javascript:alert('심사 전 입니다.');">
-                    <span class="square">■</span>
-                    <span>지식쇼핑 파트너존</span>
-                </div>
-            
-                </div>
-            </div-->
-
             <?php if ($_SESSION['admin_part'] == "0") { ?>
                 <div class="gnb-menu">
                     <i class="fa fa-cog fa-lg"></i>
@@ -520,7 +500,3 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
         <div class="clear"></div>
 
         <div id="pageContainer">
-            
-
-
-

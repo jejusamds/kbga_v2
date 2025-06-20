@@ -83,6 +83,7 @@ if ($mode == "insert") {
     $sql .= "	, 		email			= '" . $email . "' ";
     $sql .= "	, 		subject			= '" . $subject . "' ";
     $sql .= "	, 		content			= '" . $content . "' ";
+    $sql .= "	, 		faq_a			= '" . $faq_a . "' ";
     $sql .= "	, 		ctype			= '" . $ctype . "' ";
     $sql .= "	, 		privacy			= '" . $privacy . "' ";
     $sql .= "	, 		passwd			= '" . $passwd . "' ";
@@ -90,6 +91,7 @@ if ($mode == "insert") {
     $sql .= "	, 		ip				= '" . $_SERVER['REMOTE_ADDR'] . "' ";
     $sql .= "	, 		wdate			= '" . $wdate . "' ";
     $sql .= "	,		media_url		= '" . $media_url . "' ";
+    $sql .= "	,		center_name		= '" . $center_name . "' ";
     if ($upfile_thumb != "") {
         $sql .= "	,		upfile			= '" . $upfile_thumb . "' ";
     }
@@ -138,6 +140,7 @@ else if ($mode == "update") {
     $sql .= "	, 		email		= '" . $email . "' ";
     $sql .= "	, 		subject		= '" . $subject . "' ";
     $sql .= "	, 		content		= '" . $content . "' ";
+    $sql .= "	, 		faq_a		= '" . $faq_a . "' ";
     $sql .= "	, 		ctype		= '" . $ctype . "' ";
     $sql .= "	, 		privacy		= '" . $privacy . "' ";
     $sql .= "	,		media_url	= '" . $media_url . "' ";
@@ -147,6 +150,7 @@ else if ($mode == "update") {
     }
     $sql .= "	, 		event_sdate		= '" . $event_sdate . "' ";
     $sql .= "	, 		event_edate		= '" . $event_edate . "' ";
+    $sql .= "	,		center_name		= '" . $center_name . "' ";
     $sql .= "	Where	idx			= '" . $idx . "' ";
     $db->query($sql);
 

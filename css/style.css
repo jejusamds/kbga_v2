@@ -1524,7 +1524,7 @@ select::-ms-expand {display:none;}
 .faq_notice_con {}
 .faq_notice_con > ul {}
 .faq_notice_con > ul > li {margin:min(9px, 0.47vw) 0 0 0;}
-.faq_notice_con > ul > li .list_div {}
+.faq_notice_con > ul > li .list_div {word-break:break-all;}
 .faq_notice_con > ul > li .list_div > .q_con {background-color:#F8F8F8; padding:min(12px, 0.63vw) min(29px, 1.51vw); cursor:pointer;}
 .faq_notice_con > ul > li .list_div > .q_con > table {width:100%; margin:0 auto;}
 .faq_notice_con > ul > li .list_div > .q_con > table > tbody > tr > td {}
