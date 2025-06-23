@@ -18,6 +18,7 @@ $field = isset($_REQUEST['field']) ? trim($_REQUEST['field']) : '';
 $dir_arr = [
     'sigong' => 'business',
     'sihang' => 'business'
+    ,'competition' => 'competition'
 ];
 $dir = isset($dir_arr[$table]) ? $dir_arr[$table] : '';
 

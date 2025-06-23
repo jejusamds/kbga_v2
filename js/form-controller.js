@@ -19,7 +19,8 @@ class FormValidator {
         },
         clicked: (value, element) => {
             if (element.type === 'checkbox') {
-                return element.checked;
+                const group = this.form.querySelectorAll(`input[name="${element.name}"]`);
+                return Array.from(group).some(cb => cb.checked);
             } else if (element.type === 'radio') {
                 const radioGroup = this.form.querySelectorAll(`input[name="${element.name}"]`);
                 return Array.from(radioGroup).some(radio => radio.checked);

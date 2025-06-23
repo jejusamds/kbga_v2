@@ -13,7 +13,6 @@ if ($is_login) {
     $default = [
         'f_user_name' => htmlspecialchars($login_user_info['f_user_name'], ENT_QUOTES),
         'f_tel' => htmlspecialchars($login_user_info['f_tel'], ENT_QUOTES),
-        'f_birth_date' => htmlspecialchars(str_replace('-', '.', $login_user_info['f_birth_date']), ENT_QUOTES),
         'f_zip' => htmlspecialchars($login_user_info['f_zip'], ENT_QUOTES),
         'f_address1' => htmlspecialchars($login_user_info['f_address1'], ENT_QUOTES),
         'f_address2' => htmlspecialchars($login_user_info['f_address2'], ENT_QUOTES),
@@ -23,7 +22,6 @@ if ($is_login) {
 
 $items = $db->query("SELECT idx, f_item_name, f_category FROM df_site_qualification_item ORDER BY f_item_name ASC");
 $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df_site_application ORDER BY f_year DESC, f_round DESC");
-
 
 ?>
 
@@ -56,12 +54,12 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                     <div class="list_con">
                         <ul>
                             <li>
-                                <a href="/center/center_sub_apply.php?category=<?=$category?>" class="on">
+                                <a href="/center/center_sub_apply.php?category=<?=$category?>" >
                                     개인접수
                                 </a>
                             </li>
                             <li>
-                                <a href="/center/center_sub_apply_o.php?category=<?=$category?>">
+                                <a href="/center/center_sub_apply_o.php?category=<?=$category?>" class="on">
                                     단체접수
                                 </a>
                             </li>
@@ -109,12 +107,12 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
 
                 <div class="contents_con">
 
-                    <form id="applyForm" action="/controller/applicate_controller.php" method="post"
+                    <form id="applyForm" action="/controller/applicate_controller_o.php" method="post"
                         enctype="multipart/form-data" autocomplete="off">
 
                         <input type="hidden" name="mode" value="register" />
                         <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
-                        <input type="hidden" name="f_applicant_type" value="P" />
+                        <input type="hidden" name="f_applicant_type" value="O" />
                         <div class="write_con">
                             <div class="contents_con">
                                 <div class="input_con">
@@ -135,16 +133,24 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                                         data-required="y" data-label="자격분야를"
                                                                         class="select" <?= $selected_category ? 'disabled' : '' ?>>
                                                                         <option value="" <?= $selected_category ? '' : 'selected' ?>>자격분야를 선택해주세요.</option>
-                                                                        <option value="makeup" <?= $selected_category === 'makeup' ? 'selected' : '' ?>>메이크업</option>
-                                                                        <option value="nail" <?= $selected_category === 'nail' ? 'selected' : '' ?>>네일</option>
-                                                                        <option value="hair" <?= $selected_category === 'hair' ? 'selected' : '' ?>>헤어</option>
-                                                                        <option value="skin" <?= $selected_category === 'skin' ? 'selected' : '' ?>>피부</option>
-                                                                        <option value="half" <?= $selected_category === 'half' ? 'selected' : '' ?>>반영구</option>
-                                                                        <option value="foreign" <?= $selected_category === 'foreign' ? 'selected' : '' ?>>해외인증</option>
-                                                                        <option value="teacher" <?= $selected_category === 'teacher' ? 'selected' : '' ?>>강사인증</option>
+                                                                        <option value="makeup"
+                                                                            <?= $selected_category === 'makeup' ? 'selected' : '' ?>>메이크업</option>
+                                                                        <option value="nail"
+                                                                            <?= $selected_category === 'nail' ? 'selected' : '' ?>>네일</option>
+                                                                        <option value="hair"
+                                                                            <?= $selected_category === 'hair' ? 'selected' : '' ?>>헤어</option>
+                                                                        <option value="skin"
+                                                                            <?= $selected_category === 'skin' ? 'selected' : '' ?>>피부</option>
+                                                                        <option value="half"
+                                                                            <?= $selected_category === 'half' ? 'selected' : '' ?>>반영구</option>
+                                                                        <option value="foreign"
+                                                                            <?= $selected_category === 'foreign' ? 'selected' : '' ?>>해외인증</option>
+                                                                        <option value="teacher"
+                                                                            <?= $selected_category === 'teacher' ? 'selected' : '' ?>>강사인증</option>
                                                                     </select>
                                                                     <?php if ($selected_category): ?>
-                                                                    <input type="hidden" name="f_category" value="<?= htmlspecialchars($selected_category) ?>" />
+                                                                        <input type="hidden" name="f_category"
+                                                                            value="<?= htmlspecialchars($selected_category) ?>" />
                                                                     <?php endif; ?>
                                                                 </td>
                                                             </tr>
@@ -169,9 +175,10 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                                         <option value="">자격종목을 선택해주세요.</option>
 
                                                                         <?php foreach ($items as $it): ?>
-    <option value="<?= $it['idx'] ?>" data-category="<?= $it['f_category'] ?>">
-        <?= htmlspecialchars($it['f_item_name'], ENT_QUOTES) ?>
-    </option>
+                                                                            <option value="<?= $it['idx'] ?>"
+                                                                                data-category="<?= $it['f_category'] ?>">
+                                                                                <?= htmlspecialchars($it['f_item_name'], ENT_QUOTES) ?>
+                                                                            </option>
                                                                         <?php endforeach; ?>
 
                                                                     </select>
@@ -196,12 +203,13 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                                         class="select">
                                                                         <option value="">시험일정 선택을 선택해주세요.</option>
                                                                         <?php foreach ($schedules as $sc): ?>
-    <option value="<?= $sc['idx'] ?>" data-category="<?= $sc['f_category'] ?>">
-        <?= $sc['f_year'] ?>년
-        <?= $sc['f_round'] ?>회차
-        <?= htmlspecialchars($sc['f_type'], ENT_QUOTES) ?>
-    </option>
-<?php endforeach; ?>
+                                                                            <option value="<?= $sc['idx'] ?>"
+                                                                                data-category="<?= $sc['f_category'] ?>">
+                                                                                <?= $sc['f_year'] ?>년
+                                                                                <?= $sc['f_round'] ?>회차
+                                                                                <?= htmlspecialchars($sc['f_type'], ENT_QUOTES) ?>
+                                                                            </option>
+                                                                        <?php endforeach; ?>
 
                                                                     </select>
                                                                 </td>
@@ -217,13 +225,14 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                             <tr>
                                                                 <td align="left" class="title_td">
                                                                     <span>
-                                                                        이름
+                                                                        단체명
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
                                                                     <input type="text" name="f_user_name"
-                                                                        id="f_user_name" placeholder="이름을 적어주세요."
-                                                                        class="input" data-required="y" data-label="이름을"
+                                                                        id="f_user_name" placeholder="단체명을 적어주세요."
+                                                                        class="input" data-required="y"
+                                                                        data-label="단체명을"
                                                                         value="<?= $default['f_user_name'] ?? '' ?>" />
                                                                 </td>
                                                             </tr>
@@ -237,14 +246,14 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                             <tr>
                                                                 <td align="left" class="title_td">
                                                                     <span>
-                                                                        영문이름
+                                                                        담당자
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
                                                                     <input type="text" name="f_user_name_en"
-                                                                        id="f_user_name_en" placeholder="영문이름을 적어주세요."
+                                                                        id="f_user_name_en" placeholder="담당자를 적어주세요."
                                                                         class="input" data-required="y"
-                                                                        data-label="영문이름을" />
+                                                                        data-label="담당자를" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -279,15 +288,16 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                             <tr>
                                                                 <td align="left" class="title_td">
                                                                     <span>
-                                                                        생년월일
+                                                                        담당자 연락처
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-                                                                    <input type="tel" name="f_birth_date"
-                                                                        placeholder="0000.00.00" id="birthdate_input"
-                                                                        class="input" data-required="y"
-                                                                        data-label="생년월일을"
-                                                                        value="<?= $default['f_birth_date'] ?? '' ?>" />
+                                                                    <input type="tel" name="f_contact_phone"
+                                                                        id="f_contact_phone" maxlength="13"
+                                                                        placeholder="000-0000-0000"
+                                                                        class="input tel_input" data-required="y"
+                                                                        data-validate-type="tel"
+                                                                        data-label="담당자 연락처를" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -320,9 +330,10 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                                                             value="<?= $default['f_zip'] ?? '' ?>" />
                                                                                     </td>
                                                                                     <td align="left" class="btn_td">
-        <a href="#" class="a_btn" onclick="openPostcode(); return false;">
-            검색
-        </a>
+                                                                                        <a href="#" class="a_btn"
+                                                                                            onclick="openPostcode(); return false;">
+                                                                                            검색
+                                                                                        </a>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -755,23 +766,6 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
 </div>
 
 <script type="text/javascript" language="javascript">
-    // 생년월일
-    const input = document.getElementById('birthdate_input');
-    input.addEventListener('input', function () {
-        let value = input.value.replace(/\D/g, ''); // 숫자 이외 제거
-        if (value.length > 8) value = value.slice(0, 8); // 최대 8자리
-
-        let formatted = '';
-        if (value.length <= 4) {
-            formatted = value;
-        } else if (value.length <= 6) {
-            formatted = `${value.slice(0, 4)}.${value.slice(4)}`;
-        } else {
-            formatted = `${value.slice(0, 4)}.${value.slice(4, 6)}.${value.slice(6)}`;
-        }
-
-        input.value = formatted;
-    });
 
     // 연락처
     $(document).on("keyup", ".tel_input", function () {
@@ -802,7 +796,6 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
     const categorySelect = document.getElementById('f_category');
     const itemSelect = document.getElementById('f_item_idx');
     const itemOptions = Array.from(itemSelect.querySelectorAll('option')).filter(opt => opt.value !== '');
-
     const itemPlaceholder = itemSelect.querySelector('option[value=""]');
 
     const scheduleSelect = document.getElementById('f_schedule_idx');
@@ -813,7 +806,6 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
         const selected = categorySelect.value;
         // 초기화
         itemSelect.innerHTML = '';
-
         if (itemPlaceholder) itemSelect.appendChild(itemPlaceholder);
         itemOptions.forEach(opt => {
             if (selected && opt.dataset.category === selected) {
@@ -835,7 +827,6 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
     categorySelect.addEventListener('change', updateItemOptions);
     // 초기 호출 (페이지 로드 시 기본값 적용)
     updateItemOptions();
-
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -848,7 +839,6 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
             }
         }).open();
     }
-
 </script>
 
 <?php

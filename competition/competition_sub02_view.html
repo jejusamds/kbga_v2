@@ -1,190 +1,135 @@
 <?php
-	$Menu = "04";
-	$sMenu = "04-2";
+$Menu = "04";
+$sMenu = "04-2";
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+$idx = isset($_GET['idx']) && ctype_digit($_GET['idx']) ? (int) $_GET['idx'] : 0;
+if ($idx < 1) {
+    echo "<script>alert('잘못된 접근입니다.');history.back();</script>";
+    exit;
+}
+$page = isset($_GET['page']) && ctype_digit($_GET['page']) ? (int) $_GET['page'] : 1;
+
+$db->query("UPDATE df_site_competition SET `count` = `count` + 1 WHERE idx = :idx", ['idx' => $idx]);
+
+$row = $db->row("SELECT * FROM df_site_competition WHERE idx=:idx", ['idx' => $idx]);
+if (!$row) {
+    echo "<script>alert('존재하지 않는 게시글입니다.');history.back();</script>";
+    exit;
+}
+
+$attachments = $db->query("SELECT upfile, upfile_name FROM df_site_competition_files WHERE bbsidx=:idx ORDER BY idx ASC", ['idx' => $idx]);
 ?>
-
-	<div id="container">
-		<div id="sub_con">
-			<?php
-				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
-			?>
-
-			<div class="contents_con">
-				
-				<div class="notice_view_con tournament_notice">
-					<div class="view_con">
-						<div class="title_con">
-							<table cellpadding="0" cellspacing="0">
-								<tbody>
-									<tr>
-										<td align="left" class="text_td">
-											<div class="title_con">
-												<span>
-													대회명
-												</span>
-											</div>
-
-											<div class="info_con">
-												<span>
-													장소
-												</span>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-
-						<div class="contents_con">			
-							<div class="posts_con">
-								<div class="img_con" style="background-image:url('/img/sub/tournament_notice_list_img_con_none_img.png');">
-									<img src="/img/sub/tournament_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
-								</div>
-
-								<div class="text_con">
-									<div class="text01_con">
-										<ul>
-											<li>
-												<div class="list_div">
-													<div class="title_con">
-														<span>
-															명칭
-														</span>
-													</div>
-
-													<div class="info_con">
-														<span>
-															NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner
-														</span>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="list_div">
-													<div class="title_con">
-														<span>
-															일시
-														</span>
-													</div>
-
-													<div class="info_con">
-														<span>
-															NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner
-														</span>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="list_div">
-													<div class="title_con">
-														<span>
-															장소
-														</span>
-													</div>
-
-													<div class="info_con">
-														<span>
-															NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner
-														</span>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="list_div">
-													<div class="title_con">
-														<span>
-															참가대상
-														</span>
-													</div>
-
-													<div class="info_con">
-														<span>
-															NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner
-														</span>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="list_div">
-													<div class="title_con">
-														<span>
-															신청기간
-														</span>
-													</div>
-
-													<div class="info_con">
-														<span>
-															NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner
-														</span>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-
-									<div class="text02_con">
-										<div class="list_div">
-											<div class="title_con">
-												<span>
-													세부사항
-												</span>
-											</div>
-
-											<div class="info_con">
-												<span>
-													NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner NLP Practitioner
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="file_con">
-								<table cellpadding="0" cellspacing="0">
-									<tbody>
-										<tr>
-											<td align="left" class="title_td">
-												<img src="/img/sub/notice_file_icon.svg" alt="파일 아이콘" class="fx" />
-
-												<span>
-													첨부파일
-												</span>
-											</td>
-											<td align="left" class="info_td">
-												<ul>
-													<li>
-														<a href="#">
-															첨부파일명
-														</a>
-													</li>
-													<li>
-														<a href="#">
-															첨부파일명
-														</a>
-													</li>
-												</ul>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<div class="btn_con">
-						<a href="/competition/competition_sub02.html" class="a_btn">
-							목록
-						</a>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-<?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
-?>	
+<div id="container">
+    <div id="sub_con">
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.html'; ?>
+        <div class="contents_con">
+            <div class="notice_view_con tournament_notice">
+                <div class="view_con">
+                    <div class="title_con">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td align="left" class="text_td">
+                                        <div class="title_con">
+                                            <span><?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?></span></div>
+                                        <div class="info_con">
+                                            <span><?= htmlspecialchars($row['f_place'], ENT_QUOTES) ?></span></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="contents_con">
+                        <div class="posts_con">
+                            <div class="img_con"
+                                style="background-image:url('/userfiles/competition/<?= rawurlencode($row['f_image']) ?>');">
+                                <img src="/img/sub/tournament_notice_list_img_con_blank_img.png" alt="블랭크 이미지"
+                                    class="fx" />
+                            </div>
+                            <div class="text_con">
+                                <div class="text01_con">
+                                    <ul>
+                                        <li>
+                                            <div class="list_div">
+                                                <div class="title_con"><span>명칭</span></div>
+                                                <div class="info_con">
+                                                    <span><?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list_div">
+                                                <div class="title_con"><span>일시</span></div>
+                                                <div class="info_con">
+                                                    <span><?= htmlspecialchars($row['f_date'], ENT_QUOTES) ?></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list_div">
+                                                <div class="title_con"><span>장소</span></div>
+                                                <div class="info_con">
+                                                    <span><?= htmlspecialchars($row['f_place'], ENT_QUOTES) ?></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list_div">
+                                                <div class="title_con"><span>참가대상</span></div>
+                                                <div class="info_con">
+                                                    <span><?= htmlspecialchars($row['f_target'], ENT_QUOTES) ?></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list_div">
+                                                <div class="title_con"><span>신청기간</span></div>
+                                                <div class="info_con">
+                                                    <span><?= htmlspecialchars($row['f_reg_period'], ENT_QUOTES) ?></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="text02_con">
+                                    <div class="list_div">
+                                        <div class="title_con"><span>세부사항</span></div>
+                                        <div class="info_con">
+                                            <span><?= nl2br(htmlspecialchars($row['f_detail'], ENT_QUOTES)) ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if (!empty($attachments)): ?>
+                            <div class="file_con">
+                                <table cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left" class="title_td"><img src="/img/sub/notice_file_icon.svg"
+                                                    alt="파일 아이콘" class="fx" /><span>첨부파일</span></td>
+                                            <td align="left" class="info_td">
+                                                <ul>
+                                                    <?php foreach ($attachments as $file): ?>
+                                                        <li><a href="/userfiles/competition/<?= rawurlencode($file['upfile']) ?>"
+                                                                download="<?= htmlspecialchars($file['upfile_name'], ENT_QUOTES) ?>"><?= htmlspecialchars($file['upfile_name'], ENT_QUOTES) ?></a>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="btn_con">
+                    <a href="/competition/competition_sub02.html?page=<?= $page ?>" class="a_btn">목록</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html'; ?>

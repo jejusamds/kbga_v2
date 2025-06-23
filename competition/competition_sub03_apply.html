@@ -1,9 +1,12 @@
 <?php
-	$Menu = "04";
-	$sMenu = "04-3";
+        $Menu = "04";
+        $sMenu = "04-3";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+
+        $competitions = $db->query("SELECT idx,f_title FROM df_site_competition ORDER BY idx DESC");
 ?>
+        <script src="/js/form-controller.js"></script>
 
 	<div id="container">
 		<div id="sub_con">
@@ -84,7 +87,9 @@
 					
 					<div class="contents_con">
 
-						<form action="" method="" autocomplete="off">
+                                                <form id="applyForm" action="/controller/competition_apply_controller.php" method="post" enctype="multipart/form-data" autocomplete="off">
+                                                        <input type="hidden" name="mode" value="register" />
+                                                        <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
 							<div class="write_con">
 								<div class="contents_con">
 									<div class="input_con">
@@ -101,9 +106,12 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<select name="" class="select">
-																			<option value="">대회구분을 선택해주세요.</option>
-																		</select>
+                                                                        <select name="f_competition_idx" id="f_competition_idx" class="select" data-required="y" data-label="대회구분을">
+                                                                               <option value="">대회구분을 선택해주세요.</option>
+                                                                               <?php foreach ($competitions as $c): ?>
+                                                                               <option value="<?= $c['idx'] ?>"><?= htmlspecialchars($c['f_title'], ENT_QUOTES) ?></option>
+                                                                               <?php endforeach; ?>
+                                                                        </select>
 																	</td>
 																</tr>
 															</tbody>
@@ -120,9 +128,10 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<select name="" class="select">
-																			<option value="">참가부문을 선택해주세요.</option>
-																		</select>
+                                                                        <select name="f_part" class="select" data-required="y" data-label="참가부문을">
+                                                                               <option value="">참가부문을 선택해주세요.</option>
+                                                                               <option value="test">test</option>
+                                                                        </select>
 																	</td>
 																</tr>
 															</tbody>
@@ -140,9 +149,10 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<select name="" class="select">
-																			<option value="">종목분야를 선택해주세요.</option>
-																		</select>
+                                                                        <select name="f_field" class="select" data-required="y" data-label="종목분야를">
+                                                                               <option value="">종목분야를 선택해주세요.</option>
+                                                                               <option value="test">test</option>
+                                                                        </select>
 																	</td>
 																</tr>
 															</tbody>
@@ -159,9 +169,10 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<select name="" class="select">
-																			<option value="">참가종목을 선택해주세요.</option>
-																		</select>
+                                                                        <select name="f_event" class="select" data-required="y" data-label="참가종목을">
+                                                                               <option value="">참가종목을 선택해주세요.</option>
+                                                                               <option value="test">test</option>
+                                                                        </select>
 																	</td>
 																</tr>
 															</tbody>
@@ -179,7 +190,7 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<input type="text" name="" placeholder="이름을 적어주세요." class="input" />
+                                                                        <input type="text" name="f_user_name" placeholder="이름을 적어주세요." class="input" data-required="y" data-label="이름을" />
 																	</td>
 																</tr>
 															</tbody>
@@ -235,7 +246,7 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<input type="text" name="" placeholder="영문이름을 적어주세요." class="input" />
+                                                                        <input type="text" name="f_user_name_en" placeholder="영문이름을 적어주세요." class="input" data-required="y" data-label="영문이름을" />
 																	</td>
 																</tr>
 															</tbody>
@@ -252,7 +263,7 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<input type="tel" name="" placeholder="0000.00.00" id="birthdate_input" class="input" />
+                                                                        <input type="tel" name="f_birth_date" placeholder="0000.00.00" id="birthdate_input" class="input" data-required="y" data-label="생년월일을" />
 																	</td>
 																</tr>
 															</tbody>
@@ -270,7 +281,7 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<input type="tel" name="" maxlength="13" placeholder="000-0000-0000" class="input tel_input" />
+                                                                        <input type="tel" name="f_tel" maxlength="13" placeholder="000-0000-0000" class="input tel_input" data-required="y" data-validate-type="tel" data-label="연락처를" />
 																	</td>
 																</tr>
 															</tbody>
@@ -287,7 +298,7 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<input type="text" name="" placeholder="이메일을 적어주세요." class="input" />
+                                                                        <input type="text" name="f_email" placeholder="이메일을 적어주세요." class="input" data-required="y" data-validate-type="email" data-label="이메일을" />
 																	</td>
 																</tr>
 															</tbody>
@@ -310,12 +321,12 @@
 																				<tbody>
 																					<tr>
 																						<td align="left" class="input_td">
-																							<input type="text" name="" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" />
+                                                                        <input type="text" name="f_zip" id="f_zip" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" data-required="y" data-label="우편번호를" />
 																						</td>
 																						<td align="left" class="btn_td">
-																							<a href="#" class="a_btn">
-																								검색
-																							</a>
+                                                                        <a href="#" class="a_btn" onclick="openPostcode(); return false;">
+                                                                               검색
+                                                                        </a>
 																						</td>
 																					</tr>
 																				</tbody>
@@ -338,7 +349,7 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<input type="text" name="" placeholder="기본주소를 적어주세요." class="input" readonly="readonly" />
+                                                                        <input type="text" name="f_address1" id="f_address1" placeholder="기본주소를 적어주세요." class="input" readonly="readonly" data-required="y" data-label="기본주소를" />
 																	</td>
 																</tr>
 															</tbody>
@@ -355,7 +366,7 @@
 																		</span>
 																	</td>
 																	<td align="left" class="info_td">
-																		<input type="text" name="" placeholder="상세주소를 적어주세요." class="input" />
+                                                                        <input type="text" name="f_address2" id="f_address2" placeholder="상세주소를 적어주세요." class="input" data-required="y" data-label="상세주소를" />
 																	</td>
 																</tr>
 															</tbody>
@@ -386,7 +397,7 @@
 																				</span>
 																			</td>
 																			<td align="left" class="info_td">
-																				<input type="text" name="" placeholder="입금자명을 적어주세요." class="input" />
+                                                                        <input type="text" name="f_payer_name" placeholder="입금자명을 적어주세요." class="input" data-required="y" data-label="입금자명을" />
 																			</td>
 																		</tr>
 																	</tbody>
@@ -404,9 +415,13 @@
 																				</span>
 																			</td>
 																			<td align="left" class="info_td">
-																				<select name="" class="select">
-																					<option value="">은행(입금자)를 선택해주세요.</option>
-																				</select>
+                                                                        <select name="f_payer_bank" class="select" data-required="y" data-label="은행을">
+                                                                               <option value="">은행(입금자)를 선택해주세요.</option>
+                                                                               <option value="농협">농협</option>
+                                                                               <option value="신한">신한</option>
+                                                                               <option value="국민">국민</option>
+                                                                               <option value="기업">기업</option>
+                                                                        </select>
 																			</td>
 																		</tr>
 																	</tbody>
@@ -436,7 +451,7 @@
 																					<ul>
 																						<li>
 																							<label class="checkbox_label">
-																								<input type="checkbox" name="deposit_type" value="접수비" />
+                                                                        <input type="checkbox" name="f_payment_category[]" value="entry" data-required="y" data-label="입금 구분을" data-tag-type="clicked" />
 																								<div class="check_icon"></div>
 																								<span>
 																									접수비
@@ -474,7 +489,7 @@
 
 											<div class="check_con">
 												<label class="checkbox_label">
-													<input type="checkbox" name="" />
+                                                                        <input type="checkbox" name="agree_terms" data-required="y" data-label="유의사항에" data-tag-type="clicked" />
 													<div class="check_icon"></div>
 													<span>
 														동의합니다.
@@ -500,7 +515,7 @@
 
 											<div class="check_con">
 												<label class="checkbox_label">
-													<input type="checkbox" name="" />
+                                                                        <input type="checkbox" name="agree_privacy" data-required="y" data-label="개인정보 수집 및 이용에" data-tag-type="clicked" />
 													<div class="check_icon"></div>
 													<span>
 														개인정보수집 및 이용에 동의합니다.
@@ -512,9 +527,9 @@
 								</div>
 
 								<div class="btn_con">
-									<a href="#" class="a_btn a_btn01">
-										접수/신청
-									</a>
+                                                                        <a href="javascript:void(0);" onclick="submitForm('applyForm');" class="a_btn a_btn01">
+                                                                               접수/신청
+                                                                        </a>
 
 									<a href="/index_tmp.html" class="a_btn a_btn02">
 										취소
@@ -555,8 +570,8 @@
 		});
 		
 		// 연락처
-		function addHyphen(element) {
-			var phoneNumber = element.value.replace(/[^\d]/g, '');
+                function addHyphen(element) {
+                        var phoneNumber = element.value.replace(/[^\d]/g, '');
 
 			var formattedPhoneNumber = '';
 			for (var i = 0; i < phoneNumber.length && i < 11; i++) {
@@ -567,8 +582,20 @@
 			}
 
 			element.value = formattedPhoneNumber;
-		}
-	</script>
+                }
+        </script>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script>
+            function openPostcode() {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        document.getElementById('f_zip').value = data.zonecode;
+                        document.getElementById('f_address1').value = data.address;
+                        document.getElementById('f_address2').focus();
+                    }
+                }).open();
+            }
+        </script>
 
 <?php
 	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 

@@ -1,3 +1,163 @@
+Time : 16:31:30
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:29:29
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:26:57
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:26:42
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:26:38
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:26:15
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:24:53
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:24:49
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:24:25
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_item_idx' in 'field list'
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
+Time : 16:23:27
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_application_registration' doesn't exist
+Raw SQL : INSERT INTO df_site_application_registration (
+            f_applicant_type, f_category, f_item_idx, f_schedule_idx,
+            f_user_name, f_user_name_en, f_tel, f_birth_date,
+            f_zip, f_address1, f_address2, f_email,
+            f_application_type, f_issue_desire, f_issue_file,
+            f_payer_name, f_payer_bank, f_payment_category
+        ) VALUES (
+            :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
+            :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
+            :f_zip, :f_address1, :f_address2, :f_email,
+            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_payer_name, :f_payer_bank, :f_payment_category
+        )
+
 Time : 16:08:33
 SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_qualification_item' doesn't exist
 Raw SQL : SELECT idx, f_item_name FROM df_site_qualification_item ORDER BY f_item_name ASC

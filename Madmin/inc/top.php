@@ -15,6 +15,7 @@ $gb = @str_replace("marketing/", "", $gb);
 $gb = @str_replace("main_manage/", "", $gb);
 $gb = @str_replace("business/", "", $gb);
 $gb = @str_replace("application/", "", $gb);
+$gb = @str_replace("competition/", "", $gb);
 
 $gb = substr("$gb", 0, strpos($gb, ".php"));
 
@@ -52,6 +53,10 @@ $menu06 = array(
 $menu07 = array(
     "application_list",
     "application_input",
+);
+$menu08 = array(
+    "competition_list",
+    "competition_input",
 );
 
 $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
@@ -431,6 +436,19 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                 <div class="lnb-submenu-item <? if ($category == 'half') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=half">시험일정 관리 [반영구]</div>
                 <div class="lnb-submenu-item <? if ($category == 'foreign') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=foreign">시험일정 관리 [해외인증]</div>
                 <div class="lnb-submenu-item <? if ($category == 'teacher') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=teacher">시험일정 관리 [강사인증]</div>
+            </div>
+
+            <div class="lnb-menu <? if (in_array($gb, $menu08)) { ?>on<? } ?>">
+                <span class="left">
+                    <i class="fa fa-trophy fa-lg"></i>
+                    <span>대회 관리</span>
+                </span>
+                <span class="right">
+                    <i class="fa fa-<? if (in_array($gb, $menu08)) { ?>minus<? } else { ?>plus<? } ?>"></i>
+                </span>
+            </div>
+            <div class="lnb-submenu" style="display:<? if (in_array($gb, $menu08)) { ?>block;<? } else { ?>none;<? } ?>">
+                <div class="lnb-submenu-item <? if ($gb == 'competition_list') { ?>on<? } ?>" href="/Madmin/competition/competition_list.php">대회 관리</div>
             </div>
 
             <div class="lnb-menu <? if (in_array($gb, $menu02)) { ?>on<? } ?>">

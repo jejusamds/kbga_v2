@@ -15,7 +15,7 @@ m_con 은 모바일용
 <div id="container">
     <div id="sub_con" class="center_sub02">
         <?php
-        include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.html';
         ?>
 
         <div class="contents_con">
