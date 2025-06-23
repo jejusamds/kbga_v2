@@ -1,4 +1,4 @@
-<div class="banner_con <?php if($Menu=='01'){?>introduce<?php }else if($Menu=='02'){?>news<?php }else if($Menu=='03'){?>center<?php }else if($Menu=='04'){?>competition<?php }else if($Menu=='05'){?>community<?php }else if($Menu=='06'){?>member<?php }else if($Menu=='07'){?>mypage<?php }else if($Menu=='08'){?>search<?php }else{?><?php }?>">
+			<div class="banner_con <?php if($Menu=='01'){?>introduce<?php }else if($Menu=='02'){?>news<?php }else if($Menu=='03'){?>center<?php }else if($Menu=='04'){?>competition<?php }else if($Menu=='05'){?>community<?php }else if($Menu=='06'){?>member<?php }else if($Menu=='07'){?>mypage<?php }else if($Menu=='08'){?>search<?php }else{?><?php }?>">
 				<div class="text_con">
 					<div class="text01_con">
 						<span>
@@ -66,37 +66,37 @@
 								</a>
 							</li>
 							<li>
-								<a href="/center/center_sub.php?category=makeup" class="<?php if($sMenu=='03-2'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub02.html" class="<?php if($sMenu=='03-2'){?>on<?php }else{?><?php }?>">
 									메이크업자격
 								</a>
 							</li>
 							<li>
-								<a href="/center/center_sub.php?category=nail" class="<?php if($sMenu=='03-3'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub03.html" class="<?php if($sMenu=='03-3'){?>on<?php }else{?><?php }?>">
 									네일자격
 								</a>
 							</li>
 							<li>
-								<a href="/center/center_sub.php?category=hair" class="<?php if($sMenu=='03-4'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub04.html" class="<?php if($sMenu=='03-4'){?>on<?php }else{?><?php }?>">
 									헤어자격
 								</a>
 							</li>
 							<li>
-								<a href="/center/center_sub.php?category=skin" class="<?php if($sMenu=='03-5'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub05.html" class="<?php if($sMenu=='03-5'){?>on<?php }else{?><?php }?>">
 									피부자격
 								</a>
 							</li>
 							<li>
-								<a href="/center/center_sub.php?category=half" class="<?php if($sMenu=='03-6'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub06.html" class="<?php if($sMenu=='03-6'){?>on<?php }else{?><?php }?>">
 									반영구자격
 								</a>
 							</li>
 							<li>
-								<a href="/center/center_sub.php?category=foreign" class="<?php if($sMenu=='03-7'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub07.html" class="<?php if($sMenu=='03-7'){?>on<?php }else{?><?php }?>">
 									해외인증자격
 								</a>
 							</li>
 							<li>
-								<a href="/center/center_sub.php?category=teacher" class="<?php if($sMenu=='03-8'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub08.html" class="<?php if($sMenu=='03-8'){?>on<?php }else{?><?php }?>">
 									강사인증자격
 								</a>
 							</li>
@@ -184,7 +184,7 @@
 							</li>
 							<?php }else if( $sMenu == "03-2" ){?>
 							<li>
-								<a href="/center/center_sub.php?category=makeup" class="<?php if($ssMenu=='03-2-1'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub02.html" class="<?php if($ssMenu=='03-2-1'){?>on<?php }else{?><?php }?>">
 									시험일정
 								</a>
 							</li>
@@ -205,7 +205,7 @@
 							</li>
 							<?php }else if( $sMenu == "03-3" ){?>
 							<li>
-								<a href="/center/center_sub.php?category=nail" class="<?php if($ssMenu=='03-3-1'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub03.html" class="<?php if($ssMenu=='03-3-1'){?>on<?php }else{?><?php }?>">
 									시험일정
 								</a>
 							</li>
@@ -226,7 +226,7 @@
 							</li>
 							<?php }else if( $sMenu == "03-4" ){?>
 							<li>
-								<a href="/center/center_sub.php?category=hair" class="<?php if($ssMenu=='03-4-1'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub04.html" class="<?php if($ssMenu=='03-4-1'){?>on<?php }else{?><?php }?>">
 									시험일정
 								</a>
 							</li>
@@ -247,7 +247,7 @@
 							</li>
 							<?php }else if( $sMenu == "03-5" ){?>
 							<li>
-								<a href="/center/center_sub.php?category=skin" class="<?php if($ssMenu=='03-5-1'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub05.html" class="<?php if($ssMenu=='03-5-1'){?>on<?php }else{?><?php }?>">
 									시험일정
 								</a>
 							</li>
@@ -268,7 +268,7 @@
 							</li>
 							<?php }else if( $sMenu == "03-6" ){?>
 							<li>
-								<a href="/center/center_sub.php?category=half" class="<?php if($ssMenu=='03-6-1'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub06.html" class="<?php if($ssMenu=='03-6-1'){?>on<?php }else{?><?php }?>">
 									시험일정
 								</a>
 							</li>
@@ -289,7 +289,7 @@
 							</li>
 							<?php }else if( $sMenu == "03-7" ){?>
 							<li>
-								<a href="/center/center_sub.php?category=foreign" class="<?php if($ssMenu=='03-7-1'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub07.html" class="<?php if($ssMenu=='03-7-1'){?>on<?php }else{?><?php }?>">
 									시험일정
 								</a>
 							</li>
@@ -310,7 +310,7 @@
 							</li>
 							<?php }else if( $sMenu == "03-8" ){?>
 							<li>
-								<a href="/center/center_sub.php?category=teacher" class="<?php if($ssMenu=='03-8-1'){?>on<?php }else{?><?php }?>">
+								<a href="/center/center_sub08.html" class="<?php if($ssMenu=='03-8-1'){?>on<?php }else{?><?php }?>">
 									시험일정
 								</a>
 							</li>
@@ -364,7 +364,7 @@
 								</div>
 								<?php }else if( $sMenu == "03-2" ){?>
 								<div class="swiper-slide">
-									<a href="/center/center_sub.php?category=makeup" class="<?php if($ssMenu=='03-2-1'){?>on<?php }else{?><?php }?>">
+									<a href="/center/center_sub02.html" class="<?php if($ssMenu=='03-2-1'){?>on<?php }else{?><?php }?>">
 										시험일정
 									</a>
 								</div>
@@ -385,7 +385,7 @@
 								</div>
 								<?php }else if( $sMenu == "03-3" ){?>
 								<div class="swiper-slide">
-									<a href="/center/center_sub.php?category=nail" class="<?php if($ssMenu=='03-3-1'){?>on<?php }else{?><?php }?>">
+									<a href="/center/center_sub03.html" class="<?php if($ssMenu=='03-3-1'){?>on<?php }else{?><?php }?>">
 										시험일정
 									</a>
 								</div>
@@ -406,7 +406,7 @@
 								</div>
 								<?php }else if( $sMenu == "03-4" ){?>
 								<div class="swiper-slide">
-									<a href="/center/center_sub.php?category=hair" class="<?php if($ssMenu=='03-4-1'){?>on<?php }else{?><?php }?>">
+									<a href="/center/center_sub04.html" class="<?php if($ssMenu=='03-4-1'){?>on<?php }else{?><?php }?>">
 										시험일정
 									</a>
 								</div>
@@ -427,7 +427,7 @@
 								</div>
 								<?php }else if( $sMenu == "03-5" ){?>
 								<div class="swiper-slide">
-									<a href="/center/center_sub.php?category=skin" class="<?php if($ssMenu=='03-5-1'){?>on<?php }else{?><?php }?>">
+									<a href="/center/center_sub05.html" class="<?php if($ssMenu=='03-5-1'){?>on<?php }else{?><?php }?>">
 										시험일정
 									</a>
 								</div>
@@ -448,7 +448,7 @@
 								</div>
 								<?php }else if( $sMenu == "03-6" ){?>
 								<div class="swiper-slide">
-									<a href="/center/center_sub.php?category=half" class="<?php if($ssMenu=='03-6-1'){?>on<?php }else{?><?php }?>">
+									<a href="/center/center_sub06.html" class="<?php if($ssMenu=='03-6-1'){?>on<?php }else{?><?php }?>">
 										시험일정
 									</a>
 								</div>
@@ -469,7 +469,7 @@
 								</div>
 								<?php }else if( $sMenu == "03-7" ){?>
 								<div class="swiper-slide">
-									<a href="/center/center_sub.php?category=foreign" class="<?php if($ssMenu=='03-7-1'){?>on<?php }else{?><?php }?>">
+									<a href="/center/center_sub07.html" class="<?php if($ssMenu=='03-7-1'){?>on<?php }else{?><?php }?>">
 										시험일정
 									</a>
 								</div>
@@ -490,7 +490,7 @@
 								</div>
 								<?php }else if( $sMenu == "03-8" ){?>
 								<div class="swiper-slide">
-									<a href="/center/center_sub.php?category=teacher" class="<?php if($ssMenu=='03-8-1'){?>on<?php }else{?><?php }?>">
+									<a href="/center/center_sub08.html" class="<?php if($ssMenu=='03-8-1'){?>on<?php }else{?><?php }?>">
 										시험일정
 									</a>
 								</div>

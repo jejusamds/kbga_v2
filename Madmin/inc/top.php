@@ -424,7 +424,13 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             </div>
             <div class="lnb-submenu"
                 style="display:<? if (in_array($gb, $menu07)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if (in_array($gb, $menu07)) { ?>on<? } ?>" href="/Madmin/application/application_list.php">시험일정 관리</div>
+                <div class="lnb-submenu-item <? if ($category == 'makeup') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=makeup">시험일정 관리 [메이크업]</div>
+                <div class="lnb-submenu-item <? if ($category == 'nail') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=nail">시험일정 관리 [네일]</div>
+                <div class="lnb-submenu-item <? if ($category == 'hair') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=hair">시험일정 관리 [헤어]</div>
+                <div class="lnb-submenu-item <? if ($category == 'skin') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=skin">시험일정 관리 [피부]</div>
+                <div class="lnb-submenu-item <? if ($category == 'half') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=half">시험일정 관리 [반영구]</div>
+                <div class="lnb-submenu-item <? if ($category == 'foreign') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=foreign">시험일정 관리 [해외인증]</div>
+                <div class="lnb-submenu-item <? if ($category == 'teacher') { ?>on<? } ?>" href="/Madmin/application/application_list.php?category=teacher">시험일정 관리 [강사인증]</div>
             </div>
 
             <div class="lnb-menu <? if (in_array($gb, $menu02)) { ?>on<? } ?>">

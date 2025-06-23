@@ -1401,6 +1401,8 @@ select::-ms-expand {display:none;}
 .exam_notice_con > .list_con > .list_con > ul > li > .m_con > .contents_con .contents_div > .btn_con {margin:15px 0 0 0;}
 .exam_notice_con > .list_con > .list_con > ul > li > .m_con > .contents_con .contents_div > .btn_con .a_btn {display:block; border:1px solid #9E9E9E; background-color:#F8F8F8; text-align:center; font-size:16px; color:#9E9E9E; font-weight:700; line-height:34px; letter-spacing:-0.384px; overflow:hidden; border-radius:5px;}
 .exam_notice_con > .list_con > .list_con > ul > li > .m_con > .contents_con .contents_div:first-child {display:block;}
+.exam_notice_con > .list_con > .list_con > ul > .none_li {margin:0; text-align:center;}
+.exam_notice_con > .list_con > .list_con > ul > .none_li span {font-size:min(18px, 0.94vw); color:#3E3E3E; line-height:min(500px, 26.04vw); letter-spacing:max(-0.432px, -0.02vw);}
 
 /*자료 게시판*/
 .data_notice_con {}

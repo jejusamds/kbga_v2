@@ -1,5 +1,5 @@
 [SQL]
-host = localhost
-user = df77_kbga
-password = "elvor0810!"
-dbname = df77_kbga
+host = db.kbga8800.gabia.io
+user = kbga8800
+password = "oitori0619#"
+dbname = dbkbga8800

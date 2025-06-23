@@ -1,0 +1,18 @@
+Time : 16:08:33
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_qualification_item' doesn't exist
+Raw SQL : SELECT idx, f_item_name FROM df_site_qualification_item ORDER BY f_item_name ASC
+
+Time : 16:08:19
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_qualification_item' doesn't exist
+Raw SQL : SELECT idx, f_item_name FROM df_site_qualification_item ORDER BY f_item_name ASC
+
+Time : 16:07:53
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_qualification_item' doesn't exist
+Raw SQL : SELECT idx, f_item_name FROM df_site_qualification_item ORDER BY f_item_name ASC
+
+Time : 16:07:39
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_qualification_item' doesn't exist
+Raw SQL : SELECT idx, f_item_name FROM df_site_qualification_item ORDER BY f_item_name ASC
+
+Time : 15:53:25
+SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)

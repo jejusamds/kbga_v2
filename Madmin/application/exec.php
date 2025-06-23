@@ -3,8 +3,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/inc/global.inc';
 include $_SERVER['DOCUMENT_ROOT'] . '/inc/util_lib.inc';
 
 $table = 'df_site_application';
-$mode  = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
-$page  = isset($_REQUEST['page']) ? (int)$_REQUEST['page'] : 1;
+$mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
+$page = isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 1;
+
+$query_str = "&category=" . $_POST[f_category];
 
 // 공통 필드 목록
 $fields = [
@@ -36,10 +38,17 @@ switch ($mode) {
         $y = $params['f_year'] ?? null;
         $r = $params['f_round'] ?? null;
         if ($y && $r) {
-            $chk = $db->single(
-                "SELECT COUNT(*) FROM {$table} WHERE f_year = :y AND f_round = :r",
-                ['y' => $y, 'r' => $r]
-            );
+            if ($_POST['f_category'] != 'teacher') {
+                $chk = $db->single(
+                    "SELECT COUNT(*) FROM {$table} WHERE f_year = :y AND f_round = :r AND f_category = :f_category",
+                    ['y' => $y, 'r' => $r, 'f_category' => $_POST['f_category']]
+                );
+            } else {
+                $chk = $db->single(
+                    "SELECT COUNT(*) FROM {$table} WHERE f_year = :y AND f_round = :r AND f_category = :f_category AND f_type = :f_type",
+                    ['y' => $y, 'r' => $r, 'f_category' => $_POST['f_category'], 'f_type' => $_POST['f_type']]
+                );
+            }
             if ($chk > 0) {
                 error('이미 동일한 년도와 회차의 데이터가 존재합니다.');
                 exit;
@@ -47,13 +56,13 @@ switch ($mode) {
         }
 
         $sql = "INSERT INTO {$table} (" . implode(',', $cols) . ", wdate) " .
-               "VALUES (" . implode(',', $vals) . ", NOW())";
+            "VALUES (" . implode(',', $vals) . ", NOW())";
         $db->query($sql, $params);
-        complete('등록되었습니다.', "/Madmin/application/application_list.php?page={$page}");
+        complete('등록되었습니다.', "/Madmin/application/application_list.php?page={$page}{$query_str}");
         break;
 
     case 'update':
-        $idx = isset($_POST['idx']) ? (int)$_POST['idx'] : 0;
+        $idx = isset($_POST['idx']) ? (int) $_POST['idx'] : 0;
         if ($idx <= 0) {
             error('잘못된 접근입니다.');
             exit;
@@ -69,10 +78,17 @@ switch ($mode) {
         $y = $params['f_year'] ?? null;
         $r = $params['f_round'] ?? null;
         if ($y && $r) {
-            $chk = $db->single(
-                "SELECT COUNT(*) FROM {$table} WHERE f_year = :y AND f_round = :r AND idx <> :idx",
-                ['y' => $y, 'r' => $r, 'idx' => $idx]
-            );
+            if ($_POST['f_category'] != 'teacher') {
+                $chk = $db->single(
+                    "SELECT COUNT(*) FROM {$table} WHERE f_year = :y AND f_round = :r AND f_category = :f_category AND idx <> :idx",
+                    ['y' => $y, 'r' => $r, 'f_category' => $_POST['f_category'], 'idx' => $idx]
+                );
+            } else {
+                $chk = $db->single(
+                    "SELECT COUNT(*) FROM {$table} WHERE f_year = :y AND f_round = :r AND f_category = :f_category AND f_type = :f_type AND idx <> :idx",
+                    ['y' => $y, 'r' => $r, 'f_category' => $_POST['f_category'], 'f_type' => $_POST['f_type'], 'idx' => $idx]
+                );
+            }
             if ($chk > 0) {
                 error('이미 동일한 년도와 회차의 데이터가 존재합니다.');
                 exit;
@@ -82,7 +98,7 @@ switch ($mode) {
         $params['idx'] = $idx;
         $sql = "UPDATE {$table} SET " . implode(',', $sets) . " WHERE idx = :idx";
         $db->query($sql, $params);
-        complete('수정되었습니다.', "/Madmin/application/application_list.php?page={$page}");
+        complete('수정되었습니다.', "/Madmin/application/application_list.php?page={$page}{$query_str}");
         break;
 
     case 'delete':
@@ -91,7 +107,7 @@ switch ($mode) {
         foreach ($ids as $id) {
             $db->query("DELETE FROM {$table} WHERE idx = :id", ['id' => $id]);
         }
-        complete('삭제되었습니다.', "/Madmin/application/application_list.php?page={$page}");
+        complete('삭제되었습니다.', "/Madmin/application/application_list.php?page={$page}{$query_str}");
         break;
 
     default:

@@ -634,6 +634,7 @@
 	.exam_notice_con > .list_con > .list_con > ul > li > .m_con > .contents_con .contents_div > .text_con > ul > li > table > tbody > tr > .info_td {padding:0 0 0 2.78vw;}
 	.exam_notice_con > .list_con > .list_con > ul > li > .m_con > .contents_con .contents_div > .btn_con {margin:4.17vw 0 0 0;}
 	.exam_notice_con > .list_con > .list_con > ul > li > .m_con > .contents_con .contents_div > .btn_con .a_btn {border:0.28vw solid #9E9E9E; font-size:4.44vw; line-height:9.44vw; letter-spacing:-0.11vw; border-radius:1.39vw;}
+	.exam_notice_con > .list_con > .list_con > ul > .none_li span {font-size:3.89vw; line-height:50vw; letter-spacing:-0.09vw;}
 
 	/*자료 게시판*/
 	.data_notice_con > ul > li {margin:8.33vw 0 0 0;}
