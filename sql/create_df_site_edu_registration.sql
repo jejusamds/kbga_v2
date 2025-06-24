@@ -1,0 +1,21 @@
+CREATE TABLE df_site_edu_registration (
+    idx INT AUTO_INCREMENT PRIMARY KEY,
+    f_type CHAR(1) NOT NULL COMMENT 'P:개인, O:단체',
+    f_news_idx INT NOT NULL,
+    f_user_name VARCHAR(100) NOT NULL,
+    f_user_name_en VARCHAR(100) DEFAULT NULL,
+    f_gender VARCHAR(10) DEFAULT NULL,
+    f_birth_date DATE DEFAULT NULL,
+    f_tel VARCHAR(20) NOT NULL,
+    f_contact_phone VARCHAR(20) DEFAULT NULL,
+    f_zip VARCHAR(10) NOT NULL,
+    f_address1 VARCHAR(255) NOT NULL,
+    f_address2 VARCHAR(255) NOT NULL,
+    f_email VARCHAR(255) NOT NULL,
+    f_issue_file VARCHAR(255) DEFAULT NULL,
+    f_issue_file_name VARCHAR(255) DEFAULT NULL,
+    f_payer_name VARCHAR(100) NOT NULL,
+    f_payer_bank VARCHAR(100) NOT NULL,
+    f_payment_category VARCHAR(100) NOT NULL,
+    reg_date DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

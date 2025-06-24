@@ -2,292 +2,228 @@
 	$Menu = "07";
 	$sMenu = "07-2";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+
+        $user_idx = $login_user_info['idx'] ?? 0;
+        $user_id = $_SESSION['kbga_user_id'];
+
+        $exam_rows = $db->query(
+            "SELECT r.idx, i.f_item_name, r.wdate as reg_date
+               FROM df_site_application_registration r
+               LEFT JOIN df_site_qualification_item i ON r.f_item_idx = i.idx
+              WHERE r.f_user_id = :uid AND r.f_application_type = 'exam'
+              ORDER BY r.idx DESC",
+            ['uid' => $user_id]
+        );
+
+        $cert_rows = $db->query(
+            "SELECT r.idx, i.f_item_name, r.wdate as reg_date
+               FROM df_site_application_registration r
+               LEFT JOIN df_site_qualification_item i ON r.f_item_idx = i.idx
+              WHERE r.f_user_id = :uid AND r.f_application_type = 'cert'
+              ORDER BY r.idx DESC",
+            ['uid' => $user_id]
+        );
+
+        $edu_rows = $db->query(
+            "SELECT r.idx, b.subject, r.reg_date
+               FROM df_site_edu_registration r
+               LEFT JOIN df_site_bbs b ON r.f_news_idx = b.idx
+              WHERE r.f_user_id = :uid
+              ORDER BY r.idx DESC",
+            ['uid' => $user_id]
+        );
 ?>
 
-	<div id="container">
-		<div id="sub_con">
-			<?php
+<div id="container">
+    <div id="sub_con">
+        <?php
 				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
 			?>
 
-			<div class="contents_con">
-				
-				<div class="mypage_con">
-					<div class="contents_con">
-						<?php
+        <div class="contents_con">
+
+            <div class="mypage_con">
+                <div class="contents_con">
+                    <?php
 							include $_SERVER['DOCUMENT_ROOT'].'/mypage/include/mypage_nav.html'; 
 						?>
 
-						<div class="contents_con">
-							<div class="title_con">
-								<span>
-									신청이력
-								</span>
-							</div>
+                    <div class="contents_con">
+                        <div class="title_con">
+                            <span>
+                                신청이력
+                            </span>
+                        </div>
 
-							<div class="contents_con">
-								
-								<div class="history_con">
-									<ul>
-										<li>
-											<div class="list_div">
-												<div class="title_con">
-													<div class="dot"></div>
+                        <div class="contents_con">
 
-													<span>
-														자격증 신청
-													</span>
-												</div>
+                            <div class="history_con">
+                                <ul>
+                                    <li>
+                                        <div class="list_div">
+                                            <div class="title_con">
+                                                <div class="dot"></div>
+                                                <span>자격증 신청</span>
+                                            </div>
 
-												<div class="list_con">
-													<div class="title_con">
-														<table cellpadding="0" cellspacing="0">
-															<tbody>
-																<tr>
-																	<td align="center">
-																		<span>
-																			신청 구분
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			명칭
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			결과
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			날짜
-																		</span>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
+                                            <div class="list_con">
+                                                <div class="title_con">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="center"><span>신청 구분</span></td>
+                                                                <td align="center"><span>명칭</span></td>
+                                                                <td align="center"><span>결과</span></td>
+                                                                <td align="center"><span>날짜</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
-													<div class="list_con">
-														<ul>
-															<li>
-																<table cellpadding="0" cellspacing="0">
-																	<tbody>
-																		<tr>
-																			<td align="center">
-																				<span>
-																					신청 구분
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					명칭
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					결과
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					날짜
-																				</span>
-																			</td>
-																		</tr>
-																	</tbody>
-																</table>
-															</li>
-															<!--
-															<li class="none_li">
-																<span>
-																	신청 이력이 없습니다.
-																</span>
-															</li>
-															-->
-														</ul>
-													</div>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="list_div">
-												<div class="title_con">
-													<div class="dot"></div>
+                                                <div class="list_con">
+                                                    <ul>
+                                                        <?php if (empty($exam_rows)): ?>
+                                                        <li class="none_li"><span>신청 이력이 없습니다.</span></li>
+                                                        <?php else: ?>
+                                                        <?php foreach ($exam_rows as $row): ?>
+                                                        <li>
+                                                            <table cellpadding="0" cellspacing="0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td align="center"><span>시험접수</span></td>
+                                                                        <td align="center"><span>
+                                                                                <?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
+                                                                            </span></td>
+                                                                        <td align="center"><span>접수완료</span></td>
+                                                                        <td align="center"><span>
+                                                                                <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+                                                                            </span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </li>
+                                                        <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="list_div">
+                                            <div class="title_con">
+                                                <div class="dot"></div>
+                                                <span>자격증 발급</span>
+                                            </div>
 
-													<span>
-														자격증 발급
-													</span>
-												</div>
+                                            <div class="list_con">
+                                                <div class="title_con">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="center"><span>신청 구분</span></td>
+                                                                <td align="center"><span>명칭</span></td>
+                                                                <td align="center"><span>결과</span></td>
+                                                                <td align="center"><span>날짜</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
-												<div class="list_con">
-													<div class="title_con">
-														<table cellpadding="0" cellspacing="0">
-															<tbody>
-																<tr>
-																	<td align="center">
-																		<span>
-																			신청 구분
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			명칭
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			결과
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			날짜
-																		</span>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
+                                                <div class="list_con">
+                                                    <ul>
+                                                        <?php if (empty($cert_rows)): ?>
+                                                        <li class="none_li"><span>신청 이력이 없습니다.</span></li>
+                                                        <?php else: ?>
+                                                        <?php foreach ($cert_rows as $row): ?>
+                                                        <li>
+                                                            <table cellpadding="0" cellspacing="0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td align="center"><span>자격증 발급</span></td>
+                                                                        <td align="center"><span>
+                                                                                <?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
+                                                                            </span></td>
+                                                                        <td align="center"><span>접수완료</span></td>
+                                                                        <td align="center"><span>
+                                                                                <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+                                                                            </span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </li>
+                                                        <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="list_div">
+                                            <div class="title_con">
+                                                <div class="dot"></div>
+                                                <span>교육/세미나 신청</span>
+                                            </div>
 
-													<div class="list_con">
-														<ul>
-															<!--
-															<li>
-																<table cellpadding="0" cellspacing="0">
-																	<tbody>
-																		<tr>
-																			<td align="center">
-																				<span>
-																					신청 구분
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					명칭
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					결과
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					날짜
-																				</span>
-																			</td>
-																		</tr>
-																	</tbody>
-																</table>
-															</li>
-															-->
-															<li class="none_li">
-																<span>
-																	신청 이력이 없습니다.
-																</span>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="list_div">
-												<div class="title_con">
-													<div class="dot"></div>
+                                            <div class="list_con">
+                                                <div class="title_con">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="center"><span>신청 구분</span></td>
+                                                                <td align="center"><span>명칭</span></td>
+                                                                <td align="center"><span>결과</span></td>
+                                                                <td align="center"><span>날짜</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
-													<span>
-														교육/세미나 신청
-													</span>
-												</div>
+                                                <div class="list_con">
+                                                    <ul>
+                                                        <?php if (empty($edu_rows)): ?>
+                                                        <li class="none_li"><span>신청 이력이 없습니다.</span></li>
+                                                        <?php else: ?>
+                                                        <?php foreach ($edu_rows as $row): ?>
+                                                        <li>
+                                                            <table cellpadding="0" cellspacing="0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td align="center"><span>교육/세미나</span></td>
+                                                                        <td align="center"><span>
+                                                                                <?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
+                                                                            </span></td>
+                                                                        <td align="center"><span>접수완료</span></td>
+                                                                        <td align="center"><span>
+                                                                                <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+                                                                            </span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </li>
+                                                        <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
 
-												<div class="list_con">
-													<div class="title_con">
-														<table cellpadding="0" cellspacing="0">
-															<tbody>
-																<tr>
-																	<td align="center">
-																		<span>
-																			신청 구분
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			명칭
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			결과
-																		</span>
-																	</td>
-																	<td align="center">
-																		<span>
-																			날짜
-																		</span>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
+                        </div>
 
-													<div class="list_con">
-														<ul>
-															<!--
-															<li>
-																<table cellpadding="0" cellspacing="0">
-																	<tbody>
-																		<tr>
-																			<td align="center">
-																				<span>
-																					신청 구분
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					명칭
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					결과
-																				</span>
-																			</td>
-																			<td align="center">
-																				<span>
-																					날짜
-																				</span>
-																			</td>
-																		</tr>
-																	</tbody>
-																</table>
-															</li>
-															-->
-															<li class="none_li">
-																<span>
-																	신청 이력이 없습니다.
-																</span>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
+    </div>
+</div>
+</div>
 
 <?php
 	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
-?>	
+?>

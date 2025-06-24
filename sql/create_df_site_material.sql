@@ -1,0 +1,11 @@
+CREATE TABLE df_site_material (
+    idx INT AUTO_INCREMENT PRIMARY KEY,
+    f_category VARCHAR(20) NOT NULL,
+    f_subject VARCHAR(255) NOT NULL,
+    f_type VARCHAR(10) NOT NULL,
+    f_level VARCHAR(50) NOT NULL,
+    f_description VARCHAR(255) NOT NULL,
+    f_file VARCHAR(255) DEFAULT NULL,
+    f_file_name VARCHAR(255) DEFAULT NULL,
+    wdate DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -102,6 +102,8 @@ if (!empty($_FILES['f_issue_file']['name'])) {
     $uploadName = $info['saved'];
 }
 
+$f_user_id = isset($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '' ? $_SESSION['kbga_user_id'] : '';
+
 $params = [
     'f_applicant_type' => $filtered['f_applicant_type'] ?? 'P',
     'f_category' => $filtered['f_category'],
@@ -120,7 +122,8 @@ $params = [
     'f_issue_file' => $uploadName,
     'f_payer_name' => $filtered['f_payer_name'],
     'f_payer_bank' => $filtered['f_payer_bank'],
-    'f_payment_category' => $payment_cat
+    'f_payment_category' => $payment_cat,
+    'f_user_id'         => $f_user_id
 ];
 // error_reporting(E_ALL);
 // ini_set("display_errors", 1);
@@ -129,13 +132,13 @@ $sql = "INSERT INTO df_site_application_registration (
             f_user_name, f_user_name_en, f_tel, f_birth_date,
             f_zip, f_address1, f_address2, f_email,
             f_application_type, f_issue_desire, f_issue_file,
-            f_payer_name, f_payer_bank, f_payment_category
+            f_payer_name, f_payer_bank, f_payment_category, f_user_id
         ) VALUES (
             :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
             :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
             :f_zip, :f_address1, :f_address2, :f_email,
             :f_application_type, :f_issue_desire, :f_issue_file,
-            :f_payer_name, :f_payer_bank, :f_payment_category
+            :f_payer_name, :f_payer_bank, :f_payment_category, :f_user_id
         )";
 //return_json(['result' => 'test', 'sql' => $sql, 'params' => $params]);
 

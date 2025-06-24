@@ -1,0 +1,19 @@
+Time : 11:07:25
+SQLSTATE[HY093]: Invalid parameter number
+Raw SQL : SELECT COUNT(*) FROM df_site_material WHERE f_category=:cat AND (f_subject LIKE :search OR f_description LIKE :search)
+
+Time : 11:06:39
+SQLSTATE[HY093]: Invalid parameter number
+Raw SQL : SELECT COUNT(*) FROM df_site_material WHERE f_category=:cat AND (f_subject LIKE :search OR f_description LIKE :search)
+
+Time : 11:04:22
+SQLSTATE[HY093]: Invalid parameter number
+Raw SQL : SELECT COUNT(*) FROM df_site_material WHERE f_category=:cat AND (f_subject LIKE :search OR f_description LIKE :search)
+
+Time : 00:23:25
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'r.reg_date' in 'field list'
+Raw SQL : SELECT r.idx, i.f_item_name, r.reg_date
+               FROM df_site_application_registration r
+               LEFT JOIN df_site_qualification_item i ON r.f_item_idx = i.idx
+              WHERE r.f_user_idx = :uid AND r.f_application_type = 'exam'
+              ORDER BY r.idx DESC
