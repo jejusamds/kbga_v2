@@ -1,3 +1,7 @@
+Time : 11:36:27
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_agency' doesn't exist
+Raw SQL : SELECT COUNT(*) FROM df_site_agency WHERE f_type=:type
+
 Time : 11:07:25
 SQLSTATE[HY093]: Invalid parameter number
 Raw SQL : SELECT COUNT(*) FROM df_site_material WHERE f_category=:cat AND (f_subject LIKE :search OR f_description LIKE :search)

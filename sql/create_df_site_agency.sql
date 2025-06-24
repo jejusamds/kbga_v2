@@ -1,0 +1,15 @@
+CREATE TABLE `df_site_agency` (
+	`idx` INT NOT NULL AUTO_INCREMENT,
+	`f_type` VARCHAR(20) NOT NULL COLLATE 'utf8_general_ci',
+	`f_name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`f_url` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`f_img` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`f_img_m` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`f_order` BIGINT NULL DEFAULT NULL,
+	`wdate` DATETIME NULL DEFAULT (CURRENT_TIMESTAMP),
+	PRIMARY KEY (`idx`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=4
+;

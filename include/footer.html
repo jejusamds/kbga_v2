@@ -137,7 +137,10 @@
 			<div class="posts_con">
 				<div class="scroll_con">
 					<div class="contents_con">
-						개인정보처리방침 내용 입니다.
+						<?php
+                            $pop_privacy = $db->single("SELECT content FROM df_site_page WHERE `type` = 'privacy'");
+                            echo $pop_privacy;
+                        ?>
 					</div>
 				</div>
 			</div>
@@ -162,7 +165,10 @@
 			<div class="posts_con">
 				<div class="scroll_con">
 					<div class="contents_con">
-						이용약관 내용 입니다.
+                        <?php
+                            $pop_use = $db->single("SELECT content FROM df_site_page WHERE `type` = 'use'");
+                            echo $pop_use;
+                        ?>
 					</div>
 				</div>
 			</div>
