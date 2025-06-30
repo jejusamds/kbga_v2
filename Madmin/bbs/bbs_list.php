@@ -111,7 +111,7 @@ $param = "code=" . $code . "&searchgrp=" . $searchgrp . "&search_option=" . $sea
                                         <option value="Y" <? if ($searchgrp == "Y") { ?>selected<? } ?>>진행</option>
                                         <option value="N" <? if ($searchgrp == "N") { ?>selected<? } ?>>종료</option>
                                     </select>
-                                <?
+                                    <?
                                 } else {
                                     if ($bbs_info['grp'] != "") {
                                         $catlist = explode(",", $bbs_info['grp']);

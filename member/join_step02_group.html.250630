@@ -1,0 +1,470 @@
+<?php
+	$Menu = "06";
+	$sMenu = "06-2";
+	$ssMenu = "06-2-2";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+
+    $member_type = "O";
+?>
+
+    <script src="/js/form-controller.js"></script>
+	<div id="container">
+		<div id="sub_con">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+
+                <form id="sign_up_frm" autocomplete="off" action="/controller/member_controller.php" method="post">
+                    <input type="hidden" name="f_honey" value="" />
+                    <input type="hidden" name="mode" value="sign_up" />
+                    <input type="hidden" name="member_type" value="<?=$member_type?>" />
+                    <input type="hidden" name="csrf_token" value="<?=$csrf_token?>" />
+					<div class="join_step_con">
+						<div class="contents_con">
+							<div class="step_con">
+								<div class="nav">
+									<div class="list_con">
+										<div class="line"></div>
+
+										<ul>
+											<li>
+												<div class="list_div on">
+													<div class="dot_con">
+														<div class="dot"></div>
+													</div>
+
+													<div class="text_con">
+														<span>
+															정보입력
+														</span>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="list_div">
+													<div class="dot_con">
+														<div class="dot"></div>
+													</div>
+
+													<div class="text_con">
+														<span>
+															가입완료
+														</span>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="text_con">
+									<span>
+										정보를 입력해 주세요. <br />
+										유의사항을 잘 체크해 주세요.
+									</span>
+								</div>
+							</div>
+
+							<div class="contents_con">
+								<div class="write_con">
+									<div class="write_div">
+										<ul>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	단체명
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="group_name_con">
+																	<input type="text" name="f_org_name" id="f_org_name" data-required="y" data-label="단체명을" placeholder="단체명을 적어주세요." class="input" />
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	단체전화번호
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="tel_con">
+																	<table cellpadding="0" cellspacing="0">
+																		<tbody>
+																			<tr>
+																				<td align="left" class="input_td">
+																					<input type="tel" name="f_org_phone_1" id="f_org_phone_1" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																				</td>
+																				<td align="center" class="text_td">
+																					-
+																				</td>
+																				<td align="left" class="input_td">
+																					<input type="tel" name="f_org_phone_2" id="f_org_phone_2" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																				</td>
+																				<td align="center" class="text_td">
+																					-
+																				</td>
+																				<td align="left" class="input_td">
+																					<input type="tel" name="f_org_phone_3" id="f_org_phone_3" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	담당자명
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="group_name_con">
+																	<input type="text" name="f_contact_name" id="f_contact_name" data-required="y" data-label="담당자명을" placeholder="담당자명을 적어주세요." class="input" />
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	담당자 연락처
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="tel_con">
+																	<table cellpadding="0" cellspacing="0">
+																		<tbody>
+																			<tr>
+																				<td align="left" class="input_td">
+																					<input type="tel" name="f_contact_phone_1" id="f_contact_phone_1" data-required="y" data-label="담당자 연락처를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																				</td>
+																				<td align="center" class="text_td">
+																					-
+																				</td>
+																				<td align="left" class="input_td">
+																					<input type="tel" name="f_contact_phone_2" id="f_contact_phone_2" data-required="y" data-label="담당자 연락처를"  maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																				</td>
+																				<td align="center" class="text_td">
+																					-
+																				</td>
+																				<td align="left" class="input_td">
+																					<input type="tel" name="f_contact_phone_3" id="f_contact_phone_3" data-required="y" data-label="담당자 연락처를"  maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	주소
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="address_con">
+																	<ul>
+																		<li>
+																			<table cellpadding="0" cellspacing="0">
+																				<tbody>
+																					<tr>
+																						<td align="left" class="input_td">
+                                                                                        <input type="text" name="f_zip" id="f_zip" data-required="y" data-label="주소를" class="input" readonly="readonly" />
+																						</td>
+																						<td align="left" class="blank_td">
+																							&nbsp;
+																						</td>
+																						<td align="left" class="btn_td">
+                                                                                            <a href="javascript:void(0);" onclick="openPostcode(); return false;" class="a_btn">
+																								우편번호찾기
+																							</a>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</li>
+																		<li>
+																			<input type="text" name="f_address1" id="f_address1" data-required="y" data-label="주소를" placeholder="기본주소를 적어주세요." class="input" readonly="readonly" />
+																		</li>
+																		<li>
+																			<input type="text" name="f_address2" id="f_address2" data-required="y" data-label="주소를" placeholder="상세주소를 적어주세요."  class="input" />
+																		</li>
+																	</ul>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+										</ul>
+									</div>
+
+									<div class="write_div">
+										<ul>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	아이디
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="id_con">
+																	<div class="input_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td align="left" class="input_td">
+                                                                                        <input type="text" name="f_user_id" id="f_user_id" data-required="y" data-label="아이디를" placeholder="아이디를 적어주세요." class="input" />
+																					</td>
+																					<td align="left" class="blank_td">
+																						&nbsp;
+																					</td>
+																					<td align="left" class="btn_td">
+                                                                                        <a href="javascript:void(0);" class="a_btn" id="btn_check_id">
+																							중복확인
+																						</a>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+
+																	<div class="intro_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td valign="top" align="left" class="dot_td">
+																						<span>
+																							*
+																						</span>
+																					</td>
+																					<td valign="top" align="left">
+																						<span>
+																							4자이상 12자 미만의 <br class="m_br" />영자/숫자 조합만 가능합니다.
+																						</span>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	비밀번호
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="id_con">
+																	<div class="input_con">
+                                                                        <input type="password" name="f_password" id="f_password" data-required="y" data-label="비밀번호를" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+																	</div>
+
+																	<div class="intro_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td valign="top" align="left" class="dot_td">
+																						<span>
+																							*
+																						</span>
+																					</td>
+																					<td valign="top" align="left">
+																						<span>
+																							4자리 이상 12자 미만의 영자/숫자 조합만 <br class="m_br" />가능하며, 영문은 대소문자 구분합니다.
+																						</span>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	비밀번호 확인
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="id_con">
+																	<div class="input_con">
+                                                                        <input type="password" name="f_password_chk" id="f_password_chk" data-required="y" data-label="비밀번호 확인을" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	이메일
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="email_con">
+																	<div class="input_con">
+                                                                        <input type="text" name="f_email" id="f_email" data-required="y" data-label="이메일을" placeholder="이메일을 적어주세요." class="input" />
+																	</div>
+
+																	<div class="intro_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td align="left" class="text_td">
+																						<span>
+																							*이메일 수신 동의
+																						</span>
+																					</td>
+																					<td align="left" class="check_td">
+																						<ul>
+																							<li>
+																								<label class="radio_label">
+                                                                                                    <input type="radio" name="f_email_consent" id="f_email_consent_1" value="Y" checked="checked" />
+																									<div class="check_icon"></div>
+																									<span>
+																										동의함
+																									</span>
+																								</label>
+																							</li>
+																							<li>
+																								<label class="radio_label">
+                                                                                                    <input type="radio" name="f_email_consent" id="f_email_consent_2" value="N" />
+																									<div class="check_icon"></div>
+																									<span>
+																										동의않함
+																									</span>
+																								</label>
+																							</li>
+																						</ul>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+										</ul>
+									</div>
+								</div>
+								
+								<div class="btn_con">
+									<!-- <a href="/member/join_step03_group.html" class="a_btn"> -->
+                                    <a href="javascript:void(0);" onclick="submitForm('sign_up_frm');" class="a_btn">
+										회원가입
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function openPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    console.log(data);
+                    // 우편번호, 주소 자동 입력
+                    document.getElementById('f_zip').value      = data.zonecode;
+                    document.getElementById('f_address1').value = data.address;
+                    // 상세주소 입력 칸으로 포커스 이동
+                    document.getElementById('f_address2').focus();
+                }
+            }).open();
+        }
+    </script>
+
+	<script type="text/javascript" language="javascript">
+		// 숫자만 입력
+		function onlyNumber(obj) {
+			$(obj).keyup(function(){
+				$(this).val($(this).val().replace(/[^0-9]/g,""));
+			}); 
+		}
+	</script>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	

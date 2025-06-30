@@ -82,6 +82,26 @@ $bbs_row = $db->row($sql);
                     <th>제목</th>
                     <td class="comALeft" colspan="3"><?= $bbs_row['subject'] ?></td>
                 </tr>
+                <?php if ($code == 'education_news') { ?>
+                    <tr>
+                        <th>장소</th>
+                        <td class="comALeft" colspan="3">
+                            <?= $bbs_row['center_name'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>일시</th>
+                        <td class="comALeft" colspan="3">
+                            <?= $bbs_row['app_date'] ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>참가대상</th>
+                        <td class="comALeft" colspan="3">
+                            <?= $bbs_row['app_target'] ?>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <tr>
                     <th><? if ($code == "faq") { ?>Q.<? } else { ?>내 용<? } ?></th>
                     <td class="comALeft" id="Contents" colspan="3" style="padding-top:7px; padding-bottom:7px;">

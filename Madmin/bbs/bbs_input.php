@@ -286,7 +286,7 @@ if ($mode == "insert" || $mode == "") {
                         <?php } ?>
                         <?php } ?>
                         <tr>
-                            <th>제 목</th>
+                            <th><?=$code == 'education_news' ? '명칭' : '제 목'?></th>
                             <td class="comALeft" colspan="3">
                                 <?php
                                 if ($bbs_info['grp'] != "") {
@@ -334,9 +334,23 @@ if ($mode == "insert" || $mode == "") {
 
                     <?php if ($code == 'education_news') { ?>
                         <tr>
-                            <th>지점명</th>
+                            <th>장소</th>
                             <td class="comALeft" colspan="3">
                                 <input type="text" name="center_name" value="<?= $bbs_row['center_name'] ?>"
+                                    class="form-control" style="width:88%;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>일시</th>
+                            <td class="comALeft" colspan="3">
+                                <input type="text" name="app_date" value="<?= $bbs_row['app_date'] ?>"
+                                    class="form-control" style="width:88%;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>참가대상</th>
+                            <td class="comALeft" colspan="3">
+                                <input type="text" name="app_target" value="<?= $bbs_row['app_target'] ?>"
                                     class="form-control" style="width:88%;" />
                             </td>
                         </tr>

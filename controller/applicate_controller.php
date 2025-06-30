@@ -104,6 +104,8 @@ if (!empty($_FILES['f_issue_file']['name'])) {
 
 $f_user_id = isset($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '' ? $_SESSION['kbga_user_id'] : '';
 
+//return_json(['result' => 'test', 'msg' => 'test', 'post' => $_POST, "filter" => $filtered]);
+
 $params = [
     'f_applicant_type' => $filtered['f_applicant_type'] ?? 'P',
     'f_category' => $filtered['f_category'],

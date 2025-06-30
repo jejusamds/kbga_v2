@@ -98,6 +98,9 @@ if ($mode == "insert") {
     $sql .= "	, 		event_sdate		= '" . $event_sdate . "' ";
     $sql .= "	, 		event_edate		= '" . $event_edate . "' ";
 
+    $sql .= "	, 		app_target		= '" . $app_target . "' ";
+    $sql .= "	, 		app_date		= '" . $app_date . "' ";
+
     $db->query($sql);
 
     $bbsidx = $db->lastInsertId();
@@ -151,6 +154,8 @@ else if ($mode == "update") {
     $sql .= "	, 		event_sdate		= '" . $event_sdate . "' ";
     $sql .= "	, 		event_edate		= '" . $event_edate . "' ";
     $sql .= "	,		center_name		= '" . $center_name . "' ";
+    $sql .= "	, 		app_target		= '" . $app_target . "' ";
+    $sql .= "	, 		app_date		= '" . $app_date . "' ";
     $sql .= "	Where	idx			= '" . $idx . "' ";
     $db->query($sql);
 

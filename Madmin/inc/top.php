@@ -18,6 +18,9 @@ $gb = @str_replace("application/", "", $gb);
 $gb = @str_replace("competition/", "", $gb);
 $gb = @str_replace("material/", "", $gb);
 $gb = @str_replace("agency/", "", $gb);
+$gb = @str_replace("main_slide/", "", $gb);
+$gb = @str_replace("member/", "", $gb);
+$gb = @str_replace("registration/", "", $gb);
 
 $gb = substr("$gb", 0, strpos($gb, ".php"));
 
@@ -42,6 +45,8 @@ $menu04 = array(
 $menu05 = array(
     "main_slide_list",
     "main_slide_input",
+    "main_image_list",
+    "main_image_input",
     "sub_slide_list",
     "sub_slide_input"
 );
@@ -68,6 +73,20 @@ $menu08 = array(
 $menu10 = array(
     "agency_list",
     "agency_input",
+);
+
+$menu11 = array(
+    "member_list",
+    "member_input"
+);
+
+$menu12 = array(
+    "reg_application_list",
+    "reg_application_view",
+    "reg_competition_list",
+    "reg_competition_view",
+    "reg_edu_list",
+    "reg_edu_view"
 );
 
 $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
@@ -397,7 +416,7 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             </div>
 
 
-            <!-- <div class="lnb-menu <? if (in_array($gb, $menu05)) { ?>on<? } ?>">
+            <div class="lnb-menu <? if (in_array($gb, $menu05)) { ?>on<? } ?>">
                 <span class="left">
                     <i class="fa fa-desktop fa-lg"></i>
                     <span>메인 관리</span>
@@ -407,9 +426,9 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                 </span>
             </div>
             <div class="lnb-submenu" style="display:<? if (in_array($gb, $menu05)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if ($code == 'main' || $code == 'main') { ?>on<? } ?>" href="/Madmin/main_manage/main_slide_list.php?code=main">메인 슬라이드</div>
-                <div class="lnb-submenu-item <? if ($code == 'best' || $code == 'best') { ?>on<? } ?>" href="/Madmin/main_manage/main_slide_list.php?code=best">베스트 제품 슬라이드</div>
-            </div> -->
+                <div class="lnb-submenu-item <? if ($gb == 'main_slide_list' || $gb == 'main_slide_input') { ?>on<? } ?>" href="/Madmin/main_slide/main_slide_list.php">메인 화면 슬라이드 관리</div>
+                <div class="lnb-submenu-item <? if ($gb == 'main_image_list' || $gb == 'main_image_input') { ?>on<? } ?>" href="/Madmin/main_slide/main_image_list.php">메인 화면 이미지 관리</div>
+            </div>
 
 
             <!-- <div class="lnb-menu <? if (in_array($gb, $menu03)) { ?>on<? } ?>">
@@ -514,6 +533,37 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                 style="display:<? if (in_array($gb, $menu08)) { ?>block;<? } else { ?>none;<? } ?>">
                 <div class="lnb-submenu-item <? if (in_array($gb, $menu08)) { ?>on<? } ?>"
                     href="/Madmin/competition/competition_list.php">대회 관리</div>
+            </div>
+
+            <div class="lnb-menu <? if (in_array($gb, $menu11)) { ?>on<? } ?>">
+                <span class="left">
+                    <i class="fa fa-users fa-lg"></i>
+                    <span>회원 관리</span>
+                </span>
+                <span class="right">
+                    <i class="fa fa-<? if (in_array($gb, $menu11)) { ?>minus<? } else { ?>plus<? } ?>"></i>
+                </span>
+            </div>
+            <div class="lnb-submenu"
+                style="display:<? if (in_array($gb, $menu11)) { ?>block;<? } else { ?>none;<? } ?>">
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu11)) { ?>on<? } ?>"
+                    href="/Madmin/member/member_list.php">회원 관리</div>
+            </div>
+
+            <div class="lnb-menu <? if (in_array($gb, $menu12)) { ?>on<? } ?>">
+                <span class="left">
+                    <i class="fa fa-clipboard fa-lg"></i>
+                    <span>신청내역 조회</span>
+                </span>
+                <span class="right">
+                    <i class="fa fa-<? if (in_array($gb, $menu12)) { ?>minus<? } else { ?>plus<? } ?>"></i>
+                </span>
+            </div>
+            <div class="lnb-submenu"
+                style="display:<? if (in_array($gb, $menu12)) { ?>block;<? } else { ?>none;<? } ?>">
+                <div class="lnb-submenu-item <? if ($gb == 'reg_application_list' || $gb == 'reg_application_view') { ?>on<? } ?>" href="/Madmin/registration/reg_application_list.php">자격시험</div>
+                <div class="lnb-submenu-item <? if ($gb == 'reg_competition_list' || $gb == 'reg_competition_view') { ?>on<? } ?>" href="/Madmin/registration/reg_competition_list.php">대회신청</div>
+                <div class="lnb-submenu-item <? if ($gb == 'reg_edu_list' || $gb == 'reg_edu_view') { ?>on<? } ?>" href="/Madmin/registration/reg_edu_list.php">교육신청</div>
             </div>
 
 

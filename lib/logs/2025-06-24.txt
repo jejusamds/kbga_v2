@@ -1,3 +1,7 @@
+Time : 16:28:01
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'upfile_thumb' in 'field list'
+Raw SQL : SELECT `subject`, wdate, idx, grp, upfile_thumb FROM df_site_bbs WHERE `code` = 'education_news' ORDER BY idx DESC
+
 Time : 11:36:27
 SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_agency' doesn't exist
 Raw SQL : SELECT COUNT(*) FROM df_site_agency WHERE f_type=:type

@@ -1,6 +1,9 @@
 <?php
 
 
+phpinfo();
+exit;
+
 include $_SERVER['DOCUMENT_ROOT'] . "/inc/global.inc";
 
 // var_dump($_SESSION);
@@ -56,17 +59,17 @@ $sql = "show tables";
 $list = $db->query($sql);
 foreach ($list as $row) {
 
-//     $table_name = $row['Tables_in_dbkbga8800'];
-//     $sql2 = "SHOW CREATE TABLE `{$table_name}`";
+    $table_name = $row['Tables_in_dbkbga8800'];
+    $sql2 = "SHOW CREATE TABLE `{$table_name}`";
 
-// //echo $table_name;
+//echo $table_name;
 
-//     $table_info = $db->query($sql2);
+    $table_info = $db->query($sql2);
 
-//     var_dump($table_info);
+    var_dump($table_info);
 
-//     echo "<br>";
-//     echo "<br>";
+    echo "<br>";
+    echo "<br>";
 }
 
 

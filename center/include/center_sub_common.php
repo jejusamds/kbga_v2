@@ -1,5 +1,5 @@
 <?php
-$category = $_GET['category'];
+$category = isset($_GET['category']) && $_GET['category'] != '' ? $_GET['category'] : 'makeup';
 $year = !empty($_GET['year']) ? $_GET['year'] : date('Y');
 
 // 분류 맵핑 (한글)

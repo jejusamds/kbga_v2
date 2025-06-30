@@ -19,6 +19,7 @@ $dir_arr = [
     'sigong' => 'business',
     'sihang' => 'business'
     ,'competition' => 'competition'
+    ,'member' => 'member'
 ];
 $dir = isset($dir_arr[$table]) ? $dir_arr[$table] : '';
 

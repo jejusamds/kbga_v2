@@ -2,7 +2,45 @@
 	$Menu = "08";
 	$sMenu = "08-1";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+
+        $searchQuery = trim($_GET['search_query'] ?? '');
+        $noticeRows = $educationRows = $galleryRows = [];
+
+        if ($searchQuery !== '') {
+                $like = "%{$searchQuery}%";
+                $params = ['search_subject' => $like, 'search_content' => $like];
+
+                $noticeRows = $db->query(
+                        "SELECT idx, subject, name, wdate, `count`
+                           FROM df_site_bbs
+                          WHERE code = 'notice'
+                            AND (subject LIKE :search_subject OR content LIKE :search_content)
+                          ORDER BY wdate DESC
+                          LIMIT 3",
+                        $params
+                );
+
+                $educationRows = $db->query(
+                        "SELECT idx, upfile, grp, subject, event_sdate, event_edate
+                           FROM df_site_bbs
+                          WHERE code = 'education_news'
+                            AND (subject LIKE :search_subject OR content LIKE :search_content)
+                          ORDER BY wdate DESC
+                          LIMIT 3",
+                        $params
+                );
+
+                $galleryRows = $db->query(
+                        "SELECT idx, upfile, subject, wdate
+                           FROM df_site_bbs
+                          WHERE code = 'photo_gallery'
+                            AND (subject LIKE :search_subject OR content LIKE :search_content)
+                          ORDER BY wdate DESC
+                          LIMIT 3",
+                        $params
+                );
+        }
 ?>
 
 	<div id="container">
@@ -16,260 +54,235 @@
 				<div class="search_results_con">
 					<div class="contents_con">
 						<div class="contents_div">
-							<div class="title_con">
-								<span>
-									공지사항
-								</span>
+                                                        <div class="title_con">
+                                                                <span>
+                                                                        공지사항
+                                                                </span>
 
-								<a href="/news/news_sub01.html" class="a_btn">
-									<span>
-										전체보기
-									</span>
+                                                                <a href="/news/news_sub01.html" class="a_btn">
+                                                                        <span>
+                                                                               전체보기
+                                                                        </span>
 
-									<img src="/img/search/btn_arrow.svg" alt="화살표" class="fx" />
-								</a>
-							</div>
+                                                                        <img src="/img/search/btn_arrow.svg" alt="화살표" class="fx" />
+                                                                </a>
+                                                        </div>
 
-							<div class="contents_con">
-								<div class="normal_notice_con">
-									<div class="title_con">
-										<table cellpadding="0" cellspacing="0">
-											<tbody>
-												<tr>
-													<td align="center" class="no_td">
-														<span>
-															번호
-														</span>
-													</td>
-													<td align="center" class="title_td">
-														<span>
-															제목
-														</span>
-													</td>
-													<td align="center" class="name_td">
-														<span>
-															작성자
-														</span>
-													</td>
-													<td align="center" class="date_td">
-														<span>
-															등록일
-														</span>
-													</td>
-													<td align="center" class="views_td">
-														<span>
-															조회
-														</span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
+                                                        <div class="contents_con">
+                                                                <div class="normal_notice_con">
+                                                                        <div class="title_con">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                        <tbody>
+                                                                                                <tr>
+                                                                                                        <td align="center" class="no_td">
+                                                                                                                <span>
+                                                                                                                        번호
+                                                                                                                </span>
+                                                                                                        </td>
+                                                                                                        <td align="center" class="title_td">
+                                                                                                                <span>
+                                                                                                                        제목
+                                                                                                                </span>
+                                                                                                        </td>
+                                                                                                        <td align="center" class="name_td">
+                                                                                                                <span>
+                                                                                                                        작성자
+                                                                                                                </span>
+                                                                                                        </td>
+                                                                                                        <td align="center" class="date_td">
+                                                                                                                <span>
+                                                                                                                        등록일
+                                                                                                                </span>
+                                                                                                        </td>
+                                                                                                        <td align="center" class="views_td">
+                                                                                                                <span>
+                                                                                                                        조회
+                                                                                                                </span>
+                                                                                                        </td>
+                                                                                                </tr>
+                                                                                        </tbody>
+                                                                                </table>
+                                                                        </div>
 
-									<div class="list_con">
-										<ul>
-											<li>
-												<a href="/news/news_sub01_view.html">
-													<table cellpadding="0" cellspacing="0">
-														<tbody>
-															<tr>
-																<td align="center" class="no_td">
-																	<span>
-																		01
-																	</span>
-																</td>
-																<td align="left" class="title_td">
-																	<div class="title_con">
-																		<span>
-																			게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다.
-																		</span>
-																	</div>
+                                                                        <div class="list_con">
+                                                                                <ul>
+                                                                                <?php if (empty($noticeRows)): ?>
+                                                                                        <li class="none_li"><span>등록된 게시글이 없습니다.</span></li>
+                                                                                <?php else:
+                                                                                        $noticeNum = count($noticeRows);
+                                                                                        foreach ($noticeRows as $row): ?>
+                                                                                        <li>
+                                                                                                <a href="/news/news_sub01_view.html?idx=<?= $row['idx'] ?>">
+                                                                                                        <table cellpadding="0" cellspacing="0">
+                                                                                                                <tbody>
+                                                                                                                        <tr>
+                                                                                                                                <td align="center" class="no_td">
+                                                                                                                                        <span><?= str_pad($noticeNum--, 2, '0', STR_PAD_LEFT) ?></span>
+                                                                                                                                </td>
+                                                                                                                                <td align="left" class="title_td">
+                                                                                                                                        <div class="title_con">
+                                                                                                                                                <span><?= htmlspecialchars($row['subject'], ENT_QUOTES) ?></span>
+                                                                                                                                        </div>
 
-																	<div class="info_con m_con">
-																		<span>
-																			관리자 <span class="bar">｜</span> 2025.01.01
-																		</span>
-																	</div>
-																</td>
-																<td align="center" class="name_td">
-																	<span>
-																		관리자
-																	</span>
-																</td>
-																<td align="center" class="date_td">
-																	<span>
-																		2025.01.01
-																	</span>
-																</td>
-																<td align="center" class="views_td">
-																	<span>
-																		999
-																	</span>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</a>
-											</li>
-											<!--
-											<li class="none_li">
-												<span>
-													등록된 게시글이 없습니다.
-												</span>
-											</li>
-											-->
-										</ul>
-									</div>
-								</div>
-							</div>
+                                                                                                                                        <div class="info_con m_con">
+                                                                                                                                                <span>
+                                                                                                                                                        <?= htmlspecialchars($row['name'], ENT_QUOTES) ?> <span class="bar">｜</span> <?= date('Y.m.d', strtotime($row['wdate'])) ?>
+                                                                                                                                                </span>
+                                                                                                                                        </div>
+                                                                                                                                </td>
+                                                                                                                                <td align="center" class="name_td">
+                                                                                                                                        <span><?= htmlspecialchars($row['name'], ENT_QUOTES) ?></span>
+                                                                                                                                </td>
+                                                                                                                                <td align="center" class="date_td">
+                                                                                                                                        <span><?= date('Y.m.d', strtotime($row['wdate'])) ?></span>
+                                                                                                                                </td>
+                                                                                                                                <td align="center" class="views_td">
+                                                                                                                                        <span><?= (int) $row['count'] ?></span>
+                                                                                                                                </td>
+                                                                                                                        </tr>
+                                                                                                                </tbody>
+                                                                                                        </table>
+                                                                                                </a>
+                                                                                        </li>
+                                                                                <?php endforeach; endif; ?>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
 						</div>
 
 						<div class="contents_div">
-							<div class="title_con">
-								<span>
-									교육소식
-								</span>
+                                                        <div class="title_con">
+                                                                <span>
+                                                                        교육소식
+                                                                </span>
 
-								<a href="/news/news_sub02.html" class="a_btn">
-									<span>
-										전체보기
-									</span>
+                                                                <a href="/news/news_sub02.html" class="a_btn">
+                                                                        <span>
+                                                                               전체보기
+                                                                        </span>
 
-									<img src="/img/search/btn_arrow.svg" alt="화살표" class="fx" />
-								</a>
-							</div>
+                                                                        <img src="/img/search/btn_arrow.svg" alt="화살표" class="fx" />
+                                                                </a>
+                                                        </div>
 
-							<div class="contents_con">
-								<div class="poster_notice_con">
-									<ul>
-										<li>
-											<div class="list_div">
-												<div class="img_con m_con">
-													<img src="/img/sub/m_poster_notice_list_img_con_blank_img.png" alt="모바일 블랭크 이미지" class="fx" />
+                                                        <div class="contents_con">
+                                                                <div class="poster_notice_con">
+                                                                        <ul>
+                                                                                <?php if (empty($educationRows)): ?>
+                                                                                        <li class="none_li"><span>등록된 게시글이 없습니다.</span></li>
+                                                                                <?php else:
+                                                                                        foreach ($educationRows as $row): ?>
+                                                                                        <li>
+                                                                                                <div class="list_div">
+                                                                                                        <div class="img_con m_con">
+                                                                                                                <img src="/uploads/<?= rawurlencode($row['upfile']) ?>" alt="모바일 이미지" class="fx" />
 
-													<div class="img_con" style="background-image:url('/img/sub/poster_notice_list_img_con_none_img.png');">
-														<img src="/img/sub/poster_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
-													</div>
-												</div>
+                                                                                                                <div class="img_con" style="background-image:url('/uploads/<?= rawurlencode($row['upfile']) ?>');">
+                                                                                                                        <img src="/img/sub/poster_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
+                                                                                                                </div>
+                                                                                                        </div>
 
-												<div class="text_con">
-													<div class="text01_con">
-														<div class="text01_con">
-															<span>
-																지점명
-															</span>
-														</div>
+                                                                                                        <div class="text_con">
+                                                                                                                <div class="text01_con">
+                                                                                                                        <div class="text01_con">
+                                                                                                                                <span><?= htmlspecialchars($row['grp'], ENT_QUOTES) ?></span>
+                                                                                                                        </div>
 
-														<div class="text02_con">
-															<span>
-																게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다.
-															</span>
-														</div>
-													</div>
+                                                                                                                        <div class="text02_con">
+                                                                                                                                <span><?= htmlspecialchars($row['subject'], ENT_QUOTES) ?></span>
+                                                                                                                        </div>
+                                                                                                                </div>
 
-													<div class="text02_con">
-														<table cellpadding="0" cellspacing="0">
-															<tbody>
-																<tr>
-																	<td align="left" class="title_td">
-																		<span>
-																			기간
-																		</span>
-																	</td>
-																	<td align="right" class="date_td">
-																		<span>
-																			2025.02.09 ~ 2025.02.28
-																		</span>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-												</div>
+                                                                                                                <div class="text02_con">
+                                                                                                                        <table cellpadding="0" cellspacing="0">
+                                                                                                                                <tbody>
+                                                                                                                                        <tr>
+                                                                                                                                                <td align="left" class="title_td">
+                                                                                                                                                        <span>기간</span>
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right" class="date_td">
+                                                                                                                                                        <span>
+                                                                                                                                                                <?= date('Y.m.d', strtotime($row['event_sdate'])) ?> ~ <?= date('Y.m.d', strtotime($row['event_edate'])) ?>
+                                                                                                                                                        </span>
+                                                                                                                                                </td>
+                                                                                                                                        </tr>
+                                                                                                                                </tbody>
+                                                                                                                        </table>
+                                                                                                                </div>
+                                                                                                        </div>
 
-												<div class="img_con w_con" style="background-image:url('/img/sub/poster_notice_list_img_con_none_img.png');">
-													<img src="/img/sub/poster_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
-												</div>
+                                                                                                        <div class="img_con w_con" style="background-image:url('/userfiles/education_news/<?= rawurlencode($row['upfile']) ?>');">
+                                                                                                                <img src="/img/sub/poster_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
+                                                                                                        </div>
 
-												<div class="btn_con">
-													<ul>
-														<li>
-															<a href="/news/news_sub02_view.html" class="a_btn a_btn01">
-																자세히보기
-															</a>
-														</li>
-														<li>
-															<a href="/news/news_sub02_apply.html" class="a_btn a_btn02">
-																교육신청하기
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</li>
-										<!--
-										<li class="none_li">
-											<span>
-												등록된 게시글이 없습니다.
-											</span>
-										</li>
-										-->
-									</ul>
-								</div>
-							</div>
+                                                                                                        <div class="btn_con">
+                                                                                                                <ul>
+                                                                                                                        <li>
+                                                                                                                                <a href="/news/news_sub02_view.html?idx=<?= $row['idx'] ?>" class="a_btn a_btn01">
+                                                                                                                                        자세히보기
+                                                                                                                                </a>
+                                                                                                                        </li>
+                                                                                                                        <li>
+                                                                                                                                <a href="/news/news_sub02_apply.html?idx=<?= $row['idx'] ?>" class="a_btn a_btn02">
+                                                                                                                                        교육신청하기
+                                                                                                                                </a>
+                                                                                                                        </li>
+                                                                                                                </ul>
+                                                                                                        </div>
+                                                                                                </div>
+                                                                                        </li>
+                                                                                <?php endforeach; endif; ?>
+                                                                        </ul>
+                                                                </div>
+                                                        </div>
 						</div>
 
 						<div class="contents_div">
-							<div class="title_con">
-								<span>
-									포토갤러리
-								</span>
+                                                        <div class="title_con">
+                                                                <span>
+                                                                        포토갤러리
+                                                                </span>
 
-								<a href="/news/news_sub04.html" class="a_btn">
-									<span>
-										전체보기
-									</span>
+                                                                <a href="/news/news_sub04.html" class="a_btn">
+                                                                        <span>
+                                                                               전체보기
+                                                                        </span>
 
-									<img src="/img/search/btn_arrow.svg" alt="화살표" class="fx" />
-								</a>
-							</div>
+                                                                        <img src="/img/search/btn_arrow.svg" alt="화살표" class="fx" />
+                                                                </a>
+                                                        </div>
 
-							<div class="contents_con">
-								<div class="gallery_notice_con">
-									<ul>
-										<li>
-											<a href="/news/news_sub04_view.html">
-												<div class="list_div">
-													<div class="img_con" style="background-image:url('/img/sub/gallery_notice_list_img_con_none_img.png');">
-														<img src="/img/sub/gallery_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
-													</div>
+                                                        <div class="contents_con">
+                                                                <div class="gallery_notice_con">
+                                                                        <ul>
+                                                                                <?php if (empty($galleryRows)): ?>
+                                                                                        <li class="none_li"><span>등록된 게시글이 없습니다.</span></li>
+                                                                                <?php else:
+                                                                                        foreach ($galleryRows as $row): ?>
+                                                                                        <li>
+                                                                                                <a href="/news/news_sub04_view.html?idx=<?= $row['idx'] ?>">
+                                                                                                        <div class="list_div">
+                                                                                                                <div class="img_con" style="background-image:url('/userfiles/photo_gallery/<?= rawurlencode($row['upfile']) ?>');">
+                                                                                                                        <img src="/img/sub/gallery_notice_list_img_con_blank_img.png" alt="블랭크 이미지" class="fx" />
+                                                                                                                </div>
 
-													<div class="text_con">
-														<div class="title_con">
-															<span>
-																게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다. 게시판 게시글 입니다.
-															</span>
-														</div>
+                                                                                                                <div class="text_con">
+                                                                                                                        <div class="title_con">
+                                                                                                                                <span><?= htmlspecialchars($row['subject'], ENT_QUOTES) ?></span>
+                                                                                                                        </div>
 
-														<div class="date_con">
-															<span>
-																2025.01.01
-															</span>
-														</div>
-													</div>
-												</div>
-											</a>
-										</li>
-										<!--
-										<li class="none_li">
-											<span>
-												등록된 게시글이 없습니다.
-											</span>
-										</li>
-										-->
-									</ul>
-								</div>
-							</div>
+                                                                                                                        <div class="date_con">
+                                                                                                                                <span><?= date('Y.m.d', strtotime($row['wdate'])) ?></span>
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </a>
+                                                                                        </li>
+                                                                                <?php endforeach; endif; ?>
+                                                                        </ul>
+                                                                </div>
+                                                        </div>
 						</div>
 					</div>
 				</div>

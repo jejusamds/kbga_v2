@@ -1,0 +1,8 @@
+Time : 13:17:38
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'smtp.naver.com' (4)
+
+Time : 13:17:08
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'smtp.naver.com' (4)
+
+Time : 13:13:26
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'smtp.naver.com' (4)

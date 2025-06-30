@@ -278,6 +278,10 @@
 <script type="text/javascript" src="/js/jquery.rwdImageMaps.js"></script>
 <script type="text/javascript" src="/js/swiper.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
+
 <script type="text/javascript" language="javascript">
 	$(document).ready(function(){
 		$('img[usemap]').rwdImageMaps();
@@ -287,7 +291,7 @@
 </head>
 <body>
 
-<div id="wrap">
+<div id="wrap" class="go_wrap">
 
 	<div id="header">
 		<div class="contents_con">
@@ -337,23 +341,23 @@
 							</div>
 						</td>
 						<td align="left" class="sm_td<?=$is_login ? ' login' : ''?>"><!--login-->
-							<div class="search_con">
-								<form action="" method="" autocomplete="off">
+                                                        <div class="search_con">
+                                                                <form action="/search_results.html" method="get" autocomplete="off">
 									<div class="input_con">
 										<table cellpadding="0" cellspacing="0">
 											<tbody>
 												<tr>
 													<td align="left" class="input_td">
-														<input type="text" name="" placeholder="검색해주세요." class="input" />
+                                                                               <input type="text" name="search_query" placeholder="검색해주세요." class="input" />
 													</td>
 													<td align="left" class="blank_td">
 														&nbsp;
 													</td>
 													<td align="left" class="btn_td">
-														<a href="/search_results.html">
-															<img src="/img/main/header_search_btn.svg" alt="헤더 검색 버튼" class="fx off" />
-															<img src="/img/main/header_search_btn_on.svg" alt="헤더 검색 버튼 on" class="fx on" />
-														</a>
+                                                                               <a href="javascript:;" onclick="this.closest('form').submit();">
+                                                                               <img src="/img/main/header_search_btn.svg" alt="헤더 검색 버튼" class="fx off" />
+                                                                               <img src="/img/main/header_search_btn_on.svg" alt="헤더 검색 버튼 on" class="fx on" />
+                                                                               </a>
 													</td>
 												</tr>
 											</tbody>
@@ -503,37 +507,37 @@
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub02.html">
+															<a href="/center/center_sub.php?category=makeup">
 																메이크업자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub03.html">
+															<a href="/center/center_sub.php?category=nail">
 																네일자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub04.html">
+															<a href="/center/center_sub.php?category=hair">
 																헤어자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub05.html">
+															<a href="/center/center_sub.php?category=skin">
 																피부자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub06.html">
+															<a href="/center/center_sub.php?category=half">
 																반영구자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub07.html">
+															<a href="/center/center_sub.php?category=foreign">
 																해외인증자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub08.html">
+															<a href="/center/center_sub.php?category=teacher">
 																강사인증자격
 															</a>
 														</li>
@@ -611,22 +615,22 @@
 	<div id="m_main_nav">
 		<div class="contents_con">
 			<div class="list_con">
-				<div class="search_con">
-					<form action="" method="" autocomplete="off">
+                                <div class="search_con">
+                                        <form action="/search_results.html" method="get" autocomplete="off">
 						<div class="input_con">
 							<table cellpadding="0" cellspacing="0">
 								<tbody>
 									<tr>
 										<td align="left" class="input_td">
-											<input type="text" name="" placeholder="검색해주세요." class="input" />
+                                                       <input type="text" name="search_query" placeholder="검색해주세요." class="input" />
 										</td>
 										<td align="left" class="blank_td">
 											&nbsp;
 										</td>
 										<td align="left" class="btn_td">
-											<a href="/search_results.html">
-												<img src="/img/main/header_search_btn_on.svg" alt="헤더 검색 버튼" class="fx" />
-											</a>
+                                                       <a href="javascript:;" onclick="this.closest('form').submit();">
+                                                       <img src="/img/main/header_search_btn_on.svg" alt="헤더 검색 버튼" class="fx" />
+                                                       </a>
 										</td>
 									</tr>
 								</tbody>
@@ -750,37 +754,37 @@
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub02.html">
+											<a href="/center/center_sub.php?category=makeup">
 												메이크업자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub03.html">
+											<a href="/center/center_sub.php?category=nail">
 												네일자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub04.html">
+											<a href="/center/center_sub.php?category=hair">
 												헤어자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub05.html">
+											<a href="/center/center_sub.php?category=skin">
 												피부자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub06.html">
+											<a href="/center/center_sub.php?category=half">
 												반영구자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub07.html">
+											<a href="/center/center_sub.php?category=foreign">
 												해외인증자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub08.html">
+											<a href="/center/center_sub.php?category=teacher">
 												강사인증자격
 											</a>
 										</li>

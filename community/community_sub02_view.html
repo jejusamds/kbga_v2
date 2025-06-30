@@ -71,6 +71,13 @@ $attachments = $db->query(
                             <tbody>
                                 <tr>
                                     <td align="left" class="text_td">
+										<div class="division_con">
+											<span
+												class="division_btn division_btn0<?= $row['grp'] == '채용중' ? '2' : '1' ?>">
+												<?= htmlspecialchars($row['grp'], ENT_QUOTES) ?>
+											</span>
+										</div>
+
                                         <div class="title_con">
                                             <span>
                                                 <?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>

@@ -1,0 +1,490 @@
+	<div id="footer">		
+		<div class="contents_con">
+			<div class="info01_con">
+				<div class="contents_con">
+					<div class="nav">
+						<span>
+							<a href="javascript:terms_popup('terms01');">개인정보처리방침</a>&nbsp;&nbsp;<span class="bar">I</span>&nbsp;&nbsp;
+                            <a href="javascript:terms_popup('terms02');">이용약관</a>
+                            <!-- &nbsp;&nbsp;<span class="bar">I</span>&nbsp;&nbsp; -->
+                            <!-- <a href="#">고객센터</a> -->
+						</span>
+					</div>
+
+					<div class="sns_con w_con">
+						<ul>
+							<li>
+								<a href="#" class="a_btn">
+									<img src="/img/main/footer_sns_btn_icon01.png" alt="sns 아이콘" class="fx" />
+								</a>
+							</li>
+							<li>
+								<a href="#" class="a_btn">
+									<img src="/img/main/footer_sns_btn_icon02.png" alt="sns 아이콘" class="fx" />
+								</a>
+							</li>
+							<li>
+								<a href="#" class="a_btn">
+									<img src="/img/main/footer_sns_btn_icon03.png" alt="sns 아이콘" class="fx" />
+								</a>
+							</li>
+							<li>
+								<a href="#" class="a_btn">
+									<img src="/img/main/footer_sns_btn_icon04.png" alt="sns 아이콘" class="fx" />
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="info02_con">
+				<div class="contents_con">
+					<div class="info01_con">
+						<div class="logo_con">
+							<img src="/img/main/footer_logo.svg" alt="푸터 로고" class="fx" />
+						</div>
+
+						<div class="text_con">
+							<ul>
+								<li>
+									<span>
+										한국미용총연합회
+									</span>
+								</li>
+								<li>
+									<span>
+										TEL : 070.4739.6817&nbsp;&nbsp;FAX : 02)6205.7088
+									</span>
+								</li>
+								<li>
+									<span>
+										E-MAIL :  knqc24@naver.com
+									</span>
+								</li>
+								<li>
+									<span>
+										주소 : 경기도 수원시 팔달구 인계로 123번길
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="info02_con">
+						<div class="text_con">
+							<div class="text01_con">
+								<span>
+									070.4739.6817
+								</span>
+							</div>
+
+							<div class="text02_con">
+								<div class="text_con">
+									<span>
+										오전 11:00 - 오후 6:00&nbsp;&nbsp;<span class="bar">|</span>&nbsp;&nbsp;주말, 공휴일 휴무
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="sns_con m_con">
+							<div class="list_con">
+								<ul>
+									<li>
+										<a href="#" class="a_btn">
+											<img src="/img/main/m_footer_sns_btn_icon01.png" alt="sns 아이콘" class="fx" />
+										</a>
+									</li>
+									<li>
+										<a href="#" class="a_btn">
+											<img src="/img/main/m_footer_sns_btn_icon02.png" alt="sns 아이콘" class="fx" />
+										</a>
+									</li>
+									<li>
+										<a href="#" class="a_btn">
+											<img src="/img/main/m_footer_sns_btn_icon03.png" alt="sns 아이콘" class="fx" />
+										</a>
+									</li>
+									<li>
+										<a href="#" class="a_btn">
+											<img src="/img/main/m_footer_sns_btn_icon04.png" alt="sns 아이콘" class="fx" />
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="info03_con">
+				<div class="contents_con">
+					<span>
+						COPYRIGHT &copy; 2025 한국미용총연합회 All rights reserved.
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="terms_popup_con_bg terms01"></div>
+	<div class="terms_popup_con terms01">
+		<div class="contents_con">
+			<div class="title_con">
+				<span>
+					개인정보처리방침
+				</span>
+			</div>
+
+			<div class="posts_con">
+				<div class="scroll_con">
+					<div class="contents_con">
+						<?php
+                            $pop_privacy = $db->single("SELECT content FROM df_site_page WHERE `type` = 'privacy'");
+                            echo $pop_privacy;
+                        ?>
+					</div>
+				</div>
+			</div>
+
+			<div class="close_btn">
+				<a href="javascript:terms_popup();" class="a_btn">
+					<img src="/img/main/popup_close_btn.svg" alt="팝업 닫기 버튼" class="fx" />
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="terms_popup_con_bg terms02"></div>
+	<div class="terms_popup_con terms02">
+		<div class="contents_con">
+			<div class="title_con">
+				<span>
+					이용약관
+				</span>
+			</div>
+
+			<div class="posts_con">
+				<div class="scroll_con">
+					<div class="contents_con">
+                        <?php
+                            $pop_use = $db->single("SELECT content FROM df_site_page WHERE `type` = 'use'");
+                            echo $pop_use;
+                        ?>
+					</div>
+				</div>
+			</div>
+
+			<div class="close_btn">
+				<a href="javascript:terms_popup();" class="a_btn">
+					<img src="/img/main/popup_close_btn.svg" alt="팝업 닫기 버튼" class="fx" />
+				</a>
+			</div>
+		</div>
+	</div>
+		
+</div>
+
+<script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+		
+	});
+	
+	// 약관 팝업
+	function terms_popup(type){
+		if( type == "terms01" ){
+			$(".terms_popup_con_bg.terms01").fadeIn();
+			$(".terms_popup_con.terms01").fadeIn();
+
+			// 화면 너비
+			if (window.innerWidth > 1024) {
+				
+			}else{
+				$("body").addClass("hidden").addClass("terms");
+			}
+		}else if( type == "terms02" ){
+			$(".terms_popup_con_bg.terms02").fadeIn();
+			$(".terms_popup_con.terms02").fadeIn();
+
+			// 화면 너비
+			if (window.innerWidth > 1024) {
+				
+			}else{
+				$("body").addClass("hidden").addClass("terms");
+			}
+		}else{
+			$(".terms_popup_con_bg").fadeOut();
+			$(".terms_popup_con").fadeOut();
+
+			// 화면 너비
+			if (window.innerWidth > 1024) {
+				
+			}else{
+				$("body").removeClass("hidden").removeClass("terms");
+			}
+		}
+	}
+
+	// 모바일 메인 메뉴
+	function m_main_nav(){
+		var effect = 'slide';
+		var options = { direction: "right" };
+		var options1 = { direction: "left" };
+		var duration = 500;
+		if($("#m_main_nav").css("display") == "none") {
+			$("#m_main_nav > .contents_con > .list_con").css("padding",($("#header").innerHeight()*2)+"px 0px "+$("#header").innerHeight()+"px 0px");
+			$("#m_main_nav > .contents_con > .list_con > .scroll_con").css("height",($(window).innerHeight() - ($("#header").innerHeight()*3))+"px").scrollTop(0);
+			$("body").addClass("hidden");
+			$("#header").addClass("on");
+			$("#m_main_nav_bg").fadeIn("500");
+			$("#m_main_nav").toggle(effect, options, duration);
+		}
+		else {
+			$("body").removeClass("hidden");
+			$("#header").removeClass("on");
+			$("#m_main_nav_bg").fadeOut("500");
+			$("#m_main_nav").toggle(effect, options, duration);
+		}
+	}
+
+	// 모바일 메인 메뉴 하위 메뉴 클릭 시
+	$(document).on("click","#m_main_nav > .contents_con > .list_con > .scroll_con > .contents_con > ul > li > a",function(){
+		$("#m_main_nav > .contents_con > .list_con > .scroll_con > .contents_con > ul > li > a").each(function(){
+			$(this).removeClass("on");
+			$(this).next(".sub_nav").slideUp();
+		});
+
+		if( $(this).next(".sub_nav").css("display") == "none" ){
+			$(this).addClass("on");
+			$(this).next(".sub_nav").slideDown();
+		}else{
+			$(this).removeClass("on");
+			$(this).next(".sub_nav").slideUp();
+		}
+	});
+
+	// 스크롤 이벤트
+	$(window).on("resize scroll", function() {
+		if ($(this).scrollTop() > 0) {
+			$("#header").addClass("scroll");
+		} else {
+			$("#header").removeClass("scroll");
+		}
+	});
+
+	// 초기 화면 크기 저장
+	var basic_initialWidth = window.innerWidth;
+	var basic_isFirstLoad = true;
+
+	// 리사이즈 예외처리
+	var basic_resizeTimer;
+	
+	<?php if ($ssMenu_slide != "") { ?>
+	// 서브 배너 서브 메뉴 슬라이드
+	var m_sub_banner_sub_nav_slide = null;
+	<?php } ?>
+
+	// 화면 리사이징
+	$(window).resize(function() {
+		// 현재 window 너비
+		var currentWidth = window.innerWidth;
+
+		// 너비가 변경되지 않은 경우(스크롤, 상태바 동작) 무시
+		if (currentWidth === basic_initialWidth && !basic_isFirstLoad) {
+			return;
+		}
+
+		clearTimeout(basic_resizeTimer);
+		
+		// 화면 너비
+		if (window.innerWidth > 1024) {
+			// 모바일 메인 메뉴 예외처리
+			if( $("#m_main_nav").css("display") != "none" ){
+				$("body").removeClass("hidden");
+				$("#header").removeClass("on");
+				$("#m_main_nav_bg").hide();
+				$("#m_main_nav").hide();
+			}
+			
+			// 모바일 메인 메뉴 검색창 예외처리
+			$("#m_main_nav > .contents_con > .list_con > .search_con .input_con > table > tbody > tr > .input_td .input").val("");
+		}else{
+			// 헤더 검색창 예외처리
+			$("#header > .contents_con > table > tbody > tr > .sm_td > .search_con .input_con > table > tbody > tr > .input_td .input").val("");
+
+			<?php if ($ssMenu_slide != "") { ?>
+			// 서브 배너 서브 메뉴 슬라이드 예외처리
+			$("#sub_con > .banner_con > .sub_nav > .slide_con").css({"opacity":"0","transition":"none"});
+			<?php } ?>
+		}
+
+		basic_resizeTimer = setTimeout(function() {
+			// 실제 리사이징이 발생한 경우에만 처리
+			if (currentWidth !== basic_initialWidth || basic_isFirstLoad) {
+				// 화면 너비
+				if (window.innerWidth > 1024) {
+					/*
+					// 헤더 오버 시
+					$("#header").hover(
+						function() {
+							$("#header").stop().addClass("over");
+
+							setTimeout(function(){
+								$("#header > .sub_nav").stop().slideDown(500);
+							}, 100);
+						},
+						function() {
+							$("#header > .sub_nav").stop().slideUp(500);
+
+							setTimeout(function(){
+								$("#header").stop().removeClass("over");
+							}, 500);
+						}
+					);
+					*/
+
+					// 타이머 변수 선언
+					let headerOverTimer = null;
+					let headerOutTimer = null;
+
+					$("#header").hover(
+						function() {
+							// 아웃 타이머가 있다면 제거
+							if (headerOutTimer) {
+								clearTimeout(headerOutTimer);
+								headerOutTimer = null;
+							}
+							// 오버 타이머 중복 방지
+							if (headerOverTimer) {
+								clearTimeout(headerOverTimer);
+							}
+							headerOverTimer = setTimeout(function(){
+								$("#header").addClass("over");
+								$("#header > .sub_nav").stop(true, true).slideDown(350);
+							}, 100);
+						},
+						function() {
+							// 오버 타이머가 있다면 제거
+							if (headerOverTimer) {
+								clearTimeout(headerOverTimer);
+								headerOverTimer = null;
+							}
+							$("#header > .sub_nav").stop(true, true).slideUp(350);
+							headerOutTimer = setTimeout(function(){
+								$("#header").removeClass("over");
+							}, 350);
+						}
+					);
+
+					// 연합회소개 오버 시
+					$("#header .a01").hover(
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a01").addClass("over");
+						},
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a01").removeClass("over");
+						}
+					);
+
+					// 협회소식 오버 시
+					$("#header .a02").hover(
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a02").addClass("over");
+						},
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a02").removeClass("over");
+						}
+					);
+
+					// 자격시험센터 오버 시
+					$("#header .a03").hover(
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a03").addClass("over");
+						},
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a03").removeClass("over");
+						}
+					);
+
+					// COMPETITION 오버 시
+					$("#header .a04").hover(
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a04").addClass("over");
+						},
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a04").removeClass("over");
+						}
+					);
+
+					// 커뮤니티 오버 시
+					$("#header .a05").hover(
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a05").addClass("over");
+						},
+						function(){
+							$("#header > .contents_con > table > tbody > tr > .nav_td > .list_con > ul > li > a.a05").removeClass("over");
+						}
+					);
+				}else{
+					// 헤더 오버 시
+					$("#header").mouseenter(function() {
+						$("#header").removeClass("over");
+						$("#header > .sub_nav").hide();
+					});
+
+					<?php if ($ssMenu_slide != "") { ?>
+					// 서브 배너 서브 메뉴 슬라이드 파괴
+					if (m_sub_banner_sub_nav_slide) {
+						m_sub_banner_sub_nav_slide.destroy();
+						m_sub_banner_sub_nav_slide = null;
+					}
+
+					// 서브 배너 서브 메뉴 슬라이드
+					m_sub_banner_sub_nav_slide = new Swiper ('.m_sub_banner_sub_nav_slide', {
+						slidesPerView: 'auto',
+						speed: 1500,
+						loop: false,
+						observer: true,
+						observeParents: true,
+					});
+					
+					// 모바일 서브 배너 서브 메뉴 슬라이드 gotoslide
+					m_sub_banner_sub_nav_slide.slideTo(<?=$ssMenu_slide?>, 0);
+
+					// 서브 배너 서브 메뉴 슬라이드 예외처리
+					$("#sub_con > .banner_con > .sub_nav > .slide_con").css({"opacity":"1","transition":"all 0.5s ease"});
+					<?php } ?>
+
+					// 회전 감지 함수
+					function checkOrientation() {
+						const orientation = window.orientation;
+						if (orientation === 90 || orientation === -90) {
+							// 가로 모드
+						} else {
+							// 세로 모드
+						}
+
+						// 모바일 메인 메뉴 예외처리
+						if ($("#m_main_nav").css("display") != "none") {
+							$("#m_main_nav > .contents_con > .list_con").css("padding",($("#header").innerHeight()*2)+"px 0px "+$("#header").innerHeight()+"px 0px");
+							$("#m_main_nav > .contents_con > .list_con > .scroll_con").css("height",($(window).innerHeight() - ($("#header").innerHeight()*3))+"px").scrollTop(0);
+						}
+					}
+
+					// 초기 상태 확인
+					checkOrientation();
+
+					// 회전 이벤트 감지
+					window.addEventListener("resize", checkOrientation);
+				}
+
+				basic_initialWidth = currentWidth;
+				basic_isFirstLoad = false;
+			}
+		}, 500);
+	});
+</script>
+
+</body>
+</html>

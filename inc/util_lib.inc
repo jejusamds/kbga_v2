@@ -896,19 +896,38 @@ function print_pagelist_web($page, $list_amount, $page_count, $param)
 // 이메일 발송
 function send_mail($se_name, $se_email, $re_name, $re_email, $subject, $content, $cc = "", $bcc = "")
 {
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/PHPMailer/Exception.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/PHPMailer/PHPMailer.php";
 
-	$headers = "MIME-Version: 1.0\r\n";
-	$headers .= "From: =?utf-8?b?" . base64_encode($se_name) . "?= <" . $se_email . ">\r\n";
-	$headers .= "Content-Type: text/html;charset=utf-8\r\n";
-	$headers .= "Reply-To: $reply\r\n";
-	$headers .= "X-Mailer: PHP/" . phpversion();
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/lib/smtp.ini.php", true);
 
-	if ($cc) $headers .= "cc: $cc\n";
-	if ($bcc) $headers .= "bcc: $bcc";
+        $smtp = $config['SMTP'];
 
-	$subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
-	$result = mail($re_email, $subject, $content, $headers);
-	return $result;
+        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        $mail->SMTPDebug = 2;
+        $mail->isSMTP();
+        $mail->Host = $smtp['host'];
+        $mail->Port = $smtp['port'];
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtp['user'];
+        $mail->Password = $smtp['password'];
+        $mail->SMTPSecure = $smtp['secure'];
+
+        $mail->setFrom($se_email, $se_name);
+        $mail->addAddress($re_email, $re_name);
+        if ($cc) $mail->addCC($cc);
+        if ($bcc) $mail->addBCC($bcc);
+
+        $mail->Subject = $subject;
+        $mail->isHTML(true);
+        $mail->Body = $content;
+
+        try {
+                return $mail->send();
+        } catch (\PHPMailer\PHPMailer\Exception $e) {
+                return $e;
+                //return false;
+        }
 }
 
 
