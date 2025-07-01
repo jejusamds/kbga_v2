@@ -33,6 +33,15 @@ if ($total > 0) {
             <li class="active">대회</li>
         </ul>
     </div>
+    <table class="comMTop20" cellpadding="0" cellspacing="0" style="width:1114px;">
+        <tr>
+            <td width="5"></td>
+            <td colspan="6" align="right">
+                <button class="btn btn-success btn-xs" type="button" onclick="location.href='reg_competition_excel.php?<?= $param ?>'">엑셀파일저장</button>
+            </td>
+            <td width="5"></td>
+        </tr>
+    </table>
     <div class="box comMTop20" style="width:1114px;">
         <div class="panel">
             <table class="table" cellpadding="0" cellspacing="0">

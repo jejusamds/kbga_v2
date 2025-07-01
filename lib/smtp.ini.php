@@ -1,7 +1,6 @@
-
 [SMTP]
-host = smtp.naver.com
+host = smtp.gmail.com
 port = 465
-user = knqc24@naver.com
-password = "imhan4181@@"
+user = kblsm917@gmail.com
+password = "huzqwklpnbzwsrkp"
 secure = ssl

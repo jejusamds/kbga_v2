@@ -141,7 +141,7 @@ m_con 은 모바일용
                                                                                         </td>
                                                                                         <td align="center" class="receipt_td">
                                                                                             <span>
-                <?= htmlspecialchars($row['f_registration_start']) ?> ~ <?= htmlspecialchars($row['f_registration_end']) ?>
+                                                                                                <?= htmlspecialchars($row['f_registration_period']) ?>
                                                                                             </span>
                                                                                         </td>
                                                                                         <td align="center" class="exam_td">
@@ -169,7 +169,7 @@ m_con 은 모바일용
                                                                                         </td>
                                                                                         <td align="center" class="receipt_td">
                                                                                             <span>
-                <?= htmlspecialchars($row['f_registration_start_2']) ?> ~ <?= htmlspecialchars($row['f_registration_end_2']) ?>
+                                                                                                <?= htmlspecialchars($row['f_registration_period_2']) ?>
                                                                                             </span>
                                                                                         </td>
                                                                                         <td align="center" class="exam_td">
@@ -240,7 +240,7 @@ m_con 은 모바일용
                                                                                     </td>
                                                                                     <td align="left" class="info_td">
                                                                                         <span>
-            <?= htmlspecialchars($row['f_registration_start']) ?> ~ <?= htmlspecialchars($row['f_registration_end']) ?>
+                                                                                            <?= htmlspecialchars($row['f_registration_period']) ?>
                                                                                         </span>
                                                                                     </td>
                                                                                 </tr>
@@ -325,7 +325,7 @@ m_con 은 모바일용
                                                                                     </td>
                                                                                     <td align="left" class="info_td">
                                                                                         <span>
-            <?= htmlspecialchars($row['f_registration_start_2']) ?> ~ <?= htmlspecialchars($row['f_registration_end_2']) ?>
+                                                                                            <?= htmlspecialchars($row['f_registration_period_2']) ?>
                                                                                         </span>
                                                                                     </td>
                                                                                 </tr>
@@ -432,7 +432,7 @@ m_con 은 모바일용
                                                                                         </td>
                                                                                         <td align="center" class="receipt_td">
                                                                                             <span>
-                <?= htmlspecialchars($row['f_registration_start']) ?> ~ <?= htmlspecialchars($row['f_registration_end']) ?>
+                                                                                                <?= htmlspecialchars($row['f_registration_period']) ?>
                                                                                             </span>
                                                                                         </td>
                                                                                         <td align="center" class="exam_td">
@@ -498,7 +498,7 @@ m_con 은 모바일용
                                                                                     </td>
                                                                                     <td align="left" class="info_td">
                                                                                         <span>
-            <?= htmlspecialchars($row['f_registration_start']) ?> ~ <?= htmlspecialchars($row['f_registration_end']) ?>
+                                                                                            <?= htmlspecialchars($row['f_registration_period']) ?>
                                                                                         </span>
                                                                                     </td>
                                                                                 </tr>

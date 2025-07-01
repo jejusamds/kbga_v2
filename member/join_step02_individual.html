@@ -125,62 +125,6 @@
 																<div class="bar"><div>
 															</td>
 															<td valign="top" align="left" class="info_td">
-																<!--
-																<div class="birthdate_con">
-																	<div class="input_con">
-																		<table cellpadding="0" cellspacing="0">
-																			<tbody>
-																				<tr>
-																					<td align="left" class="input01_td">
-																						<input type="tel" name="f_birth_date_1" id="f_birth_date_1" data-required="y" data-label="생년월일을" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
-																					</td>
-																					<td align="center" class="text01_td">
-																						<span>
-																							년
-																						</span>
-																					</td>
-																					<td align="left" class="input02_td">
-																						<input type="tel" name="f_birth_date_2" id="f_birth_date_2" data-required="y" data-label="생년월일을" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
-																					</td>
-																					<td align="center" class="text02_td">
-																						<span>
-																							월
-																						</span>
-																					</td>
-																					<td align="left" class="input03_td">
-																						<input type="tel" name="f_birth_date_3" id="f_birth_date_3" data-required="y" data-label="생년월일을" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
-																					</td>
-																					<td align="right" class="text03_td">
-																						<span>
-																							일
-																						</span>
-																					</td>
-																				</tr>
-																			</tbody>
-																		</table>
-																	</div>
-
-																	<div class="intro_con">
-																		<table cellpadding="0" cellspacing="0">
-																			<tbody>
-																				<tr>
-																					<td valign="top" align="left" class="dot_td">
-																						<span>
-																							*
-																						</span>
-																					</td>
-																					<td valign="top" align="left">
-																						<span>
-																							생년월일을 다르게 가입할 경우 <br class="m_br" />시험합격 결과가 무효처리 될 수 있습니다.
-																						</span>
-																					</td>
-																				</tr>
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
-																-->
-
 																<div class="birthdate_con">
 																	<div class="input_con">
 																		<ul>
@@ -189,7 +133,7 @@
 																					<tbody>
 																						<tr>
 																							<td align="left" class="select_td">
-																								<select name="" class="select">
+																								<select name="f_birth_date_1" id="f_birth_date_1" data-required="y" class="select">
 																									<option value="">선택</option>
 																									<option value="">2025</option>
 																								</select>
@@ -208,7 +152,7 @@
 																					<tbody>
 																						<tr>
 																							<td align="left" class="select_td">
-																								<select name="" class="select">
+																								<select name="f_birth_date_2" id="f_birth_date_2" data-required="y" class="select">
 																									<option value="">선택</option>
 																									<option value="">01</option>
 																								</select>
@@ -227,7 +171,7 @@
 																					<tbody>
 																						<tr>
 																							<td align="left" class="select_td">
-																								<select name="" class="select">
+																								<select name="f_birth_date_3" id="f_birth_date_3" data-required="y" class="select">
 																									<option value="">선택</option>
 																									<option value="">01</option>
 																								</select>
@@ -427,7 +371,7 @@
 																				<tbody>
 																					<tr>
 																						<td align="left" class="input_td">
-																							<input type="text" name="f_zip" id="f_zip" data-required="y" data-label="주소를" class="input" readonly="readonly" />
+																							<input type="text" name="f_zip" id="f_zip" data-required="y" data-label="주소를" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" />
 																						</td>
 																						<td align="left" class="blank_td">
 																							&nbsp;
@@ -593,7 +537,40 @@
 															<td valign="top" align="left" class="info_td">
 																<div class="email_con">
 																	<div class="input_con">
-																		<input type="text" name="f_email" id="f_email" data-required="y" data-label="이메일을" placeholder="이메일을 적어주세요." class="input" />
+																		<ul>
+																			<li>
+																				<table cellpadding="0" cellspacing="0">
+																					<tbody>
+																						<tr>
+																							<td align="left" class="input_td">
+																								<input type="text" name="" value="" class="input" />
+																							</td>
+																							<td align="center" class="text_td">
+																								<span>
+																									@
+																								</span>
+																							</td>
+																							<td align="left" class="input_td">
+																								<input type="text" name="email_add" value="" class="input email_address_input" />
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</li>
+																			<li>
+																				<select class="select email_select" onchange="email_address_select(this.value)">
+																					<option value="">직접입력</option>
+																					<option value="naver.com">naver.com</option>
+																					<option value="hanmail.net">hanmail.net</option>
+																					<option value="gmail.com">gmail.com</option>
+																					<option value="nate.com">nate.com</option>
+																					<option value="daum.net">daum.net</option>
+																					<option value="hotmail.com">hotmail.com</option>
+																					<option value="yahoo.co.kr">yahoo.co.kr</option>
+																					<option value="lycos.co.kr">lycos.co.kr</option>
+																				</select>
+																			</li>
+																		</ul>
 																	</div>
 
 																	<div class="intro_con">
@@ -776,6 +753,16 @@
 			$(obj).keyup(function(){
 				$(this).val($(this).val().replace(/[^0-9]/g,""));
 			}); 
+		}
+
+		// 이메일
+		function email_address_select(val){
+			var state = $(".email_select option:selected").val();
+			if ( state == "" ) {
+				$(".email_address_input").val("").attr("readonly",false).focus();
+			}else{
+				$(".email_address_input").val(val).attr("readonly",true);
+			}
 		}
 	</script>
 

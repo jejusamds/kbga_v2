@@ -30,10 +30,12 @@ $row = [
     'f_year' => $year,
     'f_round' => '',
     'f_type' => '',
-    'f_registration_period' => '',
+    'f_registration_start' => '',
+    'f_registration_end' => '',
     'f_exam_date' => '',
     'f_pass_announce' => '',
-    'f_registration_period_2' => '',
+    'f_registration_start_2' => '',
+    'f_registration_end_2' => '',
     'f_exam_date_2' => '',
     'f_pass_announce_2' => '',
     'f_cert_application' => ''
@@ -151,11 +153,15 @@ $category_map = [
                     <?php } ?>
 
                     <tr>
-                        <th><label for="f_registration_period">접수기간</label></th>
+                        <th><label for="f_registration_start">접수기간</label></th>
                         <td colspan="3" class="comALeft">
-                            <input type="text" name="f_registration_period" id="f_registration_period"
-                                value="<?= htmlspecialchars($row['f_registration_period'], ENT_QUOTES) ?>"
-                                class="form-control" style="width:60%;" placeholder="예: 2025.03.04~10">
+                            <input type="text" name="f_registration_start" id="f_registration_start"
+                                value="<?= htmlspecialchars($row['f_registration_start'], ENT_QUOTES) ?>"
+                                class="form-control" style="width:30%; display:inline-block;" placeholder="예: 2025-03-04">
+                            ~
+                            <input type="text" name="f_registration_end" id="f_registration_end"
+                                value="<?= htmlspecialchars($row['f_registration_end'], ENT_QUOTES) ?>"
+                                class="form-control" style="width:30%; display:inline-block;" placeholder="예: 2025-03-10">
                         </td>
                     </tr>
                     <tr>
@@ -182,11 +188,15 @@ $category_map = [
                             <th colspan="4">실기</th>
                         </tr>
                         <tr>
-                            <th><label for="f_registration_period_2">접수기간</label></th>
+                            <th><label for="f_registration_start_2">접수기간</label></th>
                             <td colspan="3" class="comALeft">
-                                <input type="text" name="f_registration_period_2" id="f_registration_period_2"
-                                    value="<?= htmlspecialchars($row['f_registration_period_2'], ENT_QUOTES) ?>"
-                                    class="form-control" style="width:60%;" placeholder="예: 2025.04.04~10">
+                                <input type="text" name="f_registration_start_2" id="f_registration_start_2"
+                                    value="<?= htmlspecialchars($row['f_registration_start_2'], ENT_QUOTES) ?>"
+                                    class="form-control" style="width:30%; display:inline-block;" placeholder="예: 2025-04-04">
+                                ~
+                                <input type="text" name="f_registration_end_2" id="f_registration_end_2"
+                                    value="<?= htmlspecialchars($row['f_registration_end_2'], ENT_QUOTES) ?>"
+                                    class="form-control" style="width:30%; display:inline-block;" placeholder="예: 2025-04-10">
                             </td>
                         </tr>
                         <tr>
@@ -239,6 +249,13 @@ $category_map = [
     </form>
 </div>
 
+<script>
+$(function() {
+    $("#f_registration_start, #f_registration_end, #f_registration_start_2, #f_registration_end_2").datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+});
+</script>
 
 </body>
 

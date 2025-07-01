@@ -144,14 +144,14 @@ $category_map = [
                     <col width="80" />
                     <col width="80" />
                     <col width="80" />
+                    <!-- <col width="180" />
+                    <col width="120" /> -->
+                    <col width="120" />
                     <col width="180" />
-                    <col width="120" />
-                    <col width="120" />
-                    <col width="180" />
-                    <col width="120" />
-                    <col width="120" />
+                    <!-- <col width="120" />
+                    <col width="120" /> -->
                     <col width="200" />
-                    <col width="120" />
+                    <!-- <col width="120" /> -->
                 </colgroup>
                 <thead>
                     <tr>
@@ -160,14 +160,16 @@ $category_map = [
                         <th>회차</th>
                         <th>시험분류</th>
                         <th>구분</th>
-                        <th>필기 접수기간</th>
+                        <!-- <th>필기 접수시작</th>
+                        <th>필기 접수종료</th> -->
                         <th>필기 시험일</th>
                         <th>필기 합격자발표</th>
-                        <th>실기 접수기간</th>
+                        <!-- <th>실기 접수시작</th>
+                        <th>실기 접수종료</th> -->
                         <th>실기 시험일</th>
                         <th>실기 합격자발표</th>
                         <th>자격증 신청</th>
-                        <th>작성일</th>
+                        <!-- <th>작성일</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -193,14 +195,16 @@ $category_map = [
                                     <?= htmlspecialchars($item['f_type'], ENT_QUOTES) ?>분기
                                     <?php } ?>
                                 </td>
-                                <td><?= htmlspecialchars($item['f_registration_period'], ENT_QUOTES) ?></td>
+                                <!-- <td><?= htmlspecialchars($item['f_registration_start'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($item['f_registration_end'], ENT_QUOTES) ?></td> -->
                                 <td><?= htmlspecialchars($item['f_exam_date'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($item['f_pass_announce'], ENT_QUOTES) ?></td>
-                                <td><?= htmlspecialchars($item['f_registration_period_2'], ENT_QUOTES) ?></td>
+                                <!-- <td><?= htmlspecialchars($item['f_registration_start_2'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($item['f_registration_end_2'], ENT_QUOTES) ?></td> -->
                                 <td><?= htmlspecialchars($item['f_exam_date_2'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($item['f_pass_announce_2'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($item['f_cert_application'], ENT_QUOTES) ?></td>
-                                <td><?= substr($item['wdate'], 0, 10) ?></td>
+                                <!-- <td><?= substr($item['wdate'], 0, 10) ?></td> -->
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

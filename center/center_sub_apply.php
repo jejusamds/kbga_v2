@@ -22,7 +22,22 @@ if ($is_login) {
 }
 
 $items = $db->query("SELECT idx, f_item_name, f_category FROM df_site_qualification_item ORDER BY f_item_name ASC");
-$schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df_site_application ORDER BY f_year DESC, f_round DESC");
+$schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category, f_registration_start, f_registration_end, f_registration_start_2, f_registration_end_2 FROM df_site_application ORDER BY f_year DESC, f_round DESC");
+
+// 접수 가능 여부 계산 함수
+function is_open_period($start, $end)
+{
+    if (!$start || !$end) return false;
+    $today = date('Y-m-d');
+    return ($today >= $start && $today <= $end);
+}
+
+foreach ($schedules as &$sc) {
+    $open1 = is_open_period($sc['f_registration_start'], $sc['f_registration_end']);
+    $open2 = is_open_period($sc['f_registration_start_2'], $sc['f_registration_end_2']);
+    $sc['is_open'] = $open1 || $open2;
+}
+unset($sc);
 
 
 ?>
@@ -56,12 +71,12 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                     <div class="list_con">
                         <ul>
                             <li>
-                                <a href="/center/center_sub_apply.php?category=<?=$category?>" class="on">
+                                <a href="/center/center_sub_apply.php?category=<?=$category?>&type=00" class="on">
                                     개인접수
                                 </a>
                             </li>
                             <li>
-                                <a href="/center/center_sub_apply_o.php?category=<?=$category?>">
+                                <a href="/center/center_sub_apply_o.php?category=<?=$category?>&type=00">
                                     단체접수
                                 </a>
                             </li>
@@ -133,7 +148,7 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                                 <td align="left" class="info_td">
                                                                     <select name="f_category" id="f_category"
                                                                         data-required="y" data-label="자격분야를"
-                                                                        class="select" <?= $selected_category ? 'disabled' : '' ?>>
+                                                                        class="select">
                                                                         <option value="" <?= $selected_category ? '' : 'selected' ?>>자격분야를 선택해주세요.</option>
                                                                         <option value="makeup" <?= $selected_category === 'makeup' ? 'selected' : '' ?>>메이크업</option>
                                                                         <option value="nail" <?= $selected_category === 'nail' ? 'selected' : '' ?>>네일</option>
@@ -143,9 +158,6 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                                         <option value="foreign" <?= $selected_category === 'foreign' ? 'selected' : '' ?>>해외인증</option>
                                                                         <option value="teacher" <?= $selected_category === 'teacher' ? 'selected' : '' ?>>강사인증</option>
                                                                     </select>
-                                                                    <?php if ($selected_category): ?>
-                                                                    <input type="hidden" name="f_category" value="<?= htmlspecialchars($selected_category) ?>" />
-                                                                    <?php endif; ?>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -195,11 +207,12 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
                                                                         data-required="y" data-label="시험일정을"
                                                                         class="select">
                                                                         <option value="">시험일정 선택을 선택해주세요.</option>
+                                                                        <option value="0" data-category="" data-open="1">상시접수</option>
                                                                         <?php foreach ($schedules as $sc): ?>
-    <option value="<?= $sc['idx'] ?>" data-category="<?= $sc['f_category'] ?>">
+    <option value="<?= $sc['idx'] ?>" data-category="<?= $sc['f_category'] ?>" data-open="<?= $sc['is_open'] ? '1' : '0' ?>" <?= $sc['is_open'] ? '' : 'disabled' ?>>
         <?= $sc['f_year'] ?>년
         <?= $sc['f_round'] ?>회차
-        <?= htmlspecialchars($sc['f_type'], ENT_QUOTES) ?>
+        <?= htmlspecialchars($sc['f_type'], ENT_QUOTES) ?><?= $sc['is_open'] ? '' : ' (마감)' ?>
     </option>
 <?php endforeach; ?>
 
@@ -824,11 +837,16 @@ $schedules = $db->query("SELECT idx, f_year, f_round, f_type, f_category FROM df
 
         scheduleSelect.innerHTML = '';
         if (schedulePlaceholder) scheduleSelect.appendChild(schedulePlaceholder);
-        scheduleOptions.forEach(opt => {
-            if (selected && opt.dataset.category === selected) {
-                scheduleSelect.appendChild(opt);
-            }
-        });
+        if (selected) {
+            scheduleOptions.forEach(opt => {
+                if (opt.dataset.category === selected || opt.dataset.category === '') {
+                    scheduleSelect.appendChild(opt);
+                }
+            });
+            scheduleSelect.disabled = false;
+        } else {
+            scheduleSelect.disabled = true;
+        }
         scheduleSelect.value = '';
     }
 

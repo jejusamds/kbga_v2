@@ -105,11 +105,11 @@ if ($filtered['mode'] === 'sign_up') {
             ]);
         }
 
-        if (!preg_match('/^[A-Za-z0-9]{4,11}$/', $filtered['f_password'])) {
+        if (!preg_match('/^[!-~]{4,12}$/', $filtered['f_password'])) {
             return_json([
                 'result' => 'error',
                 'field' => 'f_password',
-                'msg' => '비밀번호는 4자리 이상 12자 미만의 영자/숫자 조합만 가능하며, 영문은 대소문자 구분합니다.'
+                'msg' => '비밀번호는 4~12자의 영문, 숫자, 특수문자를 사용할 수 있으며 영문은 대소문자 구분합니다.'
             ]);
         }
 
@@ -237,11 +237,11 @@ if ($filtered['mode'] === 'sign_up') {
             ]);
         }
 
-        if (!preg_match('/^[A-Za-z0-9]{4,11}$/', $filtered['f_password'])) {
+        if (!preg_match('/^[!-~]{4,12}$/', $filtered['f_password'])) {
             return_json([
                 'result' => 'error',
                 'field' => 'f_password',
-                'msg' => '비밀번호는 4자리 이상 12자 미만의 영자/숫자 조합만 가능하며, 영문은 대소문자 구분합니다.'
+                'msg' => '비밀번호는 4~12자의 영문, 숫자, 특수문자를 사용할 수 있으며 영문은 대소문자 구분합니다.'
             ]);
         }
 
@@ -397,12 +397,12 @@ if ($filtered['mode'] === 'modify_profile') {
         if ($filtered['f_password'] !== $filtered['f_password_chk']) {
             return_json(['result' => 'error', 'msg' => '새 비밀번호가 일치하지 않습니다.']);
         }
-        // 형식 검증: 4자 이상 12자 미만 영자/숫자 조합
-        if (!preg_match('/^[A-Za-z0-9]{4,11}$/', $filtered['f_password'])) {
+        // 형식 검증: 4~12자 허용, 영문/숫자/특수문자 가능
+        if (!preg_match('/^[!-~]{4,12}$/', $filtered['f_password'])) {
             return_json([
                 'result' => 'error',
                 'field' => 'f_password',
-                'msg' => '비밀번호는 4자리 이상 12자 미만의 영자/숫자 조합만 가능하며, 영문은 대소문자 구분합니다.'
+                'msg' => '비밀번호는 4~12자의 영문, 숫자, 특수문자를 사용할 수 있으며 영문은 대소문자 구분합니다.'
             ]);
         }
         $changePwd = true;
@@ -528,5 +528,3 @@ if ($filtered['mode'] === 'modify_profile') {
         'redirect' => '/mypage/modify.html'
     ]);
 }
-
-

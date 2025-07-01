@@ -2,6 +2,18 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/inc/global.inc';
 include $_SERVER['DOCUMENT_ROOT'] . '/inc/util_lib.inc';
 
+$convert_fields = [
+    'f_registration_start',
+    'f_registration_end',
+    'f_registration_start_2',
+    'f_registration_end_2',
+];
+foreach ($convert_fields as $cf) {
+    if (isset($_POST[$cf]) && $_POST[$cf] !== '') {
+        $_POST[$cf] = str_replace('-', '.', $_POST[$cf]);
+    }
+}
+
 $table = 'df_site_application';
 $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
 $page = isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 1;
@@ -14,10 +26,12 @@ $fields = [
     'f_year',
     'f_round',
     'f_type',
-    'f_registration_period',
+    'f_registration_start',
+    'f_registration_end',
     'f_exam_date',
     'f_pass_announce',
-    'f_registration_period_2',
+    'f_registration_start_2',
+    'f_registration_end_2',
     'f_exam_date_2',
     'f_pass_announce_2',
     'f_cert_application'

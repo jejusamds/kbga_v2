@@ -854,7 +854,7 @@
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .a_btn {border:0.28vw solid #EBEBEB; font-size:3.33vw; line-height:9.72vw;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .radio_label .check_icon {width:4.17vw; height:4.17vw; background-size:4.17vw; margin:0 0.56vw 0 0;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .input {height:10.28vw; border:0.28vw solid #EBEBEB; padding:0 2.78vw; font-size:3.89vw;}
-	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .select {height:10.28vw; border:0.28vw solid #EBEBEB; background-size:4.17vw; background-position:right 2.78vw center; padding:0 11.11vw 0 4.17vw; 	font-size:3.89vw;}
+	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .select {height:10.28vw; border:0.28vw solid #EBEBEB; background-size:4.17vw; background-position:right 2.78vw center; padding:0 9.73vw 0 2.78vw; font-size:3.89vw;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .input_con {display:block;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .intro_con {display:block; margin:2.78vw 0 0 0;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .intro_con > table > tbody > tr > td span {font-size:3.33vw;}
@@ -866,15 +866,12 @@
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > table > tbody > tr > .input02_td {width:12.5vw;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > table > tbody > tr > .text02_td {width:7.5vw;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > table > tbody > tr > .input03_td {width:12.5vw;}
-
-	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul {}
-	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li {float:left; width:min(119px, 6.2vw); margin:0 0 0 min(7px, 0.36vw);}
+	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li {width:50%; margin:0 0 0 0;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li > table {width:100%; margin:0 auto;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li > table > tbody > tr > td {}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li > table > tbody > tr > .select_td {}
-	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li > table > tbody > tr > .text_td {width:23px;}
-	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li:nth-child(1) {margin:0;}
-
+	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li > table > tbody > tr > .text_td {width:6.11vw; text-align:center;}
+	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .birthdate_con > .input_con > ul > li:nth-child(1) {width:100%; margin:0 0 2.78vw 0;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .gender_con > .input_con > ul > li {margin:0 0 0 2.22vw;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .gender_con > .input_con > ul > li .radio_label span {line-height:10.28vw;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .tel_con > table {width:100%; margin:0 auto;}
@@ -893,6 +890,9 @@
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .id_con > .input_con > table > tbody > tr > .btn_td {width:23.06vw;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .password_con > .input_con {width:auto;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .email_con > .input_con {width:auto;}
+	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .email_con > .input_con > ul > li {float:none; width:auto; margin:2.78vw 0 0 0;}
+	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .email_con > .input_con > ul > li > table > tbody > tr > .input_td {width:26.94vw;}
+	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .email_con > .input_con > ul > li > table > tbody > tr > .text_td {width:auto;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .email_con > .intro_con {margin:2.78vw 0 0 0;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .email_con > .intro_con > table {width:100%; margin:0 auto;}
 	.join_step_con > .contents_con > .contents_con > .write_con .write_div > ul > li > table > tbody > tr > .info_td .email_con > .intro_con > table > tbody > tr > .text_td {width:25.83vw;}

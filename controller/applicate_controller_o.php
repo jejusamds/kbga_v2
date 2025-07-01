@@ -80,6 +80,12 @@ $required = [
     'f_payer_bank' => '은행을 선택해주세요.'
 ];
 foreach ($required as $field => $msg) {
+    if ($field === 'f_schedule_idx') {
+        if ($filtered[$field] === '' || $filtered[$field] === null) {
+            return_json(['result' => 'blank', 'field' => $field, 'msg' => $msg]);
+        }
+        continue;
+    }
     if (empty($filtered[$field])) {
         return_json(['result' => 'blank', 'field' => $field, 'msg' => $msg]);
     }

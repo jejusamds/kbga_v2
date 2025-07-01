@@ -4,7 +4,10 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Madmin/inc/top.php";
 $idx = isset($_GET['idx']) ? (int) $_GET['idx'] : 0;
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-$sql = "SELECT * FROM df_site_edu_registration WHERE idx = '{$idx}'";
+$sql = "SELECT t1.*, b.subject
+        FROM df_site_edu_registration t1
+        LEFT JOIN df_site_bbs b ON t1.f_news_idx = b.idx
+        WHERE t1.idx = '{$idx}'";
 $row = $db->row($sql);
 if (!$row) {
     error('잘못된 접근입니다.', 'edu_list.php');
@@ -47,7 +50,7 @@ function printType($val)
                 </tr>
                 <tr>
                     <td style="width:200px;">교육구분</td>
-                    <td><?= printValue($row['f_news_idx']) ?></td>
+                    <td><?= printValue($row['subject']) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">이름/기관명</td>
@@ -125,6 +128,10 @@ function printType($val)
             <div class="comFLeft comACenter" style="width:10%;">
                 <button class="btn btn-primary btn-sm" type="button"
                     onclick="location.href='edu_list.php?page=<?= $page ?>';">목록</button>
+            </div>
+            <div class="comFRight comACenter" style="width:10%;">
+                <button class="btn btn-success btn-sm" type="button"
+                    onclick="location.href='reg_edu_view_excel.php?idx=<?= $idx ?>';">엑셀파일저장</button>
             </div>
             <div class="clear"></div>
         </div>

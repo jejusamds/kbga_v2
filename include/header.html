@@ -1,6 +1,8 @@
 <?php
-
     include_once($_SERVER["DOCUMENT_ROOT"] . "/include/common.php");
+
+	// 페이지 시점 이동
+	$type = $_GET["type"];
 
 	// 현재 페이지 url
 	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http');
