@@ -295,7 +295,7 @@ unset($sc);
                                                     <table cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                             <tr>
-                                                                <td align="left" class="title_td">
+                                                                <td align="left" class="title_td title_td02">
                                                                     <span>
                                                                         담당자 연락처
                                                                     </span>

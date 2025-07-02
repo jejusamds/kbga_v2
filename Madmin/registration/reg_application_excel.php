@@ -18,6 +18,11 @@ $category_map = [
     'teacher' => '강사인증',
 ];
 
+$application_type_map = [
+    'exam' => '시헙 접수',
+    'cert' => '자격증 발급',
+];
+
 $list = $db->query("SELECT * FROM df_site_application_registration ORDER BY idx DESC");
 
 echo "<table border='1'>";
@@ -25,6 +30,7 @@ echo "<tr>";
 echo "<th>번호</th>";
 echo "<th>분야</th>";
 echo "<th>이름</th>";
+echo "<th>신청구분</th>";
 echo "<th>연락처</th>";
 echo "<th>이메일</th>";
 echo "</tr>";
@@ -36,6 +42,7 @@ foreach ($list as $row) {
     echo "<td>{$no}</td>";
     echo "<td>" . safeAdminOutput($category) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_user_name']) . "</td>";
+    echo "<td>" . safeAdminOutput($application_type_map[$row['f_application_type']]) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_tel']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_email']) . "</td>";
     echo "</tr>";

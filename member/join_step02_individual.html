@@ -56,8 +56,8 @@
 													</div>
 												</div>
 											</li>
-										</ul>
-									</div>
+                                                                               </ul>
+                                                                               </div>
 								</div>
 
 								<div class="text_con">
@@ -133,10 +133,9 @@
 																					<tbody>
 																						<tr>
 																							<td align="left" class="select_td">
-																								<select name="f_birth_date_1" id="f_birth_date_1" data-required="y" class="select">
-																									<option value="">선택</option>
-																									<option value="">2025</option>
-																								</select>
+                                        <select name="f_birth_date_1" id="f_birth_date_1" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
 																							</td>
 																							<td align="right" class="text_td">
 																								<span>
@@ -152,10 +151,9 @@
 																					<tbody>
 																						<tr>
 																							<td align="left" class="select_td">
-																								<select name="f_birth_date_2" id="f_birth_date_2" data-required="y" class="select">
-																									<option value="">선택</option>
-																									<option value="">01</option>
-																								</select>
+                                        <select name="f_birth_date_2" id="f_birth_date_2" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
 																							</td>
 																							<td align="right" class="text_td">
 																								<span>
@@ -171,10 +169,9 @@
 																					<tbody>
 																						<tr>
 																							<td align="left" class="select_td">
-																								<select name="f_birth_date_3" id="f_birth_date_3" data-required="y" class="select">
-																									<option value="">선택</option>
-																									<option value="">01</option>
-																								</select>
+                                        <select name="f_birth_date_3" id="f_birth_date_3" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
 																							</td>
 																							<td align="right" class="text_td">
 																								<span>
@@ -289,19 +286,19 @@
 																		<tbody>
 																			<tr>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_tel_1" id="f_tel_1" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_tel_1" id="f_tel_1" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																				<td align="center" class="text_td">
 																					-
 																				</td>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_tel_2" id="f_tel_2" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_tel_2" id="f_tel_2" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																				<td align="center" class="text_td">
 																					-
 																				</td>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_tel_3" id="f_tel_3" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_tel_3" id="f_tel_3" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																			</tr>
 																		</tbody>
@@ -543,7 +540,7 @@
 																					<tbody>
 																						<tr>
 																							<td align="left" class="input_td">
-																								<input type="text" name="" value="" class="input" />
+                                                                               <input type="text" name="f_email_id" value="" class="input" />
 																							</td>
 																							<td align="center" class="text_td">
 																								<span>
@@ -551,7 +548,7 @@
 																								</span>
 																							</td>
 																							<td align="left" class="input_td">
-																								<input type="text" name="email_add" value="" class="input email_address_input" />
+                                                                               <input type="text" name="f_email_domain" value="" class="input email_address_input" />
 																							</td>
 																						</tr>
 																					</tbody>
@@ -764,8 +761,58 @@
 				$(".email_address_input").val(val).attr("readonly",true);
 			}
 		}
-	</script>
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var yearSel = document.getElementById('f_birth_date_1');
+                var monthSel = document.getElementById('f_birth_date_2');
+                var daySel = document.getElementById('f_birth_date_3');
+
+                if (yearSel && monthSel && daySel) {
+                    var currentYear = new Date().getFullYear();
+                    for (var y = currentYear; y >= currentYear - 120; y--) {
+                        var opt = document.createElement('option');
+                        opt.value = y;
+                        opt.textContent = y;
+                        yearSel.appendChild(opt);
+                    }
+
+                    for (var m = 1; m <= 12; m++) {
+                        var mv = (m < 10 ? '0' : '') + m;
+                        var optM = document.createElement('option');
+                        optM.value = mv;
+                        optM.textContent = mv;
+                        monthSel.appendChild(optM);
+                    }
+
+                    function updateDays() {
+                        var yv = parseInt(yearSel.value, 10);
+                        var mv = parseInt(monthSel.value, 10);
+                        daySel.innerHTML = '<option value="">선택</option>';
+                        if (!yv || !mv) return;
+                        var days = new Date(yv, mv, 0).getDate();
+                        for (var d = 1; d <= days; d++) {
+                            var dv = (d < 10 ? '0' : '') + d;
+                            var optD = document.createElement('option');
+                            optD.value = dv;
+                            optD.textContent = dv;
+                            daySel.appendChild(optD);
+                        }
+                    }
+
+                    yearSel.addEventListener('change', updateDays);
+                    monthSel.addEventListener('change', updateDays);
+                }
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                new FormSubmitter('sign_up_frm');
+            });
+        </script>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html';
 ?>	

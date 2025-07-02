@@ -8,7 +8,7 @@
         $user_id = $_SESSION['kbga_user_id'];
 
         $exam_rows = $db->query(
-            "SELECT r.idx, i.f_item_name, r.wdate as reg_date
+            "SELECT r.idx, r.f_applicant_status, i.f_item_name, r.wdate as reg_date
                FROM df_site_application_registration r
                LEFT JOIN df_site_qualification_item i ON r.f_item_idx = i.idx
               WHERE r.f_user_id = :uid AND r.f_application_type = 'exam'
@@ -17,7 +17,7 @@
         );
 
         $cert_rows = $db->query(
-            "SELECT r.idx, i.f_item_name, r.wdate as reg_date
+            "SELECT r.idx, r.f_applicant_status, i.f_item_name, r.wdate as reg_date
                FROM df_site_application_registration r
                LEFT JOIN df_site_qualification_item i ON r.f_item_idx = i.idx
               WHERE r.f_user_id = :uid AND r.f_application_type = 'cert'
@@ -33,21 +33,35 @@
               ORDER BY r.idx DESC",
             ['uid' => $user_id]
         );
+
+        function printStatus($val)
+        {
+            switch ((int) $val) {
+                case 1:
+                    return '접수완료';
+                case 2:
+                    return '발급완료';
+                case 3:
+                    return '발급보류';
+                default:
+                    return '';
+            }
+        }
 ?>
 
 <div id="container">
     <div id="sub_con">
         <?php
-				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
-			?>
+			include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+		?>
 
         <div class="contents_con">
 
             <div class="mypage_con">
                 <div class="contents_con">
                     <?php
-							include $_SERVER['DOCUMENT_ROOT'].'/mypage/include/mypage_nav.html'; 
-						?>
+						include $_SERVER['DOCUMENT_ROOT'].'/mypage/include/mypage_nav.html'; 
+					?>
 
                     <div class="contents_con">
                         <div class="title_con">
@@ -88,20 +102,22 @@
                                                         <?php else: ?>
                                                         <?php foreach ($exam_rows as $row): ?>
                                                         <li>
-                                                            <table cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center"><span>시험접수</span></td>
-                                                                        <td align="center"><span>
-                                                                                <?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
-                                                                            </span></td>
-                                                                        <td align="center"><span>접수완료</span></td>
-                                                                        <td align="center"><span>
-                                                                                <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
-                                                                            </span></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+															<a href="/mypage/history_view_license.html">
+																<table cellpadding="0" cellspacing="0">
+																	<tbody>
+																		<tr>
+																			<td align="center"><span>시험접수</span></td>
+																			<td align="center"><span>
+																					<?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
+																				</span></td>
+																			<td align="center"><span><?= printStatus($row['f_applicant_status']) ?></span></td>
+																			<td align="center"><span>
+																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+																				</span></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</a>
                                                         </li>
                                                         <?php endforeach; ?>
                                                         <?php endif; ?>
@@ -138,20 +154,22 @@
                                                         <?php else: ?>
                                                         <?php foreach ($cert_rows as $row): ?>
                                                         <li>
-                                                            <table cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center"><span>자격증 발급</span></td>
-                                                                        <td align="center"><span>
-                                                                                <?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
-                                                                            </span></td>
-                                                                        <td align="center"><span>접수완료</span></td>
-                                                                        <td align="center"><span>
-                                                                                <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
-                                                                            </span></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+															<a href="/mypage/history_view_license.html">
+																<table cellpadding="0" cellspacing="0">
+																	<tbody>
+																		<tr>
+																			<td align="center"><span>자격증 발급</span></td>
+																			<td align="center"><span>
+																					<?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
+																				</span></td>
+																			<td align="center"><span><?= printStatus($row['f_applicant_status']) ?></span></td>
+																			<td align="center"><span>
+																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+																				</span></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</a>
                                                         </li>
                                                         <?php endforeach; ?>
                                                         <?php endif; ?>
@@ -188,20 +206,22 @@
                                                         <?php else: ?>
                                                         <?php foreach ($edu_rows as $row): ?>
                                                         <li>
-                                                            <table cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td align="center"><span>교육/세미나</span></td>
-                                                                        <td align="center"><span>
-                                                                                <?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
-                                                                            </span></td>
-                                                                        <td align="center"><span>접수완료</span></td>
-                                                                        <td align="center"><span>
-                                                                                <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
-                                                                            </span></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+															<a href="/mypage/history_view_education.html">
+																<table cellpadding="0" cellspacing="0">
+																	<tbody>
+																		<tr>
+																			<td align="center"><span>교육/세미나</span></td>
+																			<td align="center"><span>
+																					<?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
+																				</span></td>
+																			<td align="center"><span>접수완료</span></td>
+																			<td align="center"><span>
+																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+																				</span></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</a>
                                                         </li>
                                                         <?php endforeach; ?>
                                                         <?php endif; ?>
@@ -218,10 +238,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
 </div>
 
 <?php

@@ -29,6 +29,11 @@ $category_map = [
     'foreign' => '해외인증',
     'teacher' => '강사인증',
 ];
+
+$application_type_map = [
+    'exam' => '시헙 접수',
+    'cert' => '자격증 발급',
+];
 ?>
 <style>
     .pagination {
@@ -61,6 +66,7 @@ $category_map = [
                 <col width="60" />
                 <col width="150" />
                 <col width="150" />
+                <col width="150" />
                 <col width="200" />
                 <col width="200" />
                 <thead>
@@ -68,6 +74,7 @@ $category_map = [
                         <td>번호</td>
                         <td>분야</td>
                         <td>이름</td>
+                        <td>신청구분</td>
                         <td>연락처</td>
                         <td>이메일</td>
                     </tr>
@@ -81,13 +88,14 @@ $category_map = [
                                 <td><a
                                         href="reg_application_view.php?idx=<?= $row['idx'] ?>&page=<?= $page ?>"><?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?></a>
                                 </td>
+                                <td><?= htmlspecialchars($application_type_map[$row['f_application_type']], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" align="center">등록된 데이터가 없습니다.</td>
+                            <td colspan="6" align="center">등록된 데이터가 없습니다.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

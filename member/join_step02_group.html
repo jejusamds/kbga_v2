@@ -463,8 +463,58 @@
 				$(this).val($(this).val().replace(/[^0-9]/g,""));
 			}); 
 		}
-	</script>
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var yearSel = document.getElementById('f_birth_date_1');
+                var monthSel = document.getElementById('f_birth_date_2');
+                var daySel = document.getElementById('f_birth_date_3');
+
+                if (yearSel && monthSel && daySel) {
+                    var currentYear = new Date().getFullYear();
+                    for (var y = currentYear; y >= currentYear - 120; y--) {
+                        var opt = document.createElement('option');
+                        opt.value = y;
+                        opt.textContent = y;
+                        yearSel.appendChild(opt);
+                    }
+
+                    for (var m = 1; m <= 12; m++) {
+                        var mv = (m < 10 ? '0' : '') + m;
+                        var optM = document.createElement('option');
+                        optM.value = mv;
+                        optM.textContent = mv;
+                        monthSel.appendChild(optM);
+                    }
+
+                    function updateDays() {
+                        var yv = parseInt(yearSel.value, 10);
+                        var mv = parseInt(monthSel.value, 10);
+                        daySel.innerHTML = '<option value="">선택</option>';
+                        if (!yv || !mv) return;
+                        var days = new Date(yv, mv, 0).getDate();
+                        for (var d = 1; d <= days; d++) {
+                            var dv = (d < 10 ? '0' : '') + d;
+                            var optD = document.createElement('option');
+                            optD.value = dv;
+                            optD.textContent = dv;
+                            daySel.appendChild(optD);
+                        }
+                    }
+
+                    yearSel.addEventListener('change', updateDays);
+                    monthSel.addEventListener('change', updateDays);
+                }
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                new FormSubmitter('sign_up_frm');
+            });
+        </script>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html';
 ?>	

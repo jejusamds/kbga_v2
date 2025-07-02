@@ -8,7 +8,7 @@ $page = isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 1;
 $category = $_REQUEST['f_category'] ?? '';
 $query_str = '&category=' . $category;
 
-$fields = ['f_category', 'f_subject', 'f_type', 'f_level', 'f_description', 'f_file', 'f_file_name'];
+$fields = ['f_category', 'f_subject_idx', 'f_subject', 'f_type', 'f_level', 'f_description', 'f_file', 'f_file_name'];
 
 switch ($mode) {
     case 'insert':
@@ -39,7 +39,7 @@ switch ($mode) {
         $sets = [];
         $params = [];
         // 텍스트 필드만 우선 업데이트 항목에 포함
-        foreach (['f_category', 'f_subject', 'f_type', 'f_level', 'f_description'] as $f) {
+        foreach (['f_category', 'f_subject_idx', 'f_subject', 'f_type', 'f_level', 'f_description'] as $f) {
             $sets[] = "$f=:$f";
             $params[$f] = $_POST[$f] ?? '';
         }

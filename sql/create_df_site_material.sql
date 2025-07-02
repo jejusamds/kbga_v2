@@ -1,6 +1,7 @@
 CREATE TABLE df_site_material (
     idx INT AUTO_INCREMENT PRIMARY KEY,
     f_category VARCHAR(20) NOT NULL,
+    f_subject_idx INT DEFAULT NULL,
     f_subject VARCHAR(255) NOT NULL,
     f_type VARCHAR(10) NOT NULL,
     f_level VARCHAR(50) NOT NULL,

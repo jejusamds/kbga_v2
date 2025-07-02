@@ -1,4 +1,5 @@
 <?php
+
 include $_SERVER['DOCUMENT_ROOT'] . '/inc/global.inc';
 include $_SERVER['DOCUMENT_ROOT'] . '/inc/util_lib.inc';
 

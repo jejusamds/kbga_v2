@@ -50,6 +50,11 @@ $category_map = [
     'teacher' => '강사인증',
 ];
 
+$application_type_map = [
+    'exam' => '시헙 접수',
+    'cert' => '자격증 발급',
+];
+
 $filename = iconv('UTF-8', 'EUC-KR', "자격시험신청_상세_{$idx}.xls");
 
 header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
@@ -72,7 +77,7 @@ $rows = [
     '기본주소'       => printValue($row['f_address1']),
     '상세주소'       => printValue($row['f_address2']),
     '이메일'         => printValue($row['f_email']),
-    '신청구분'       => printValue($row['f_application_type']),
+    '신청구분'       => printValue($application_type_map[$row['f_application_type']]),
     '발급희망 여부'  => printValue($row['f_issue_desire']),
     '사진첨부'       => printValue($row['f_issue_file']),
     '입금자명'       => printValue($row['f_payer_name']),

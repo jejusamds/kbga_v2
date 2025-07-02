@@ -1,0 +1,23 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/inc/global.inc';
+include $_SERVER['DOCUMENT_ROOT'] . '/inc/util_lib.inc';
+
+$idx = isset($_POST['idx']) ? (int) $_POST['idx'] : 0;
+$page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
+$status = isset($_POST['f_applicant_status']) ? (int) $_POST['f_applicant_status'] : 1;
+
+if ($idx <= 0) {
+    error('잘못된 접근입니다.');
+    exit;
+}
+
+if (!in_array($status, [1, 2, 3])) {
+    $status = 1;
+}
+
+$db->query(
+    'UPDATE df_site_application_registration SET f_applicant_status=:st WHERE idx=:idx',
+    ['st' => $status, 'idx' => $idx]
+);
+
+complete('신청결과가 변경되었습니다.', "reg_application_view.php?idx={$idx}&page={$page}");

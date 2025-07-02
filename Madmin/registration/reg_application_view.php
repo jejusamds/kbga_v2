@@ -40,7 +40,7 @@ function printSchedule(array $row)
     if (!empty($row['f_year'])) {
         return printValue(sprintf('%s년 %s회차 %s', $row['f_year'], $row['f_round'], $row['f_type']));
     }
-    if ((int)$row['f_schedule_idx'] === 0) {
+    if ((int) $row['f_schedule_idx'] === 0) {
         return '상시접수';
     }
     return printValue($row['f_schedule_idx']);
@@ -54,6 +54,11 @@ $category_map = [
     'half' => '반영구',
     'foreign' => '해외인증',
     'teacher' => '강사인증',
+];
+
+$application_type_map = [
+    'exam' => '시헙 접수',
+    'cert' => '자격증 발급',
 ];
 ?>
 <div class="pageWrap">
@@ -121,7 +126,7 @@ $category_map = [
                 </tr>
                 <tr>
                     <td style="width:200px;">신청구분</td>
-                    <td><?= printValue($row['f_application_type']) ?></td>
+                    <td><?= printValue($application_type_map[$row['f_application_type']]) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">발급희망 여부</td>
@@ -151,6 +156,22 @@ $category_map = [
                     <td style="width:200px;">등록일</td>
                     <td><?= printValue($row['reg_date']) ?></td>
                 </tr>
+                <tr>
+                    <td style="width:200px;">신청결과</td>
+                    <td>
+                        <form method="post" action="reg_application_status_update.php" style="display:inline-block;">
+                            <input type="hidden" name="idx" value="<?= $idx ?>">
+                            <input type="hidden" name="page" value="<?= $page ?>">
+                            <select name="f_applicant_status" class="form-control"
+                                style="width:auto;display:inline-block;">
+                                <option value="1" <?= $row['f_applicant_status'] == 1 ? 'selected' : '' ?>>접수완료</option>
+                                <option value="2" <?= $row['f_applicant_status'] == 2 ? 'selected' : '' ?>>발급완료</option>
+                                <option value="3" <?= $row['f_applicant_status'] == 3 ? 'selected' : '' ?>>발급보류</option>
+                            </select>
+                            <button type="submit" class="btn btn-info btn-sm" style="margin-left:5px;">변경</button>
+                        </form>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -158,7 +179,7 @@ $category_map = [
         <div class="comPTop20 comPBottom20">
             <div class="comFLeft comACenter" style="width:10%;">
                 <button class="btn btn-primary btn-sm" type="button"
-                    onclick="location.href='application_list.php?page=<?= $page ?>';">목록</button>
+                    onclick="location.href='reg_application_list.php?page=<?= $page ?>';">목록</button>
             </div>
             <div class="comFRight comACenter" style="width:10%;">
                 <button class="btn btn-success btn-sm" type="button"

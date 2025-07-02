@@ -12,6 +12,7 @@ list($m1, $m2, $m3) = explode('-', $row['f_mobile']);
 
 list($o1, $o2, $o3) = explode('-', $row['f_org_phone']);
 list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
+list($emailId, $emailDomain) = explode('@', $row['f_email']);
 ?>
 
 <div id="container">
@@ -124,10 +125,9 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
 																									<tbody>
 																										<tr>
 																											<td align="left" class="select_td">
-																												<select name="f_birth_date_1" id="f_birth_date_1" data-required="y" class="select">
-																													<option value="">선택</option>
-																													<option value="">2025</option>
-																												</select>
+                                        <select name="f_birth_date_1" id="f_birth_date_1" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
 																											</td>
 																											<td align="right" class="text_td">
 																												<span>
@@ -143,10 +143,9 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
 																									<tbody>
 																										<tr>
 																											<td align="left" class="select_td">
-																												<select name="f_birth_date_2" id="f_birth_date_2" data-required="y" class="select">
-																													<option value="">선택</option>
-																													<option value="">01</option>
-																												</select>
+                                        <select name="f_birth_date_2" id="f_birth_date_2" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
 																											</td>
 																											<td align="right" class="text_td">
 																												<span>
@@ -162,10 +161,9 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
 																									<tbody>
 																										<tr>
 																											<td align="left" class="select_td">
-																												<select name="f_birth_date_3" id="f_birth_date_3" data-required="y" class="select">
-																													<option value="">선택</option>
-																													<option value="">01</option>
-																												</select>
+                                        <select name="f_birth_date_3" id="f_birth_date_3" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
 																											</td>
 																											<td align="right" class="text_td">
 																												<span>
@@ -315,8 +313,7 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
                                                                                                         name="f_tel_1"
                                                                                                         maxlength="4"
                                                                                                         class="input"
-                                                                                                        data-required="y"
-                                                                                                        data-label="전화번호를"
+                                                                                                        
                                                                                                         value="<?= $t1 ?>"
                                                                                                         onkeydown="onlyNumber(this);" />
                                                                                                 </td>
@@ -330,8 +327,7 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
                                                                                                         name="f_tel_2"
                                                                                                         maxlength="4"
                                                                                                         class="input"
-                                                                                                        data-required="y"
-                                                                                                        data-label="전화번호를"
+                                                                                                        
                                                                                                         value="<?= $t2 ?>"
                                                                                                         onkeydown="onlyNumber(this);" />
                                                                                                 </td>
@@ -345,8 +341,7 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
                                                                                                         name="f_tel_3"
                                                                                                         maxlength="4"
                                                                                                         class="input"
-                                                                                                        data-required="y"
-                                                                                                        data-label="전화번호를"
+                                                                                                        
                                                                                                         value="<?= $t3 ?>"
                                                                                                         onkeydown="onlyNumber(this);" />
                                                                                                 </td>
@@ -710,7 +705,7 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
 																									<tbody>
 																										<tr>
 																											<td align="left" class="input_td">
-																												<input type="text" name="" value="" class="input" />
+                                                                               <input type="text" name="f_email_id" value="<?= htmlspecialchars($emailId, ENT_QUOTES) ?>" class="input" />
 																											</td>
 																											<td align="center" class="text_td">
 																												<span>
@@ -718,7 +713,7 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
 																												</span>
 																											</td>
 																											<td align="left" class="input_td">
-																												<input type="text" name="email_add" value="" class="input email_address_input" />
+                                                                               <input type="text" name="f_email_domain" value="<?= htmlspecialchars($emailDomain, ENT_QUOTES) ?>" class="input email_address_input" />
 																											</td>
 																										</tr>
 																									</tbody>
@@ -1395,14 +1390,39 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
                                                                                         <div>
                                                                                 </td>
                                                                                 <td valign="top" align="left" class="info_td">
-                                                                                    <div class="email_con">
-                                                                                        <div class="input_con">
-                                                                                            <input type="text" id="f_email"
-                                                                                                name="f_email" class="input"
-                                                                                                data-required="y"
-                                                                                                data-label="이메일을"
-                                                                                                value="<?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?>" />
-                                                                                        </div>
+            <div class="email_con">
+                <div class="input_con">
+                    <ul>
+                        <li>
+                            <table cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td align="left" class="input_td">
+                                            <input type="text" name="f_email_id" value="<?= htmlspecialchars($emailId, ENT_QUOTES) ?>" class="input" />
+                                        </td>
+                                        <td align="center" class="text_td"><span>@</span></td>
+                                        <td align="left" class="input_td">
+                                            <input type="text" name="f_email_domain" value="<?= htmlspecialchars($emailDomain, ENT_QUOTES) ?>" class="input email_address_input" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>
+                            <select class="select email_select" onchange="email_address_select(this.value)">
+                                <option value="">직접입력</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="hanmail.net">hanmail.net</option>
+                                <option value="gmail.com">gmail.com</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="daum.net">daum.net</option>
+                                <option value="hotmail.com">hotmail.com</option>
+                                <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                <option value="lycos.co.kr">lycos.co.kr</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
 
                                                                                         <div class="intro_con">
                                                                                             <table cellpadding="0"
@@ -1498,6 +1518,7 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
         }).open();
     }
 </script>
+
 <script type="text/javascript" language="javascript">
     // 숫자만 입력
     function onlyNumber(obj) {
@@ -1506,15 +1527,74 @@ list($c1, $c2, $c3) = explode('-', $row['f_contact_phone']);
         });
     }
 
-	// 이메일
-	function email_address_select(val){
-		var state = $(".email_select option:selected").val();
-		if ( state == "" ) {
-			$(".email_address_input").val("").attr("readonly",false).focus();
-		}else{
-			$(".email_address_input").val(val).attr("readonly",true);
-		}
-	}
+        // 이메일
+        function email_address_select(val){
+                var state = $(".email_select option:selected").val();
+                if ( state == "" ) {
+                        $(".email_address_input").val("").attr("readonly",false).focus();
+                }else{
+                        $(".email_address_input").val(val).attr("readonly",true);
+                }
+        }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var yearSel = document.getElementById('f_birth_date_1');
+        var monthSel = document.getElementById('f_birth_date_2');
+        var daySel = document.getElementById('f_birth_date_3');
+
+        if (yearSel && monthSel && daySel) {
+            var currentYear = new Date().getFullYear();
+            for (var y = currentYear; y >= currentYear - 120; y--) {
+                var opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                yearSel.appendChild(opt);
+            }
+
+            for (var m = 1; m <= 12; m++) {
+                var mv = (m < 10 ? '0' : '') + m;
+                var optM = document.createElement('option');
+                optM.value = mv;
+                optM.textContent = mv;
+                monthSel.appendChild(optM);
+            }
+
+            function updateDays() {
+                var yv = parseInt(yearSel.value, 10);
+                var mv = parseInt(monthSel.value, 10);
+                daySel.innerHTML = '<option value="">선택</option>';
+                if (!yv || !mv) return;
+                var days = new Date(yv, mv, 0).getDate();
+                for (var d = 1; d <= days; d++) {
+                    var dv = (d < 10 ? '0' : '') + d;
+                    var optD = document.createElement('option');
+                    optD.value = dv;
+                    optD.textContent = dv;
+                    daySel.appendChild(optD);
+                }
+            }
+
+            var selYear = '<?= htmlspecialchars($y, ENT_QUOTES) ?>';
+            var selMonth = ('0' + '<?= htmlspecialchars($m, ENT_QUOTES) ?>').slice(-2);
+            var selDay = ('0' + '<?= htmlspecialchars($d, ENT_QUOTES) ?>').slice(-2);
+
+            yearSel.value = selYear;
+            monthSel.value = selMonth;
+            updateDays();
+            daySel.value = selDay;
+
+            yearSel.addEventListener('change', function () {
+                updateDays();
+                daySel.value = '';
+            });
+            monthSel.addEventListener('change', function () {
+                updateDays();
+                daySel.value = '';
+            });
+        }
+    });
 </script>
 
 <script src="/js/form-controller.js"></script>
