@@ -8,26 +8,32 @@ $code = 'job';
 
 $searchField = $_GET['search_field'] ?? '';
 $searchQuery = trim($_GET['search_query'] ?? '');
+$searchQueryNs = preg_replace('/\s+/', '', $searchQuery);
 
 $searchSql = '';
 $params = ['code' => $code];
 
-if ($searchQuery !== '') {
-    $like = "%{$searchQuery}%";
+if (in_array($searchField, ['채용중', '채용마감'], true)) {
+    $searchSql .= " AND grp = :search_grp";
+    $params['search_grp'] = $searchField;
+}
+
+if ($searchQueryNs !== '') {
+    $like = "%{$searchQueryNs}%";
 
     switch ($searchField) {
         case 'subject':
-            $searchSql = " AND subject LIKE :search_subject";
+            $searchSql .= " AND REPLACE(subject, ' ', '') LIKE :search_subject";
             $params['search_subject'] = $like;
             break;
 
         case 'name':
-            $searchSql = " AND name LIKE :search_name";
+            $searchSql .= " AND REPLACE(name, ' ', '') LIKE :search_name";
             $params['search_name'] = $like;
             break;
 
         default:
-            $searchSql = " AND (subject LIKE :search_subject OR content LIKE :search_content)";
+            $searchSql .= " AND (REPLACE(subject, ' ', '') LIKE :search_subject OR REPLACE(content, ' ', '') LIKE :search_content)";
             $params['search_subject'] = $like;
             $params['search_content'] = $like;
             break;
@@ -70,9 +76,11 @@ $paramsList['perPage'] = $perPage;
 $rows = $db->query($listSql, $paramsList);
 
 $queryExtra = '';
-if ($searchQuery !== '') {
-    $queryExtra = '&search_field=' . urlencode($searchField)
-        . '&search_query=' . urlencode($searchQuery);
+if ($searchField !== '') {
+    $queryExtra .= '&search_field=' . urlencode($searchField);
+}
+if ($searchQueryNs !== '') {
+    $queryExtra .= '&search_query=' . urlencode($searchQuery);
 }
 
 $startNum = $total - $offset;
@@ -117,9 +125,10 @@ $nextPage = $page < $lastPage ? $page + 1 : $lastPage;
                                                 <select name="search_field" class="select">
                                                     <option value="" <?= $searchField === '' ? 'selected' : '' ?>>전체
                                                     </option>
+                                                    <option value="채용중" <?= $searchField === '채용중' ? 'selected' : '' ?>>채용중</option>
+                                                    <option value="채용마감" <?= $searchField === '채용마감' ? 'selected' : '' ?>>채용마감</option>
                                                     <!-- <option value="subject" <?= $searchField === 'subject' ? 'selected' : '' ?>>제목</option>
-                                                    <option value="name" <?= $searchField === 'name' ? 'selected' : '' ?>>
-                                                        작성자</option> -->
+                                                    <option value="name" <?= $searchField === 'name' ? 'selected' : '' ?>>작성자</option> -->
                                                 </select>
                                             </td>
                                             <td class="blank01_td">&nbsp;</td>

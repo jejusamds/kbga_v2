@@ -24,21 +24,6 @@
 										입력하신 정보는 아이디 찾기에만 <br class="m_br" />사용되며 저장되지 않습니다.
 									</span>
 								</div>
-
-								<div class="nav">
-									<ul>
-										<li>
-											<a href="javascript:void(0);" class="on" val="tel">
-												휴대폰 번호
-											</a>
-										</li>
-										<li>
-											<a href="javascript:void(0);" val="email">
-												이메일 주소
-											</a>
-										</li>
-									</ul>
-								</div>
 							
 								<div class="contents_con">
 									<div class="nav">
@@ -149,92 +134,6 @@
 													</div>
 												</div>
 											</li>
-											<li class="tel_li">
-												<div class="list_div">
-													<div class="title_con">
-														<span>
-															휴대전화번호 <span class="dot">*</span>
-														</span>
-													</div>
-
-													<div class="info_con">
-														<div class="tel_con">
-															<table cellpadding="0" cellspacing="0">
-																<tbody>
-																	<tr>
-																		<td align="left" class="input_td">
-																			<input type="tel" name="" maxlength="3" class="input" onkeydown="onlyNumber(this);" />
-																		</td>
-																		<td align="center" class="text_td">
-																			-
-																		</td>
-																		<td align="left" class="input_td">
-																			<input type="tel" name="" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
-																		</td>
-																		<td align="center" class="text_td">
-																			-
-																		</td>
-																		<td align="left" class="input_td">
-																			<input type="tel" name="" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
-																		</td>
-																		<td align="left" class="blank_td">
-																			&nbsp;
-																		</td>
-																		<td align="left" class="btn_td">
-																			<a href="javascript:code_tel();" class="a_btn a_btn01">
-																				인증요청
-																			</a>
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-
-														<div class="btn_con m_con">
-															<a href="javascript:code_tel();" class="a_btn a_btn01">
-																인증요청
-															</a>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li class="tel_li code_li">
-												<div class="list_div">
-													<div class="title_con">
-														<span>
-															인증번호 <span class="dot">*</span>
-														</span>
-													</div>
-
-													<div class="info_con">
-														<div class="code_con">
-															<table cellpadding="0" cellspacing="0">
-																<tbody>
-																	<tr>
-																		<td align="left" class="input_td">
-																			<input type="tel" name="" maxlength="" placeholder="인증번호을 적어주세요." class="input" onkeydown="onlyNumber(this);" />
-																		</td>
-																		<td align="left" class="blank_td">
-																			&nbsp;
-																		</td>
-																		<td align="left" class="btn_td">
-																			<a href="#" class="a_btn a_btn02">
-																				인증확인
-																			</a>
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-
-														<div class="btn_con m_con">
-															<a href="#" class="a_btn a_btn02">
-																인증확인
-															</a>
-														</div>
-													</div>
-												</div>
-											</li>
 											<li class="email_li">
 												<div class="list_div">
 													<div class="title_con">
@@ -332,37 +231,10 @@
 	</div>
 
 	<script type="text/javascript" language="javascript">
-		// 휴대폰번호 ~ 이메일 주소 클릭 시
-		$(document).on("click", ".find_con > .contents_con > .write_con > .nav > ul > li a", function() {
-			$(".find_con > .contents_con > .write_con > .nav > ul > li a").each(function(){
-				$(this).removeClass("on");
-			});
-			$(this).addClass("on");
-
-			$(".find_con > .contents_con > .write_con > .contents_con > .nav > ul > li:first-child .radio_label input[type=radio]").prop("checked",true);
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > li .list_div > .info_con .input").val("");	
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .individual_li").show();
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .group_li").hide();
-
-			if( $(this).attr("val") == "tel" ){
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li").show();
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li").hide();
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li.code_li").hide();
-			}else{
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li").hide();
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li").show();
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
-				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li.code_li").hide();
-			}
-		});
-		
 		// 개인 ~ 단체/기업 클릭 시
 		$(document).on("click","input[name=member_type]",function(){	
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > li .list_div > .info_con .input").val("");			
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li.code_li").hide();
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("인증요청");
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > li .list_div > .info_con .input").val("");
+			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li .list_div > .info_con .a_btn01").html("인증요청");
 			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li.code_li").hide();
 
 			if( $(this).val() == "개인" ){
@@ -373,12 +245,6 @@
 				$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .group_li").show();
 			}
 		});
-
-		// 전화번호 인증번호
-		function code_tel(){
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li .list_div > .info_con .tel_con > table > tbody > tr > .btn_td .a_btn").html("재발송");
-			$(".find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li.code_li").show();
-		}
 
 		// 이메일 인증번호
 		function code_email(){

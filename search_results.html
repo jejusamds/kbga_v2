@@ -5,17 +5,18 @@
         include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
 
         $searchQuery = trim($_GET['search_query'] ?? '');
+        $searchQueryNs = preg_replace('/\s+/', '', $searchQuery);
         $noticeRows = $educationRows = $galleryRows = [];
 
-        if ($searchQuery !== '') {
-                $like = "%{$searchQuery}%";
+        if ($searchQueryNs !== '') {
+                $like = "%{$searchQueryNs}%";
                 $params = ['search_subject' => $like, 'search_content' => $like];
 
                 $noticeRows = $db->query(
                         "SELECT idx, subject, name, wdate, `count`
                            FROM df_site_bbs
                           WHERE code = 'notice'
-                            AND (subject LIKE :search_subject OR content LIKE :search_content)
+                            AND (REPLACE(subject, ' ', '') LIKE :search_subject OR REPLACE(content, ' ', '') LIKE :search_content)
                           ORDER BY wdate DESC
                           LIMIT 3",
                         $params
@@ -25,7 +26,7 @@
                         "SELECT idx, upfile, grp, subject, event_sdate, event_edate
                            FROM df_site_bbs
                           WHERE code = 'education_news'
-                            AND (subject LIKE :search_subject OR content LIKE :search_content)
+                            AND (REPLACE(subject, ' ', '') LIKE :search_subject OR REPLACE(content, ' ', '') LIKE :search_content)
                           ORDER BY wdate DESC
                           LIMIT 3",
                         $params
@@ -35,7 +36,7 @@
                         "SELECT idx, upfile, subject, wdate
                            FROM df_site_bbs
                           WHERE code = 'photo_gallery'
-                            AND (subject LIKE :search_subject OR content LIKE :search_content)
+                            AND (REPLACE(subject, ' ', '') LIKE :search_subject OR REPLACE(content, ' ', '') LIKE :search_content)
                           ORDER BY wdate DESC
                           LIMIT 3",
                         $params

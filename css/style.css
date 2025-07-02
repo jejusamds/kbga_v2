@@ -1842,9 +1842,9 @@ select::-ms-expand {display:none;}
 .find_con {width:100%; max-width:min(1404px, 73.13vw); margin:0 auto;}
 .find_con > .contents_con {border-bottom:min(2px, 0.1vw) solid rgba(200,200,200,0.70); padding:0 0 min(76px, 3.96vw) 0;}
 .find_con > .contents_con > .write_con {width:min(496px, 25.83vw); margin:0 auto;}
-.find_con > .contents_con > .write_con > .text_con {text-align:center;}
+.find_con > .contents_con > .write_con > .text_con {margin:0 0 min(90px, 4.69vw) 0; text-align:center;}
 .find_con > .contents_con > .write_con > .text_con span {font-size:min(18px, 0.94vw); color:#1A1A1A; font-weight:500; line-height:150%; letter-spacing:max(-0.432px, -0.02vw);}
-.find_con > .contents_con > .write_con > .nav {margin:min(90px, 4.69vw) 0 0 0;}
+.find_con > .contents_con > .write_con > .nav {}
 .find_con > .contents_con > .write_con > .nav > ul {}
 .find_con > .contents_con > .write_con > .nav > ul > li {float:left; width:50%;}
 .find_con > .contents_con > .write_con > .nav > ul > li a {display:block; border:min(2px, 0.1vw) solid #F4F4F4; background-color:#FFF; text-align:center; font-size:min(18px, 0.94vw); color:#B7B7B7; font-weight:600; line-height:min(53px, 2.76vw);}
@@ -1906,7 +1906,7 @@ select::-ms-expand {display:none;}
 .find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .individual_li {}
 .find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .group_li {display:none;}
 .find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .tel_li {}
-.find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li {display:none;}
+.find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .email_li {}/*찾기 휴대폰 사용 시 추가해야 함 display:none;*/
 .find_con > .contents_con > .write_con > .contents_con > .input_con > ul > .code_li {display:none;}
 .find_con > .contents_con > .write_con > .contents_con > .input_con > ul > li:first-child {margin:0;}
 .find_con > .btn_con {margin:min(57px, 2.97vw) 0 0 0; text-align:center;}

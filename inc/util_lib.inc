@@ -904,7 +904,7 @@ function send_mail($se_name, $se_email, $re_name, $re_email, $subject, $content,
         $smtp = $config['SMTP'];
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
-        $mail->SMTPDebug = 2;
+        $mail->SMTPDebug = 0;
         $mail->isSMTP();
         $mail->Host = $smtp['host'];
         $mail->Port = $smtp['port'];

@@ -1,0 +1,111 @@
+<?php
+	$Menu = "06";
+	$sMenu = "06-3";
+	$ssMenu = "06-3-2";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+?>
+
+	<div id="container">
+		<div id="sub_con">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+				
+				<form action="" method="" autocomplete="off">
+					<div class="find_end_con">
+						<div class="contents_con">
+							<div class="text_con">
+								<span>
+									새로운 비밀번호를 입력해주세요.
+								</span>
+							</div>
+
+							<div class="contents_con">
+								<div class="password_con">
+									<ul>
+										<li>
+											<table cellpadding="0" cellspacing="0">
+												<tbody>
+													<tr>
+														<td valign="top" align="left" class="title_td">
+															<span>
+																비밀번호
+															</span>
+
+															<div class="bar"><div>
+														</td>
+														<td valign="top" align="left" class="info_td">
+															<div class="password_con">
+																<div class="input_con">
+																	<input type="password" name="" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+																</div>
+
+																<div class="intro_con">
+																	<table cellpadding="0" cellspacing="0">
+																		<tbody>
+																			<tr>
+																				<td valign="top" align="left" class="dot_td">
+																					<span>
+																						*
+																					</span>
+																				</td>
+																				<td valign="top" align="left">
+																					<span>
+																						4자리 이상 12자 미만의 영자/숫자 조합만 <br class="m_br" />가능하며, 영문은 대소문자 구분합니다.
+																					</span>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</li>
+										<li>
+											<table cellpadding="0" cellspacing="0">
+												<tbody>
+													<tr>
+														<td valign="top" align="left" class="title_td">
+															<span>
+																비밀번호 확인
+															</span>
+
+															<div class="bar"><div>
+														</td>
+														<td valign="top" align="left" class="info_td">
+															<div class="password_con">
+																<div class="input_con">
+																	<input type="password" name="" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="btn_con">
+							<a href="#" class="a_btn">
+								확인
+							</a>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	

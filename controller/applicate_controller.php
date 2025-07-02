@@ -77,7 +77,7 @@ $required = [
     'f_address2' => '상세주소를 입력해주세요.',
     'f_email' => '이메일을 입력해주세요.',
     'f_application_type' => '신청 구분을 선택해주세요.',
-    'f_issue_desire' => '발급희망 여부를 선택해주세요.',
+    //'f_issue_desire' => '발급희망 여부를 선택해주세요.',
     'f_payer_name' => '입금자명을 입력해주세요.',
     'f_payer_bank' => '은행을 선택해주세요.'
 ];

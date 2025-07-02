@@ -1,0 +1,49 @@
+<?php
+	$Menu = "06";
+	$sMenu = "06-3";
+	$ssMenu = "06-3-1";
+
+	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+?>
+
+	<div id="container">
+		<div id="sub_con">
+			<?php
+				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
+			?>
+
+			<div class="contents_con">
+				
+				<div class="find_end_con">
+					<div class="contents_con">
+						<div class="text_con">
+							<span>
+								고객님의 아이디는 하단과 같습니다.
+							</span>
+						</div>
+
+						<div class="contents_con">
+							<div class="id_con">
+								<img src="/img/member/find_id_end_icon.svg" alt="아이콘" class="fx" />
+
+								<span>
+									sssyck123
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="btn_con">
+						<a href="/member/login.html" class="a_btn">
+							로그인 하러가기
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<?php
+	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+?>	

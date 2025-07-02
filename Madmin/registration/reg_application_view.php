@@ -60,6 +60,23 @@ $application_type_map = [
     'exam' => '시헙 접수',
     'cert' => '자격증 발급',
 ];
+
+
+// 입금구분 (중복가능: written=필기, practical=실기, issuance=발급비)
+$codeString = $row['f_payment_category'] ?? '';
+$pay_map = [
+    'written' => '필기',
+    'practical' => '실기',
+    'issuance' => '발급비',
+];
+$labels = [];
+if ($codeString !== '') {
+    $codes = explode(',', $codeString);
+    $labels = array_map(function ($code) use ($pay_map) {
+        return $pay_map[$code] ?? $code;
+    }, $codes);
+}
+$p_value = implode(', ', $labels);
 ?>
 <div class="pageWrap">
     <div class="page-heading">
@@ -130,11 +147,27 @@ $application_type_map = [
                 </tr>
                 <tr>
                     <td style="width:200px;">발급희망 여부</td>
-                    <td><?= printValue($row['f_issue_desire']) ?></td>
+                    <td><?= $row['f_issue_desire'] == '1' ? '희망' : '희망하지 않음' ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">사진첨부</td>
-                    <td><?= printValue($row['f_issue_file']) ?></td>
+                    <td>
+                        <!-- <?= printValue($row['f_issue_file']) ?> -->
+                        <?php if (!empty($row['f_issue_file'])): ?>
+                            <?php
+                            $fileName = $row['f_issue_file'];
+                            $fileUrl = '/userfiles/registration/' . rawurlencode($fileName);
+                            ?>
+                            <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+                                download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" class="download-link">
+                                <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+                            </a>
+                        <?php else: ?>
+                            <span class="no-file">
+                                파일이
+                                없습니다.</span>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <tr>
                     <td style="width:200px;">입금자명</td>
@@ -146,7 +179,7 @@ $application_type_map = [
                 </tr>
                 <tr>
                     <td style="width:200px;">입금 구분</td>
-                    <td><?= printValue($row['f_payment_category']) ?></td>
+                    <td><?= printValue($p_value) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">회원ID</td>
@@ -154,7 +187,7 @@ $application_type_map = [
                 </tr>
                 <tr>
                     <td style="width:200px;">등록일</td>
-                    <td><?= printValue($row['reg_date']) ?></td>
+                    <td><?= printValue($row['wdate']) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">신청결과</td>

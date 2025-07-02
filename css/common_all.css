@@ -901,8 +901,8 @@
 	.find_con {max-width:100%;}
 	.find_con > .contents_con {border-bottom:0.56vw solid rgba(200,200,200,0.70); padding:0 0 12.22vw 0;}
 	.find_con > .contents_con > .write_con {width:100%;}
+	.find_con > .contents_con > .write_con > .text_con {margin:0 0 7.5vw 0;}
 	.find_con > .contents_con > .write_con > .text_con span {font-size:3.89vw; letter-spacing:-0.09vw;}
-	.find_con > .contents_con > .write_con > .nav {margin:7.5vw 0 0 0;}
 	.find_con > .contents_con > .write_con > .nav > ul > li a {border:0.56vw solid #F4F4F4; font-size:4.44vw; line-height:12.5vw;}
 	.find_con > .contents_con > .write_con > .nav > ul > li a.on {border:0.56vw solid #318CE2;}
 	.find_con > .contents_con > .write_con > .contents_con {margin:4.17vw 0 0 0;}

@@ -8,26 +8,27 @@ $code = 'faq';
 
 $searchField = $_GET['search_field'] ?? '';
 $searchQuery = trim($_GET['search_query'] ?? '');
+$searchQueryNs = preg_replace('/\s+/', '', $searchQuery);
 
 $searchSql = '';
 $params = ['code' => $code];
 
-if ($searchQuery !== '') {
-    $like = "%{$searchQuery}%";
+if ($searchQueryNs !== '') {
+    $like = "%{$searchQueryNs}%";
 
     switch ($searchField) {
         case 'subject':
-            $searchSql = " AND subject LIKE :search_subject";
+            $searchSql = " AND REPLACE(subject, ' ', '') LIKE :search_subject";
             $params['search_subject'] = $like;
             break;
 
         case 'name':
-            $searchSql = " AND name LIKE :search_name";
+            $searchSql = " AND REPLACE(name, ' ', '') LIKE :search_name";
             $params['search_name'] = $like;
             break;
 
         default:
-            $searchSql = " AND (subject LIKE :search_subject OR content LIKE :search_content OR faq_a LIKE :faq_a)";
+            $searchSql = " AND (REPLACE(subject, ' ', '') LIKE :search_subject OR REPLACE(content, ' ', '') LIKE :search_content OR REPLACE(faq_a, ' ', '') LIKE :faq_a)";
             $params['search_subject'] = $like;
             $params['search_content'] = $like;
             $params['faq_a'] = $like;
@@ -71,7 +72,7 @@ $paramsList['perPage'] = $perPage;
 $rows = $db->query($listSql, $paramsList);
 
 $queryExtra = '';
-if ($searchQuery !== '') {
+if ($searchQueryNs !== '') {
     $queryExtra = '&search_field=' . urlencode($searchField)
         . '&search_query=' . urlencode($searchQuery);
 }

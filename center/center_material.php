@@ -7,22 +7,23 @@ include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
 
 $searchField = $_GET['search_field'] ?? '';
 $searchQuery = trim($_GET['search_query'] ?? '');
+$searchQueryNs = preg_replace('/\s+/', '', $searchQuery);
 
 $searchSql = '';
 $params = ['cat' => $category];
-if ($searchQuery !== '') {
-    $like = "%{$searchQuery}%";
+if ($searchQueryNs !== '') {
+    $like = "%{$searchQueryNs}%";
     switch ($searchField) {
         case 'subject':
-            $searchSql .= ' AND qi.f_item_name LIKE :search';
+            $searchSql .= " AND REPLACE(qi.f_item_name, ' ', '') LIKE :search";
             $params['search'] = $like;
             break;
         case 'description':
-            $searchSql .= ' AND m.f_description LIKE :search';
+            $searchSql .= " AND REPLACE(m.f_description, ' ', '') LIKE :search";
             $params['search'] = $like;
             break;
         default:
-            $searchSql .= ' AND (qi.f_item_name LIKE :search OR m.f_description LIKE :search2)';
+            $searchSql .= " AND (REPLACE(qi.f_item_name, ' ', '') LIKE :search OR REPLACE(m.f_description, ' ', '') LIKE :search2)";
             $params['search'] = $like;
             $params['search2'] = $like;
             break;
