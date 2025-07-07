@@ -3,7 +3,8 @@
 	$sMenu = "06-3";
 	$ssMenu = "06-3-1";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+    echo '<script src="/js/find_id.js"></script>';
 ?>
 
 	<div id="container">
@@ -60,7 +61,7 @@
 													</div>
 
 													<div class="info_con">
-														<input type="text" name="" placeholder="이름을 적어주세요." class="input" />
+                                                                               <input type="text" name="user_name" id="user_name" placeholder="이름을 적어주세요." class="input" />
 													</div>
 												</div>
 											</li>
@@ -78,7 +79,7 @@
 																<tbody>
 																	<tr>
 																		<td align="left" class="input01_td">
-																			<input type="tel" name="" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+                                                                               <input type="tel" name="birth_year" id="birth_year" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																		</td>
 																		<td align="center" class="text01_td">
 																			<span>
@@ -86,7 +87,7 @@
 																			</span>
 																		</td>
 																		<td align="left" class="input02_td">
-																			<input type="tel" name="" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
+                                                                               <input type="tel" name="birth_month" id="birth_month" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
 																		</td>
 																		<td align="center" class="text02_td">
 																			<span>
@@ -94,7 +95,7 @@
 																			</span>
 																		</td>
 																		<td align="left" class="input03_td">
-																			<input type="tel" name="" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
+                                                                               <input type="tel" name="birth_day" id="birth_day" maxlength="2" class="input" onkeydown="onlyNumber(this);" />
 																		</td>
 																		<td align="right" class="text03_td">
 																			<span>
@@ -117,7 +118,7 @@
 													</div>
 
 													<div class="info_con">
-														<input type="text" name="" placeholder="단체명을 적어주세요." class="input" />
+                                                                               <input type="text" name="org_name" id="org_name" placeholder="단체명을 적어주세요." class="input" />
 													</div>
 												</div>
 											</li>
@@ -130,7 +131,7 @@
 													</div>
 
 													<div class="info_con">
-														<input type="text" name="" placeholder="담당자명을 적어주세요." class="input" />
+                                                                               <input type="text" name="contact_name" id="contact_name" placeholder="담당자명을 적어주세요." class="input" />
 													</div>
 												</div>
 											</li>
@@ -148,13 +149,13 @@
 																<tbody>
 																	<tr>
 																		<td align="left" class="input_td">
-																			<input type="text" name="" placeholder="이메일을 적어주세요." class="input" />
+                                                                               <input type="text" name="email" id="find_email" placeholder="이메일을 적어주세요." class="input" />
 																		</td>
 																		<td align="left" class="blank_td">
 																			&nbsp;
 																		</td>
 																		<td align="left" class="btn_td">
-																			<a href="javascript:code_email();" class="a_btn a_btn01">
+                                                                               <a href="javascript:code_email();" class="a_btn a_btn01 send_code_btn">
 																				인증요청
 																			</a>
 																		</td>
@@ -164,7 +165,7 @@
 														</div>
 
 														<div class="btn_con m_con">
-															<a href="javascript:code_email();" class="a_btn a_btn01">
+                                                                               <a href="javascript:code_email();" class="a_btn a_btn01 send_code_btn">
 																인증요청
 															</a>
 														</div>
@@ -185,13 +186,13 @@
 																<tbody>
 																	<tr>
 																		<td align="left" class="input_td">
-																			<input type="tel" name="" maxlength="" placeholder="인증번호을 적어주세요." class="input" onkeydown="onlyNumber(this);" />
+                                                                               <input type="tel" name="code" id="find_email_code" maxlength="" placeholder="인증번호을 적어주세요." class="input" onkeydown="onlyNumber(this);" />
 																		</td>
 																		<td align="left" class="blank_td">
 																			&nbsp;
 																		</td>
 																		<td align="left" class="btn_td">
-																			<a href="#" class="a_btn a_btn02">
+                                                                               <a href="#" class="a_btn a_btn02 verify_code_btn">
 																				인증확인
 																			</a>
 																		</td>
@@ -201,7 +202,7 @@
 														</div>
 
 														<div class="btn_con m_con">
-															<a href="#" class="a_btn a_btn02">
+                                                                               <a href="#" class="a_btn a_btn02 verify_code_btn">
 																인증확인
 															</a>
 														</div>
@@ -219,7 +220,7 @@
 								취소
 							</a>
 							
-							<a href="/member/find_id_end.html" class="a_btn a_btn02">
+                                                        <a href="/member/find_id_end.html" id="btn_next" class="a_btn a_btn02">
 								다음
 							</a>
 						</div>

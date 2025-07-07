@@ -232,12 +232,6 @@
 		$route_text01 = "";
 		$route_text02 = "";
 		$route_text03 = "";
-	}else if( $sMenu == "07-3" ){
-		$banner_text01 = "MY PAGE";
-		$banner_text02 = "마이페이지";
-		$route_text01 = "";
-		$route_text02 = "";
-		$route_text03 = "";
 	}else if( $sMenu == "08-1" ){
 		$banner_text01 = "SEARCH RESULTS";
 		$banner_text02 = "검색결과";
@@ -515,37 +509,37 @@
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub02_2.html">
+															<a href="/center/center_sub.php?category=makeup">
 																메이크업자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub03_2.html">
+															<a href="/center/center_sub.php?category=nail">
 																네일자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub04_2.html">
+															<a href="/center/center_sub.php?category=hair">
 																헤어자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub05_2.html">
+															<a href="/center/center_sub.php?category=skin">
 																피부자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub06_2.html">
+															<a href="/center/center_sub.php?category=half">
 																반영구자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub07_2.html">
+															<a href="/center/center_sub.php?category=foreign">
 																해외인증자격
 															</a>
 														</li>
 														<li>
-															<a href="/center/center_sub08_2.html">
+															<a href="/center/center_sub.php?category=teacher">
 																강사인증자격
 															</a>
 														</li>
@@ -762,37 +756,37 @@
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub02_2.html">
+											<a href="/center/center_sub.php?category=makeup">
 												메이크업자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub03_2.html">
+											<a href="/center/center_sub.php?category=nail">
 												네일자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub04_2.html">
+											<a href="/center/center_sub.php?category=hair">
 												헤어자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub05_2.html">
+											<a href="/center/center_sub.php?category=skin">
 												피부자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub06_2.html">
+											<a href="/center/center_sub.php?category=half">
 												반영구자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub07_2.html">
+											<a href="/center/center_sub.php?category=foreign">
 												해외인증자격
 											</a>
 										</li>
 										<li>
-											<a href="/center/center_sub08_2.html">
+											<a href="/center/center_sub.php?category=teacher">
 												강사인증자격
 											</a>
 										</li>

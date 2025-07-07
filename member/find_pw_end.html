@@ -3,7 +3,8 @@
 	$sMenu = "06-3";
 	$ssMenu = "06-3-2";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+    echo '<script src="/js/find_pw_end.js"></script>';
 ?>
 
 	<div id="container">
@@ -40,7 +41,7 @@
 														<td valign="top" align="left" class="info_td">
 															<div class="password_con">
 																<div class="input_con">
-																	<input type="password" name="" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+                                                                               <input type="password" name="password" id="new_password" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
 																</div>
 
 																<div class="intro_con">
@@ -81,7 +82,7 @@
 														<td valign="top" align="left" class="info_td">
 															<div class="password_con">
 																<div class="input_con">
-																	<input type="password" name="" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+                                                                               <input type="password" name="password_chk" id="new_password_chk" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
 																</div>
 															</div>
 														</td>
@@ -95,7 +96,7 @@
 						</div>
 
 						<div class="btn_con">
-							<a href="#" class="a_btn">
+                                                        <a href="#" id="btn_change_pw" class="a_btn">
 								확인
 							</a>
 						</div>

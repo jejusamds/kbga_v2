@@ -90,7 +90,6 @@
                                                                 <td align="center"><span>명칭</span></td>
                                                                 <td align="center"><span>결과</span></td>
                                                                 <td align="center"><span>날짜</span></td>
-                                                                <td align="center"><span>상세</span></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -115,7 +114,6 @@
 																			<td align="center"><span>
 																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
 																				</span></td>
-																			<td align="center"><span>자세히 보기</span></td>
 																		</tr>
 																	</tbody>
 																</table>
@@ -144,7 +142,6 @@
                                                                 <td align="center"><span>명칭</span></td>
                                                                 <td align="center"><span>결과</span></td>
                                                                 <td align="center"><span>날짜</span></td>
-																<td align="center"><span>상세</span></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -169,8 +166,6 @@
 																			<td align="center"><span>
 																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
 																				</span></td>
-																			
-																			<td align="center"><span>자세히 보기</span></td>
 																		</tr>
 																	</tbody>
 																</table>
@@ -199,7 +194,6 @@
                                                                 <td align="center"><span>명칭</span></td>
                                                                 <td align="center"><span>결과</span></td>
                                                                 <td align="center"><span>날짜</span></td>
-																<td align="center"><span>상세</span></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -224,7 +218,6 @@
 																			<td align="center"><span>
 																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
 																				</span></td>
-																			<td align="center"><span>자세히 보기</span></td>
 																		</tr>
 																	</tbody>
 																</table>

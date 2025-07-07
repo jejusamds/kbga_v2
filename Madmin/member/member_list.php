@@ -96,11 +96,11 @@ if ($total > 0) {
         <div class="panel">
             <table class="table" cellpadding="0" cellspacing="0">
                 <colgroup>
-                    <col width="40" />
-                    <col width="60" />
+                    <col width="30" />
+                    <col width="30" />
                     <col width="150" />
-                    <col width="120" />
-                    <col width="120" />
+                    <col width="150" />
+                    <col width="100" />
                     <col width="150" />
                 </colgroup>
                 <thead>
@@ -119,7 +119,7 @@ if ($total > 0) {
                             <tr>
                                 <td><input type="checkbox" class="select_checkbox" value="<?= $row['idx'] ?>"></td>
                                 <td><?= $total - ($page - 1) * $page_set - $i ?></td>
-                                <td class="comALeft"><a
+                                <td class=""><a
                                         href="member_input.php?idx=<?= $row['idx'] ?>&page=<?= $page ?>&<?= $param ?>"><?= htmlspecialchars($row['f_user_id'], ENT_QUOTES) ?></a>
                                 </td>
                                 <td><?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?></td>

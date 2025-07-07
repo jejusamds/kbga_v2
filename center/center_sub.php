@@ -1,7 +1,7 @@
 <?php
 
 $ssMenu_num = "1";
-$ssMenu_slide = "0";
+$ssMenu_slide = "1";
 include 'include/center_sub_common.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
 

@@ -1,11 +1,11 @@
 <?php
 	$Menu = "06";
 	$sMenu = "06-2";
-	$ssMenu = "06-2-2";
+	$ssMenu = "06-2-1";
 
 	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
 
-    $member_type = "O";
+    $member_type = "P";
 ?>
 
     <script src="/js/form-controller.js"></script>
@@ -56,8 +56,8 @@
 													</div>
 												</div>
 											</li>
-										</ul>
-									</div>
+                                                                               </ul>
+                                                                               </div>
 								</div>
 
 								<div class="text_con">
@@ -78,14 +78,35 @@
 														<tr>
 															<td valign="top" align="left" class="title_td">
 																<span>
-																	단체명
+																	이름
 																</span>
 
 																<div class="bar"><div>
 															</td>
 															<td valign="top" align="left" class="info_td">
-																<div class="group_name_con">
-																	<input type="text" name="f_org_name" id="f_org_name" data-required="y" data-label="단체명을" placeholder="단체명을 적어주세요." class="input" />
+																<div class="name_con">
+																	<div class="input_con">
+																		<input type="text" name="f_user_name" id="f_user_name" data-required="y" data-label="이름을" placeholder="이름을 적어주세요." class="input" />
+																	</div>
+
+																	<div class="intro_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td valign="top" align="left" class="dot_td">
+																						<span>
+																							*
+																						</span>
+																					</td>
+																					<td valign="top" align="left">
+																						<span>
+																							이름을 다르게 가입할 경우 <br class="m_br" />시험합격 결과가 무효처리 될 수 있습니다.
+																						</span>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
 																</div>
 															</td>
 														</tr>
@@ -98,7 +119,163 @@
 														<tr>
 															<td valign="top" align="left" class="title_td">
 																<span>
-																	단체전화번호
+																	생년월일
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="birthdate_con">
+																	<div class="input_con">
+																		<ul>
+																			<li>
+																				<table cellpadding="0" cellspacing="0">
+																					<tbody>
+																						<tr>
+																							<td align="left" class="select_td">
+                                        <select name="f_birth_date_1" id="f_birth_date_1" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
+																							</td>
+																							<td align="right" class="text_td">
+																								<span>
+																									년
+																								</span>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</li>
+																			<li>
+																				<table cellpadding="0" cellspacing="0">
+																					<tbody>
+																						<tr>
+																							<td align="left" class="select_td">
+                                        <select name="f_birth_date_2" id="f_birth_date_2" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
+																							</td>
+																							<td align="right" class="text_td">
+																								<span>
+																									월
+																								</span>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</li>
+																			<li>
+																				<table cellpadding="0" cellspacing="0">
+																					<tbody>
+																						<tr>
+																							<td align="left" class="select_td">
+                                        <select name="f_birth_date_3" id="f_birth_date_3" data-required="y" class="select">
+                                            <option value="">선택</option>
+                                        </select>
+																							</td>
+																							<td align="right" class="text_td">
+																								<span>
+																									일
+																								</span>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</li>
+																		</ul>
+																	</div>
+
+																	<div class="intro_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td valign="top" align="left" class="dot_td">
+																						<span>
+																							*
+																						</span>
+																					</td>
+																					<td valign="top" align="left">
+																						<span>
+																							생년월일을 다르게 가입할 경우 <br class="m_br" />시험합격 결과가 무효처리 될 수 있습니다.
+																						</span>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	성별
+																</span>
+
+																<div class="bar"><div>
+															</td>
+															<td valign="top" align="left" class="info_td">
+																<div class="gender_con">
+																	<div class="input_con">
+																		<ul>
+																			<li>
+																				<label class="radio_label">
+																					<input type="radio" name="f_gender" data-required="y" data-label="이름을" data-tag-type="clicked" value="M" checked="checked" />
+																					<div class="check_icon"></div>
+																					<span>
+																						남
+																					</span>
+																				</label>
+																			</li>
+																			<li>
+																				<label class="radio_label">
+																					<input type="radio" name="f_gender" data-required="y" data-label="이름을" data-tag-type="clicked" value="F" />
+																					<div class="check_icon"></div>
+																					<span>
+																						여
+																					</span>
+																				</label>
+																			</li>
+																		</ul>
+																	</div>
+
+																	<div class="intro_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td valign="top" align="left" class="dot_td">
+																						<span>
+																							*
+																						</span>
+																					</td>
+																					<td valign="top" align="left">
+																						<span>
+																							성별을 다르게 가입할 경우 <br class="m_br" />시험합격 결과가 무효처리 될 수 있습니다.
+																						</span>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+											<li>
+												<table cellpadding="0" cellspacing="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	전화번호
 																</span>
 
 																<div class="bar"><div>
@@ -109,19 +286,19 @@
 																		<tbody>
 																			<tr>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_org_phone_1" id="f_org_phone_1" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_tel_1" id="f_tel_1" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																				<td align="center" class="text_td">
 																					-
 																				</td>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_org_phone_2" id="f_org_phone_2" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_tel_2" id="f_tel_2" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																				<td align="center" class="text_td">
 																					-
 																				</td>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_org_phone_3" id="f_org_phone_3" data-required="y" data-label="전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_tel_3" id="f_tel_3" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																			</tr>
 																		</tbody>
@@ -138,27 +315,7 @@
 														<tr>
 															<td valign="top" align="left" class="title_td">
 																<span>
-																	담당자명
-																</span>
-
-																<div class="bar"><div>
-															</td>
-															<td valign="top" align="left" class="info_td">
-																<div class="group_name_con">
-																	<input type="text" name="f_contact_name" id="f_contact_name" data-required="y" data-label="담당자명을" placeholder="담당자명을 적어주세요." class="input" />
-																</div>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</li>
-											<li>
-												<table cellpadding="0" cellspacing="0">
-													<tbody>
-														<tr>
-															<td valign="top" align="left" class="title_td">
-																<span>
-																	담당자 연락처
+																	휴대전화번호
 																</span>
 
 																<div class="bar"><div>
@@ -169,19 +326,19 @@
 																		<tbody>
 																			<tr>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_contact_phone_1" id="f_contact_phone_1" data-required="y" data-label="담당자 연락처를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_mobile_1" id="f_mobile_1" data-required="y" data-label="휴대 전화번호를" maxlength="3" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																				<td align="center" class="text_td">
 																					-
 																				</td>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_contact_phone_2" id="f_contact_phone_2" data-required="y" data-label="담당자 연락처를"  maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_mobile_2" id="f_mobile_2" data-required="y" data-label="휴대 전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																				<td align="center" class="text_td">
 																					-
 																				</td>
 																				<td align="left" class="input_td">
-																					<input type="tel" name="f_contact_phone_3" id="f_contact_phone_3" data-required="y" data-label="담당자 연락처를"  maxlength="4" class="input" onkeydown="onlyNumber(this);" />
+																					<input type="tel" name="f_mobile_3" id="f_mobile_3" data-required="y" data-label="휴대 전화번호를" maxlength="4" class="input" onkeydown="onlyNumber(this);" />
 																				</td>
 																			</tr>
 																		</tbody>
@@ -211,13 +368,13 @@
 																				<tbody>
 																					<tr>
 																						<td align="left" class="input_td">
-                                                                                        <input type="text" name="f_zip" id="f_zip" data-required="y" data-label="주소를" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" />
+																							<input type="text" name="f_zip" id="f_zip" data-required="y" data-label="주소를" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" />
 																						</td>
 																						<td align="left" class="blank_td">
 																							&nbsp;
 																						</td>
 																						<td align="left" class="btn_td">
-                                                                                            <a href="javascript:void(0);" onclick="openPostcode(); return false;" class="a_btn">
+																							<a href="javascript:void(0);" onclick="openPostcode(); return false;" class="a_btn">
 																								우편번호찾기
 																							</a>
 																						</td>
@@ -261,13 +418,13 @@
 																			<tbody>
 																				<tr>
 																					<td align="left" class="input_td">
-                                                                                        <input type="text" name="f_user_id" id="f_user_id" data-required="y" data-label="아이디를" placeholder="아이디를 적어주세요." class="input" />
+																						<input type="text" name="f_user_id" id="f_user_id" data-required="y" data-label="아이디를" placeholder="아이디를 적어주세요." class="input" />
 																					</td>
 																					<td align="left" class="blank_td">
 																						&nbsp;
 																					</td>
 																					<td align="left" class="btn_td">
-                                                                                        <a href="javascript:void(0);" class="a_btn" id="btn_check_id">
+																						<a href="javascript:void(0);" class="a_btn" id="btn_check_id">
 																							중복확인
 																						</a>
 																					</td>
@@ -312,9 +469,9 @@
 																<div class="bar"><div>
 															</td>
 															<td valign="top" align="left" class="info_td">
-																<div class="id_con">
+																<div class="password_con">
 																	<div class="input_con">
-                                                                        <input type="password" name="f_password" id="f_password" data-required="y" data-label="비밀번호를" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+																		<input type="password" name="f_password" id="f_password" data-required="y" data-label="비밀번호를" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
 																	</div>
 
 																	<div class="intro_con">
@@ -353,9 +510,9 @@
 																<div class="bar"><div>
 															</td>
 															<td valign="top" align="left" class="info_td">
-																<div class="id_con">
+																<div class="password_con">
 																	<div class="input_con">
-                                                                        <input type="password" name="f_password_chk" id="f_password_chk" data-required="y" data-label="비밀번호 확인을" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
+																		<input type="password" name="f_password_chk" id="f_password_chk" data-required="y" data-label="비밀번호 확인을" maxlength="12" placeholder="비밀번호를 적어주세요." class="input" autocomplete="new-password" />
 																	</div>
 																</div>
 															</td>
@@ -377,7 +534,40 @@
 															<td valign="top" align="left" class="info_td">
 																<div class="email_con">
 																	<div class="input_con">
-                                                                        <input type="text" name="f_email" id="f_email" data-required="y" data-label="이메일을" placeholder="이메일을 적어주세요." class="input" />
+																		<ul>
+																			<li>
+																				<table cellpadding="0" cellspacing="0">
+																					<tbody>
+																						<tr>
+																							<td align="left" class="input_td">
+                                                                               <input type="text" name="f_email_id" value="" class="input" />
+																							</td>
+																							<td align="center" class="text_td">
+																								<span>
+																									@
+																								</span>
+																							</td>
+																							<td align="left" class="input_td">
+                                                                               <input type="text" name="f_email_domain" value="" class="input email_address_input" />
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</li>
+																			<li>
+																				<select class="select email_select" onchange="email_address_select(this.value)">
+																					<option value="">직접입력</option>
+																					<option value="naver.com">naver.com</option>
+																					<option value="hanmail.net">hanmail.net</option>
+																					<option value="gmail.com">gmail.com</option>
+																					<option value="nate.com">nate.com</option>
+																					<option value="daum.net">daum.net</option>
+																					<option value="hotmail.com">hotmail.com</option>
+																					<option value="yahoo.co.kr">yahoo.co.kr</option>
+																					<option value="lycos.co.kr">lycos.co.kr</option>
+																				</select>
+																			</li>
+																		</ul>
 																	</div>
 
 																	<div class="intro_con">
@@ -393,7 +583,7 @@
 																						<ul>
 																							<li>
 																								<label class="radio_label">
-                                                                                                    <input type="radio" name="f_email_consent" id="f_email_consent_1" value="Y" checked="checked" />
+																									<input type="radio" name="f_email_consent" id="f_email_consent_1" value="Y" checked="checked" />
 																									<div class="check_icon"></div>
 																									<span>
 																										동의함
@@ -402,7 +592,7 @@
 																							</li>
 																							<li>
 																								<label class="radio_label">
-                                                                                                    <input type="radio" name="f_email_consent" id="f_email_consent_2" value="N" />
+																									<input type="radio" name="f_email_consent" id="f_email_consent_2" value="N" />
 																									<div class="check_icon"></div>
 																									<span>
 																										동의안함
@@ -423,87 +613,108 @@
 											</li>
 										</ul>
 									</div>
-								</div>
 
-								<div class="agree_con">
-									<ul>
-										<li>
-											<div class="list_div">
+									<div class="write_div">
+										<ul>
+											<li>
 												<table cellpadding="0" cellspacing="0">
 													<tbody>
 														<tr>
-															<td align="left" class="check_td">
-																<label class="checkbox_label">
-																	<input type="checkbox" name="" />
-																	<div class="check_icon"></div>
-																	<span>
-																		[필수] 개인정보 수집 및 이용 동의
-																	</span>
-																</label>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	소속단체 여부
+																</span>
+
+																<div class="bar"><div>
 															</td>
-															<td align="left" class="arrow_td">
-																<a href="javascript:terms_popup('terms03');">
-																	<img src="/img/member/join_agree_arrow.svg" alt="화살표" class="fx" />
-																</a>
+															<td valign="top" align="left" class="info_td">
+																<div class="group_whether_con">
+																	<ul>
+																		<li>
+																			<label class="radio_label">
+																				<input type="radio" name="f_affiliation_flag" id="f_affiliation_flag_1" value="Y" checked="checked" />
+																				<div class="check_icon"></div>
+																				<span>
+																					있음
+																				</span>
+																			</label>
+																		</li>
+																		<li>
+																			<label class="radio_label">
+																				<input type="radio" name="f_affiliation_flag" id="f_affiliation_flag_2" value="N" />
+																				<div class="check_icon"></div>
+																				<span>
+																					없음
+																				</span>
+																			</label>
+																		</li>
+																	</ul>
+																</div>
 															</td>
 														</tr>
 													</tbody>
 												</table>
-											</div>
-										</li>
-										<li>
-											<div class="list_div">
+											</li>
+											<li>
 												<table cellpadding="0" cellspacing="0">
 													<tbody>
 														<tr>
-															<td align="left" class="check_td">
-																<label class="checkbox_label">
-																	<input type="checkbox" name="" />
-																	<div class="check_icon"></div>
-																	<span>
-																		[필수] 개인정보 제 3자 제공 동의
-																	</span>
-																</label>
+															<td valign="top" align="left" class="title_td">
+																<span>
+																	소속단체 정보
+																</span>
+
+																<div class="bar"><div>
 															</td>
-															<td align="left" class="arrow_td">
-																<a href="javascript:terms_popup('terms04');">
-																	<img src="/img/member/join_agree_arrow.svg" alt="화살표" class="fx" />
-																</a>
+															<td valign="top" align="left" class="info_td">
+																<div class="group_information_con">
+																	<div class="input_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td align="left" class="text_td">
+																						<span>
+																							단체명:
+																						</span>
+																					</td>
+																					<td align="left" class="input_td">
+																						<input type="text" name="f_affiliation_name" id="f_affiliation_name" placeholder="단체명을 적어주세요." class="input" />
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+
+																	<div class="intro_con">
+																		<table cellpadding="0" cellspacing="0">
+																			<tbody>
+																				<tr>
+																					<td valign="top" align="left" class="dot_td">
+																						<span>
+																							*
+																						</span>
+																					</td>
+																					<td valign="top" align="left">
+																						<span>
+																							자신의 학원 또는 교육기관을 선택해 주세요.
+																						</span>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
 															</td>
 														</tr>
 													</tbody>
 												</table>
-											</div>
-										</li>
-										<li>
-											<div class="list_div">
-												<table cellpadding="0" cellspacing="0">
-													<tbody>
-														<tr>
-															<td align="left" class="check_td">
-																<label class="checkbox_label">
-																	<input type="checkbox" name="" />
-																	<div class="check_icon"></div>
-																	<span>
-																		[선택] 마케팅 목적의 개인정보 수집 동의
-																	</span>
-																</label>
-															</td>
-															<td align="left" class="arrow_td">
-																<a href="javascript:terms_popup('terms05');">
-																	<img src="/img/member/join_agree_arrow.svg" alt="화살표" class="fx" />
-																</a>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</li>
-									</ul>
+											</li>
+										</ul>
+									</div>
 								</div>
 								
 								<div class="btn_con">
-									<!-- <a href="/member/join_step03_group.html" class="a_btn"> -->
+									<!-- <a href="/member/join_step03_individual.html" class="a_btn"> -->
                                     <a href="javascript:void(0);" onclick="submitForm('sign_up_frm');" class="a_btn">
 										회원가입
 									</a>
@@ -539,6 +750,16 @@
 			$(obj).keyup(function(){
 				$(this).val($(this).val().replace(/[^0-9]/g,""));
 			}); 
+		}
+
+		// 이메일
+		function email_address_select(val){
+			var state = $(".email_select option:selected").val();
+			if ( state == "" ) {
+				$(".email_address_input").val("").attr("readonly",false).focus();
+			}else{
+				$(".email_address_input").val(val).attr("readonly",true);
+			}
 		}
         </script>
 

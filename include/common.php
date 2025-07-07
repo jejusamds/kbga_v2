@@ -10,6 +10,12 @@ $login_required_pages = [
     '/community/community_sub01.html',
     '/mypage/modify.html',
     '/mypage/history.html',
+    '/center/center_sub_apply.php',
+    '/center/center_sub_apply_o.php',
+    '/news/news_sub02_apply.html',
+    '/news/news_sub02_apply02.html',
+    '/competition/competition_sub03_apply.html',
+    '/competition/competition_sub03_apply02.html',
 ];
 
 // 로그인 상태에서 접근안되는 목록
@@ -20,6 +26,7 @@ $not_login_required_pages = [
     '/member/join_step02_group.html',
     '/member/join_step03_individual.html',
     '/member/join_step03_group.html',
+    
 ];
 
 /**

@@ -362,7 +362,7 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
     <div id="leftMenu">
         <div class="logo" style="background: white;">
             <a href="/Madmin/">
-                <img src="/Madmin/img/main_logo_beauty.svg" class="logo-img" />
+                <img src="/Madmin/img/admin_logo.png" class="logo-img" />
             </a>
         </div>
         <div class="lnb">

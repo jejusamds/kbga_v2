@@ -142,8 +142,8 @@ if ($idx) {
                     <tr>
                         <th>담당자 연락처</th>
                         <td class="comALeft"><input type="text" name="f_contact_phone"
-                                value="<?= htmlspecialchars($row['f_contact_phone'], ENT_QUOTES) ?>" class="form-control"
-                                style="width:60%;"></td>
+                                value="<?= htmlspecialchars($row['f_contact_phone'], ENT_QUOTES) ?>"
+                                class="form-control" style="width:60%;"></td>
                     </tr>
                     <tr>
                         <th>우편번호</th>
@@ -169,12 +169,12 @@ if ($idx) {
                                 value="<?= htmlspecialchars($row['f_user_id'], ENT_QUOTES) ?>" class="form-control"
                                 style="width:40%;" <?= $mode == 'update' ? 'readonly' : '' ?>></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>비밀번호</th>
                         <td class="comALeft"><input type="text" name="f_password"
                                 value="<?= htmlspecialchars($row['f_password'], ENT_QUOTES) ?>" class="form-control"
                                 style="width:60%;"></td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <th>이메일</th>
                         <td class="comALeft"><input type="text" name="f_email"
@@ -227,6 +227,7 @@ if ($idx) {
                         <tr>
                             <th>번호</th>
                             <th>등록일</th>
+                            <th>상세</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -234,11 +235,15 @@ if ($idx) {
                             <tr>
                                 <td><?= $a['idx'] ?></td>
                                 <td><?= $a['wdate'] ?? $a['reg_date'] ?></td>
+                                <td>
+                                    <button class="btn btn-xs btn-success" target="_blank" 
+                                    onclick="window.open('/Madmin/registration/reg_application_view.php?idx=<?= $a['idx'] ?>','_blank');">상세</button>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                         <?php if (empty($app_list)): ?>
                             <tr>
-                                <td colspan="2" class="comACenter">신청 내역이 없습니다.</td>
+                                <td colspan="3" class="comACenter">신청 내역이 없습니다.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -250,6 +255,7 @@ if ($idx) {
                         <tr>
                             <th>번호</th>
                             <th>등록일</th>
+                            <th>상세</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -257,11 +263,15 @@ if ($idx) {
                             <tr>
                                 <td><?= $c['idx'] ?></td>
                                 <td><?= $c['reg_date'] ?? $c['wdate'] ?></td>
+                                <td>
+                                    <button class="btn btn-xs btn-success"
+                                        onclick="window.open('/Madmin/registration/reg_competition_view.php?idx=<?= $c['idx'] ?>','_blank');">상세</button>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                         <?php if (empty($comp_list)): ?>
                             <tr>
-                                <td colspan="2" class="comACenter">신청 내역이 없습니다.</td>
+                                <td colspan="3" class="comACenter">신청 내역이 없습니다.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -282,13 +292,14 @@ if ($idx) {
                                 <td><?= $e['idx'] ?></td>
                                 <td><?= $e['reg_date'] ?? $e['wdate'] ?></td>
                                 <td>
-                                    <button class="btn btn-xs btn-success" onclick="location.href='/Madmin/registration/reg_edu_view.php?idx=<?=$e['idx']?>'">상세</button>
+                                    <button class="btn btn-xs btn-success"
+                                        onclick="window.open('/Madmin/registration/reg_edu_view.php?idx=<?= $e['idx'] ?>','_blank');">상세</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                         <?php if (empty($edu_list)): ?>
                             <tr>
-                                <td colspan="2" class="comACenter">신청 내역이 없습니다.</td>
+                                <td colspan="3" class="comACenter">신청 내역이 없습니다.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>

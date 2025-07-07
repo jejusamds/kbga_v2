@@ -3,7 +3,16 @@
 	$sMenu = "06-3";
 	$ssMenu = "06-3-1";
 
-	include $_SERVER['DOCUMENT_ROOT'].'/include/header.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+
+    $user_id = '';
+    if (!empty($_SESSION['find_id_verified']) && !empty($_SESSION['find_id']['user_id'])) {
+        $user_id = $_SESSION['find_id']['user_id'];
+        unset($_SESSION['find_id'], $_SESSION['find_id_verified']);
+    } else {
+        echo "<script>alert('잘못된 접근입니다.'); location.href='/member/find_id.html';</script>";
+        exit;
+    }
 ?>
 
 	<div id="container">
@@ -26,9 +35,9 @@
 							<div class="id_con">
 								<img src="/img/member/find_id_end_icon.svg" alt="아이콘" class="fx" />
 
-								<span>
-									sssyck123
-								</span>
+                                                                <span>
+                                                                        <?=$user_id?>
+                                                                </span>
 							</div>
 						</div>
 					</div>

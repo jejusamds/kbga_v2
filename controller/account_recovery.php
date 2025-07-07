@@ -21,7 +21,23 @@ switch ($mode) {
     case 'send_code_id':
         if (empty($filtered['email']))
             safe_json(['result' => 'error', 'msg' => '이메일을 입력해 주세요.']);
-        $row = $db->row("SELECT f_user_id FROM df_site_member WHERE f_email = :e", ['e' => $filtered['email']]);
+
+        $params = ['email' => $filtered['email']];
+        if ($filtered['member_type'] === 'P') {
+            if (empty($filtered['user_name']) || empty($filtered['birth_date']))
+                safe_json(['result' => 'error', 'msg' => '필수 정보를 입력해 주세요.']);
+            $sql = "SELECT f_user_id FROM df_site_member WHERE f_member_type='P' AND f_user_name=:name AND f_birth_date=:birth AND f_email=:email";
+            $params['name'] = $filtered['user_name'];
+            $params['birth'] = $filtered['birth_date'];
+        } else {
+            if (empty($filtered['org_name']) || empty($filtered['contact_name']))
+                safe_json(['result' => 'error', 'msg' => '필수 정보를 입력해 주세요.']);
+            $sql = "SELECT f_user_id FROM df_site_member WHERE f_member_type='O' AND f_org_name=:org AND f_contact_name=:contact AND f_email=:email";
+            $params['org'] = $filtered['org_name'];
+            $params['contact'] = $filtered['contact_name'];
+        }
+
+        $row = $db->row($sql, $params);
         if (!$row)
             safe_json(['result' => 'error', 'msg' => '입력하신 정보가 일치하는 회원이 없습니다.']);
         $code = random_int(100000, 999999);
@@ -40,7 +56,7 @@ switch ($mode) {
             safe_json(['result' => 'error', 'msg' => '인증번호가 일치하지 않습니다.']);
         }
         $_SESSION['find_id_verified'] = true;
-        safe_json(['result' => 'ok', 'redirect' => '/member/find_id_end.html']);
+        safe_json(['result' => 'ok', 'redirect' => '/member/find_id_end.html', 'msg' => "인증되었습니다."]);
         break;
     case 'send_code_pw':
         if (empty($filtered['user_id']) || empty($filtered['email'])) {
@@ -65,7 +81,7 @@ switch ($mode) {
             safe_json(['result' => 'error', 'msg' => '인증번호가 일치하지 않습니다.']);
         }
         $_SESSION['find_pw_verified'] = true;
-        safe_json(['result' => 'ok', 'redirect' => '/member/find_pw_end.html']);
+        safe_json(['result' => 'ok', 'redirect' => '/member/find_pw_end.html', 'msg' => "인증되었습니다."]);
         break;
     case 'reset_password':
         if (empty($_SESSION['find_pw_verified']) || empty($_SESSION['find_pw']['user_id'])) {
