@@ -4,9 +4,12 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Madmin/inc/top.php";
 $idx = isset($_GET['idx']) ? (int) $_GET['idx'] : 0;
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-$sql = "SELECT t1.*, c.f_title
+$sql = "SELECT t1.*, c.f_title, part.f_part as part_title, field.f_field as field_title, event.f_event as event_title
         FROM df_site_competition_registration t1
         LEFT JOIN df_site_competition c ON t1.f_competition_idx = c.idx
+        LEFT JOIN df_site_competition_part part on t1.f_part = part.idx
+        LEFT JOIN df_site_competition_field field on t1.f_field = field.idx
+        LEFT JOIN df_site_competition_event event on t1.f_event = event.idx
         WHERE t1.idx = '{$idx}'";
 $row = $db->row($sql);
 if (!$row) {
@@ -53,15 +56,15 @@ function printType($val)
                 </tr>
                 <tr>
                     <td style="width:200px;">참가부문</td>
-                    <td><?= printValue($row['f_part']) ?></td>
+                    <td><?= printValue($row['part_title']) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">종목분야</td>
-                    <td><?= printValue($row['f_field']) ?></td>
+                    <td><?= printValue($row['field_title']) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">참가종목</td>
-                    <td><?= printValue($row['f_event']) ?></td>
+                    <td><?= printValue($row['event_title']) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">이름</td>
@@ -100,6 +103,36 @@ function printType($val)
                     <td><?= printValue($row['f_address2']) ?></td>
                 </tr>
                 <tr>
+                    <td style="width:200px;">첨부파일</td>
+                    <td>
+                        <!-- <?= printValue($row['f_issue_file']) ?> -->
+                        <?php
+                        $files_arr = explode(',', $row['f_issue_file']);
+
+                        if (!empty($files_arr)):
+                            foreach ($files_arr as $issue_file):
+                                ?>
+                                <?php
+                                $fileName = $issue_file;
+                                $fileUrl = '/userfiles/competition/' . rawurlencode($fileName);
+                                ?>
+                                <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+                                    download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" class="download-link">
+                                    <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+                                </a>
+                                <br>
+                                <?php
+                            endforeach;
+                        else: ?>
+                            <span class="no-file">
+                                파일이
+                                없습니다.</span>
+                            <?php
+
+                        endif; ?>
+                    </td>
+                </tr>
+                <tr>
                     <td style="width:200px;">입금자명</td>
                     <td><?= printValue($row['f_payer_name']) ?></td>
                 </tr>
@@ -109,7 +142,7 @@ function printType($val)
                 </tr>
                 <tr>
                     <td style="width:200px;">입금 구분</td>
-                    <td><?= printValue($row['f_payment_category']) ?></td>
+                    <td><?= $row['f_payment_category'] == 'entry' ? "접수비" : "unknown" ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">회원ID</td>

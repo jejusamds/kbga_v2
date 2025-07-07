@@ -77,6 +77,7 @@ $menu10 = array(
 
 $menu11 = array(
     "member_list",
+    "member_out_list",
     "member_input"
 );
 
@@ -546,8 +547,10 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             </div>
             <div class="lnb-submenu"
                 style="display:<? if (in_array($gb, $menu11)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if (in_array($gb, $menu11)) { ?>on<? } ?>"
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu11) && $gb == 'member_list') { ?>on<? } ?>"
                     href="/Madmin/member/member_list.php">회원 관리</div>
+                <div class="lnb-submenu-item <? if ($gb == 'member_out_list') { ?>on<? } ?>"
+                    href="/Madmin/member/member_out_list.php">탈퇴회원 조회</div>
             </div>
 
             <div class="lnb-menu <? if (in_array($gb, $menu12)) { ?>on<? } ?>">

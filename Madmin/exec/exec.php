@@ -77,7 +77,10 @@ switch ($mode) {
             $fields[] = "{$col}='" . addslashes($filename) . "'";
         }
         foreach ($_POST as $key => $val) {
-            if (in_array($key, ['mode', 'table', 'page', 'usage', 'region', 'idx', 'selidx', 'dir', 'field', 'keyword', 'old_idx']))
+            if (
+                in_array($key, ['mode', 'table', 'page', 'usage', 'region', 'idx', 'selidx', 'dir', 'field', 'keyword', 'old_idx']) ||
+                is_array($val)
+            )
                 continue;
             $fields[] = "{$key}='" . addslashes($val) . "'";
         }
@@ -87,7 +90,29 @@ switch ($mode) {
 
         $bbsidx = $db->lastInsertId();
 
-        if ($table == 'sigong') {
+        if ($table == 'competition') {
+            $partArr  = isset($_POST['parts']) && is_array($_POST['parts']) ? $_POST['parts'] : [];
+            $fieldArr = isset($_POST['fields']) && is_array($_POST['fields']) ? $_POST['fields'] : [];
+            $eventArr = isset($_POST['events']) && is_array($_POST['events']) ? $_POST['events'] : [];
+            foreach ($partArr as $v) {
+                $v = trim($v);
+                if ($v !== '') {
+                    $db->query("INSERT INTO df_site_competition_part SET competition_idx=:c, f_part=:v", ['c'=>$bbsidx,'v'=>$v]);
+                }
+            }
+            foreach ($fieldArr as $v) {
+                $v = trim($v);
+                if ($v !== '') {
+                    $db->query("INSERT INTO df_site_competition_field SET competition_idx=:c, f_field=:v", ['c'=>$bbsidx,'v'=>$v]);
+                }
+            }
+            foreach ($eventArr as $v) {
+                $v = trim($v);
+                if ($v !== '') {
+                    $db->query("INSERT INTO df_site_competition_event SET competition_idx=:c, f_event=:v", ['c'=>$bbsidx,'v'=>$v]);
+                }
+            }
+        } elseif ($table == 'sigong') {
             // 3. upfile[] 업로드 처리
             $upload_dir = $_SERVER['DOCUMENT_ROOT'] . "/userfiles/" . $table;
 
@@ -127,7 +152,10 @@ switch ($mode) {
         }
         $fields = [];
         foreach ($_POST as $key => $val) {
-            if (in_array($key, ['mode', 'table', 'page', 'usage', 'region', 'idx', 'selidx', 'dir', 'field', 'keyword', 'old_idx'])) {
+            if (
+                in_array($key, ['mode', 'table', 'page', 'usage', 'region', 'idx', 'selidx', 'dir', 'field', 'keyword', 'old_idx']) ||
+                is_array($val)
+            ) {
                 continue;
             }
             $fields[] = "{$key}='" . addslashes(trim($val)) . "'";
@@ -208,6 +236,33 @@ switch ($mode) {
                     }
                 }
                 // else: 파일 선택 안 됐으면 기존 old_idx만 유지(삭제 안 함)
+            }
+        }
+
+        if ($table == 'competition') {
+            $db->query("DELETE FROM df_site_competition_part WHERE competition_idx=:idx", ['idx'=>$idx]);
+            $db->query("DELETE FROM df_site_competition_field WHERE competition_idx=:idx", ['idx'=>$idx]);
+            $db->query("DELETE FROM df_site_competition_event WHERE competition_idx=:idx", ['idx'=>$idx]);
+            $partArr  = isset($_POST['parts']) && is_array($_POST['parts']) ? $_POST['parts'] : [];
+            $fieldArr = isset($_POST['fields']) && is_array($_POST['fields']) ? $_POST['fields'] : [];
+            $eventArr = isset($_POST['events']) && is_array($_POST['events']) ? $_POST['events'] : [];
+            foreach ($partArr as $v) {
+                $v = trim($v);
+                if ($v !== '') {
+                    $db->query("INSERT INTO df_site_competition_part SET competition_idx=:c, f_part=:v", ['c'=>$idx,'v'=>$v]);
+                }
+            }
+            foreach ($fieldArr as $v) {
+                $v = trim($v);
+                if ($v !== '') {
+                    $db->query("INSERT INTO df_site_competition_field SET competition_idx=:c, f_field=:v", ['c'=>$idx,'v'=>$v]);
+                }
+            }
+            foreach ($eventArr as $v) {
+                $v = trim($v);
+                if ($v !== '') {
+                    $db->query("INSERT INTO df_site_competition_event SET competition_idx=:c, f_event=:v", ['c'=>$idx,'v'=>$v]);
+                }
             }
         }
 

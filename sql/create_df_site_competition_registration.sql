@@ -1,25 +1,30 @@
 CREATE TABLE `df_site_competition_registration` (
-  `idx` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `f_competition_idx` int NOT NULL COMMENT '대회구분',
-  `f_applicant_type` char(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '접수유형 (P=개인, O=단체)',
-  `f_part` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '참가부문',
-  `f_field` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '종목분야',
-  `f_event` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '참가종목',
-  `f_user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '이름',
-  `f_gender` char(1) COLLATE utf8mb4_general_ci NOT NULL COMMENT '성별 (M/F)',
-  `f_user_name_en` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '영문이름',
-  `f_birth_date` date NOT NULL COMMENT '생년월일',
-  `f_tel` varchar(20) COLLATE utf8mb4_general_ci NOT NULL COMMENT '연락처',
-  `f_email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '이메일',
-  `f_zip` varchar(10) COLLATE utf8mb4_general_ci NOT NULL COMMENT '우편번호',
-  `f_address1` varchar(255) COLLATE utf8mb4_general_ci NOT NULL COMMENT '기본주소',
-  `f_address2` varchar(255) COLLATE utf8mb4_general_ci NOT NULL COMMENT '상세주소',
-  `f_payer_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '입금자명',
-  `f_payer_bank` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '입금은행',
-  `f_payment_category` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '입금구분 (중복가능)',
-  `reg_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
-  `mod_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
-  `f_user_idx` int DEFAULT NULL,
-  `f_user_id` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='대회 접수 정보'
+	`idx` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'PK',
+	`f_competition_idx` INT NOT NULL COMMENT '대회구분',
+	`f_applicant_type` CHAR(1) NOT NULL COMMENT '접수유형 (P=개인, O=단체)' COLLATE 'utf8mb4_general_ci',
+	`f_part` VARCHAR(50) NOT NULL COMMENT '참가부문' COLLATE 'utf8mb4_general_ci',
+	`f_field` VARCHAR(50) NOT NULL COMMENT '종목분야' COLLATE 'utf8mb4_general_ci',
+	`f_event` VARCHAR(100) NOT NULL COMMENT '참가종목' COLLATE 'utf8mb4_general_ci',
+	`f_user_name` VARCHAR(50) NOT NULL COMMENT '이름' COLLATE 'utf8mb4_general_ci',
+	`f_gender` CHAR(1) NOT NULL COMMENT '성별 (M/F)' COLLATE 'utf8mb4_general_ci',
+	`f_user_name_en` VARCHAR(100) NOT NULL COMMENT '영문이름' COLLATE 'utf8mb4_general_ci',
+	`f_birth_date` DATE NOT NULL COMMENT '생년월일',
+	`f_tel` VARCHAR(20) NOT NULL COMMENT '연락처' COLLATE 'utf8mb4_general_ci',
+	`f_email` VARCHAR(100) NOT NULL COMMENT '이메일' COLLATE 'utf8mb4_general_ci',
+	`f_zip` VARCHAR(10) NOT NULL COMMENT '우편번호' COLLATE 'utf8mb4_general_ci',
+	`f_address1` VARCHAR(255) NOT NULL COMMENT '기본주소' COLLATE 'utf8mb4_general_ci',
+	`f_address2` VARCHAR(255) NOT NULL COMMENT '상세주소' COLLATE 'utf8mb4_general_ci',
+	`f_payer_name` VARCHAR(100) NOT NULL COMMENT '입금자명' COLLATE 'utf8mb4_general_ci',
+	`f_payer_bank` VARCHAR(50) NOT NULL COMMENT '입금은행' COLLATE 'utf8mb4_general_ci',
+	`f_payment_category` VARCHAR(100) NOT NULL COMMENT '입금구분 (중복가능)' COLLATE 'utf8mb4_general_ci',
+	`reg_date` DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP) COMMENT '등록일시',
+	`mod_date` DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP) ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
+	`f_user_idx` INT NULL DEFAULT NULL,
+	`f_user_id` VARCHAR(128) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`idx`) USING BTREE
+)
+COMMENT='대회 접수 정보'
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=4
+;

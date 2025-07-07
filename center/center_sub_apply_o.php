@@ -129,6 +129,30 @@ unset($sc);
                         <input type="hidden" name="f_applicant_type" value="O" />
                         <div class="write_con">
                             <div class="contents_con">
+
+                                <div class="download_con">
+                                    <ul>
+                                        <li>
+                                            <a href="#" class="a_btn">
+                                                <img src="/img/sub/apply_write_download_btn_icon.svg" alt="아이콘" class="fx" />
+
+                                                <span>
+                                                    단체접수신청서 다운받기
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="a_btn">
+                                                <img src="/img/sub/apply_write_download_btn_icon.svg" alt="아이콘" class="fx" />
+
+                                                <span>
+                                                    단체발급신청서 다운받기
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
                                 <div class="input_con">
                                     <div class="form01_con">
                                         <ul>
@@ -466,7 +490,7 @@ unset($sc);
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="list_div fl">
+                                                <!-- <div class="list_div fl">
                                                     <table cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                             <tr>
@@ -511,9 +535,9 @@ unset($sc);
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                </div>
+                                                </div> -->
 
-                                                <div class="list_div fr">
+                                                <div class="list_div fl">
                                                     <table cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                             <tr>
@@ -582,7 +606,7 @@ unset($sc);
 																															<span>
 																																파일선택
 																															</span>
-																															<input type="file" name="upfile" class="input" onchange="file_upload(this.value)" />
+																															<input type="file" name="upfile[]" class="input" onchange="file_upload(this.value)" />
 																														</label>
 																													</td>
 																												</tr>
@@ -616,6 +640,26 @@ unset($sc);
                                                             </tr>
                                                         </tbody>
                                                     </table>
+
+                                                    <div class="file_intro_con">
+                                                        <table cellpadding="0" cellspacing="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="left" class="dot_td">
+                                                                        <span>
+                                                                            *
+                                                                        </span>
+                                                                    </td>
+                                                                    <td align="left">
+                                                                        <span>
+                                                                            자격증 발급 신청시 <br />
+                                                                            자격증서에 들어갈 대상자 증명사진첨부 필수
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </li>
                                         </ul>

@@ -28,11 +28,13 @@
 
                         <div class="contents_con">
 
-                            <form action="" method="" autocomplete="off">
-								<div class="secession_con">
-									<div class="input_con">
-										<div class="input01_con">
-											<div class="input_con">
+                            <form id="secessionForm" action="/controller/member_controller.php" method="POST" autocomplete="off">
+                                <input type="hidden" name="mode" value="secession" />
+                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES) ?>" />
+                                <div class="secession_con">
+                                    <div class="input_con">
+                                        <div class="input01_con">
+                                            <div class="input_con">
 												<table cellpadding="0" cellspacing="0">
 													<tbody>
 														<tr>
@@ -42,7 +44,7 @@
 																</span>
 															</td>
 															<td align="left" class="info_td">
-																<input type="password" name="" maxlength="12" placeholder="비밀번호를 입력해주세요." class="input" autocomplete="new-password" />
+                                                    <input type="password" name="f_password" data-required="y" maxlength="12" placeholder="비밀번호를 입력해주세요." data-label="비밀번호를" class="input" autocomplete="new-password" />
 
 																<div class="intro_con">
 																	<table cellpadding="0" cellspacing="0">
@@ -76,25 +78,25 @@
 												</span>
 											</div>
 
-											<div class="input_con">
-												<div class="textarea_con">
-													<textarea name="" placeholder="탈퇴 사유를 적어주세요." class="textarea"></textarea>
-												</div>
-											</div>
-										</div>
-									</div>
+                                            <div class="input_con">
+                                                <div class="textarea_con">
+                                                    <textarea name="reason" placeholder="탈퇴 사유를 적어주세요." class="textarea"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-									<div class="btn_con">
-										<a href="/" class="a_btn a_btn01">
+                                    <div class="btn_con">
+                                        <a href="/" class="a_btn a_btn01">
 											취소
 										</a>
 										
-										<a href="#" class="a_btn a_btn02">
-											확인 
-										</a>
-									</div>
-								</div>
-							</form>
+                                        <a href="javascript:void(0);" onclick="out_process();" class="a_btn a_btn02">
+                                            확인
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
 
                         </div>
                     </div>
@@ -104,7 +106,19 @@
         </div>
     </div>
 </div>
+<script src="/js/form-controller.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new FormSubmitter('secessionForm');
+    });
+
+    function out_process() {
+        if (confirm("탈퇴하시겠습니까?")) {
+            submitForm('secessionForm'); 
+        }
+    }
+</script>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html';
 ?>

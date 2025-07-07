@@ -153,20 +153,30 @@ $p_value = implode(', ', $labels);
                     <td style="width:200px;">사진첨부</td>
                     <td>
                         <!-- <?= printValue($row['f_issue_file']) ?> -->
-                        <?php if (!empty($row['f_issue_file'])): ?>
-                            <?php
-                            $fileName = $row['f_issue_file'];
-                            $fileUrl = '/userfiles/registration/' . rawurlencode($fileName);
-                            ?>
-                            <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
-                                download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" class="download-link">
-                                <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
-                            </a>
-                        <?php else: ?>
+                        <?php
+                        $files_arr = explode(',', $row['f_issue_file']);
+
+                        if (!empty($files_arr)):
+                            foreach ($files_arr as $issue_file):
+                                ?>
+                                <?php
+                                $fileName = $issue_file;
+                                $fileUrl = '/userfiles/registration/' . rawurlencode($fileName);
+                                ?>
+                                <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+                                    download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" class="download-link">
+                                    <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+                                </a>
+                                <br>
+                                <?php
+                            endforeach;
+                        else: ?>
                             <span class="no-file">
                                 파일이
                                 없습니다.</span>
-                        <?php endif; ?>
+                            <?php
+
+                        endif; ?>
                     </td>
                 </tr>
                 <tr>

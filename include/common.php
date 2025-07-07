@@ -56,7 +56,7 @@ require_login();
 
 $login_user_info = null;
 if ($is_login) {
-    $sql = "SELECT * FROM df_site_member WHERE f_user_id = :f_user_id";
+    $sql = "SELECT * FROM df_site_member WHERE f_user_id = :f_user_id AND is_out = 1";
     $db->bind("f_user_id", $_SESSION['kbga_user_id']);
     //$login_user_info = $db->row($sql, null, PDO::FETCH_OBJ);
     $login_user_info = $db->row($sql);
@@ -79,5 +79,3 @@ $_SESSION['csrf_token'] = $csrf_token;
 // 헤더에서 사용하는 메뉴 배열
 // include 'get_menu.php';
 // include 'privacy.php';
-
-

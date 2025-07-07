@@ -178,7 +178,7 @@ CREATE TABLE `df_site_application_registration` (
 	`f_email` VARCHAR(255) NOT NULL COMMENT '이메일' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_application_type` ENUM('exam','cert') NOT NULL COMMENT '신청구분 (exam=시험접수, certificate=자격증발급)' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_issue_desire` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '자격증 발급희망 여부 (개인만)',
-	`f_issue_file` VARCHAR(255) NULL DEFAULT NULL COMMENT '발급희망 시 파일 업로드' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_issue_file` VARCHAR(2000) NULL DEFAULT NULL COMMENT '발급희망 시 파일 업로드' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_payer_name` VARCHAR(100) NULL DEFAULT NULL COMMENT '입금자명' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_payer_bank` VARCHAR(100) NULL DEFAULT NULL COMMENT '입금 은행' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_payment_category` VARCHAR(100) NULL DEFAULT NULL COMMENT '입금구분 (중복가능: written=필기, practical=실기, issuance=발급비)' COLLATE 'utf8mb4_0900_ai_ci',
@@ -189,8 +189,10 @@ CREATE TABLE `df_site_application_registration` (
 COMMENT='시험일정 접수 정보 테이블'
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=13
+AUTO_INCREMENT=18
 ;
+
+
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -473,31 +475,38 @@ CREATE TABLE IF NOT EXISTS `df_site_material` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 dbkbga8800.df_site_member 구조 내보내기
-CREATE TABLE IF NOT EXISTS `df_site_member` (
-  `idx` int NOT NULL AUTO_INCREMENT,
-  `wdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `f_member_type` enum('P','O') NOT NULL COMMENT '회원 유형 (P=개인, O=단체)',
-  `f_user_name` varchar(50) DEFAULT NULL COMMENT '이름',
-  `f_birth_date` varchar(50) DEFAULT NULL COMMENT '생년월일',
-  `f_gender` enum('M','F') DEFAULT NULL COMMENT '성별',
-  `f_tel` varchar(15) DEFAULT NULL COMMENT '전화번호',
-  `f_mobile` varchar(15) DEFAULT NULL COMMENT '휴대전화번호',
-  `f_affiliation_flag` enum('N','Y') NOT NULL DEFAULT 'N' COMMENT '소속단체 여부 (N=없음, Y=있음)',
-  `f_affiliation_name` varchar(255) DEFAULT NULL COMMENT '소속단체 이름',
-  `f_org_name` varchar(255) DEFAULT NULL COMMENT '단체명',
-  `f_org_phone` varchar(15) DEFAULT NULL COMMENT '단체 전화번호',
-  `f_contact_name` varchar(50) DEFAULT NULL COMMENT '담당자명',
-  `f_contact_phone` varchar(15) DEFAULT NULL COMMENT '담당자 연락처',
-  `f_zip` varchar(10) DEFAULT NULL COMMENT '우편번호',
-  `f_address1` varchar(255) DEFAULT NULL COMMENT '기본주소',
-  `f_address2` varchar(255) DEFAULT NULL COMMENT '상세주소',
-  `f_user_id` varchar(50) NOT NULL COMMENT '아이디(4~12자 영문/숫자)',
-  `f_password` varchar(500) NOT NULL COMMENT '비밀번호(해시)',
-  `f_email` varchar(255) NOT NULL COMMENT '이메일',
-  `f_email_consent` enum('N','Y') NOT NULL DEFAULT 'Y' COMMENT '이메일 수신 동',
-  PRIMARY KEY (`idx`),
-  UNIQUE KEY `f_user_id` (`f_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='개인/단체 회원 통합 테이블';
+CREATE TABLE `df_site_member` (
+	`idx` INT NOT NULL AUTO_INCREMENT,
+	`wdate` DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+	`f_member_type` ENUM('P','O') NOT NULL COMMENT '회원 유형 (P=개인, O=단체)' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_user_name` VARCHAR(50) NULL DEFAULT NULL COMMENT '이름' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_birth_date` VARCHAR(50) NULL DEFAULT NULL COMMENT '생년월일' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_gender` ENUM('M','F') NULL DEFAULT NULL COMMENT '성별' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_tel` VARCHAR(15) NULL DEFAULT NULL COMMENT '전화번호' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_mobile` VARCHAR(15) NULL DEFAULT NULL COMMENT '휴대전화번호' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_affiliation_flag` ENUM('N','Y') NOT NULL DEFAULT 'N' COMMENT '소속단체 여부 (N=없음, Y=있음)' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_affiliation_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '소속단체 이름' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_org_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '단체명' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_org_phone` VARCHAR(15) NULL DEFAULT NULL COMMENT '단체 전화번호' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_contact_name` VARCHAR(50) NULL DEFAULT NULL COMMENT '담당자명' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_contact_phone` VARCHAR(15) NULL DEFAULT NULL COMMENT '담당자 연락처' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_zip` VARCHAR(10) NULL DEFAULT NULL COMMENT '우편번호' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_address1` VARCHAR(255) NULL DEFAULT NULL COMMENT '기본주소' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_address2` VARCHAR(255) NULL DEFAULT NULL COMMENT '상세주소' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_user_id` VARCHAR(50) NOT NULL COMMENT '아이디(4~12자 영문/숫자)' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_password` VARCHAR(500) NOT NULL COMMENT '비밀번호(해시)' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_email` VARCHAR(255) NOT NULL COMMENT '이메일' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_email_consent` ENUM('N','Y') NOT NULL DEFAULT 'Y' COMMENT '이메일 수신 동' COLLATE 'utf8mb4_0900_ai_ci',
+	`is_out` TINYINT NULL DEFAULT '1' COMMENT '회원 탈퇴 여부 1: 미탈퇴, 2: 탈퇴',
+	PRIMARY KEY (`idx`) USING BTREE,
+	UNIQUE INDEX `f_user_id` (`f_user_id`) USING BTREE
+)
+COMMENT='개인/단체 회원 통합 테이블'
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=19
+;
+
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 

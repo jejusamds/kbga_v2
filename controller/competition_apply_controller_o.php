@@ -13,6 +13,30 @@ function return_json(array $ret) {
     exit;
 }
 
+function upload_file(array $file): array {
+    $orig = $file['name'];
+    $tmp  = $file['tmp_name'];
+    $err  = $file['error'];
+    if ($err !== UPLOAD_ERR_OK) {
+        return_json(['result' => 'error', 'msg' => '파일 업로드 중 오류가 발생했습니다.']);
+    }
+    $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
+    $allowed = ['jpg','jpeg','png','gif','pdf'];
+    if (!in_array($ext, $allowed, true)) {
+        return_json(['result' => 'error', 'msg' => '허용되지 않는 파일 형식입니다.']);
+    }
+    $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/competition';
+    if (!is_dir($dir)) {
+        mkdir($dir, 0755, true);
+    }
+    $new  = uniqid('', true) . '.' . $ext;
+    $dest = $dir . '/' . $new;
+    if (!move_uploaded_file($tmp, $dest)) {
+        return_json(['result' => 'error', 'msg' => '파일 저장에 실패했습니다.']);
+    }
+    return ['saved' => $new, 'original' => $orig];
+}
+
 // 1) POST + mode 체크
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_POST['mode'] ?? '') !== 'register') {
     return_json(['result'=>'error','msg'=>'잘못된 요청입니다.']);
@@ -73,7 +97,25 @@ if (empty($filtered['agree_terms']) || empty($filtered['agree_privacy'])) {
 $birth_date  = str_replace('.', '-', $filtered['f_birth_date']); // 'YYYY-MM-DD'
 $payment_cat = implode(',', $filtered['f_payment_category']);    // checkbox → comma list
 
+$uploadName = null;
+if (!empty($_FILES['f_issue_file']['name'])) {
+    $info = upload_file($_FILES['f_issue_file']);
+    $uploadName = $info['saved'];
+}
+
 $f_user_id = isset($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '' ? $_SESSION['kbga_user_id'] : '';
+
+$sql = "select f_part from df_site_competition_part where idx = :idx";
+$db->bind("idx", $filtered['f_part']);
+$part_title = $db->single($sql);
+
+$sql = "select f_field from df_site_competition_field where idx = :idx";
+$db->bind("idx", $filtered['f_field']);
+$field_title = $db->single($sql);
+
+$sql = "select f_event from df_site_competition_event where idx = :idx";
+$db->bind("idx", $filtered['f_event']);
+$event_title = $db->single($sql);
 
 // 6) 바인딩 파라미터 준비
 $params = [
@@ -87,13 +129,17 @@ $params = [
     'f_birth_date'      => $birth_date,
     'f_tel'             => $filtered['f_tel'],
     'f_email'           => $filtered['f_email'],
+    'f_issue_file'      => $uploadName,
     'f_zip'             => $filtered['f_zip'],
     'f_address1'        => $filtered['f_address1'],
     'f_address2'        => $filtered['f_address2'],
     'f_payer_name'      => $filtered['f_payer_name'],
     'f_payer_bank'      => $filtered['f_payer_bank'],
     'f_payment_category'=> $payment_cat,
-    'f_user_id'         => $f_user_id
+    'f_user_id'         => $f_user_id,
+    'f_part_title'      => $part_title,
+    'f_field_title'     => $field_title,
+    'f_event_title'     => $event_title
 ];
 
 // 7) INSERT 쿼리 실행
@@ -110,13 +156,17 @@ INSERT INTO df_site_competition_registration (
     f_birth_date,
     f_tel,
     f_email,
+    f_issue_file,
     f_zip,
     f_address1,
     f_address2,
     f_payer_name,
     f_payer_bank,
     f_payment_category,
-    f_user_id
+    f_user_id,
+    f_part_title,
+    f_field_title,
+    f_event_title
 ) VALUES (
     'O',
     :f_competition_idx,
@@ -129,13 +179,17 @@ INSERT INTO df_site_competition_registration (
     :f_birth_date,
     :f_tel,
     :f_email,
+    :f_issue_file,
     :f_zip,
     :f_address1,
     :f_address2,
     :f_payer_name,
     :f_payer_bank,
     :f_payment_category,
-    :f_user_id
+    :f_user_id,
+    :f_part_title,
+    :f_field_title,
+    :f_event_title
 )";
 $db->query($sql, $params);
 

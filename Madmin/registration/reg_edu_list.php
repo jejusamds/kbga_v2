@@ -64,7 +64,7 @@ if ($total > 0) {
                         <?php foreach ($list as $i => $row): ?>
                             <tr>
                                 <td><?= $total - ($page - 1) * $page_set - $i ?></td>
-                                <td><?= htmlspecialchars($row['f_type'], ENT_QUOTES) ?></td>
+                                <td><?= $row['f_type'] == 'P' ? '개인' : '단체' ?></td>
                                 <td><a
                                         href="reg_edu_view.php?idx=<?= $row['idx'] ?>&page=<?= $page ?>"><?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?></a>
                                 </td>

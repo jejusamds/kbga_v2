@@ -144,7 +144,7 @@
                                                                         data-required="y" data-label="대회구분을">
                                                                         <option value="">대회구분을 선택해주세요.</option>
                                                                         <?php foreach ($competitions as $c): ?>
-                                                                        <option value="<?= $c['idx'] ?>">
+                                                                        <option value="<?= $c['idx'] ?>" <?=!empty($_GET['idx']) && $_GET['idx'] == $c['idx'] ? 'selected' : ''?> >
                                                                             <?= htmlspecialchars($c['f_title'], ENT_QUOTES) ?>
                                                                         </option>
                                                                         <?php endforeach; ?>
@@ -165,7 +165,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-                                                                    <select name="f_part" class="select"
+                                                                    <select name="f_part" id="f_part" class="select"
                                                                         data-required="y" data-label="참가부문을">
                                                                         <option value="">참가부문을 선택해주세요.</option>
                                                                         <option value="test">test</option>
@@ -187,7 +187,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-                                                                    <select name="f_field" class="select"
+                                                                    <select name="f_field" id="f_field" class="select"
                                                                         data-required="y" data-label="종목분야를">
                                                                         <option value="">종목분야를 선택해주세요.</option>
                                                                         <option value="test">test</option>
@@ -208,7 +208,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-                                                                    <select name="f_event" class="select"
+                                                                    <select name="f_event" id="f_event" class="select"
                                                                         data-required="y" data-label="참가종목을">
                                                                         <option value="">참가종목을 선택해주세요.</option>
                                                                         <option value="test">test</option>
@@ -710,7 +710,39 @@
         }).open();
     }
 </script>
+<script>
+    function loadOptions(idx){
+        $('#f_part').html('<option value="">참가부문을 선택해주세요.</option>');
+        $('#f_field').html('<option value="">종목분야를 선택해주세요.</option>');
+        $('#f_event').html('<option value="">참가종목을 선택해주세요.</option>');
+        if(!idx) return;
+        $.getJSON('/controller/competition_options.php?idx='+idx, function(res){
+            var html='<option value="">참가부문을 선택해주세요.</option>';
+            $.each(res.part, function(_,v){ console.log(v); html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
+            $('#f_part').html(html);
+            html='<option value="">종목분야를 선택해주세요.</option>';
+            $.each(res.field, function(_,v){ html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
+            $('#f_field').html(html);
+            html='<option value="">참가종목을 선택해주세요.</option>';
+            $.each(res.event, function(_,v){ html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
+            $('#f_event').html(html);
+        });
+    }
+    // $(function(){
+    //     loadOptions($('#f_competition_idx').val());
+    //     $('#f_competition_idx').on('change', function(){ loadOptions(this.value); });
+    // });
+    $(function(){
+        const idx = $('#f_competition_idx').val();
+        if (idx) {
+            loadOptions(idx);
+        }
+        $('#f_competition_idx').on('change', function(){
+            loadOptions(this.value);
+        });
+    });
+</script>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+        include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html';
 ?>

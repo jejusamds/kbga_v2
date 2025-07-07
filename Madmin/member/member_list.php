@@ -6,7 +6,8 @@ $table = 'member';
 $page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
 $searchopt = $_GET['searchopt'] ?? '';
 $keyword = trim($_GET['keyword'] ?? '');
-$param = "searchopt={$searchopt}&keyword=" . urlencode($keyword);
+$is_out = $_GET['is_out'] ?? '';
+$param = "searchopt={$searchopt}&keyword=" . urlencode($keyword) . "&is_out={$is_out}";
 $addSql = '';
 $params = [];
 if ($keyword !== '') {
@@ -17,6 +18,10 @@ if ($keyword !== '') {
         $addSql .= " AND (f_mobile LIKE :kw OR f_tel LIKE :kw)";
         $params['kw'] = "%{$keyword}%";
     }
+}
+if ($is_out !== '') {
+    $addSql .= " AND is_out = :is_out";
+    $params['is_out'] = $is_out;
 }
 
 $page_set = 20;
@@ -70,6 +75,11 @@ if ($total > 0) {
                                 </select>
                                 <input type="text" name="keyword" value="<?= htmlspecialchars($keyword, ENT_QUOTES) ?>"
                                     class="form-control" style="width:auto;">
+                                <select name="is_out" class="form-control" style="width:auto;">
+                                    <option value="" <?= $is_out === '' ? 'selected' : '' ?>>전체</option>
+                                    <option value="1" <?= $is_out === '1' ? 'selected' : '' ?>>미탈퇴</option>
+                                    <option value="2" <?= $is_out === '2' ? 'selected' : '' ?>>탈퇴</option>
+                                </select>
                                 <button class="btn btn-info btn-sm" type="submit">검색</button>
                             </td>
                         </tr>

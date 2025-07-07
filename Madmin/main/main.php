@@ -231,6 +231,15 @@ $sql .= " + (Select Count(*) From df_site_edu_registration          Where DATE_F
 $sql .= " ) as cnt";
 $pay_preMonth  = $db->single($sql);
 
+$category_map = [
+    'makeup' => '메이크업',
+    'nail' => '네일',
+    'hair' => '헤어',
+    'skin' => '피부',
+    'half' => '반영구',
+    'foreign' => '해외인증',
+    'teacher' => '강사인증'
+];
 ?>
 <script type="text/javascript">
     $(function () {
@@ -580,7 +589,7 @@ $pay_preMonth  = $db->single($sql);
                     foreach ($row as $r) {
                         ?>
                         <tr>
-                            <td><?= htmlspecialchars($r['f_category']) ?></td>
+                            <td><?= htmlspecialchars($category_map[$r['f_category']]) ?></td>
                             <td><?= htmlspecialchars($r['f_user_name']) ?></td>
                             <td><?= htmlspecialchars($r['f_tel']) ?></td>
                             <td><?= substr($r['reg_date'], 0, 10) ?></td>

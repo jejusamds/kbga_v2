@@ -17,7 +17,7 @@ CREATE TABLE `df_site_application_registration` (
 	`f_email` VARCHAR(255) NOT NULL COMMENT '이메일' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_application_type` ENUM('exam','cert') NOT NULL COMMENT '신청구분 (exam=시험접수, certificate=자격증발급)' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_issue_desire` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '자격증 발급희망 여부 (개인만)',
-	`f_issue_file` VARCHAR(255) NULL DEFAULT NULL COMMENT '발급희망 시 파일 업로드' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_issue_file` VARCHAR(2000) NULL DEFAULT NULL COMMENT '발급희망 시 파일 업로드' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_payer_name` VARCHAR(100) NULL DEFAULT NULL COMMENT '입금자명' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_payer_bank` VARCHAR(100) NULL DEFAULT NULL COMMENT '입금 은행' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_payment_category` VARCHAR(100) NULL DEFAULT NULL COMMENT '입금구분 (중복가능: written=필기, practical=실기, issuance=발급비)' COLLATE 'utf8mb4_0900_ai_ci',
@@ -28,5 +28,5 @@ CREATE TABLE `df_site_application_registration` (
 COMMENT='시험일정 접수 정보 테이블'
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=13
+AUTO_INCREMENT=18
 ;

@@ -1,0 +1,17 @@
+Time : 16:59:58
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'field.f_fielt' in 'field list'
+Raw SQL : SELECT t1.*, c.f_title, part.f_part, field.f_fielt, event.f_event
+        FROM df_site_competition_registration t1
+        LEFT JOIN df_site_competition c ON t1.f_competition_idx = c.idx
+        LEFT JOIN df_site_competition_part part on t1.f_part = part.idx
+        LEFT JOIN df_site_competition_field field on t1.f_field = field.idx
+        LEFT JOIN df_site_competition_event event on t1.f_event = event.idx
+        WHERE t1.idx = '6'
+
+Time : 16:57:52
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbkbga8800.df_site_competition_registration_part' doesn't exist
+Raw SQL : SELECT t1.*, c.f_title
+        FROM df_site_competition_registration t1
+        LEFT JOIN df_site_competition c ON t1.f_competition_idx = c.idx
+        LEFT JOIN df_site_competition_registration_part part on t1.f_part = part.idx
+        WHERE t1.idx = '6'

@@ -27,7 +27,7 @@ function return_json(array $ret): void
     exit;
 }
 
-$approved = ['sign_up', 'reset_csrf_token', 'check_id'];
+$approved = ['sign_up', 'reset_csrf_token', 'check_id', 'login', 'modify_profile', 'secession'];
 if (empty($_POST['mode']) || !in_array($_POST['mode'], $approved, true)) {
     //return_json(['result' => 'error', 'msg' => '잘못된 요청입니다.']);
 }
@@ -350,7 +350,7 @@ if ($filtered['mode'] === 'login') {
         }
     }
 
-    $sql = "SELECT f_password, f_member_type FROM df_site_member WHERE f_user_id = :f_user_id";
+    $sql = "SELECT f_password, f_member_type FROM df_site_member WHERE f_user_id = :f_user_id AND is_out = 1";
     $row = $db->row($sql, ['f_user_id' => $filtered['f_user_id']]);
     if (!$row) {
         return_json(['result' => 'error', 'msg' => '아이디 또는 비밀번호가 일치하지 않습니다.']);
@@ -363,10 +363,47 @@ if ($filtered['mode'] === 'login') {
     $_SESSION['kbga_user_id'] = $filtered['f_user_id'];
     $_SESSION['kbga_member_type'] = $row['f_member_type'];
 
+
     return_json([
         'result' => 'ok',
         'msg' => '',
         'redirect' => '/'  // 로그인 후 이동할 페이지
+    ]);
+}
+
+if ($filtered['mode'] === 'secession') {
+    if (empty($_SESSION['kbga_user_id'])) {
+        return_json(['result' => 'error', 'msg' => '로그인이 필요합니다.']);
+    }
+
+    if (empty($filtered['f_password'])) {
+        return_json(['result' => 'blank', 'field' => 'f_password', 'msg' => '비밀번호를 입력해주세요.']);
+    }
+
+    $row = $db->row(
+        "SELECT f_password FROM df_site_member WHERE f_user_id = :f_user_id AND is_out = 1",
+        ['f_user_id' => $_SESSION['kbga_user_id']]
+    );
+    if (!$row || !password_verify($filtered['f_password'], $row['f_password'])) {
+        return_json(['result' => 'error', 'msg' => '비밀번호가 일치하지 않습니다.']);
+    }
+
+    $db->query(
+        "INSERT INTO df_site_member_out (f_user_id, reason) VALUES (:f_user_id, :reason)",
+        ['f_user_id' => $_SESSION['kbga_user_id'], 'reason' => $filtered['reason']]
+    );
+    $db->query(
+        "UPDATE df_site_member SET is_out = 2 WHERE f_user_id = :f_user_id",
+        ['f_user_id' => $_SESSION['kbga_user_id']]
+    );
+
+    unset($_SESSION['kbga_user_id']);
+    unset($_SESSION['kbga_member_type']);
+
+    return_json([
+        'result' => 'ok',
+        'msg' => '탈퇴 처리되었습니다.',
+        'redirect' => '/'
     ]);
 }
 

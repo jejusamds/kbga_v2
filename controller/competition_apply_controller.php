@@ -67,6 +67,18 @@ $payment_cat = implode(',', $filtered['f_payment_category']);
 
 $f_user_id = isset($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '' ? $_SESSION['kbga_user_id'] : '';
 
+$sql = "select f_part from df_site_competition_part where idx = :idx";
+$db->bind("idx", $filtered['f_part']);
+$part_title = $db->single($sql);
+
+$sql = "select f_field from df_site_competition_field where idx = :idx";
+$db->bind("idx", $filtered['f_field']);
+$field_title = $db->single($sql);
+
+$sql = "select f_event from df_site_competition_event where idx = :idx";
+$db->bind("idx", $filtered['f_event']);
+$event_title = $db->single($sql);
+
 // 6) 바인딩 파라미터 준비
 $params = [
     'f_competition_idx' => (int)$filtered['f_competition_idx'],
@@ -85,7 +97,10 @@ $params = [
     'f_payer_name'      => $filtered['f_payer_name'],
     'f_payer_bank'      => $filtered['f_payer_bank'],
     'f_payment_category'=> $payment_cat,
-    'f_user_id'         => $f_user_id
+    'f_user_id'         => $f_user_id,
+    'f_part_title'      => $part_title,
+    'f_field_title'     => $field_title,
+    'f_event_title'     => $event_title
 ];
 
 // 7) INSERT 쿼리 실행
@@ -108,7 +123,10 @@ INSERT INTO df_site_competition_registration (
     f_payer_name,
     f_payer_bank,
     f_payment_category,
-    f_user_id
+    f_user_id,
+    f_part_title,
+    f_field_title,
+    f_event_title
 ) VALUES (
     'P',
     :f_competition_idx,
@@ -127,7 +145,10 @@ INSERT INTO df_site_competition_registration (
     :f_payer_name,
     :f_payer_bank,
     :f_payment_category,
-    :f_user_id
+    :f_user_id,
+    :f_part_title,
+    :f_field_title,
+    :f_event_title
 )";
 $db->query($sql, $params);
 
