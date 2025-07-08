@@ -2,6 +2,7 @@ CREATE TABLE df_site_edu_registration (
     idx INT AUTO_INCREMENT PRIMARY KEY,
     f_type CHAR(1) NOT NULL COMMENT 'P:개인, O:단체',
     f_news_idx INT NOT NULL,
+    f_edu_type_idx INT NOT NULL,
     f_user_name VARCHAR(100) NOT NULL,
     f_user_name_en VARCHAR(100) DEFAULT NULL,
     f_gender VARCHAR(10) DEFAULT NULL,

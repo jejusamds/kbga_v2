@@ -14,6 +14,9 @@ if ($mode == "insert" || $mode == "") {
     $bbs_row['passwd'] = date('is');
     $bbs_row['count'] = 0;
     $bbs_row['ctype'] = "H";
+    if ($code == 'education_news') {
+        $edu_types = [];
+    }
 } else if ($mode == "update") {
     $sql = "select * from df_site_bbs where code = '$code' and idx='$idx'";
     $bbs_row = $db->row($sql);
@@ -23,6 +26,12 @@ if ($mode == "insert" || $mode == "") {
         $parno_ = $bbs_row['parno'];
         $sql_r = "Select * From df_site_bbs Where code = '$code' And idx = '$parno_'  ";
         $reply_row = $db->row($sql_r);
+    }
+    if ($code == 'education_news') {
+        $edu_types = $db->query(
+            "SELECT f_type FROM df_site_education_type WHERE news_idx=:idx ORDER BY idx ASC",
+            ['idx' => $idx]
+        );
     }
 } else if ($mode == "reply") {
     $sql = "select grp, subject, content, privacy, passwd from df_site_bbs where code = '$code' and idx='$idx'";
@@ -160,6 +169,11 @@ if ($mode == "insert" || $mode == "") {
         }
     });
 
+    $(document).on('click', '.btnAddEduType', function () {
+        $('#tableEduType tbody').append('<tr><td class="comALeft"><input type="text" name="edu_types[]" class="form-control" style="width:60%;"></td><td><button class="btn btn-warning btn-xs btnDelEduType" type="button">삭제</button></td></tr>');
+    });
+    $(document).on('click', '.btnDelEduType', function () { $(this).closest('tr').remove(); });
+
     function inputCheck(frm) {
         if (frm.name.value == "") {
             alert("이름을 입력하세요.");
@@ -236,6 +250,40 @@ if ($mode == "insert" || $mode == "") {
         <input type="hidden" name="idx" value="<?= $idx ?>">
         <input type="hidden" name="page" value="<?= $page ?>">
         <input type="hidden" name="ctype" value="<?= $bbs_row['ctype'] ?>">
+
+
+        <?php if ($code == 'education_news') : ?>
+        <div class="box comMTop20" style="width:978px;">
+            <div class="panel">
+                <div class="title">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>교육구분</span>
+                    <button class="btn btn-success btn-xs comMLeft15 btnAddEduType" type="button">항목추가</button>
+                </div>
+                <table id="tableEduType" class="table orderInfo" cellpadding="0" cellspacing="0">
+                    <col width="85%">
+                    <col width="15%">
+                    <tbody>
+                        <?php if ($mode == 'insert' && empty($edu_types)): ?>
+                            <tr>
+                                <td class="comALeft"><input type="text" name="edu_types[]" class="form-control" style="width:60%;"></td>
+                                <td><button class="btn btn-warning btn-xs btnDelEduType" type="button">삭제</button></td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php foreach ($edu_types as $t): ?>
+                            <tr>
+                                <td class="comALeft"><input type="text" name="edu_types[]"
+                                        value="<?= htmlspecialchars($t['f_type'], ENT_QUOTES) ?>" class="form-control"
+                                        style="width:60%;"></td>
+                                <td><button class="btn btn-warning btn-xs btnDelEduType" type="button">삭제</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <div class="box comMTop20" style="width:978px;">
             <div class="panel">
                 <div class="title">
@@ -284,44 +332,44 @@ if ($mode == "insert" || $mode == "") {
                                 </td>
                             </tr>
                         <?php } ?>
-                        <?php } ?>
-                        <tr>
-                            <th><?=$code == 'education_news' ? '명칭' : '제 목'?></th>
-                            <td class="comALeft" colspan="3">
-                                <?php
-                                if ($bbs_info['grp'] != "") {
-                                    $catlist = explode(",", $bbs_info['grp']);
-                                    ?>
-                                    <select name="grp" class="form-control" style="width:auto;">
-                                        <!-- <option value="">분류</option> -->
-                                        <?
-                                        for ($ii = 0; $ii < count($catlist); $ii++) {
-                                            if ($bbs_row['grp'] == $catlist[$ii])
-                                                $selected = "selected";
-                                            else
-                                                $selected = "";
-                                            ?>
-                                            <option value="<?= $catlist[$ii] ?>" <?= $selected ?>><?= $catlist[$ii] ?></option>
-                                            <?
-                                        }
-                                        ?>
-                                    </select>
-                                    <?
-                                }
+                    <?php } ?>
+                    <tr>
+                        <th><?= $code == 'education_news' ? '명칭' : '제 목' ?></th>
+                        <td class="comALeft" colspan="3">
+                            <?php
+                            if ($bbs_info['grp'] != "") {
+                                $catlist = explode(",", $bbs_info['grp']);
                                 ?>
-                                <input type="text" name="subject" value="<?= $bbs_row['subject'] ?>" class="form-control"
-                                    style="width:60%;" />
-                                <!-- <label style="margin-left:15px;">
+                                <select name="grp" class="form-control" style="width:auto;">
+                                    <!-- <option value="">분류</option> -->
+                                    <?
+                                    for ($ii = 0; $ii < count($catlist); $ii++) {
+                                        if ($bbs_row['grp'] == $catlist[$ii])
+                                            $selected = "selected";
+                                        else
+                                            $selected = "";
+                                        ?>
+                                        <option value="<?= $catlist[$ii] ?>" <?= $selected ?>><?= $catlist[$ii] ?></option>
+                                        <?
+                                    }
+                                    ?>
+                                </select>
+                                <?
+                            }
+                            ?>
+                            <input type="text" name="subject" value="<?= $bbs_row['subject'] ?>" class="form-control"
+                                style="width:60%;" />
+                            <!-- <label style="margin-left:15px;">
                                     <input type="checkbox" name="notice" value="Y" <? if ($bbs_row['notice'] == "Y")
                                         echo "checked"; ?>> 공지글
                                 </label> -->
-                                <!--<label style="margin-left:15px;">
+                            <!--<label style="margin-left:15px;">
                                 <input type="checkbox" name="privacy" value="Y" <? if ($bbs_row['privacy'] == "Y" || ($mode != "update" && $bbs_info['privacy'] == "Y"))
                                     echo "checked"; ?>> 비밀글
                             </label-->
-                            </td>
-                        </tr>
-                    
+                        </td>
+                    </tr>
+
                     <?php if ($code == 'c_media_gallery') { ?>
                         <tr>
                             <th>영상주소</th>
@@ -343,8 +391,8 @@ if ($mode == "insert" || $mode == "") {
                         <tr>
                             <th>일시</th>
                             <td class="comALeft" colspan="3">
-                                <input type="text" name="app_date" value="<?= $bbs_row['app_date'] ?>"
-                                    class="form-control" style="width:88%;" />
+                                <input type="text" name="app_date" value="<?= $bbs_row['app_date'] ?>" class="form-control"
+                                    style="width:88%;" />
                             </td>
                         </tr>
                         <tr>
@@ -354,6 +402,7 @@ if ($mode == "insert" || $mode == "") {
                                     class="form-control" style="width:88%;" />
                             </td>
                         </tr>
+
                     <?php } ?>
 
                     <?php

@@ -105,6 +105,16 @@ if ($mode == "insert") {
 
     $bbsidx = $db->lastInsertId();
 
+    if ($code == 'education_news') {
+        $eduArr = isset($_POST['edu_types']) && is_array($_POST['edu_types']) ? $_POST['edu_types'] : [];
+        foreach ($eduArr as $v) {
+            $v = trim($v);
+            if ($v !== '') {
+                $db->query("INSERT INTO df_site_education_type SET news_idx=:n, f_type=:t", ['n' => $bbsidx, 't' => $v]);
+            }
+        }
+    }
+
     include "./bbs_upfile.inc";
 
     complete("게시물이 작성되었습니다.", "bbs_list.php?page=" . $page . "&" . $param);
@@ -160,6 +170,17 @@ else if ($mode == "update") {
     $db->query($sql);
 
     $bbsidx = $idx;
+
+    if ($code == 'education_news') {
+        $db->query("DELETE FROM df_site_education_type WHERE news_idx=:n", ['n' => $idx]);
+        $eduArr = isset($_POST['edu_types']) && is_array($_POST['edu_types']) ? $_POST['edu_types'] : [];
+        foreach ($eduArr as $v) {
+            $v = trim($v);
+            if ($v !== '') {
+                $db->query("INSERT INTO df_site_education_type SET news_idx=:n, f_type=:t", ['n' => $idx, 't' => $v]);
+            }
+        }
+    }
 
     include "./bbs_upfile.inc";
 

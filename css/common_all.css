@@ -78,6 +78,9 @@
 	#main_con > .slide_con .swiper-container .swiper-wrapper .swiper-slide > .contents_con > .text_con > .text02_con span {font-size:6.67vw; letter-spacing:-0.16vw; text-shadow:0px 1.11vw 2.22vw rgba(0,0,0,0.30);}
 	#main_con > .slide_con .swiper-container .swiper-wrapper .swiper-slide > .contents_con > .text_con > .text03_con {margin:13.89vw 0 0 0; transform:translateY(2.78vw);}
 	#main_con > .slide_con .swiper-container .swiper-wrapper .swiper-slide > .contents_con > .text_con > .text03_con span {font-size:3.89vw; letter-spacing:-0.09vw; text-shadow:0px 1.11vw 2.22vw rgba(0,0,0,0.30);}
+	#main_con > .slide_con .swiper-container .swiper-wrapper .swiper-slide .video {width:101%; padding-bottom:177.78%;}
+	#main_con > .slide_con .swiper-container .swiper-wrapper .swiper-slide .video video.w_video {display:none;}
+	#main_con > .slide_con .swiper-container .swiper-wrapper .swiper-slide .video video.m_video {display:block;}
 	#main_con > .slide_con .swiper-container .control_con {max-width:100%; padding:0 5.56vw; bottom:27.5vw; transform:translateY(2.78vw);}
 	#main_con > .slide_con .swiper-container .control_con > .contents_con .prev_btn {width:3.06vw;}
 	#main_con > .slide_con .swiper-container .control_con > .contents_con > .text_con {width:17.78vw; margin:0 3.89vw;}

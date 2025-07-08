@@ -94,12 +94,38 @@ function printType($val)
                 </tr>
                 <tr>
                     <td style="width:200px;">파일</td>
-                    <td><?= printValue($row['f_issue_file']) ?></td>
+                    <td>
+                        <!-- <?= printValue($row['f_issue_file']) ?> -->
+                        <?php
+                        $files_arr = explode(',', $row['f_issue_file']);
+
+                        if (!empty($files_arr)):
+                            foreach ($files_arr as $issue_file):
+                                ?>
+                                <?php
+                                $fileName = $issue_file;
+                                $fileUrl = '/userfiles/education/' . rawurlencode($fileName);
+                                ?>
+                                <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+                                    download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" class="download-link">
+                                    <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+                                </a>
+                                <br>
+                                <?php
+                            endforeach;
+                        else: ?>
+                            <span class="no-file">
+                                파일이
+                                없습니다.</span>
+                            <?php
+
+                        endif; ?>
+                    </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td style="width:200px;">파일명</td>
                     <td><?= printValue($row['f_issue_file_name']) ?></td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td style="width:200px;">입금자명</td>
                     <td><?= printValue($row['f_payer_name']) ?></td>
@@ -127,7 +153,7 @@ function printType($val)
         <div class="comPTop20 comPBottom20">
             <div class="comFLeft comACenter" style="width:10%;">
                 <button class="btn btn-primary btn-sm" type="button"
-                    onclick="location.href='edu_list.php?page=<?= $page ?>';">목록</button>
+                    onclick="location.href='reg_edu_list.php?page=<?= $page ?>';">목록</button>
             </div>
             <div class="comFRight comACenter" style="width:10%;">
                 <button class="btn btn-success btn-sm" type="button"

@@ -148,7 +148,7 @@ if ($is_login) {
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-                                                                    <select name="" class="select">
+                                                                    <select name="f_edu_type" id="edu_type_select" class="select">
                                                                         <option value="">교육구분을 선택해주세요.</option>
                                                                     </select>
                                                                 </td>
@@ -543,10 +543,25 @@ if ($is_login) {
         }).open();
     }
 
+    function loadEduTypes(idx){
+        var $sel = $('#edu_type_select');
+        $sel.html('<option value="">교육구분을 선택해주세요.</option>');
+        if(!idx) return;
+        $.getJSON('/controller/education_options.php?idx='+idx, function(res){
+            var html='<option value="">교육구분을 선택해주세요.</option>';
+            $.each(res.types, function(_,v){ html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
+            $sel.html(html);
+        });
+    }
+
     // 사진첨부
     function file_upload(val) {
         $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
     }
+
+    $(function(){
+        loadEduTypes(<?= $idx ?>);
+    });
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 

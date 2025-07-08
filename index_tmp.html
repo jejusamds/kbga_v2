@@ -52,8 +52,84 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="bg w_con" style="background-image:url('/userfiles/main_slide/<?=$main_slide_row->thumbnail_pc?>');"></div>
                                 <div class="bg m_con" style="background-image:url('/userfiles/main_slide/<?=$main_slide_row->thumbnail_m?>');"></div>
+								
+								<!--
+								<div class="video">
+									<video loop muted autoplay playsinline class="w_video">
+										<source src="/img/main/test_bg.mp4" type="video/mp4" />
+									</video>
+
+									<video loop muted autoplay playsinline class="m_video">
+										<source src="/img/main/m_test_bg.mp4" type="video/mp4" />
+									</video>
+								</div>
+								-->
+                            </div>
+                        <?php } ?>
+
+						<?php 
+                        $main_slide_list = $db->query("SELECT * FROM df_site_main_slide ORDER BY prior desc", null, PDO::FETCH_OBJ);
+                        foreach ($main_slide_list as $main_slide_row) {
+                        ?>
+                            <div class="swiper-slide main_slide_div" data-swiper-autoplay="4000">
+                                <div class="contents_con">
+                                    <div class="text_con">
+                                        <div class="text01_con w_con">
+                                            <div class="bar"></div>
+                                            <span>
+                                                <?=nl2br($main_slide_row->top_contents_pc)?>
+                                            </span>
+                                        </div>
+                                        <div class="text01_con m_con">
+                                            <div class="bar"></div>
+                                            <span>
+                                                <?=nl2br($main_slide_row->top_contents_m)?>
+                                            </span>
+                                        </div>
+
+                                        <div class="text02_con w_con">
+                                            <span>
+                                                <?=nl2br($main_slide_row->middle_contents_pc)?>
+                                            </span>
+                                        </div>
+                                        <div class="text02_con m_con">
+                                            <span>
+                                                <?=nl2br($main_slide_row->middle_contents_m)?>
+                                            </span>
+                                        </div>
+
+                                        <div class="text03_con w_con">
+                                            <span>
+                                                <?=nl2br($main_slide_row->bottom_contents_pc)?>
+                                            </span>
+                                        </div>
+                                        <div class="text03_con m_con">
+                                            <span>
+                                                <?=nl2br($main_slide_row->bottom_contents_m)?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+								<!--
+                                <div class="bg w_con" style="background-image:url('/userfiles/main_slide/<?=$main_slide_row->thumbnail_pc?>');"></div>
+                                <div class="bg m_con" style="background-image:url('/userfiles/main_slide/<?=$main_slide_row->thumbnail_m?>');"></div>
+								-->
+								
+							
+								<div class="video">
+									<video loop muted autoplay playsinline class="w_video">
+										<source src="/img/main/test_bg.mp4" type="video/mp4" />
+									</video>
+
+									<video loop muted autoplay playsinline class="m_video">
+										<source src="/img/main/m_test_bg.mp4" type="video/mp4" />
+									</video>
+								</div>
+								
                             </div>
                         <?php } ?>
 					</div>

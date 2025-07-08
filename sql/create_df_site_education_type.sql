@@ -1,0 +1,5 @@
+CREATE TABLE df_site_education_type (
+    idx INT AUTO_INCREMENT PRIMARY KEY,
+    news_idx INT NOT NULL,
+    f_type VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
