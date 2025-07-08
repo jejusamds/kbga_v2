@@ -40,7 +40,7 @@ echo "<table border='1'>";
 
 $rows = [
     '구분' => printType($row['f_type']),
-    '교육구분' => printValue($row['subject']),
+    '교육구분' => printValue($row['f_edu_type_title']),
     '이름/기관명' => printValue($row['f_user_name']),
     '영문이름/담당자' => printValue($row['f_user_name_en']),
     '성별' => printValue($row['f_gender']),

@@ -16,7 +16,9 @@ if ($page > $pageCnt) {
 $list = [];
 if ($total > 0) {
     $offset = ($page - 1) * $page_set;
-    $sql = "SELECT * FROM df_site_competition_registration ORDER BY idx DESC LIMIT {$offset}, {$page_set}";
+    $sql = "SELECT t1.*, t2.f_title FROM df_site_competition_registration t1
+            LEFT JOIN df_site_competition t2 on t1.f_competition_idx = t2.idx
+            ORDER BY idx DESC LIMIT {$offset}, {$page_set}";
     $list = $db->query($sql);
 }
 ?>
@@ -53,6 +55,7 @@ if ($total > 0) {
                 <thead>
                     <tr>
                         <td>번호</td>
+                        <td>대회명</td>
                         <td>참가분야</td>
                         <td>이름</td>
                         <td>연락처</td>
@@ -64,6 +67,7 @@ if ($total > 0) {
                         <?php foreach ($list as $i => $row): ?>
                             <tr>
                                 <td><?= $total - ($page - 1) * $page_set - $i ?></td>
+                                <td><?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_field'], ENT_QUOTES) ?></td>
                                 <td><a
                                         href="reg_competition_view.php?idx=<?= $row['idx'] ?>&page=<?= $page ?>"><?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?></a>

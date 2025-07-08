@@ -50,7 +50,7 @@ function printType($val)
                 </tr>
                 <tr>
                     <td style="width:200px;">교육구분</td>
-                    <td><?= printValue($row['subject']) ?></td>
+                    <td><?= printValue($row['f_edu_type_title']) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">이름/기관명</td>
