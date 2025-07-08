@@ -21,6 +21,7 @@ $gb = @str_replace("agency/", "", $gb);
 $gb = @str_replace("main_slide/", "", $gb);
 $gb = @str_replace("member/", "", $gb);
 $gb = @str_replace("registration/", "", $gb);
+$gb = @str_replace("qualification/", "", $gb);
 
 $gb = substr("$gb", 0, strpos($gb, ".php"));
 
@@ -74,6 +75,7 @@ $menu10 = array(
     "agency_list",
     "agency_input",
 );
+$menu13 = array("qualification_list","qualification_input");
 
 $menu11 = array(
     "member_list",
@@ -467,6 +469,23 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/agency/agency_list.php?type=manage">관련기관</div>
             </div>
 
+            <div class="lnb-menu <? if (in_array($gb, $menu13)) { ?>on<? } ?>">
+                <span class="left">
+                    <i class="fa fa-list fa-lg"></i>
+                    <span>민간자격 등록관리</span>
+                </span>
+                <span class="right">
+                    <i class="fa fa-<? if (in_array($gb, $menu13)) { ?>minus<? } else { ?>plus<? } ?>"></i>
+                </span>
+            </div>
+            <div class="lnb-submenu"
+                style="display:<? if (in_array($gb, $menu13)) { ?>block;<? } else { ?>none;<? } ?>">
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '1') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=1">한국메이크업아티스트협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '2') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=2">한국네일자격인증협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '3') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=3">한국피부미용전문가협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '4') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=4">K-뷰티업스타일협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '5') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=5">글로벌뷰티월드연합회</div>
+            </div>
             <div class="lnb-menu <? if (in_array($gb, $menu07)) { ?>on<? } ?>">
                 <span class="left">
                     <i class="fa fa-calendar fa-lg"></i>
@@ -611,7 +630,7 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/marketing/stat_url.php">유입 경로</div>
             </div>
 
-            <div class="clear"></div>
+            <div class="clear"></div> 
         </div>
     </div>
 

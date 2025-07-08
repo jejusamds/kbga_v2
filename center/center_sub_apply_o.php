@@ -133,7 +133,7 @@ unset($sc);
                                 <div class="download_con">
                                     <ul>
                                         <li>
-                                            <a href="#" class="a_btn">
+                                            <a href="/userfiles/download/center_1.xlsx" class="a_btn" download="단체접수신청서.xlsx">
                                                 <img src="/img/sub/apply_write_download_btn_icon.svg" alt="아이콘" class="fx" />
 
                                                 <span>
@@ -142,7 +142,7 @@ unset($sc);
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="a_btn">
+                                            <a href="/userfiles/download/center_2.xlsx" class="a_btn" download="단체발급신청서.xlsx">
                                                 <img src="/img/sub/apply_write_download_btn_icon.svg" alt="아이콘" class="fx" />
 
                                                 <span>
