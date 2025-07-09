@@ -13,7 +13,10 @@ $row = [
     'bottom_contents_pc' => '',
     'bottom_contents_m' => '',
     'thumbnail_pc' => '',
-    'thumbnail_m' => ''
+    'thumbnail_m' => '',
+    'media_type' => 'image',
+    'video_pc' => '',
+    'video_m' => ''
 ];
 if ($idx) {
     $row = $db->row("SELECT * FROM {$this_table} WHERE idx=:idx", ['idx' => $idx]);
@@ -75,6 +78,31 @@ if ($idx) {
                         <th>하단 문구(Mobile)</th>
                         <td class="comALeft"><textarea name="bottom_contents_m" class="form-control"
                                 style="width:80%;height:60px;"><?= htmlspecialchars($row['bottom_contents_m'], ENT_QUOTES) ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>타입</th>
+                        <td class="comALeft">
+                            <label><input type="radio" name="media_type" value="image" <?= $row['media_type']==='video' ? '' : 'checked' ?>> 이미지</label>
+                            <label style="margin-left:10px;"><input type="radio" name="media_type" value="video" <?= $row['media_type']==='video' ? 'checked' : '' ?>> 영상</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PC 영상</th>
+                        <td class="comALeft">
+                            <input type="file" name="video_pc" class="form-control" style="width:60%;">
+                            <?php if ($mode == 'update' && $row['video_pc']): ?>
+                                <a href="/userfiles/main_slide/<?= $row['video_pc'] ?>" target="_blank"><?= $row['video_pc'] ?></a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Mobile 영상</th>
+                        <td class="comALeft">
+                            <input type="file" name="video_m" class="form-control" style="width:60%;">
+                            <?php if ($mode == 'update' && $row['video_m']): ?>
+                                <a href="/userfiles/main_slide/<?= $row['video_m'] ?>" target="_blank"><?= $row['video_m'] ?></a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <tr>

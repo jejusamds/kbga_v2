@@ -17,9 +17,12 @@ switch ($mode) {
             'bot_pc' => $_POST['bottom_contents_pc'] ?? '',
             'bot_m' => $_POST['bottom_contents_m'] ?? '',
             'prior' => $prior,
+            'media_type' => $_POST['media_type'] ?? 'image',
         ];
         $thumb_pc = '';
         $thumb_m = '';
+        $video_pc = '';
+        $video_m = '';
         if (!empty($_FILES['thumbnail_pc']['name'])) {
             $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/main_slide';
             if (!is_dir($dir))
@@ -36,10 +39,28 @@ switch ($mode) {
             $thumb_m = uniqid('m_') . '.' . $ext;
             move_uploaded_file($_FILES['thumbnail_m']['tmp_name'], "$dir/$thumb_m");
         }
+        if (!empty($_FILES['video_pc']['name'])) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/main_slide';
+            if (!is_dir($dir))
+                mkdir($dir, 0755, true);
+            $ext = strtolower(pathinfo($_FILES['video_pc']['name'], PATHINFO_EXTENSION));
+            $video_pc = uniqid('vpc_') . '.' . $ext;
+            move_uploaded_file($_FILES['video_pc']['tmp_name'], "$dir/$video_pc");
+        }
+        if (!empty($_FILES['video_m']['name'])) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/main_slide';
+            if (!is_dir($dir))
+                mkdir($dir, 0755, true);
+            $ext = strtolower(pathinfo($_FILES['video_m']['name'], PATHINFO_EXTENSION));
+            $video_m = uniqid('vm_') . '.' . $ext;
+            move_uploaded_file($_FILES['video_m']['tmp_name'], "$dir/$video_m");
+        }
         $params['thumb_pc'] = $thumb_pc;
         $params['thumb_m'] = $thumb_m;
+        $params['video_pc'] = $video_pc;
+        $params['video_m'] = $video_m;
         $db->query(
-            "INSERT INTO {$table} (top_contents_pc,top_contents_m,middle_contents_pc,middle_contents_m,bottom_contents_pc,bottom_contents_m,thumbnail_pc,thumbnail_m,prior,wdate) VALUES (:top_pc,:top_m,:mid_pc,:mid_m,:bot_pc,:bot_m,:thumb_pc,:thumb_m,:prior,NOW())",
+            "INSERT INTO {$table} (top_contents_pc,top_contents_m,middle_contents_pc,middle_contents_m,bottom_contents_pc,bottom_contents_m,thumbnail_pc,thumbnail_m,media_type,video_pc,video_m,prior,wdate) VALUES (:top_pc,:top_m,:mid_pc,:mid_m,:bot_pc,:bot_m,:thumb_pc,:thumb_m,:media_type,:video_pc,:video_m,:prior,NOW())",
             $params
         );
         complete('등록되었습니다.', '/Madmin/main_slide/main_slide_list.php');
@@ -55,7 +76,8 @@ switch ($mode) {
             'middle_contents_pc=:mid_pc',
             'middle_contents_m=:mid_m',
             'bottom_contents_pc=:bot_pc',
-            'bottom_contents_m=:bot_m'
+            'bottom_contents_m=:bot_m',
+            'media_type=:media_type'
         ];
         $params = [
             'top_pc' => $_POST['top_contents_pc'] ?? '',
@@ -64,6 +86,7 @@ switch ($mode) {
             'mid_m' => $_POST['middle_contents_m'] ?? '',
             'bot_pc' => $_POST['bottom_contents_pc'] ?? '',
             'bot_m' => $_POST['bottom_contents_m'] ?? '',
+            'media_type' => $_POST['media_type'] ?? 'image',
             'idx' => $idx
         ];
         if (!empty($_FILES['thumbnail_pc']['name'])) {
@@ -85,6 +108,26 @@ switch ($mode) {
             move_uploaded_file($_FILES['thumbnail_m']['tmp_name'], "$dir/$newm");
             $sets[] = 'thumbnail_m=:thumb_m';
             $params['thumb_m'] = $newm;
+        }
+        if (!empty($_FILES['video_pc']['name'])) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/main_slide';
+            if (!is_dir($dir))
+                mkdir($dir, 0755, true);
+            $ext = strtolower(pathinfo($_FILES['video_pc']['name'], PATHINFO_EXTENSION));
+            $newvp = uniqid('vpc_') . '.' . $ext;
+            move_uploaded_file($_FILES['video_pc']['tmp_name'], "$dir/$newvp");
+            $sets[] = 'video_pc=:video_pc';
+            $params['video_pc'] = $newvp;
+        }
+        if (!empty($_FILES['video_m']['name'])) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/main_slide';
+            if (!is_dir($dir))
+                mkdir($dir, 0755, true);
+            $ext = strtolower(pathinfo($_FILES['video_m']['name'], PATHINFO_EXTENSION));
+            $newvm = uniqid('vm_') . '.' . $ext;
+            move_uploaded_file($_FILES['video_m']['tmp_name'], "$dir/$newvm");
+            $sets[] = 'video_m=:video_m';
+            $params['video_m'] = $newvm;
         }
         $sql = "UPDATE {$table} SET " . implode(',', $sets) . " WHERE idx=:idx";
         $db->query($sql, $params);

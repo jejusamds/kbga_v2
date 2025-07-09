@@ -49,8 +49,9 @@ if ($total > 0) {
                 <col width="150" />
                 <col width="150" />
                 <col width="150" />
+                <col width="150" />
                 <col width="200" />
-                <col width="200" />
+                <col width="150" />
                 <thead>
                     <tr>
                         <td>번호</td>
@@ -59,6 +60,7 @@ if ($total > 0) {
                         <td>이름</td>
                         <td>연락처</td>
                         <td>이메일</td>
+                        <td>등록일</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,11 +75,12 @@ if ($total > 0) {
                                 </td>
                                 <td><?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($row['reg_date'], ENT_QUOTES) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" align="center">등록된 데이터가 없습니다.</td>
+                            <td colspan="7" align="center">등록된 데이터가 없습니다.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

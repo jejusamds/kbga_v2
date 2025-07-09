@@ -16,7 +16,11 @@ if ($page > $pageCnt) {
 $list = [];
 if ($total > 0) {
     $offset = ($page - 1) * $page_set;
-    $sql = "SELECT * FROM df_site_application_registration ORDER BY idx DESC LIMIT {$offset}, {$page_set}";
+    $sql = "SELECT t1.*, t2.f_item_name, s.f_year, s.f_round, s.f_type
+            FROM df_site_application_registration t1
+            LEFT JOIN df_site_qualification_item t2 ON t1.f_item_idx = t2.idx
+            LEFT JOIN df_site_application s ON t1.f_schedule_idx = s.idx
+            ORDER BY t1.idx DESC LIMIT {$offset}, {$page_set}";
     $list = $db->query($sql);
 }
 
@@ -66,17 +70,23 @@ $application_type_map = [
                 <col width="60" />
                 <col width="150" />
                 <col width="150" />
+                <col width="140" />
+                <col width="130" />
+                <col width="120" />
+                <col width="170" />
+                <col width="190" />
                 <col width="150" />
-                <col width="200" />
-                <col width="200" />
                 <thead>
                     <tr>
                         <td>번호</td>
                         <td>분야</td>
+                        <td>자격종목</td>
+                        <td>시험일정</td>
                         <td>이름</td>
                         <td>신청구분</td>
                         <td>연락처</td>
                         <td>이메일</td>
+                        <td>등록일</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,17 +95,28 @@ $application_type_map = [
                             <tr>
                                 <td><?= $total - ($page - 1) * $page_set - $i ?></td>
                                 <td><?= htmlspecialchars($category_map[$row['f_category']], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?></td>
+                                <td>
+                                    <?php if (!empty($row['f_year'])): ?>
+                                        <?= htmlspecialchars($row['f_year'] . '년 ' . $row['f_round'] . '회차 ' . $row['f_type'], ENT_QUOTES) ?>
+                                    <?php elseif ((int)$row['f_schedule_idx'] === 0): ?>
+                                        상시접수
+                                    <?php else: ?>
+                                        <?= htmlspecialchars($row['f_schedule_idx'], ENT_QUOTES) ?>
+                                    <?php endif; ?>
+                                </td>
                                 <td><a
                                         href="reg_application_view.php?idx=<?= $row['idx'] ?>&page=<?= $page ?>"><?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?></a>
                                 </td>
                                 <td><?= htmlspecialchars($application_type_map[$row['f_application_type']], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($row['wdate'], ENT_QUOTES) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" align="center">등록된 데이터가 없습니다.</td>
+                            <td colspan="8" align="center">등록된 데이터가 없습니다.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

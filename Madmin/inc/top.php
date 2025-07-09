@@ -75,7 +75,7 @@ $menu10 = array(
     "agency_list",
     "agency_input",
 );
-$menu13 = array("qualification_list","qualification_input");
+$menu13 = array("qualification_list", "qualification_input");
 
 $menu11 = array(
     "member_list",
@@ -428,9 +428,12 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     <i class="fa fa-<? if (in_array($gb, $menu05)) { ?>minus<? } else { ?>plus<? } ?>"></i>
                 </span>
             </div>
-            <div class="lnb-submenu" style="display:<? if (in_array($gb, $menu05)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if ($gb == 'main_slide_list' || $gb == 'main_slide_input') { ?>on<? } ?>" href="/Madmin/main_slide/main_slide_list.php">메인 화면 슬라이드 관리</div>
-                <div class="lnb-submenu-item <? if ($gb == 'main_image_list' || $gb == 'main_image_input') { ?>on<? } ?>" href="/Madmin/main_slide/main_image_list.php">메인 화면 이미지 관리</div>
+            <div class="lnb-submenu"
+                style="display:<? if (in_array($gb, $menu05)) { ?>block;<? } else { ?>none;<? } ?>">
+                <div class="lnb-submenu-item <? if ($gb == 'main_slide_list' || $gb == 'main_slide_input') { ?>on<? } ?>"
+                    href="/Madmin/main_slide/main_slide_list.php">메인 화면 슬라이드 관리</div>
+                <div class="lnb-submenu-item <? if ($gb == 'main_image_list' || $gb == 'main_image_input') { ?>on<? } ?>"
+                    href="/Madmin/main_slide/main_image_list.php">메인 화면 이미지 관리</div>
             </div>
 
 
@@ -480,11 +483,16 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             </div>
             <div class="lnb-submenu"
                 style="display:<? if (in_array($gb, $menu13)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '1') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=1">한국메이크업아티스트협회</div>
-                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '2') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=2">한국네일자격인증협회</div>
-                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '3') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=3">한국피부미용전문가협회</div>
-                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '4') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=4">K-뷰티업스타일협회</div>
-                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '5') { ?>on<? } ?>" href="/Madmin/qualification/qualification_list.php?category=5">글로벌뷰티월드연합회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '1') { ?>on<? } ?>"
+                    href="/Madmin/qualification/qualification_list.php?category=1">한국메이크업아티스트협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '2') { ?>on<? } ?>"
+                    href="/Madmin/qualification/qualification_list.php?category=2">한국네일자격인증협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '3') { ?>on<? } ?>"
+                    href="/Madmin/qualification/qualification_list.php?category=3">한국피부미용전문가협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '4') { ?>on<? } ?>"
+                    href="/Madmin/qualification/qualification_list.php?category=4">K-뷰티업스타일협회</div>
+                <div class="lnb-submenu-item <? if (in_array($gb, $menu13) && $category == '5') { ?>on<? } ?>"
+                    href="/Madmin/qualification/qualification_list.php?category=5">글로벌뷰티월드연합회</div>
             </div>
             <div class="lnb-menu <? if (in_array($gb, $menu07)) { ?>on<? } ?>">
                 <span class="left">
@@ -583,9 +591,12 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
             </div>
             <div class="lnb-submenu"
                 style="display:<? if (in_array($gb, $menu12)) { ?>block;<? } else { ?>none;<? } ?>">
-                <div class="lnb-submenu-item <? if ($gb == 'reg_application_list' || $gb == 'reg_application_view') { ?>on<? } ?>" href="/Madmin/registration/reg_application_list.php">자격시험</div>
-                <div class="lnb-submenu-item <? if ($gb == 'reg_competition_list' || $gb == 'reg_competition_view') { ?>on<? } ?>" href="/Madmin/registration/reg_competition_list.php">대회신청</div>
-                <div class="lnb-submenu-item <? if ($gb == 'reg_edu_list' || $gb == 'reg_edu_view') { ?>on<? } ?>" href="/Madmin/registration/reg_edu_list.php">교육신청</div>
+                <div class="lnb-submenu-item <? if ($gb == 'reg_application_list' || $gb == 'reg_application_view') { ?>on<? } ?>"
+                    href="/Madmin/registration/reg_application_list.php">자격시험</div>
+                <div class="lnb-submenu-item <? if ($gb == 'reg_competition_list' || $gb == 'reg_competition_view') { ?>on<? } ?>"
+                    href="/Madmin/registration/reg_competition_list.php">대회신청</div>
+                <div class="lnb-submenu-item <? if ($gb == 'reg_edu_list' || $gb == 'reg_edu_view') { ?>on<? } ?>"
+                    href="/Madmin/registration/reg_edu_list.php">교육신청</div>
             </div>
 
 
@@ -630,7 +641,7 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/marketing/stat_url.php">유입 경로</div>
             </div>
 
-            <div class="clear"></div> 
+            <div class="clear"></div>
         </div>
     </div>
 
@@ -659,15 +670,20 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                 </div>
             <?php } ?>
 
+            <div class="gnb-menu">
+                <i class="fa fa-desktop fa-lg"></i>
+                <span>바로가기</span>
+                <i class="fa fa-caret-down fa-lg"></i>
+
+                <div class="gnb-menu-list" style="display: none;">
+                    <div class="gnb-menu-item" href="/index_tmp.html" target="blank">
+                        <span class="square">■</span>
+                        <span>홈페이지</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="clear"></div>
 
         <div id="pageContainer">
-
-
-
-
-
-
-
-        

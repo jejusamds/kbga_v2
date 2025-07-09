@@ -207,9 +207,10 @@ $p_value = implode(', ', $labels);
                             <input type="hidden" name="page" value="<?= $page ?>">
                             <select name="f_applicant_status" class="form-control"
                                 style="width:auto;display:inline-block;">
-                                <option value="1" <?= $row['f_applicant_status'] == 1 ? 'selected' : '' ?>>접수완료</option>
-                                <option value="2" <?= $row['f_applicant_status'] == 2 ? 'selected' : '' ?>>발급완료</option>
-                                <option value="3" <?= $row['f_applicant_status'] == 3 ? 'selected' : '' ?>>발급보류</option>
+                                <option value="ing" <?= $row['f_applicant_status'] == 'ing' ? 'selected' : '' ?>>접수중</option>
+                                <option value="done" <?= $row['f_applicant_status'] == 'done' ? 'selected' : '' ?>>완료</option>
+                                <option value="cancle" <?= $row['f_applicant_status'] == 'cancle' ? 'selected' : '' ?>>취소</option>
+                                <option value="hold" <?= $row['f_applicant_status'] == 'hold' ? 'selected' : '' ?>>보류</option>
                             </select>
                             <button type="submit" class="btn btn-info btn-sm" style="margin-left:5px;">변경</button>
                         </form>

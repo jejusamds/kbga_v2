@@ -36,6 +36,7 @@ $list = $db->query("SELECT * FROM {$this_table} ORDER BY prior DESC");
                     <col width="200" />
                     <col width="200" />
                     <col width="80" />
+                    <col width="80" />
                     <col width="120" />
                 </colgroup>
                 <thead>
@@ -44,6 +45,7 @@ $list = $db->query("SELECT * FROM {$this_table} ORDER BY prior DESC");
                         <th>번호</th>
                         <th>PC 썸네일</th>
                         <th>모바일 썸네일</th>
+                        <th>타입</th>
                         <th>순서</th>
                         <th>작성일</th>
                     </tr>
@@ -68,6 +70,7 @@ $list = $db->query("SELECT * FROM {$this_table} ORDER BY prior DESC");
                                         <?php endif; ?>
                                     </a>
                                 </td>
+                                <td><?= $row['media_type'] ?></td>
                                 <td>
                                     <ul style="width:40px;margin:0 auto;padding:0;list-style:none;">
                                         <li style="float:left;width:20px;height:12px;text-align:center;">

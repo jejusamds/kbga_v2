@@ -39,7 +39,8 @@ if ($total > 0) {
         <tr>
             <td width="5"></td>
             <td colspan="6" align="right">
-                <button class="btn btn-success btn-xs" type="button" onclick="location.href='reg_competition_excel.php?<?= $param ?>'">엑셀파일저장</button>
+                <button class="btn btn-success btn-xs" type="button"
+                    onclick="location.href='reg_competition_excel.php?<?= $param ?>'">엑셀파일저장</button>
             </td>
             <td width="5"></td>
         </tr>
@@ -51,15 +52,22 @@ if ($total > 0) {
                 <col width="200" />
                 <col width="150" />
                 <col width="150" />
-                <col width="200" />
+                <col width="120" />
+                <col width="150" />
+                <col width="150" />
+                <col width="190" />
+                <col width="150" />
                 <thead>
                     <tr>
                         <td>번호</td>
                         <td>대회명</td>
+                        <td>참가부문</td>
                         <td>참가분야</td>
+                        <td>참가종목</td>
                         <td>이름</td>
                         <td>연락처</td>
                         <td>이메일</td>
+                        <td>등록일</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,17 +76,20 @@ if ($total > 0) {
                             <tr>
                                 <td><?= $total - ($page - 1) * $page_set - $i ?></td>
                                 <td><?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?></td>
-                                <td><?= htmlspecialchars($row['f_field'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($row['f_part_title'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($row['f_field_title'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($row['f_event_title'], ENT_QUOTES) ?></td>
                                 <td><a
                                         href="reg_competition_view.php?idx=<?= $row['idx'] ?>&page=<?= $page ?>"><?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?></a>
                                 </td>
                                 <td><?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($row['reg_date'], ENT_QUOTES) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" align="center">등록된 데이터가 없습니다.</td>
+                            <td colspan="9" align="center">등록된 데이터가 없습니다.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

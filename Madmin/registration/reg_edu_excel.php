@@ -14,9 +14,11 @@ echo "<table border='1'>";
 echo "<tr>";
 echo "<th>번호</th>";
 echo "<th>구분</th>";
+echo "<th>교육구분</th>";
 echo "<th>이름</th>";
 echo "<th>연락처</th>";
 echo "<th>이메일</th>";
+echo "<th>등록일</th>";
 echo "</tr>";
 
 $no = count($list);
@@ -24,9 +26,11 @@ foreach ($list as $row) {
     echo "<tr>";
     echo "<td>{$no}</td>";
     echo "<td>" . safeAdminOutput($row['f_type']) . "</td>";
+    echo "<td>" . safeAdminOutput($row['f_edu_type_title']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_user_name']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_tel']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_email']) . "</td>";
+    echo "<td>" . safeAdminOutput($row['reg_date']) . "</td>";
     echo "</tr>";
     $no--;
 }

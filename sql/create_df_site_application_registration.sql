@@ -1,7 +1,7 @@
 CREATE TABLE `df_site_application_registration` (
 	`idx` INT NOT NULL AUTO_INCREMENT,
 	`wdate` DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-	`f_applicant_status` INT NOT NULL DEFAULT '1' COMMENT '1:접수완료, 2:발급완료, 3:발급보류',
+	`f_applicant_status` ENUM('ing','done','cancle','hold') NOT NULL DEFAULT '1' COMMENT 'ing: 접수중, done: 완료, cancle: 취소, hold: 보류',
 	`f_applicant_type` ENUM('P','O') NOT NULL COMMENT '접수유형 (P=개인, O=단체)' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_item_idx` INT NOT NULL COMMENT '자격종목',
 	`f_category` ENUM('makeup','nail','hair','skin','half','foreign','teacher') NOT NULL COMMENT '자격분야' COLLATE 'utf8mb4_0900_ai_ci',
