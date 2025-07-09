@@ -334,6 +334,68 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+
+                                                <div class="list_div fr">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="left" class="title_td">
+                                                                    <span>
+                                                                        단체신청서
+                                                                    </span>
+                                                                </td>
+                                                                <td align="left" class="info_td">
+                                                                    <div class="file_con">
+                                                                        <table cellpadding="0" cellspacing="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="left" class="title_td">
+                                                                                        <span>
+                                                                                            사진첨부
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td align="left" class="info_td">
+                                                                                        <div class="input_con">
+                                                                                            <table cellpadding="0"
+                                                                                                cellspacing="0">
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td align="left"
+                                                                                                            class="input_td">
+                                                                                                            <input
+                                                                                                                type="text"
+                                                                                                                name="f_issue_file_name"
+                                                                                                                placeholder="선택된 파일 없음"
+                                                                                                                class="file_upload input"
+                                                                                                                readonly="readonly" />
+                                                                                                        </td>
+                                                                                                        <td align="left"
+                                                                                                            class="btn_td">
+                                                                                                            <label>
+                                                                                                                <span>
+                                                                                                                    파일선택
+                                                                                                                </span>
+                                                                                                                <input
+                                                                                                                    type="file"
+                                                                                                                    name="f_issue_file"
+                                                                                                                    class="input"
+                                                                                                                    onchange="file_upload(this.value)" />
+                                                                                                            </label>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </li>
                                             <li>
                                                 <div class="list_div fl">
@@ -424,112 +486,6 @@
                                                     </table>
                                                 </div>
                                             </li>
-											<li>
-												<div class="list_div fl">
-                                                    <table cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td valign="top" align="left" class="title_td valign_top_td">
-                                                                    <span>
-                                                                        단체신청서
-                                                                    </span>
-                                                                </td>
-                                                                <td valign="top" align="left" class="info_td">
-                                                                    <div class="file_con">
-                                                                        <table cellpadding="0" cellspacing="0">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td valign="top" align="left" class="title_td">
-                                                                                        <span>
-                                                                                            파일첨부
-                                                                                        </span>
-                                                                                    </td>
-                                                                                    <td valign="top" align="left" class="info_td">
-																						<!--
-                                                                                        <div class="input_con">
-                                                                                            <table cellpadding="0"
-                                                                                                cellspacing="0">
-                                                                                                <tbody>
-                                                                                                    <tr>
-                                                                                                        <td align="left"
-                                                                                                            class="input_td">
-                                                                                                            <input
-                                                                                                                type="text"
-                                                                                                                name="f_issue_file_name"
-                                                                                                                placeholder="선택된 파일 없음"
-                                                                                                                class="file_upload input"
-                                                                                                                readonly="readonly" />
-                                                                                                        </td>
-                                                                                                        <td align="left"
-                                                                                                            class="btn_td">
-                                                                                                            <label>
-                                                                                                                <span>
-                                                                                                                    파일선택
-                                                                                                                </span>
-                                                                                                                <input
-                                                                                                                    type="file"
-                                                                                                                    name="f_issue_file"
-                                                                                                                    class="input"
-                                                                                                                    onchange="file_upload(this.value)" />
-                                                                                                            </label>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
-																						-->
-
-																						<ul>
-																							<li>
-																								<div class="file_div">
-																									<div class="input_con">
-																										<table cellpadding="0" cellspacing="0">
-																											<tbody>
-																												<tr>
-																													<td align="left" class="input_td">
-																														<input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
-																													</td>
-																													<td align="left" class="btn_td">
-																														<label>
-																															<span>
-																																파일선택
-																															</span>
-																															<input type="file" name="upfile[]" class="input" onchange="file_upload(this.value)" />
-																														</label>
-																													</td>
-																												</tr>
-																											</tbody>
-																										</table>
-																									</div>
-
-																									<div class="btn_con">
-																										<ul>
-																											<li>
-																												<a href="javascript:void(0);" class="a_btn add_btn">
-																													추가
-																												</a>
-																											</li>
-																											<li>
-																												<a href="javascript:void(0);" class="a_btn delete_btn">
-																													삭제
-																												</a>
-																											</li>
-																										</ul>
-																									</div>
-																								</div>
-																							</li>
-																						</ul>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-											</li>
                                         </ul>
                                     </div>
 
@@ -737,52 +693,10 @@
         element.value = formattedPhoneNumber;
     }
 
-	/*
     // 사진첨부
     function file_upload(val) {
         $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
     }
-	*/
-
-	// 추가 버튼 클릭 이벤트
-	$(document).on("click", ".add_btn", function(e){
-		e.preventDefault(); // a 태그 기본동작 방지
-		var lastRow = $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").last(); // 마지막 li
-		var newRow = lastRow.clone(); // 복제
-		// input[type=file] 비우기
-		newRow.find("input[type='file']").val(""); 
-		// input[type=text] 비우기 (파일명 표시 input)
-		newRow.find("input[name='upfile_name']").val("").attr("placeholder", "선택된 파일 없음");
-		// 새로운 행을 마지막 li 뒤에 추가
-		$(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul").append(newRow);
-	});
-
-	// 삭제 버튼 클릭 이벤트
-	$(document).on("click", ".delete_btn", function(e){
-		e.preventDefault(); // a 태그 기본동작 방지
-		if($(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").length > 1) {
-			$(this).closest('.file_div').closest('li').remove();
-		}
-	});
-
-	// 파일 선택 시 파일명 표시
-	function file_upload(val){
-		// 파일 경로에서 파일명만 추출
-		var fileName = val.split('\\').pop().split('/').pop();
-		
-		// 현재 클릭된 파일 input의 부모 요소에서 파일명 표시 input 찾기
-		var fileInput = event.target;
-		var fileNameInput = $(fileInput).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']");
-		
-		// 파일명 표시
-		fileNameInput.val(fileName);
-	}
-
-	// 파일 input change 이벤트도 추가로 처리
-	$(document).on("change", "input[type='file'][name='upfile']", function(){
-		var fileName = this.value.split('\\').pop().split('/').pop();
-		$(this).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']").val(fileName);
-	});
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

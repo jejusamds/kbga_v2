@@ -188,7 +188,7 @@ select::-ms-expand {display:none;}
 #header > .sub_nav > .contents_con {width:100%; max-width:min(1660px, 86.46vw); margin:0 auto; padding:0 min(20px, 1.04vw);}
 #header > .sub_nav > .contents_con > table {width:100%; margin:0 auto;}
 #header > .sub_nav > .contents_con > table > tbody > tr > td {}
-#header > .sub_nav > .contents_con > table > tbody > tr > .logo_td {width:min(164px, 8.54vw);}
+#header > .sub_nav > .contents_con > table > tbody > tr > .logo_td {width:min(214px, 11.15vw);}
 #header > .sub_nav > .contents_con > table > tbody > tr > .nav_td {}
 #header > .sub_nav > .contents_con > table > tbody > tr > .nav_td > .list_con {display:inline-block; text-align:left;}
 #header > .sub_nav > .contents_con > table > tbody > tr > .nav_td > .list_con > table {margin:0 auto;}

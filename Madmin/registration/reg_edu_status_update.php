@@ -16,7 +16,8 @@ if (!in_array($status, ['ing', 'done', 'cancle', 'hold'], true)) {
 }
 
 $db->query(
-    'UPDATE df_site_application_registration SET f_applicant_status=:st WHERE idx=:idx',
+    'UPDATE df_site_edu_registration SET f_applicant_status=:st WHERE idx=:idx',
     ['st' => $status, 'idx' => $idx]
 );
-complete('신청결과가 변경되었습니다.', "reg_application_view.php?idx={$idx}&page={$page}");
+
+complete('신청결과가 변경되었습니다.', "reg_edu_view.php?idx={$idx}&page={$page}");

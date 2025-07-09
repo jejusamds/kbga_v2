@@ -3,6 +3,7 @@ include "../../inc/global.inc";
 include "../../inc/util_lib.inc";
 
 $filename = iconv('UTF-8', 'EUC-KR', "자격시험신청_" . date('Ymd') . ".xls");
+$status = $_GET['status'] ?? '';
 
 header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
 header("Content-Disposition: attachment; filename={$filename}");
@@ -23,11 +24,26 @@ $application_type_map = [
     'cert' => '자격증 발급',
 ];
 
+$status_map = [
+    'ing'   => '접수중',
+    'done'  => '완료',
+    'cancle' => '취소',
+    'hold'  => '보류',
+];
+
+$where = '';
+$params = [];
+if ($status !== '') {
+    $where = 'WHERE t1.f_applicant_status = :status';
+    $params['status'] = $status;
+}
+
 $list = $db->query("SELECT t1.*, t2.f_item_name, s.f_year, s.f_round, s.f_type
         FROM df_site_application_registration t1
         LEFT JOIN df_site_qualification_item t2 ON t1.f_item_idx = t2.idx
         LEFT JOIN df_site_application s ON t1.f_schedule_idx = s.idx
-        ORDER BY t1.idx DESC");
+        {$where}
+        ORDER BY t1.idx DESC", $params);
 
 echo "<table border='1'>";
 echo "<tr>";
@@ -39,6 +55,7 @@ echo "<th>이름</th>";
 echo "<th>신청구분</th>";
 echo "<th>연락처</th>";
 echo "<th>이메일</th>";
+echo "<th>상태</th>";
 echo "<th>등록일</th>";
 echo "</tr>";
 
@@ -61,10 +78,10 @@ foreach ($list as $row) {
     echo "<td>" . safeAdminOutput($application_type_map[$row['f_application_type']]) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_tel']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_email']) . "</td>";
+    echo "<td>" . safeAdminOutput($status_map[$row['f_applicant_status']] ?? $row['f_applicant_status']) . "</td>";
     echo "<td>" . safeAdminOutput($row['wdate']) . "</td>";
     echo "</tr>";
     $no--;
 }
 
-echo "</table>";
-?>
+echo "</table>";?>

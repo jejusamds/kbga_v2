@@ -17,6 +17,22 @@ if (!$row) {
     echo '<script>alert("잘못된 접근입니다.");history.back();</script>';
     exit;
 }
+
+function printStatus($val)
+{
+    switch ($val) {
+        case 'ing':
+            return '접수중';
+        case 'done':
+            return '완료';
+        case 'cancle':
+            return '취소';
+        case 'hold':
+            return '보류';
+        default:
+            return $val;
+    }
+}
 ?>
 
 <div id="container">
@@ -74,7 +90,7 @@ if (!$row) {
                                                     </td>
                                                     <td align="center">
                                                         <span>
-                                                            접수완료 <!-- 상태에 대한 내용은 따로 없어서 접수완료로 출력 -->
+                                                            <?= printStatus($row['f_applicant_status']) ?>
                                                         </span>
                                                     </td>
                                                     <td align="center">
@@ -501,7 +517,7 @@ if (!$row) {
                                                                                                             <input
                                                                                                                 type="text"
                                                                                                                 name=""
-                                                                                                                value="<?=$row['f_payment_category']?>"
+                                                                                                                value="<?= $row['f_payment_category'] ?>"
                                                                                                                 class="input"
                                                                                                                 readonly="readonly" />
                                                                                                         </td>
@@ -969,7 +985,7 @@ if (!$row) {
                                                                                                             <input
                                                                                                                 type="text"
                                                                                                                 name=""
-                                                                                                                value="<?=$row['f_payment_category']?>"
+                                                                                                                value="<?= $row['f_payment_category'] ?>"
                                                                                                                 class="input"
                                                                                                                 readonly="readonly" />
                                                                                                         </td>
@@ -995,9 +1011,8 @@ if (!$row) {
                                 </div>
 
                                 <div class="btn_con">
-									<a href="#" class="a_btn a_btn01">
-                                        신청취소
-                                    </a>
+                                    <a href="#" class="a_btn a_btn01"
+                                        onclick="submitCancelForm(<?= $idx ?>); return false;">신청취소</a>
 
                                     <a href="/mypage/history.html" class="a_btn a_btn02">
                                         목록으로
@@ -1052,8 +1067,13 @@ if (!$row) {
 
         element.value = formattedPhoneNumber;
     }
+
+    function submitCancelForm(idx) {
+        const form = document.getElementById('cancelForm');
+        form.idx.value = idx;
+        form.submit();
+    }
 </script>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
-?>
+include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html'; ?>

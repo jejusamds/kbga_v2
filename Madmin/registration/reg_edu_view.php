@@ -146,6 +146,22 @@ function printType($val)
                     <td style="width:200px;">등록일</td>
                     <td><?= printValue($row['reg_date']) ?></td>
                 </tr>
+                <tr>
+                    <td style="width:200px;">신청결과</td>
+                    <td>
+                        <form method="post" action="reg_edu_status_update.php" style="display:inline-block;">
+                            <input type="hidden" name="idx" value="<?= $idx ?>">
+                            <input type="hidden" name="page" value="<?= $page ?>">
+                            <select name="f_applicant_status" class="form-control" style="width:auto;display:inline-block;">
+                                <option value="ing" <?= $row['f_applicant_status'] == 'ing' ? 'selected' : '' ?>>접수중</option>
+                                <option value="done" <?= $row['f_applicant_status'] == 'done' ? 'selected' : '' ?>>완료</option>
+                                <option value="cancle" <?= $row['f_applicant_status'] == 'cancle' ? 'selected' : '' ?>>취소</option>
+                                <option value="hold" <?= $row['f_applicant_status'] == 'hold' ? 'selected' : '' ?>>보류</option>
+                            </select>
+                            <button type="submit" class="btn btn-info btn-sm" style="margin-left:5px;">변경</button>
+                        </form>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -164,5 +180,4 @@ function printType($val)
     </div>
 </div>
 </body>
-
 </html>

@@ -26,7 +26,7 @@
         );
 
         $edu_rows = $db->query(
-            "SELECT r.idx, b.subject, r.reg_date
+            "SELECT r.idx, b.subject, r.reg_date, r.f_applicant_status
                FROM df_site_edu_registration r
                LEFT JOIN df_site_bbs b ON r.f_news_idx = b.idx
               WHERE r.f_user_id = :uid
@@ -36,15 +36,17 @@
 
         function printStatus($val)
         {
-            switch ((int) $val) {
-                case 1:
-                    return '접수완료';
-                case 2:
-                    return '발급완료';
-                case 3:
-                    return '발급보류';
+            switch ($val) {
+                case 'ing':
+                    return '접수중';
+                case 'done':
+                    return '완료';
+                case 'cancle':
+                    return '취소';
+                case 'hold':
+                    return '보류';
                 default:
-                    return '';
+                    return $val;
             }
         }
 ?>
@@ -220,7 +222,7 @@
 																			<td align="center"><span>
 																					<?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
 																				</span></td>
-																			<td align="center"><span>접수완료</span></td>
+																			<td align="center"><span><?= printStatus($row['f_applicant_status']) ?></span></td>
 																			<td align="center"><span>
 																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
 																				</span></td>

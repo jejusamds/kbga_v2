@@ -1,33 +1,36 @@
 <?php
-        $Menu = "04";
-        $sMenu = "04-3";
+$Menu = "02";
+$sMenu = "02-2";
 
-        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
 
-        $default = [];
-        if ($is_login) {
-                $default = [
-                        'f_user_name' => htmlspecialchars($login_user_info['f_org_name'] ?? $login_user_info['f_user_name'], ENT_QUOTES),
-                        'f_user_name_en' => htmlspecialchars($login_user_info['f_contact_name'] ?? '', ENT_QUOTES),
-                        'f_tel' => htmlspecialchars($login_user_info['f_org_phone'] ?? $login_user_info['f_tel'], ENT_QUOTES),
-                        'f_contact_phone' => htmlspecialchars($login_user_info['f_contact_phone'] ?? '', ENT_QUOTES),
-                        'f_zip' => htmlspecialchars($login_user_info['f_zip'], ENT_QUOTES),
-                        'f_address1' => htmlspecialchars($login_user_info['f_address1'], ENT_QUOTES),
-                        'f_address2' => htmlspecialchars($login_user_info['f_address2'], ENT_QUOTES),
-                        'f_email' => htmlspecialchars($login_user_info['f_email'], ENT_QUOTES),
-                ];
-        }
+$idx = isset($_GET['idx']) && ctype_digit($_GET['idx']) ? (int)$_GET['idx'] : 0;
+if ($idx < 1) {
+    echo "<script>alert('잘못된 접근입니다.');history.back();</script>";
+    exit;
+}
 
-
-        $competitions = $db->query("SELECT idx,f_title FROM df_site_competition ORDER BY idx DESC");
+$default = [];
+if ($is_login) {
+    $default = [
+        'f_org_name' => htmlspecialchars($login_user_info['f_org_name'] ?? $login_user_info['f_user_name'], ENT_QUOTES),
+        'f_manager_name' => htmlspecialchars($login_user_info['f_contact_name'] ?? '', ENT_QUOTES),
+        'f_tel' => htmlspecialchars($login_user_info['f_org_phone'] ?? $login_user_info['f_tel'], ENT_QUOTES),
+        'f_contact_phone' => htmlspecialchars($login_user_info['f_contact_phone'] ?? '', ENT_QUOTES),
+        'f_zip' => htmlspecialchars($login_user_info['f_zip'], ENT_QUOTES),
+        'f_address1' => htmlspecialchars($login_user_info['f_address1'], ENT_QUOTES),
+        'f_address2' => htmlspecialchars($login_user_info['f_address2'], ENT_QUOTES),
+        'f_email' => htmlspecialchars($login_user_info['f_email'], ENT_QUOTES),
+    ];
+}
 ?>
 <script src="/js/form-controller.js"></script>
 
 <div id="container">
     <div id="sub_con">
         <?php
-				include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
-			?>
+        include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.html';
+        ?>
 
         <div class="contents_con">
 
@@ -35,13 +38,13 @@
                 <div class="title_con">
                     <div class="text01_con">
                         <span>
-                            ACCEPTANCE, APPLICATION
+                            APPLICATION FORM
                         </span>
                     </div>
 
                     <div class="text02_con">
                         <span>
-                            대회신청서
+                            교육신청서
                         </span>
                     </div>
                 </div>
@@ -50,12 +53,12 @@
                     <div class="list_con">
                         <ul>
                             <li>
-                                <a href="/competition/competition_sub03_apply.html">
+                                <a href="/news/news_sub02_apply.html?idx=<?=$idx?>">
                                     개인접수
                                 </a>
                             </li>
                             <li>
-                                <a href="/competition/competition_sub03_apply02.html" class="on">
+                                <a href="/news/news_sub02_apply02.html?idx=<?=$idx?>" class="on">
                                     단체접수
                                 </a>
                             </li>
@@ -74,9 +77,7 @@
                                         </td>
                                         <td valign="top" align="left" class="text_td">
                                             <span>
-                                                단체접수는 대회조직위원회에서 제공하는 <br class="m_br" /><span
-                                                    class="color_text">[단체접수신청서 양식]</span>을 다운로드 하신 후에 <br
-                                                    class="m_br" />작성하여 첨부를 하시면 됩니다.
+                                                단체접수는 협회에서 제공하는 <br class="m_br" /><span class="color_text">[단체접수신청서 양식]</span>을 다운로드 하신 후에 <br class="m_br" />작성하여 첨부를 하시면 됩니다.
                                             </span>
                                         </td>
                                     </tr>
@@ -104,21 +105,29 @@
 
                 <div class="contents_con">
 
-                    <form id="applyForm" action="/controller/competition_apply_controller_o.php" method="post"
-                        enctype="multipart/form-data" autocomplete="off">
+                    <form id="applyForm" action="/controller/education_apply_controller_o.php" method="post" enctype="multipart/form-data" autocomplete="off">
                         <input type="hidden" name="mode" value="register" />
                         <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
+                        <input type="hidden" name="f_news_idx" value="<?= $idx ?>" />
                         <div class="write_con">
                             <div class="contents_con">
                                 <div class="download_con">
                                     <ul>
                                         <li>
-                                            <a href="/userfiles/download/competition_1.xlsx" class="a_btn" download="대회단체접수신청서.xlsx">
-                                                <img src="/img/sub/apply_write_download_btn_icon.svg" alt="아이콘"
-                                                    class="fx" />
+                                            <a href="#" class="a_btn">
+                                                <img src="/img/sub/apply_write_download_btn_icon.svg" alt="아이콘" class="fx" />
 
                                                 <span>
-                                                    단체접수신청서 다운받기
+                                                    교육 세부사항 다운받기
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/userfiles/download/edu_file.xlsx" class="a_btn" download="단체교육신청서.xlsx">
+                                                <img src="/img/sub/apply_write_download_btn_icon.svg" alt="아이콘" class="fx" />
+
+                                                <span>
+                                                    단체교육신청서 다운받기
                                                 </span>
                                             </a>
                                         </li>
@@ -135,83 +144,12 @@
                                                             <tr>
                                                                 <td align="left" class="title_td">
                                                                     <span>
-                                                                        대회구분
+                                                                        교육구분
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-                                                                    <select name="f_competition_idx"
-                                                                        id="f_competition_idx" class="select"
-                                                                        data-required="y" data-label="대회구분을">
-                                                                        <option value="">대회구분을 선택해주세요.</option>
-                                                                        <?php foreach ($competitions as $c): ?>
-                                                                        <option value="<?= $c['idx'] ?>" <?=!empty($_GET['idx']) && $_GET['idx'] == $c['idx'] ? 'selected' : ''?> >
-                                                                            <?= htmlspecialchars($c['f_title'], ENT_QUOTES) ?>
-                                                                        </option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <div class="list_div fr">
-                                                    <table cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="left" class="title_td">
-                                                                    <span>
-                                                                        참가부문
-                                                                    </span>
-                                                                </td>
-                                                                <td align="left" class="info_td">
-                                                                    <select name="f_part" id="f_part" class="select"
-                                                                        data-required="y" data-label="참가부문을">
-                                                                        <option value="">참가부문을 선택해주세요.</option>
-                                                                        
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="list_div fl">
-                                                    <table cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="left" class="title_td">
-                                                                    <span>
-                                                                        종목분야
-                                                                    </span>
-                                                                </td>
-                                                                <td align="left" class="info_td">
-                                                                    <select name="f_field" id="f_field" class="select"
-                                                                        data-required="y" data-label="종목분야를">
-                                                                        <option value="">종목분야를 선택해주세요.</option>
-                                                                        
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <div class="list_div fr">
-                                                    <table cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="left" class="title_td">
-                                                                    <span>
-                                                                        참가종목
-                                                                    </span>
-                                                                </td>
-                                                                <td align="left" class="info_td">
-                                                                    <select name="f_event" id="f_event" class="select"
-                                                                        data-required="y" data-label="참가종목을">
-                                                                        <option value="">참가종목을 선택해주세요.</option>
-                                                                        
+                                                                    <select name="f_edu_type" id="edu_type_select" class="select">
+                                                                        <option value="">교육구분을 선택해주세요.</option>
                                                                     </select>
                                                                 </td>
                                                             </tr>
@@ -230,12 +168,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-
-                                                                    <input type="text" name="f_user_name"
-                                                                        placeholder="단체명을 적어주세요." class="input"
-                                                                        data-required="y" data-label="단체명을"
-                                                                        value="<?= $default['f_user_name'] ?? '' ?>" />
-
+                                                                    <input type="text" name="f_org_name" placeholder="단체명을 적어주세요." class="input" data-required="y" data-label="단체명을" value="<?= $default['f_org_name'] ?? '' ?>" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -252,12 +185,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-
-                                                                    <input type="text" name="f_user_name_en"
-                                                                        placeholder="담당자를 적어주세요." class="input"
-                                                                        data-required="y" data-label="담당자를"
-                                                                        value="<?= $default['f_user_name_en'] ?? '' ?>" />
-
+                                                                    <input type="text" name="f_manager_name" placeholder="담당자를 적어주세요." class="input" data-required="y" data-label="담당자를" value="<?= $default['f_manager_name'] ?? '' ?>" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -275,13 +203,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-
-                                                                    <input type="tel" name="f_tel" maxlength="13"
-                                                                        placeholder="000-0000-0000"
-                                                                        class="input tel_input" data-required="y"
-                                                                        data-validate-type="tel" data-label="연락처를"
-                                                                        value="<?= $default['f_tel'] ?? '' ?>" />
-
+                                                                    <input type="tel" name="f_tel" maxlength="13" placeholder="000-0000-0000" class="input tel_input" data-required="y" data-validate-type="tel" data-label="연락처를" value="<?= $default['f_tel'] ?? '' ?>" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -298,37 +220,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-
-                                                                    <input type="tel" name="f_contact_phone"
-                                                                        maxlength="13" placeholder="000-0000-0000"
-                                                                        class="input tel_input" data-required="y"
-                                                                        data-validate-type="tel" data-label="담당자 연락처를"
-                                                                        value="<?= $default['f_contact_phone'] ?? '' ?>" />
-
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="list_div fl">
-                                                    <table cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="left" class="title_td">
-                                                                    <span>
-                                                                        이메일
-                                                                    </span>
-                                                                </td>
-                                                                <td align="left" class="info_td">
-
-                                                                    <input type="text" name="f_email"
-                                                                        placeholder="이메일을 적어주세요." class="input"
-                                                                        data-required="y" data-validate-type="email"
-                                                                        data-label="이메일을"
-                                                                        value="<?= $default['f_email'] ?? '' ?>" />
-
+                                                                    <input type="tel" name="f_contact_phone" maxlength="13" placeholder="000-0000-0000" class="input tel_input" data-required="y" data-validate-type="tel" data-label="담당자 연락처를" value="<?= $default['f_contact_phone'] ?? '' ?>" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -351,20 +243,10 @@
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td align="left" class="input_td">
-
-                                                                                        <input type="text" name="f_zip"
-                                                                                            id="f_zip"
-                                                                                            placeholder="우편번호를 적어주세요."
-                                                                                            class="input"
-                                                                                            readonly="readonly"
-                                                                                            data-required="y"
-                                                                                            data-label="우편번호를"
-                                                                                            value="<?= $default['f_zip'] ?? '' ?>" />
-
+                                                                                        <input type="text" name="f_zip" id="f_zip" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" data-required="y" data-label="우편번호를" value="<?= $default['f_zip'] ?? '' ?>" />
                                                                                     </td>
                                                                                     <td align="left" class="btn_td">
-                                                                                        <a href="#" class="a_btn"
-                                                                                            onclick="openPostcode(); return false;">
+                                                                                        <a href="#" class="a_btn" onclick="openPostcode(); return false;">
                                                                                             검색
                                                                                         </a>
                                                                                     </td>
@@ -389,13 +271,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-
-                                                                    <input type="text" name="f_address1" id="f_address1"
-                                                                        placeholder="기본주소를 적어주세요." class="input"
-                                                                        readonly="readonly" data-required="y"
-                                                                        data-label="기본주소를"
-                                                                        value="<?= $default['f_address1'] ?? '' ?>" />
-
+                                                                    <input type="text" name="f_address1" id="f_address1" placeholder="기본주소를 적어주세요." class="input" readonly="readonly" data-required="y" data-label="기본주소를" value="<?= $default['f_address1'] ?? '' ?>" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -412,113 +288,70 @@
                                                                     </span>
                                                                 </td>
                                                                 <td align="left" class="info_td">
-
-                                                                    <input type="text" name="f_address2" id="f_address2"
-                                                                        placeholder="상세주소를 적어주세요." class="input"
-                                                                        data-required="y" data-label="상세주소를"
-                                                                        value="<?= $default['f_address2'] ?? '' ?>" />
-
+                                                                    <input type="text" name="f_address2" id="f_address2" placeholder="상세주소를 적어주세요." class="input" data-required="y" data-label="상세주소를" value="<?= $default['f_address2'] ?? '' ?>" />
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </li>
-											<li>
-												<div class="list_div fl">
+                                            <li>
+                                                <div class="list_div fl">
                                                     <table cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                             <tr>
-                                                                <td valign="top" align="left" class="title_td valign_top_td">
+                                                                <td align="left" class="title_td">
                                                                     <span>
-                                                                        단체신청서
+                                                                        이메일
                                                                     </span>
                                                                 </td>
-                                                                <td valign="top" align="left" class="info_td">
+                                                                <td align="left" class="info_td">
+                                                                    <input type="text" name="f_email" placeholder="이메일을 적어주세요." class="input" data-required="y" data-validate-type="email" data-label="이메일을" value="<?= $default['f_email'] ?? '' ?>" />
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div class="list_div fr">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="left" class="title_td title_td03">
+                                                                    <span>
+                                                                        단체교육신청서
+                                                                    </span>
+                                                                </td>
+                                                                <td align="left" class="info_td">
                                                                     <div class="file_con">
                                                                         <table cellpadding="0" cellspacing="0">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <td valign="top" align="left" class="title_td">
+                                                                                    <td align="left" class="title_td">
                                                                                         <span>
-                                                                                            파일첨부
+                                                                                            사진첨부
                                                                                         </span>
                                                                                     </td>
-                                                                                    <td valign="top" align="left" class="info_td">
-																						<!--
+                                                                                    <td align="left" class="info_td">
                                                                                         <div class="input_con">
-                                                                                            <table cellpadding="0"
-                                                                                                cellspacing="0">
+                                                                                            <table cellpadding="0" cellspacing="0">
                                                                                                 <tbody>
                                                                                                     <tr>
-                                                                                                        <td align="left"
-                                                                                                            class="input_td">
-                                                                                                            <input
-                                                                                                                type="text"
-                                                                                                                name="f_issue_file_name"
-                                                                                                                placeholder="선택된 파일 없음"
-                                                                                                                class="file_upload input"
-                                                                                                                readonly="readonly" />
+                                                                                                        <td align="left" class="input_td">
+                                                                                                            <input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
                                                                                                         </td>
-                                                                                                        <td align="left"
-                                                                                                            class="btn_td">
+                                                                                                        <td align="left" class="btn_td">
                                                                                                             <label>
                                                                                                                 <span>
                                                                                                                     파일선택
                                                                                                                 </span>
-                                                                                                                <input
-                                                                                                                    type="file"
-                                                                                                                    name="f_issue_file"
-                                                                                                                    class="input"
-                                                                                                                    onchange="file_upload(this.value)" />
+                                                                                                                <input type="file" name="upfile" class="input" onchange="file_upload(this.value)" />
                                                                                                             </label>
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 </tbody>
                                                                                             </table>
                                                                                         </div>
-																						-->
-
-																						<ul>
-																							<li>
-																								<div class="file_div">
-																									<div class="input_con">
-																										<table cellpadding="0" cellspacing="0">
-																											<tbody>
-																												<tr>
-																													<td align="left" class="input_td">
-																														<input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
-																													</td>
-																													<td align="left" class="btn_td">
-																														<label>
-																															<span>
-																																파일선택
-																															</span>
-																															<input type="file" name="upfile[]" class="input" onchange="file_upload(this.value)" />
-																														</label>
-																													</td>
-																												</tr>
-																											</tbody>
-																										</table>
-																									</div>
-
-																									<div class="btn_con">
-																										<ul>
-																											<li>
-																												<a href="javascript:void(0);" class="a_btn add_btn">
-																													추가
-																												</a>
-																											</li>
-																											<li>
-																												<a href="javascript:void(0);" class="a_btn delete_btn">
-																													삭제
-																												</a>
-																											</li>
-																										</ul>
-																									</div>
-																								</div>
-																							</li>
-																						</ul>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -529,7 +362,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-											</li>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -554,9 +387,7 @@
                                                                             </span>
                                                                         </td>
                                                                         <td align="left" class="info_td">
-                                                                            <input type="text" name="f_payer_name"
-                                                                                placeholder="입금자명을 적어주세요." class="input"
-                                                                                data-required="y" data-label="입금자명을" />
+                                                                            <input type="text" name="f_payer_name" placeholder="입금자명을 적어주세요." class="input" data-required="y" data-label="입금자명을" />
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -612,16 +443,10 @@
                                                                                 <ul>
                                                                                     <li>
                                                                                         <label class="checkbox_label">
-                                                                                            <input type="checkbox"
-                                                                                                name="f_payment_category[]"
-                                                                                                value="entry"
-                                                                                                data-required="y"
-                                                                                                data-label="입금 구분을"
-                                                                                                data-tag-type="clicked" />
-                                                                                            <div class="check_icon">
-                                                                                            </div>
+                                                                                            <input type="checkbox" name="deposit_type[]" value="교육신청비" data-required="y" data-label="입금 구분을" data-tag-type="clicked" />
+                                                                                            <div class="check_icon"></div>
                                                                                             <span>
-                                                                                                접수비
+                                                                                                교육신청비
                                                                                             </span>
                                                                                         </label>
                                                                                     </li>
@@ -640,34 +465,6 @@
                                 </div>
 
                                 <div class="agree_con">
-                                    <div class="agree_div agree01">
-                                        <div class="text_con">
-                                            <div class="contents_con">
-                                                <span>
-                                                    [ 유의사항 ] <br />
-                                                    1. 응시(응모)횟수는 제한이 없으며, 제출(응시)된 작품 및 자료는 일제 반환되지 않습니다. <br />
-                                                    2. 출품한 작품의 저작권 분쟁에 따른 모든 법적책임은 출품자에게 있으며, 표절작으로 판명시 입상취소 후 상금 및 부상을
-                                                    회수할수 있습니다. <br />
-                                                    3. 당선작의 소유권, 저작재산권, 디자인권, 기타 지식재산권은 본 대회조직위원회에 귀속됩니다. <br />
-                                                    4. 본 대회조직위원회의 취지 목적을 달성하기 위한 한도내에서 작품을 온라인, 오프라인 복제 및 전송, 제 2차 저작물로
-                                                    가공, 변형하여 출판, 전시, 홍보를 목적으로 활용하는것 에 동의합니다. <br />
-                                                    그 밖의 방법으로 이용할 경우 저작권자인 응시자(응모자)와 별도로 협의하여 정합니다.
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="check_con">
-                                            <label class="checkbox_label">
-                                                <input type="checkbox" name="agree_terms" data-required="y"
-                                                    data-label="유의사항에" data-tag-type="clicked" />
-                                                <div class="check_icon"></div>
-                                                <span>
-                                                    동의합니다.
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-
                                     <div class="agree_div agree02">
                                         <div class="text_con">
                                             <div class="contents_con">
@@ -685,8 +482,7 @@
 
                                         <div class="check_con">
                                             <label class="checkbox_label">
-                                                <input type="checkbox" name="agree_privacy" data-required="y"
-                                                    data-label="개인정보 수집 및 이용에" data-tag-type="clicked" />
+                                                <input type="checkbox" name="agree_privacy" data-required="y" data-label="개인정보 수집 및 이용에" data-tag-type="clicked" />
                                                 <div class="check_icon"></div>
                                                 <span>
                                                     개인정보수집 및 이용에 동의합니다.
@@ -718,7 +514,7 @@
 
 <script type="text/javascript" language="javascript">
     // 연락처
-    $(document).on("keyup", ".tel_input", function () {
+    $(document).on("keyup", ".tel_input", function() {
         addHyphen(this);
     });
 
@@ -737,98 +533,38 @@
         element.value = formattedPhoneNumber;
     }
 
-	/*
-    // 사진첨부
-    function file_upload(val) {
-        $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
-    }
-	*/
-
-	// 추가 버튼 클릭 이벤트
-	$(document).on("click", ".add_btn", function(e){
-		e.preventDefault(); // a 태그 기본동작 방지
-		var lastRow = $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").last(); // 마지막 li
-		var newRow = lastRow.clone(); // 복제
-		// input[type=file] 비우기
-		newRow.find("input[type='file']").val(""); 
-		// input[type=text] 비우기 (파일명 표시 input)
-		newRow.find("input[name='upfile_name']").val("").attr("placeholder", "선택된 파일 없음");
-		// 새로운 행을 마지막 li 뒤에 추가
-		$(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul").append(newRow);
-	});
-
-	// 삭제 버튼 클릭 이벤트
-	$(document).on("click", ".delete_btn", function(e){
-		e.preventDefault(); // a 태그 기본동작 방지
-		if($(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").length > 1) {
-			$(this).closest('.file_div').closest('li').remove();
-		}
-	});
-
-	// 파일 선택 시 파일명 표시
-	function file_upload(val){
-		// 파일 경로에서 파일명만 추출
-		var fileName = val.split('\\').pop().split('/').pop();
-		
-		// 현재 클릭된 파일 input의 부모 요소에서 파일명 표시 input 찾기
-		var fileInput = event.target;
-		var fileNameInput = $(fileInput).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']");
-		
-		// 파일명 표시
-		fileNameInput.val(fileName);
-	}
-
-	// 파일 input change 이벤트도 추가로 처리
-	$(document).on("change", "input[type='file'][name='upfile']", function(){
-		var fileName = this.value.split('\\').pop().split('/').pop();
-		$(this).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']").val(fileName);
-	});
-</script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
     function openPostcode() {
         new daum.Postcode({
-            oncomplete: function (data) {
+            oncomplete: function(data) {
                 document.getElementById('f_zip').value = data.zonecode;
                 document.getElementById('f_address1').value = data.address;
                 document.getElementById('f_address2').focus();
             }
         }).open();
     }
-</script>
-<script>
-    function loadOptions(idx){
-        $('#f_part').html('<option value="">참가부문을 선택해주세요.</option>');
-        $('#f_field').html('<option value="">종목분야를 선택해주세요.</option>');
-        $('#f_event').html('<option value="">참가종목을 선택해주세요.</option>');
+
+    function loadEduTypes(idx){
+        var $sel = $('#edu_type_select');
+        $sel.html('<option value="">교육구분을 선택해주세요.</option>');
         if(!idx) return;
-        $.getJSON('/controller/competition_options.php?idx='+idx, function(res){
-            var html='<option value="">참가부문을 선택해주세요.</option>';
-            $.each(res.part, function(_,v){ console.log(v); html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
-            $('#f_part').html(html);
-            html='<option value="">종목분야를 선택해주세요.</option>';
-            $.each(res.field, function(_,v){ html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
-            $('#f_field').html(html);
-            html='<option value="">참가종목을 선택해주세요.</option>';
-            $.each(res.event, function(_,v){ html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
-            $('#f_event').html(html);
+        $.getJSON('/controller/education_options.php?idx='+idx, function(res){
+            var html='<option value="">교육구분을 선택해주세요.</option>';
+            $.each(res.types, function(_,v){ html+='<option value="'+v.idx+'">'+v.title+'</option>'; });
+            $sel.html(html);
         });
     }
-    // $(function(){
-    //     loadOptions($('#f_competition_idx').val());
-    //     $('#f_competition_idx').on('change', function(){ loadOptions(this.value); });
-    // });
+
+    // 사진첨부
+    function file_upload(val) {
+        $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
+    }
+
     $(function(){
-        const idx = $('#f_competition_idx').val();
-        if (idx) {
-            loadOptions(idx);
-        }
-        $('#f_competition_idx').on('change', function(){
-            loadOptions(this.value);
-        });
+        loadEduTypes(<?= $idx ?>);
     });
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <?php
-        include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html';
+include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
 ?>

@@ -24,15 +24,17 @@ $schedule_str = $row['f_schedule_idx'] == 0 ? '상시접수'
 
 function printStatus($val)
 {
-    switch ((int) $val) {
-        case 1:
-            return '접수완료';
-        case 2:
-            return '발급완료';
-        case 3:
-            return '발급보류';
+    switch ($val) {
+        case 'ing':
+            return '접수중';
+        case 'done':
+            return '완료';
+        case 'cancle':
+            return '취소';
+        case 'hold':
+            return '보류';
         default:
-            return '';
+            return $val;
     }
 }
 
@@ -602,22 +604,20 @@ $p_value = implode(', ', $labels);
                                                                                                                         value="<?= htmlspecialchars($row['f_issue_file'], ENT_QUOTES) ?>"
                                                                                                                         class="input"
                                                                                                                         readonly="readonly" /> -->
-                                                                                                                        <?php if (!empty($row['f_issue_file'])): ?>
-                                                                                                                            <?php
-                                                                                                                            $fileName = $row['f_issue_file'];
-                                                                                                                            $fileUrl = '/userfiles/registration/' . rawurlencode($fileName);
-                                                                                                                            ?>
-                                                                                                                            <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
-                                                                                                                                download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>"
-                                                                                                                                class="download-link">
-                                                                                                                                <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
-                                                                                                                            </a>
-                                                                                                                        <?php else: ?>
-                                                                                                                            <span
-                                                                                                                                class="no-file">
-                                                                                                                                파일이
-                                                                                                                                없습니다.</span>
-                                                                                                                        <?php endif; ?>
+                                                <?php if (!empty($row['f_issue_file'])): ?>
+                                                    <?php $files_arr = explode(',', $row['f_issue_file']);
+                                                    foreach ($files_arr as $fileName):
+                                                        $fileUrl = '/userfiles/registration/' . rawurlencode($fileName);
+                                                    ?>
+                                                        <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+                                                            download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>"
+                                                            class="download-link">
+                                                            <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+                                                        </a><br>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <span class="no-file">파일이 없습니다.</span>
+                                                <?php endif; ?>
                                                                                                                     </td>
                                                                                                                 </tr>
                                                                                                             </tbody>
@@ -1215,22 +1215,20 @@ $p_value = implode(', ', $labels);
                                                                                                                             value="<?= htmlspecialchars($row['f_issue_file'], ENT_QUOTES) ?>"
                                                                                                                             class="input"
                                                                                                                             readonly="readonly" /> -->
-                                                                                                                        <?php if (!empty($row['f_issue_file'])): ?>
-                                                                                                                            <?php
-                                                                                                                            $fileName = $row['f_issue_file'];
-                                                                                                                            $fileUrl = '/userfiles/registration/' . rawurlencode($fileName);
-                                                                                                                            ?>
-                                                                                                                            <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
-                                                                                                                                download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>"
-                                                                                                                                class="download-link">
-                                                                                                                                <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
-                                                                                                                            </a>
-                                                                                                                        <?php else: ?>
-                                                                                                                            <span
-                                                                                                                                class="no-file">
-                                                                                                                                파일이
-                                                                                                                                없습니다.</span>
-                                                                                                                        <?php endif; ?>
+                                                <?php if (!empty($row['f_issue_file'])): ?>
+                                                    <?php $files_arr = explode(',', $row['f_issue_file']);
+                                                    foreach ($files_arr as $fileName):
+                                                        $fileUrl = '/userfiles/registration/' . rawurlencode($fileName);
+                                                    ?>
+                                                        <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+                                                            download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>"
+                                                            class="download-link">
+                                                            <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+                                                        </a><br>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <span class="no-file">파일이 없습니다.</span>
+                                                <?php endif; ?>
                                                                                                                     </td>
                                                                                                                 </tr>
                                                                                                             </tbody>
@@ -1433,9 +1431,7 @@ $p_value = implode(', ', $labels);
                                 </div>
 
                                 <div class="btn_con">
-									<a href="#" class="a_btn a_btn01">
-                                        신청취소
-                                    </a>
+                                    <a href="#" class="a_btn a_btn01" onclick="submitCancelForm(<?= $idx ?>); return false;">신청취소</a>
 
                                     <a href="/mypage/history.html" class="a_btn a_btn02">
                                         목록으로
@@ -1451,6 +1447,10 @@ $p_value = implode(', ', $labels);
         </div>
     </div>
 </div>
+
+<form id="cancelForm" action="/mypage/application_cancel.php" method="post" style="display:none;">
+    <input type="hidden" name="idx" value="">
+</form>
 
 <script type="text/javascript" language="javascript">
     // 생년월일
@@ -1495,8 +1495,13 @@ $p_value = implode(', ', $labels);
     function file_upload(val) {
         $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
     }
+
+    function submitCancelForm(idx) {
+        const form = document.getElementById('cancelForm');
+        form.idx.value = idx;
+        form.submit();
+    }
 </script>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
-?>
+include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';?>

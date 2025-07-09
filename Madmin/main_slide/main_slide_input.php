@@ -88,7 +88,7 @@ if ($idx) {
                         </td>
                     </tr>
                     <tr>
-                        <th>PC 영상</th>
+                        <th>영상-PC (1920 * 998)</th>
                         <td class="comALeft">
                             <input type="file" name="video_pc" class="form-control" style="width:60%;">
                             <?php if ($mode == 'update' && $row['video_pc']): ?>
@@ -97,7 +97,7 @@ if ($idx) {
                         </td>
                     </tr>
                     <tr>
-                        <th>Mobile 영상</th>
+                        <th>영상-Mobile (1080 * 1920)</th>
                         <td class="comALeft">
                             <input type="file" name="video_m" class="form-control" style="width:60%;">
                             <?php if ($mode == 'update' && $row['video_m']): ?>
@@ -106,7 +106,7 @@ if ($idx) {
                         </td>
                     </tr>
                     <tr>
-                        <th>썸네일(PC)</th>
+                        <th>썸네일-PC (1920 * 998)</th>
                         <td class="comALeft">
                             <input type="file" name="thumbnail_pc" class="form-control" style="width:60%;">
                             <?php if ($mode == 'update' && $row['thumbnail_pc']): ?>
@@ -116,7 +116,7 @@ if ($idx) {
                         </td>
                     </tr>
                     <tr>
-                        <th>썸네일(Mobile)</th>
+                        <th>썸네일-Mobile (1080 * 1920)</th>
                         <td class="comALeft">
                             <input type="file" name="thumbnail_m" class="form-control" style="width:60%;">
                             <?php if ($mode == 'update' && $row['thumbnail_m']): ?>

@@ -2,11 +2,20 @@
 include $_SERVER['DOCUMENT_ROOT'] . "/Madmin/inc/top.php";
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$status = $_GET['status'] ?? '';
+$param = "status={$status}";
 $page_set = 15;
 $block_set = 10;
 
-$sql = "SELECT COUNT(*) FROM df_site_application_registration";
-$total = $db->single($sql);
+$where = 'WHERE 1';
+$params = [];
+if ($status !== '') {
+    $where .= ' AND t1.f_applicant_status=:status';
+    $params['status'] = $status;
+}
+
+$sql = "SELECT COUNT(*) FROM df_site_application_registration t1 {$where}";
+$total = $db->single($sql, $params);
 
 $pageCnt = (int) (($total - 1) / $page_set) + 1;
 if ($page > $pageCnt) {
@@ -20,8 +29,9 @@ if ($total > 0) {
             FROM df_site_application_registration t1
             LEFT JOIN df_site_qualification_item t2 ON t1.f_item_idx = t2.idx
             LEFT JOIN df_site_application s ON t1.f_schedule_idx = s.idx
+            {$where}
             ORDER BY t1.idx DESC LIMIT {$offset}, {$page_set}";
-    $list = $db->query($sql);
+    $list = $db->query($sql, $params);
 }
 
 $category_map = [
@@ -38,6 +48,13 @@ $application_type_map = [
     'exam' => '시헙 접수',
     'cert' => '자격증 발급',
 ];
+
+$status_map = [
+    'ing'   => '접수중',
+    'done'  => '완료',
+    'cancle' => '취소',
+    'hold'  => '보류',
+];
 ?>
 <style>
     .pagination {
@@ -52,6 +69,31 @@ $application_type_map = [
             <li>신청관리</li>
             <li class="active">자격시험</li>
         </ul>
+    </div>
+
+    <div class="box comMTop20" style="width:1114px;">
+        <div class="panel">
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="get">
+                <input type="hidden" name="page" value="<?= $page ?>">
+                <table class="table noMargin" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td width="90" height="26" align="right" style="padding-left:5px">조건검색</td>
+                            <td class="comALeft" style="padding-left:5px">
+                                <select name="status" class="form-control" style="width:auto; display:inline-block;">
+                                    <option value="" <?= $status === '' ? 'selected' : '' ?>>전체</option>
+                                    <option value="ing" <?= $status === 'ing' ? 'selected' : '' ?>>접수중</option>
+                                    <option value="done" <?= $status === 'done' ? 'selected' : '' ?>>완료</option>
+                                    <option value="cancle" <?= $status === 'cancle' ? 'selected' : '' ?>>취소</option>
+                                    <option value="hold" <?= $status === 'hold' ? 'selected' : '' ?>>보류</option>
+                                </select>
+                                <button class="btn btn-info btn-sm" type="submit">검색</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
     </div>
 
     <table class="comMTop20" cellpadding="0" cellspacing="0" style="width:1114px;">
@@ -74,6 +116,7 @@ $application_type_map = [
                 <col width="130" />
                 <col width="120" />
                 <col width="170" />
+                <col width="90" />
                 <col width="190" />
                 <col width="150" />
                 <thead>
@@ -86,6 +129,7 @@ $application_type_map = [
                         <td>신청구분</td>
                         <td>연락처</td>
                         <td>이메일</td>
+                        <td>상태</td>
                         <td>등록일</td>
                     </tr>
                 </thead>
@@ -111,12 +155,13 @@ $application_type_map = [
                                 <td><?= htmlspecialchars($application_type_map[$row['f_application_type']], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?></td>
+                                <td><?= htmlspecialchars($status_map[$row['f_applicant_status']] ?? $row['f_applicant_status'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['wdate'], ENT_QUOTES) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="8" align="center">등록된 데이터가 없습니다.</td>
+                            <td colspan="10" align="center">등록된 데이터가 없습니다.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -126,12 +171,11 @@ $application_type_map = [
     <div class="box comMTop20 comMBottom20" style="width:1114px;">
         <div class="comPTop20 comPBottom20">
             <div class="comFCenter comACenter" style="width:100%; display:inline-block;">
-                <?php print_pagelist_admin($total, $page_set, $block_set, $page, ""); ?>
+                <?php print_pagelist_admin($total, $page_set, $block_set, $page, '&' . $param); ?>
             </div>
             <div class="clear"></div>
         </div>
     </div>
 </div>
 </body>
-
 </html>

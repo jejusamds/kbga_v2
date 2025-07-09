@@ -575,7 +575,7 @@ unset($sc);
 																															<span>
 																																파일선택
 																															</span>
-																															<input type="file" name="upfile" class="input" onchange="file_upload(this.value)" />
+                                                                               <input type="file" name="upfile[]" class="input" onchange="file_upload(this.value)" />
 																														</label>
 																													</td>
 																												</tr>
@@ -891,7 +891,7 @@ unset($sc);
 	}
 
 	// 파일 input change 이벤트도 추가로 처리
-	$(document).on("change", "input[type='file'][name='upfile']", function(){
+        $(document).on("change", "input[type='file'][name^='upfile']", function(){
 		var fileName = this.value.split('\\').pop().split('/').pop();
 		$(this).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']").val(fileName);
 	});
