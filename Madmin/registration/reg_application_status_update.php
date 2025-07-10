@@ -12,7 +12,7 @@ if ($idx <= 0) {
     exit;
 }
 
-if (!in_array($status, ['ing', 'done', 'cancle', 'hold'], true)) {
+if (!in_array($status, ['ing', 'done', 'cancle', 'hold','re'], true)) {
     $status = 'ing';
 }
 

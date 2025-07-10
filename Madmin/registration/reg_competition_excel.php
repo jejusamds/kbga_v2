@@ -14,6 +14,7 @@ $status_map = [
     'done'  => '완료',
     'cancle' => '취소',
     'hold'  => '보류',
+    're'  => '수정됨',
 ];
 
 $where = '';

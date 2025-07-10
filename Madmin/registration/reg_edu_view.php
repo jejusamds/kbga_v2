@@ -157,6 +157,7 @@ function printType($val)
                                 <option value="done" <?= $row['f_applicant_status'] == 'done' ? 'selected' : '' ?>>완료</option>
                                 <option value="cancle" <?= $row['f_applicant_status'] == 'cancle' ? 'selected' : '' ?>>취소</option>
                                 <option value="hold" <?= $row['f_applicant_status'] == 'hold' ? 'selected' : '' ?>>보류</option>
+                                <option value="re" <?= $row['f_applicant_status'] == 're' ? 'selected' : '' ?>>수정됨</option>
                             </select>
                             <input type="text" name="status_reason" value="<?= htmlspecialchars($row['f_status_reason'] ?? '', ENT_QUOTES) ?>" placeholder="사유 입력"
                                 class="form-control" style="width:200px;display:inline-block;margin-left:5px;" />
