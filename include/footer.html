@@ -308,7 +308,10 @@
 			<div class="posts_con">
 				<div class="scroll_con">
 					<div class="contents_con">
-                       개인정보 수집 및 이용 동의
+                       <?php
+                            $pop_use = $db->single("SELECT content FROM df_site_page WHERE `type` = 'privacy_use'");
+                            echo $pop_use;
+                        ?>
 					</div>
 				</div>
 			</div>
@@ -333,7 +336,10 @@
 			<div class="posts_con">
 				<div class="scroll_con">
 					<div class="contents_con">
-                       개인정보 제 3자 제공 동의
+                       <?php
+                            $pop_use = $db->single("SELECT content FROM df_site_page WHERE `type` = 'privacy_third_party'");
+                            echo $pop_use;
+                        ?>
 					</div>
 				</div>
 			</div>
@@ -358,7 +364,10 @@
 			<div class="posts_con">
 				<div class="scroll_con">
 					<div class="contents_con">
-						마케팅 목적의 개인정보 수집 동의
+						<?php
+                            $pop_use = $db->single("SELECT content FROM df_site_page WHERE `type` = 'privacy_marketing'");
+                            echo $pop_use;
+                        ?>
 					</div>
 				</div>
 			</div>

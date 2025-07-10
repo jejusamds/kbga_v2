@@ -6,7 +6,7 @@ if ($_SESSION['admin_part'] != "0") {
 
 $type = $_GET['admin_type'];
 
-if ($type != "privacy" && $type != "use" && $type != "email") {
+if ($type != "privacy" && $type != "use" && $type != "privacy_use" && $type != "privacy_third_party" && $type != "privacy_marketing" && $type != "email") {
 	error("잘못된 접근입니다.");
 }
 
@@ -16,6 +16,10 @@ $page_info = $db->row($sql);
 $page_title['privacy'] = "개인정보처리방침";
 $page_title['use'] = "이용약관";
 $page_title['email'] = "이메일무단수집거부";
+
+$page_title['privacy_use'] = "개인정보 수집 및 이용";
+$page_title['privacy_third_party'] = "개인정보 제 3자 제공";
+$page_title['privacy_marketing'] = "마케팅목적 정보 수집";
 ?>
 
 <div class="pageWrap">

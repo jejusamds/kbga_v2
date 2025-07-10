@@ -396,8 +396,14 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
                     href="/Madmin/page/page_privacy.php?admin_type=privacy">개인정보처리방침</div>
                 <div class="lnb-submenu-item <? if ($admin_type == "use") { ?>on<? } ?>"
                     href="/Madmin/page/page_privacy.php?admin_type=use">이용약관</div>
-                <!-- <div class="lnb-submenu-item <? if ($admin_type == "email") { ?>on<? } ?>"
-                    href="/Madmin/page/page_privacy.php?admin_type=email">이메일무단수집거부</div> -->
+
+                <div class="lnb-submenu-item <? if ($admin_type == "privacy_use") { ?>on<? } ?>"
+                    href="/Madmin/page/page_privacy.php?admin_type=privacy_use">개인정보 수집 및 이용</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "privacy_third_party") { ?>on<? } ?>"
+                    href="/Madmin/page/page_privacy.php?admin_type=privacy_third_party">개인정보 제공</div>
+                <div class="lnb-submenu-item <? if ($admin_type == "privacy_marketing") { ?>on<? } ?>"
+                    href="/Madmin/page/page_privacy.php?admin_type=privacy_marketing">마케팅목적 정보 수집</div>
+
             </div>
 
 
@@ -687,3 +693,6 @@ $menu99 = array("stat_visit", "stat_url", "stat_url_view");    // 통계 현황
         <div class="clear"></div>
 
         <div id="pageContainer">
+
+
+
