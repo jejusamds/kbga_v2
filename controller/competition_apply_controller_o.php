@@ -21,10 +21,10 @@ function upload_file(array $file): array {
         return_json(['result' => 'error', 'msg' => '파일 업로드 중 오류가 발생했습니다.']);
     }
     $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
-    $allowed = ['jpg','jpeg','png','gif','pdf'];
-    if (!in_array($ext, $allowed, true)) {
-        return_json(['result' => 'error', 'msg' => '허용되지 않는 파일 형식입니다.']);
-    }
+    // $allowed = ['jpg','jpeg','png','gif','pdf'];
+    // if (!in_array($ext, $allowed, true)) {
+    //     return_json(['result' => 'error', 'msg' => '허용되지 않는 파일 형식입니다.']);
+    // }
     $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/competition';
     if (!is_dir($dir)) {
         mkdir($dir, 0755, true);
@@ -161,7 +161,8 @@ $params = [
     'f_user_id'         => $f_user_id,
     'f_part_title'      => $part_title,
     'f_field_title'     => $field_title,
-    'f_event_title'     => $event_title
+    'f_event_title'     => $event_title,
+    'f_contact_phone'   => $filtered['f_contact_phone'] ?? ''
 ];
 
 // 7) INSERT 쿼리 실행
@@ -188,7 +189,8 @@ INSERT INTO df_site_competition_registration (
     f_user_id,
     f_part_title,
     f_field_title,
-    f_event_title
+    f_event_title,
+    f_contact_phone
 ) VALUES (
     'O',
     :f_competition_idx,
@@ -211,7 +213,8 @@ INSERT INTO df_site_competition_registration (
     :f_user_id,
     :f_part_title,
     :f_field_title,
-    :f_event_title
+    :f_event_title,
+    :f_contact_phone
 )";
 $db->query($sql, $params);
 

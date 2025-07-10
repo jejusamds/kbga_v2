@@ -1433,7 +1433,7 @@ $p_value = implode(', ', $labels);
                                 </div>
 
                                 <div class="btn_con">
-                                    <a href="javascript:void(0);" class="a_btn a_btn01" onclick="submitCancelForm(<?= $idx ?>); return false;">신청취소</a>
+                                    <a href="javascript:void(0);" class="a_btn a_btn01" onclick="submitCancelForm(<?= $idx ?>, 'application'); return false;">신청취소</a>
 
                                     <a href="/mypage/history.html" class="a_btn a_btn02">
                                         목록으로
@@ -1452,6 +1452,7 @@ $p_value = implode(', ', $labels);
 
 <form id="cancelForm" action="/mypage/application_cancel.php" method="post" style="display:none;">
     <input type="hidden" name="idx" value="">
+    <input type="hidden" name="table" value="application">
 </form>
 
 <script type="text/javascript" language="javascript">
@@ -1498,9 +1499,10 @@ $p_value = implode(', ', $labels);
         $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
     }
 
-    function submitCancelForm(idx) {
+    function submitCancelForm(idx, table) {
         const form = document.getElementById('cancelForm');
         form.idx.value = idx;
+        form.table.value = table;
         form.submit();
     }
 </script>

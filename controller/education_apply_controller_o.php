@@ -23,10 +23,10 @@ function upload_file(array $file): array
         return_json(['result' => 'error', 'msg' => '파일 업로드 중 오류가 발생했습니다.']);
     }
     $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
-    $allowed = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
-    if (!in_array($ext, $allowed, true)) {
-        return_json(['result' => 'error', 'msg' => '허용되지 않는 파일 형식입니다.']);
-    }
+    // $allowed = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+    // if (!in_array($ext, $allowed, true)) {
+    //     return_json(['result' => 'error', 'msg' => '허용되지 않는 파일 형식입니다.']);
+    // }
     $dir = $_SERVER['DOCUMENT_ROOT'] . '/userfiles/education';
     if (!is_dir($dir)) {
         mkdir($dir, 0755, true);

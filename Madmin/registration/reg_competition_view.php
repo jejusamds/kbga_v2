@@ -72,10 +72,10 @@ function printType($val)
                 </tr>
                 <tr>
                     <td style="width:200px;">성별</td>
-                    <td><?= printValue($row['f_gender']) ?></td>
+                    <td><?= $row['f_gender'] === 'F' ? "여자" : "남자" ?></td>
                 </tr>
                 <tr>
-                    <td style="width:200px;">영문이름</td>
+                    <td style="width:200px;"><?=$row['f_applicant_type'] === 'P' ? '영문이름' : '담당자'?></td>
                     <td><?= printValue($row['f_user_name_en']) ?></td>
                 </tr>
                 <tr>
@@ -85,6 +85,10 @@ function printType($val)
                 <tr>
                     <td style="width:200px;">연락처</td>
                     <td><?= printValue($row['f_tel']) ?></td>
+                </tr>
+                <tr>
+                    <td style="width:200px;">담당자 연락처</td>
+                    <td><?= printValue($row['f_contact_phone']) ?></td>
                 </tr>
                 <tr>
                     <td style="width:200px;">이메일</td>

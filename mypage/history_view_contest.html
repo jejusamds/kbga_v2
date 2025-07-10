@@ -7,9 +7,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
 $idx = (int) ($_GET['idx'] ?? 0);
 $user_id = $_SESSION['kbga_user_id'] ?? '';
 $row = $db->row(
-    "SELECT r.*, b.subject
-               FROM df_site_edu_registration r
-               LEFT JOIN df_site_bbs b ON r.f_news_idx = b.idx
+    "SELECT r.*, c.f_title
+               FROM df_site_competition_registration r
+               LEFT JOIN df_site_competition c ON r.f_competition_idx = c.idx
               WHERE r.idx = :idx AND r.f_user_id = :uid",
     ['idx' => $idx, 'uid' => $user_id]
 );
@@ -33,6 +33,20 @@ function printStatus($val)
             return $val;
     }
 }
+
+$codeString = $row['f_payment_category'] ?? '';
+$pay_map = [
+    'entry' => '접수비',
+];
+$labels = [];
+if ($codeString !== '') {
+    $codes = explode(',', $codeString);
+    $labels = array_map(function ($code) use ($pay_map) {
+        return $pay_map[$code] ?? $code;
+    }, $codes);
+}
+$p_value = implode(', ', $labels);
+
 ?>
 
 <div id="container">
@@ -85,7 +99,7 @@ function printStatus($val)
                                                 <tr>
                                                     <td align="center">
                                                         <span>
-                                                            <?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
+                                                            <?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?>
                                                         </span>
                                                     </td>
                                                     <td align="center">
@@ -105,971 +119,1258 @@ function printStatus($val)
 
                                     <div class="contents_con">
                                         <!--개인접수-->
-										<div class="apply_con">
-											<div class="contents_con">
+                                        <?php if ($row['f_applicant_type'] === 'P'): ?>
+                                            <div class="apply_con">
+                                                <div class="contents_con">
 
-												<!--
-												<form id="applyForm" action="/controller/competition_apply_controller.php" method="post"
-													enctype="multipart/form-data" autocomplete="off">
-													<input type="hidden" name="mode" value="register" />
-													<input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
-												-->
-													<div class="write_con">
-														<div class="contents_con">
-															<div class="input_con">
-																<div class="form01_con">
-																	<ul>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									대회구분
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_competition_idx"
-																									id="f_competition_idx" class="select"
-																									data-required="y" data-label="대회구분을">
-																									<option value="">대회구분을 선택해주세요.</option>
-																									<?php foreach ($competitions as $c): ?>
-																									<option value="<?= $c['idx'] ?>" <?=!empty($_GET['idx']) && $_GET['idx'] == $c['idx'] ? 'selected' : ''?> >
-																										<?= htmlspecialchars($c['f_title'], ENT_QUOTES) ?>
-																									</option>
-																									<?php endforeach; ?>
-																								</select>
-																								-->
+                                                    <!--
+                                                <form id="applyForm" action="/controller/competition_apply_controller.php" method="post"
+                                                    enctype="multipart/form-data" autocomplete="off">
+                                                    <input type="hidden" name="mode" value="register" />
+                                                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
+                                                -->
+                                                    <div class="write_con">
+                                                        <div class="contents_con">
+                                                            <div class="input_con">
+                                                                <div class="form01_con">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    대회구분
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_competition_idx"
+                                                                                                    id="f_competition_idx" class="select"
+                                                                                                    data-required="y" data-label="대회구분을">
+                                                                                                    <option value="">대회구분을 선택해주세요.</option>
+                                                                                                    <?php foreach ($competitions as $c): ?>
+                                                                                                    <option value="<?= $c['idx'] ?>" <?= !empty($_GET['idx']) && $_GET['idx'] == $c['idx'] ? 'selected' : '' ?> >
+                                                                                                        <?= htmlspecialchars($c['f_title'], ENT_QUOTES) ?>
+                                                                                                    </option>
+                                                                                                    <?php endforeach; ?>
+                                                                                                </select>
+                                                                                                -->
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									참가부문
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_part" id="f_part" class="select"
-																									data-required="y" data-label="참가부문을">
-																									<option value="">참가부문을 선택해주세요.</option>
-																								</select>
-																								-->
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    참가부문
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_part" id="f_part" class="select"
+                                                                                                    data-required="y" data-label="참가부문을">
+                                                                                                    <option value="">참가부문을 선택해주세요.</option>
+                                                                                                </select>
+                                                                                                -->
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									종목분야
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_field" id="f_field" class="select"
-																									data-required="y" data-label="종목분야를">
-																									<option value="">종목분야를 선택해주세요.</option>
-																								</select>
-																								-->
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_part_title'], ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    종목분야
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_field" id="f_field" class="select"
+                                                                                                    data-required="y" data-label="종목분야를">
+                                                                                                    <option value="">종목분야를 선택해주세요.</option>
+                                                                                                </select>
+                                                                                                -->
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_field_title'], ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									참가종목
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_event" id="f_event" class="select"
-																									data-required="y" data-label="참가종목을">
-																									<option value="">참가종목을 선택해주세요.</option>
-																								</select>
-																								-->
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    참가종목
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_event" id="f_event" class="select"
+                                                                                                    data-required="y" data-label="참가종목을">
+                                                                                                    <option value="">참가종목을 선택해주세요.</option>
+                                                                                                </select>
+                                                                                                -->
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									이름
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_user_name" placeholder="이름을 적어주세요." class="input" data-required="y" data-label="이름을" value="<?= $default['f_user_name'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_event_title'], ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    이름
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_user_name"
+                                                                                                    placeholder="이름을 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-label="이름을"
+                                                                                                    value="<?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									성별
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<div class="gender_con">
-																									<ul>
-																										<li>
-																											<label class="radio_label">
-																												<input type="radio" name="f_gender"
-																													value="M"
-																													<?=($default['f_gender'] ?? ''
-																													)==='M' ? 'checked' : '' ?> />
-																												<div class="check_icon"></div>
-																												<span>
-																													남자
-																												</span>
-																											</label>
-																										</li>
-																										<li>
-																											<label class="radio_label">
-																												<input type="radio" name="f_gender"
-																													value="F"
-																													<?=($default['f_gender'] ?? ''
-																													)==='F' ? 'checked' : '' ?> />
-																												<div class="check_icon"></div>
-																												<span>
-																													여자
-																												</span>
-																											</label>
-																										</li>
-																									</ul>
-																								</div>
-																								-->
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    성별
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <div class="gender_con">
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <label class="radio_label">
+                                                                                                                <input type="radio" name="f_gender"
+                                                                                                                    value="M"
+                                                                                                                    <?= ($default['f_gender'] ?? ''
+                                                                                                                    ) === 'M' ? 'checked' : '' ?> />
+                                                                                                                <div class="check_icon"></div>
+                                                                                                                <span>
+                                                                                                                    남자
+                                                                                                                </span>
+                                                                                                            </label>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <label class="radio_label">
+                                                                                                                <input type="radio" name="f_gender"
+                                                                                                                    value="F"
+                                                                                                                    <?= ($default['f_gender'] ?? ''
+                                                                                                                    ) === 'F' ? 'checked' : '' ?> />
+                                                                                                                <div class="check_icon"></div>
+                                                                                                                <span>
+                                                                                                                    여자
+                                                                                                                </span>
+                                                                                                            </label>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                                -->
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									영문이름
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_user_name_en" placeholder="영문이름을 적어주세요." class="input" data-required="y" data-label="영문이름을" value="<?= $default['f_user_name_en'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_gender'] == 'M' ? '남자' : '여자', ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    영문이름
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_user_name_en"
+                                                                                                    placeholder="영문이름을 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-label="영문이름을"
+                                                                                                    value="<?= htmlspecialchars($row['f_user_name_en'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									생년월일
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="tel" name="f_birth_date" placeholder="0000.00.00" id="birthdate_input" class="input" data-required="y" data-label="생년월일을" value="<?= $default['f_birth_date'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									연락처
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="tel" name="f_tel" maxlength="13" placeholder="000-0000-0000" class="input tel_input" data-required="y" data-validate-type="tel" data-label="연락처를" value="<?= $default['f_tel'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    생년월일
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="tel"
+                                                                                                    name="f_birth_date"
+                                                                                                    placeholder="0000.00.00"
+                                                                                                    id="birthdate_input"
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-label="생년월일을"
+                                                                                                    value="<?= htmlspecialchars(str_replace('-', '.', $row['f_birth_date']), ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    연락처
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="tel"
+                                                                                                    name="f_tel"
+                                                                                                    maxlength="13"
+                                                                                                    placeholder="000-0000-0000"
+                                                                                                    class="input tel_input"
+                                                                                                    data-required="y"
+                                                                                                    data-validate-type="tel"
+                                                                                                    data-label="연락처를"
+                                                                                                    value="<?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									이메일
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_email" placeholder="이메일을 적어주세요." class="input" data-required="y" data-validate-type="email" data-label="이메일을" value="<?= $default['f_email'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									우편번호
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<div class="post_con">
-																									<table cellpadding="0" cellspacing="0">
-																										<tbody>
-																											<tr>
-																												<td align="left" class="input_td">
-																													<input type="text" name="f_zip" id="f_zip" placeholder="우편번호를 적어주세요." class="input" readonly="readonly" data-required="y" data-label="우편번호를" value="<?= $default['f_zip'] ?? '' ?>" />
-																												</td>
-																												<!--
-																												<td align="left" class="btn_td">
-																													<a href="#" class="a_btn"
-																														onclick="openPostcode(); return false;">
-																														검색
-																													</a>
-																												</td>
-																												-->
-																											</tr>
-																										</tbody>
-																									</table>
-																								</div>
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									기본주소
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_address1" id="f_address1" placeholder="기본주소를 적어주세요." class="input" readonly="readonly" data-required="y" data-label="기본주소를" value="<?= $default['f_address1'] ?? '' ?>" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    이메일
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_email"
+                                                                                                    placeholder="이메일을 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-validate-type="email"
+                                                                                                    data-label="이메일을"
+                                                                                                    value="<?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    우편번호
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <div class="post_con">
+                                                                                                    <table cellpadding="0"
+                                                                                                        cellspacing="0">
+                                                                                                        <tbody>
+                                                                                                            <tr>
+                                                                                                                <td align="left"
+                                                                                                                    class="input_td">
+                                                                                                                    <input
+                                                                                                                        type="text"
+                                                                                                                        name="f_zip"
+                                                                                                                        id="f_zip"
+                                                                                                                        placeholder="우편번호를 적어주세요."
+                                                                                                                        class="input"
+                                                                                                                        readonly="readonly"
+                                                                                                                        data-required="y"
+                                                                                                                        data-label="우편번호를"
+                                                                                                                        value="<?= htmlspecialchars($row['f_zip'], ENT_QUOTES) ?>" />
+                                                                                                                </td>
+                                                                                                                <!--
+                                                                                                                <td align="left" class="btn_td">
+                                                                                                                    <a href="#" class="a_btn"
+                                                                                                                        onclick="openPostcode(); return false;">
+                                                                                                                        검색
+                                                                                                                    </a>
+                                                                                                                </td>
+                                                                                                                -->
+                                                                                                            </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    기본주소
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_address1"
+                                                                                                    id="f_address1"
+                                                                                                    placeholder="기본주소를 적어주세요."
+                                                                                                    class="input"
+                                                                                                    readonly="readonly"
+                                                                                                    data-required="y"
+                                                                                                    data-label="기본주소를"
+                                                                                                    value="<?= htmlspecialchars($row['f_address1'], ENT_QUOTES) ?>" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									상세주소
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_address2" id="f_address2" placeholder="상세주소를 적어주세요." class="input" data-required="y" data-label="상세주소를" value="<?= $default['f_address2'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																	</ul>
-																</div>
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    상세주소
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_address2"
+                                                                                                    id="f_address2"
+                                                                                                    placeholder="상세주소를 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-label="상세주소를"
+                                                                                                    value="<?= htmlspecialchars($row['f_address2'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
 
-																<div class="form02_con">
-																	<div class="form02_div">
-																		<div class="title_con">
-																			<span>
-																				입금여부 확인
-																			</span>
-																		</div>
+                                                                <div class="form02_con">
+                                                                    <div class="form02_div">
+                                                                        <div class="title_con">
+                                                                            <span>
+                                                                                입금여부 확인
+                                                                            </span>
+                                                                        </div>
 
-																		<div class="input_con">
-																			<ul>
-																				<li>
-																					<div class="list_div">
-																						<table cellpadding="0" cellspacing="0">
-																							<tbody>
-																								<tr>
-																									<td align="left" class="title_td">
-																										<span>
-																											입금자
-																										</span>
-																									</td>
-																									<td align="left" class="info_td">
-																										<input type="text" name="f_payer_name" placeholder="입금자명을 적어주세요." class="input" data-required="y" data-label="입금자명을" readonly="readonly" />
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</div>
-																				</li>
-																				<li>
-																					<div class="list_div">
-																						<table cellpadding="0" cellspacing="0">
-																							<tbody>
-																								<tr>
-																									<td align="left" class="title_td">
-																										<span>
-																											은행(입금자)
-																										</span>
-																									</td>
-																									<td align="left" class="info_td">
-																										<!--
-																										<select name="f_payer_bank" class="select"
-																											data-required="y" data-label="은행을">
-																											<option value="">은행(입금자)를 선택해주세요.
-																											</option>
-																											<option value="농협">농협</option>
-																											<option value="신한">신한</option>
-																											<option value="국민">국민</option>
-																											<option value="기업">기업</option>
-																										</select>
-																										-->
+                                                                        <div class="input_con">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <div class="list_div">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td align="left"
+                                                                                                        class="title_td">
+                                                                                                        <span>
+                                                                                                            입금자
+                                                                                                        </span>
+                                                                                                    </td>
+                                                                                                    <td align="left"
+                                                                                                        class="info_td">
+                                                                                                        <input type="text"
+                                                                                                            name="f_payer_name"
+                                                                                                            placeholder="입금자명을 적어주세요."
+                                                                                                            class="input"
+                                                                                                            data-required="y"
+                                                                                                            data-label="입금자명을"
+                                                                                                            value="<?= htmlspecialchars($row['f_payer_name'], ENT_QUOTES) ?>"
+                                                                                                            readonly="readonly" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <div class="list_div">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td align="left"
+                                                                                                        class="title_td">
+                                                                                                        <span>
+                                                                                                            은행(입금자)
+                                                                                                        </span>
+                                                                                                    </td>
+                                                                                                    <td align="left"
+                                                                                                        class="info_td">
+                                                                                                        <!--
+                                                                                                        <select name="f_payer_bank" class="select"
+                                                                                                            data-required="y" data-label="은행을">
+                                                                                                            <option value="">은행(입금자)를 선택해주세요.
+                                                                                                            </option>
+                                                                                                            <option value="농협">농협</option>
+                                                                                                            <option value="신한">신한</option>
+                                                                                                            <option value="국민">국민</option>
+                                                                                                            <option value="기업">기업</option>
+                                                                                                        </select>
+                                                                                                        -->
 
-																										<input type="text" name="" value="" class="input" readonly="readonly" />
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</div>
-																				</li>
-																			</ul>
-																		</div>
-																	</div>
+                                                                                                        <input type="text"
+                                                                                                            name=""
+                                                                                                            value="<?= htmlspecialchars($row['f_payer_bank'], ENT_QUOTES) ?>"
+                                                                                                            class="input"
+                                                                                                            readonly="readonly" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
 
-																	<div class="form02_div">
-																		<div class="title_con">
-																			<span>
-																				입금구분(중복체크가능)
-																			</span>
-																		</div>
+                                                                    <div class="form02_div">
+                                                                        <div class="title_con">
+                                                                            <span>
+                                                                                입금구분(중복체크가능)
+                                                                            </span>
+                                                                        </div>
 
-																		<div class="input_con">
-																			<ul>
-																				<li>
-																					<div class="list_div">
-																						<table cellpadding="0" cellspacing="0">
-																							<tbody>
-																								<tr>
-																									<td align="left" class="info_td">
-																										<!--
-																										<div class="deposit_con">
-																											<ul>
-																												<li>
-																													<label class="checkbox_label">
-																														<input type="checkbox"
-																															name="f_payment_category[]"
-																															value="entry"
-																															data-required="y"
-																															data-label="입금 구분을"
-																															data-tag-type="clicked" />
-																														<div class="check_icon">
-																														</div>
-																														<span>
-																															접수비
-																														</span>
-																													</label>
-																												</li>
-																											</ul>
-																										</div>
-																										-->
+                                                                        <div class="input_con">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <div class="list_div">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td align="left"
+                                                                                                        class="info_td">
+                                                                                                        <!--
+                                                                                                        <div class="deposit_con">
+                                                                                                            <ul>
+                                                                                                                <li>
+                                                                                                                    <label class="checkbox_label">
+                                                                                                                        <input type="checkbox"
+                                                                                                                            name="f_payment_category[]"
+                                                                                                                            value="entry"
+                                                                                                                            data-required="y"
+                                                                                                                            data-label="입금 구분을"
+                                                                                                                            data-tag-type="clicked" />
+                                                                                                                        <div class="check_icon">
+                                                                                                                        </div>
+                                                                                                                        <span>
+                                                                                                                            접수비
+                                                                                                                        </span>
+                                                                                                                    </label>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                        -->
 
-																										<input type="text" name="" value="" class="input" readonly="readonly" />
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</div>
-																				</li>
-																			</ul>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												<!--
-												</form>
-												-->
+                                                                                                        <input type="text"
+                                                                                                            name=""
+                                                                                                            value="<?= $p_value ?>"
+                                                                                                            class="input"
+                                                                                                            readonly="readonly" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--
+                                                </form>
+                                                -->
 
-											</div>
-										</div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
 
-										<!--단체 접수-->
-										 <div class="apply_con">
-											<div class="contents_con">
+                                        <?php if ($row['f_applicant_type'] === 'O'): ?>
 
-												<!--
-												<form id="applyForm" action="/controller/competition_apply_controller_o.php" method="post"
-													enctype="multipart/form-data" autocomplete="off">
-													<input type="hidden" name="mode" value="register" />
-													<input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
-												-->
-													<div class="write_con">
-														<div class="contents_con">
-															<div class="input_con">
-																<div class="form01_con">
-																	<ul>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									대회구분
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_competition_idx"
-																									id="f_competition_idx" class="select"
-																									data-required="y" data-label="대회구분을">
-																									<option value="">대회구분을 선택해주세요.</option>
-																									<?php foreach ($competitions as $c): ?>
-																									<option value="<?= $c['idx'] ?>" <?=!empty($_GET['idx']) && $_GET['idx'] == $c['idx'] ? 'selected' : ''?> >
-																										<?= htmlspecialchars($c['f_title'], ENT_QUOTES) ?>
-																									</option>
-																									<?php endforeach; ?>
-																								</select>
-																								-->
+                                            <!--단체 접수-->
+                                            <div class="apply_con">
+                                                <div class="contents_con">
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                    <!--
+                                                <form id="applyForm" action="/controller/competition_apply_controller_o.php" method="post"
+                                                    enctype="multipart/form-data" autocomplete="off">
+                                                    <input type="hidden" name="mode" value="register" />
+                                                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
+                                                -->
+                                                    <div class="write_con">
+                                                        <div class="contents_con">
+                                                            <div class="input_con">
+                                                                <div class="form01_con">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    대회구분
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_competition_idx"
+                                                                                                    id="f_competition_idx" class="select"
+                                                                                                    data-required="y" data-label="대회구분을">
+                                                                                                    <option value="">대회구분을 선택해주세요.</option>
+                                                                                                    <?php foreach ($competitions as $c): ?>
+                                                                                                    <option value="<?= $c['idx'] ?>" <?= !empty($_GET['idx']) && $_GET['idx'] == $c['idx'] ? 'selected' : '' ?> >
+                                                                                                        <?= htmlspecialchars($c['f_title'], ENT_QUOTES) ?>
+                                                                                                    </option>
+                                                                                                    <?php endforeach; ?>
+                                                                                                </select>
+                                                                                                -->
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									참가부문
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_part" id="f_part" class="select"
-																									data-required="y" data-label="참가부문을">
-																									<option value="">참가부문을 선택해주세요.</option>
-																								</select>
-																								-->
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									종목분야
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_field" id="f_field" class="select"
-																									data-required="y" data-label="종목분야를">
-																									<option value="">종목분야를 선택해주세요.</option>
-																								</select>
-																								-->
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    참가부문
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_part" id="f_part" class="select"
+                                                                                                    data-required="y" data-label="참가부문을">
+                                                                                                    <option value="">참가부문을 선택해주세요.</option>
+                                                                                                </select>
+                                                                                                -->
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_part_title'], ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    종목분야
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_field" id="f_field" class="select"
+                                                                                                    data-required="y" data-label="종목분야를">
+                                                                                                    <option value="">종목분야를 선택해주세요.</option>
+                                                                                                </select>
+                                                                                                -->
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									참가종목
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<!--
-																								<select name="f_event" id="f_event" class="select"
-																									data-required="y" data-label="참가종목을">
-																									<option value="">참가종목을 선택해주세요.</option>
-																								</select>
-																								-->
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_field_title'], ENT_QUOTES) ?>"
+                                                                                                    class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																								<input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									단체명
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_user_name" placeholder="단체명을 적어주세요." class="input" data-required="y" data-label="단체명을" value="<?= $default['f_user_name'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    참가종목
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <!--
+                                                                                                <select name="f_event" id="f_event" class="select"
+                                                                                                    data-required="y" data-label="참가종목을">
+                                                                                                    <option value="">참가종목을 선택해주세요.</option>
+                                                                                                </select>
+                                                                                                -->
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									담당자
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_user_name_en" placeholder="담당자를 적어주세요." class="input" data-required="y" data-label="담당자를" value="<?= $default['f_user_name_en'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									연락처
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="tel" name="f_tel" maxlength="13" placeholder="000-0000-0000" class="input tel_input" data-required="y" data-validate-type="tel" data-label="연락처를" value="<?= $default['f_tel'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                                                <input type="text" name=""
+                                                                                                    value="<?= htmlspecialchars($row['f_event_title'], ENT_QUOTES) ?>" class="input"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    단체명
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_user_name"
+                                                                                                    placeholder="단체명을 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-label="단체명을"
+                                                                                                    value="<?= htmlspecialchars($row['f_user_name'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td title_td02">
-																								<span>
-																									담당자 연락처
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="tel" name="f_contact_phone" maxlength="13" placeholder="000-0000-0000" class="input tel_input" data-required="y" data-validate-type="tel" data-label="담당자 연락처를" value="<?= $default['f_contact_phone'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									이메일
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_email" placeholder="이메일을 적어주세요." class="input" data-required="y" data-validate-type="email"
-																									data-label="이메일을" value="<?= $default['f_email'] ?? '' ?>" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									우편번호
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<div class="post_con">
-																									<table cellpadding="0" cellspacing="0">
-																										<tbody>
-																											<tr>
-																												<td align="left" class="input_td">
-																													<input type="text" name="f_zip" id="f_zip" placeholder="우편번호를 적어주세요." class="input" readonly="readonly"
-																														data-required="y" data-label="우편번호를" value="<?= $default['f_zip'] ?? '' ?>" />
-																												</td>
-																												<!--
-																												<td align="left" class="btn_td">
-																													<a href="#" class="a_btn"
-																														onclick="openPostcode(); return false;">
-																														검색
-																													</a>
-																												</td>
-																												-->
-																											</tr>
-																										</tbody>
-																									</table>
-																								</div>
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									기본주소
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_address1" id="f_address1" placeholder="기본주소를 적어주세요." class="input" readonly="readonly" data-required="y" data-label="기본주소를" value="<?= $default['f_address1'] ?? '' ?>" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    담당자
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_user_name_en"
+                                                                                                    placeholder="담당자를 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-label="담당자를"
+                                                                                                    value="<?= htmlspecialchars($row['f_user_name_en'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    연락처
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="tel"
+                                                                                                    name="f_tel"
+                                                                                                    maxlength="13"
+                                                                                                    placeholder="000-0000-0000"
+                                                                                                    class="input tel_input"
+                                                                                                    data-required="y"
+                                                                                                    data-validate-type="tel"
+                                                                                                    data-label="연락처를"
+                                                                                                    value="<?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																			<div class="list_div fr">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td">
-																								<span>
-																									상세주소
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<input type="text" name="f_address2" id="f_address2" placeholder="상세주소를 적어주세요." class="input" data-required="y" data-label="상세주소를" value="<?= $default['f_address2'] ?? '' ?>" <input type="text" name="" value="" class="input" readonly="readonly" />
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																		<li>
-																			<div class="list_div fl">
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="title_td valign_top_td">
-																								<span>
-																									단체신청서
-																								</span>
-																							</td>
-																							<td align="left" class="info_td">
-																								<div class="file_con">
-																									<table cellpadding="0" cellspacing="0">
-																										<tbody>
-																											<tr>
-																												<!--
-																												<td align="left" class="title_td">
-																													<span>
-																														파일첨부
-																													</span>
-																												</td>
-																												-->
-																												<td align="left" class="info_td">
-																													<!--
-																													<div class="input_con">
-																														<table cellpadding="0"
-																															cellspacing="0">
-																															<tbody>
-																																<tr>
-																																	<td align="left"
-																																		class="input_td">
-																																		<input
-																																			type="text"
-																																			name="f_issue_file_name"
-																																			placeholder="선택된 파일 없음"
-																																			class="file_upload input"
-																																			readonly="readonly" />
-																																	</td>
-																																	<td align="left"
-																																		class="btn_td">
-																																		<label>
-																																			<span>
-																																				파일선택
-																																			</span>
-																																			<input
-																																				type="file"
-																																				name="f_issue_file"
-																																				class="input"
-																																				onchange="file_upload(this.value)" />
-																																		</label>
-																																	</td>
-																																</tr>
-																															</tbody>
-																														</table>
-																													</div>
-																													-->
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td title_td02">
+                                                                                                <span>
+                                                                                                    담당자 연락처
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="tel"
+                                                                                                    name="f_contact_phone"
+                                                                                                    maxlength="13"
+                                                                                                    placeholder="000-0000-0000"
+                                                                                                    class="input tel_input"
+                                                                                                    data-required="y"
+                                                                                                    data-validate-type="tel"
+                                                                                                    data-label="담당자 연락처를"
+                                                                                                    value="<?= htmlspecialchars($row['f_contact_phone'] ?? '', ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    이메일
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_email"
+                                                                                                    placeholder="이메일을 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-validate-type="email"
+                                                                                                    data-label="이메일을"
+                                                                                                    value="<?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    우편번호
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <div class="post_con">
+                                                                                                    <table cellpadding="0"
+                                                                                                        cellspacing="0">
+                                                                                                        <tbody>
+                                                                                                            <tr>
+                                                                                                                <td align="left"
+                                                                                                                    class="input_td">
+                                                                                                                    <input
+                                                                                                                        type="text"
+                                                                                                                        name="f_zip"
+                                                                                                                        id="f_zip"
+                                                                                                                        placeholder="우편번호를 적어주세요."
+                                                                                                                        class="input"
+                                                                                                                        readonly="readonly"
+                                                                                                                        data-required="y"
+                                                                                                                        data-label="우편번호를"
+                                                                                                                        value="<?= htmlspecialchars($row['f_zip'], ENT_QUOTES) ?>" />
+                                                                                                                </td>
+                                                                                                                <!--
+                                                                                                                <td align="left" class="btn_td">
+                                                                                                                    <a href="#" class="a_btn"
+                                                                                                                        onclick="openPostcode(); return false;">
+                                                                                                                        검색
+                                                                                                                    </a>
+                                                                                                                </td>
+                                                                                                                -->
+                                                                                                            </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    기본주소
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_address1"
+                                                                                                    id="f_address1"
+                                                                                                    placeholder="기본주소를 적어주세요."
+                                                                                                    class="input"
+                                                                                                    readonly="readonly"
+                                                                                                    data-required="y"
+                                                                                                    data-label="기본주소를"
+                                                                                                    value="<?= htmlspecialchars($row['f_address1'], ENT_QUOTES) ?>" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
 
-																													<!--
-																													<ul>
-																														<li>
-																															<div class="file_div">
-																																<div class="input_con">
-																																	<table cellpadding="0" cellspacing="0">
-																																		<tbody>
-																																			<tr>
-																																				<td align="left" class="input_td">
-																																					<input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
-																																				</td>
-																																				<td align="left" class="btn_td">
-																																					<label>
-																																						<span>
-																																							파일선택
-																																						</span>
-																																						<input type="file" name="upfile[]" class="input" onchange="file_upload(this.value)" />
-																																					</label>
-																																				</td>
-																																			</tr>
-																																		</tbody>
-																																	</table>
-																																</div>
+                                                                            <div class="list_div fr">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td">
+                                                                                                <span>
+                                                                                                    상세주소
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <input type="text"
+                                                                                                    name="f_address2"
+                                                                                                    id="f_address2"
+                                                                                                    placeholder="상세주소를 적어주세요."
+                                                                                                    class="input"
+                                                                                                    data-required="y"
+                                                                                                    data-label="상세주소를"
+                                                                                                    value="<?= htmlspecialchars($row['f_address2'], ENT_QUOTES) ?>"
+                                                                                                    readonly="readonly" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="list_div fl">
+                                                                                <table cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left"
+                                                                                                class="title_td valign_top_td">
+                                                                                                <span>
+                                                                                                    단체신청서
+                                                                                                </span>
+                                                                                            </td>
+                                                                                            <td align="left"
+                                                                                                class="info_td">
+                                                                                                <div class="file_con">
+                                                                                                    <table cellpadding="0"
+                                                                                                        cellspacing="0">
+                                                                                                        <tbody>
+                                                                                                            <tr>
+                                                                                                                <!--
+                                                                                                                <td align="left" class="title_td">
+                                                                                                                    <span>
+                                                                                                                        파일첨부
+                                                                                                                    </span>
+                                                                                                                </td>
+                                                                                                                -->
+                                                                                                                <td align="left"
+                                                                                                                    class="info_td">
+                                                                                                                    <!--
+                                                                                                                    <div class="input_con">
+                                                                                                                        <table cellpadding="0"
+                                                                                                                            cellspacing="0">
+                                                                                                                            <tbody>
+                                                                                                                                <tr>
+                                                                                                                                    <td align="left"
+                                                                                                                                        class="input_td">
+                                                                                                                                        <input
+                                                                                                                                            type="text"
+                                                                                                                                            name="f_issue_file_name"
+                                                                                                                                            placeholder="선택된 파일 없음"
+                                                                                                                                            class="file_upload input"
+                                                                                                                                            readonly="readonly" />
+                                                                                                                                    </td>
+                                                                                                                                    <td align="left"
+                                                                                                                                        class="btn_td">
+                                                                                                                                        <label>
+                                                                                                                                            <span>
+                                                                                                                                                파일선택
+                                                                                                                                            </span>
+                                                                                                                                            <input
+                                                                                                                                                type="file"
+                                                                                                                                                name="f_issue_file"
+                                                                                                                                                class="input"
+                                                                                                                                                onchange="file_upload(this.value)" />
+                                                                                                                                        </label>
+                                                                                                                                    </td>
+                                                                                                                                </tr>
+                                                                                                                            </tbody>
+                                                                                                                        </table>
+                                                                                                                    </div>
+                                                                                                                    -->
 
-																																<div class="btn_con">
-																																	<ul>
-																																		<li>
-																																			<a href="javascript:void(0);" class="a_btn add_btn">
-																																				추가
-																																			</a>
-																																		</li>
-																																		<li>
-																																			<a href="javascript:void(0);" class="a_btn delete_btn">
-																																				삭제
-																																			</a>
-																																		</li>
-																																	</ul>
-																																</div>
-																															</div>
-																														</li>
-																													</ul>
-																													-->
-																												</td>
-																											</tr>
-																										</tbody>
-																									</table>
-																								</div>
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</li>
-																	</ul>
-																</div>
+                                                                                                                    <!--
+                                                                                                                    <ul>
+                                                                                                                        <li>
+                                                                                                                            <div class="file_div">
+                                                                                                                                <div class="input_con">
+                                                                                                                                    <table cellpadding="0" cellspacing="0">
+                                                                                                                                        <tbody>
+                                                                                                                                            <tr>
+                                                                                                                                                <td align="left" class="input_td">
+                                                                                                                                                    <input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
+                                                                                                                                                </td>
+                                                                                                                                                <td align="left" class="btn_td">
+                                                                                                                                                    <label>
+                                                                                                                                                        <span>
+                                                                                                                                                            파일선택
+                                                                                                                                                        </span>
+                                                                                                                                                        <input type="file" name="upfile[]" class="input" onchange="file_upload(this.value)" />
+                                                                                                                                                    </label>
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                        </tbody>
+                                                                                                                                    </table>
+                                                                                                                                </div>
 
-																<div class="form02_con">
-																	<div class="form02_div">
-																		<div class="title_con">
-																			<span>
-																				입금여부 확인
-																			</span>
-																		</div>
+                                                                                                                                <div class="btn_con">
+                                                                                                                                    <ul>
+                                                                                                                                        <li>
+                                                                                                                                            <a href="javascript:void(0);" class="a_btn add_btn">
+                                                                                                                                                추가
+                                                                                                                                            </a>
+                                                                                                                                        </li>
+                                                                                                                                        <li>
+                                                                                                                                            <a href="javascript:void(0);" class="a_btn delete_btn">
+                                                                                                                                                삭제
+                                                                                                                                            </a>
+                                                                                                                                        </li>
+                                                                                                                                    </ul>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </li>
+                                                                                                                    </ul>
+                                                                                                                    -->
+                                                                                                                    <ul>
+                                                                                                                        <?php if (!empty($row['f_issue_file'])): ?>
+                                                                                                                            <?php $files_arr = explode(',', $row['f_issue_file']);
+                                                                                                                            foreach ($files_arr as $fileName):
+                                                                                                                                $fileUrl = '/userfiles/competition/' . rawurlencode($fileName);
+                                                                                                                                ?>
+                                                                                                                                <li>
+                                                                                                                                    <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+                                                                                                                                        download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>"
+                                                                                                                                        class="download-link">
+                                                                                                                                        <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+                                                                                                                                    </a>
+                                                                                                                                </li>
+                                                                                                                            <?php endforeach; ?>
+                                                                                                                        <?php else: ?>
+                                                                                                                            <li>
+                                                                                                                                <span
+                                                                                                                                    class="no-file">
+                                                                                                                                    파일이
+                                                                                                                                    없습니다.
+                                                                                                                                </span>
+                                                                                                                            </li>
+                                                                                                                        <?php endif; ?>
+                                                                                                                    </ul>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
 
-																		<div class="input_con">
-																			<ul>
-																				<li>
-																					<div class="list_div">
-																						<table cellpadding="0" cellspacing="0">
-																							<tbody>
-																								<tr>
-																									<td align="left" class="title_td">
-																										<span>
-																											입금자
-																										</span>
-																									</td>
-																									<td align="left" class="info_td">
-																										<input type="text" name="f_payer_name" placeholder="입금자명을 적어주세요." class="input" data-required="y" data-label="입금자명을" readonly="readonly" />
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</div>
-																				</li>
-																				<li>
-																					<div class="list_div">
-																						<table cellpadding="0" cellspacing="0">
-																							<tbody>
-																								<tr>
-																									<td align="left" class="title_td">
-																										<span>
-																											은행(입금자)
-																										</span>
-																									</td>
-																									<td align="left" class="info_td">
-																										<!--
-																										<select name="f_payer_bank" class="select"
-																											data-required="y" data-label="은행을">
-																											<option value="">은행(입금자)를 선택해주세요.
-																											</option>
-																											<option value="농협">농협</option>
-																											<option value="신한">신한</option>
-																											<option value="국민">국민</option>
-																											<option value="기업">기업</option>
-																										</select>
-																										-->
+                                                                <div class="form02_con">
+                                                                    <div class="form02_div">
+                                                                        <div class="title_con">
+                                                                            <span>
+                                                                                입금여부 확인
+                                                                            </span>
+                                                                        </div>
 
-																										<input type="text" name="" value="" class="input" readonly="readonly" />
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</div>
-																				</li>
-																			</ul>
-																		</div>
-																	</div>
+                                                                        <div class="input_con">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <div class="list_div">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td align="left"
+                                                                                                        class="title_td">
+                                                                                                        <span>
+                                                                                                            입금자
+                                                                                                        </span>
+                                                                                                    </td>
+                                                                                                    <td align="left"
+                                                                                                        class="info_td">
+                                                                                                        <input type="text"
+                                                                                                            name="f_payer_name"
+                                                                                                            placeholder="입금자명을 적어주세요."
+                                                                                                            class="input"
+                                                                                                            data-required="y"
+                                                                                                            data-label="입금자명을"
+                                                                                                            value="<?= htmlspecialchars($row['f_payer_name'], ENT_QUOTES) ?>"
+                                                                                                            readonly="readonly" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <div class="list_div">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td align="left"
+                                                                                                        class="title_td">
+                                                                                                        <span>
+                                                                                                            은행(입금자)
+                                                                                                        </span>
+                                                                                                    </td>
+                                                                                                    <td align="left"
+                                                                                                        class="info_td">
+                                                                                                        <!--
+                                                                                                        <select name="f_payer_bank" class="select"
+                                                                                                            data-required="y" data-label="은행을">
+                                                                                                            <option value="">은행(입금자)를 선택해주세요.
+                                                                                                            </option>
+                                                                                                            <option value="농협">농협</option>
+                                                                                                            <option value="신한">신한</option>
+                                                                                                            <option value="국민">국민</option>
+                                                                                                            <option value="기업">기업</option>
+                                                                                                        </select>
+                                                                                                        -->
 
-																	<div class="form02_div">
-																		<div class="title_con">
-																			<span>
-																				입금구분(중복체크가능)
-																			</span>
-																		</div>
+                                                                                                        <input type="text"
+                                                                                                            name=""
+                                                                                                            value="<?= htmlspecialchars($row['f_payer_bank'], ENT_QUOTES) ?>"
+                                                                                                            class="input"
+                                                                                                            readonly="readonly" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
 
-																		<div class="input_con">
-																			<ul>
-																				<li>
-																					<div class="list_div">
-																						<table cellpadding="0" cellspacing="0">
-																							<tbody>
-																								<tr>
-																									<td align="left" class="info_td">
-																										<!--
-																										<div class="deposit_con">
-																											<ul>
-																												<li>
-																													<label class="checkbox_label">
-																														<input type="checkbox"
-																															name="f_payment_category[]"
-																															value="entry"
-																															data-required="y"
-																															data-label="입금 구분을"
-																															data-tag-type="clicked" />
-																														<div class="check_icon">
-																														</div>
-																														<span>
-																															접수비
-																														</span>
-																													</label>
-																												</li>
-																											</ul>
-																										</div>
-																										-->
+                                                                    <div class="form02_div">
+                                                                        <div class="title_con">
+                                                                            <span>
+                                                                                입금구분(중복체크가능)
+                                                                            </span>
+                                                                        </div>
 
-																										<input type="text" name="" value="" class="input" readonly="readonly" />
-																									</td>
-																								</tr>
-																							</tbody>
-																						</table>
-																					</div>
-																				</li>
-																			</ul>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												<!--
-												</form>
-												-->
+                                                                        <div class="input_con">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <div class="list_div">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td align="left"
+                                                                                                        class="info_td">
+                                                                                                        <!--
+                                                                                                        <div class="deposit_con">
+                                                                                                            <ul>
+                                                                                                                <li>
+                                                                                                                    <label class="checkbox_label">
+                                                                                                                        <input type="checkbox"
+                                                                                                                            name="f_payment_category[]"
+                                                                                                                            value="entry"
+                                                                                                                            data-required="y"
+                                                                                                                            data-label="입금 구분을"
+                                                                                                                            data-tag-type="clicked" />
+                                                                                                                        <div class="check_icon">
+                                                                                                                        </div>
+                                                                                                                        <span>
+                                                                                                                            접수비
+                                                                                                                        </span>
+                                                                                                                    </label>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                        -->
 
-											</div>
-										</div>
+                                                                                                        <input type="text"
+                                                                                                            name=""
+                                                                                                            value="<?= $p_value ?>"
+                                                                                                            class="input"
+                                                                                                            readonly="readonly" />
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--
+                                                </form>
+                                                -->
+
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
 
                                 <div class="btn_con">
-                                    <a href="javascript:void(0);" class="a_btn a_btn01" onclick="submitCancelForm(<?= $idx ?>); return false;">신청취소</a>
+                                    <a href="javascript:void(0);" class="a_btn a_btn01"
+                                        onclick="submitCancelForm(<?= $idx ?>, 'competition'); return false;">신청취소</a>
 
                                     <a href="/mypage/history.html" class="a_btn a_btn02">
                                         목록으로
@@ -1085,6 +1386,11 @@ function printStatus($val)
         </div>
     </div>
 </div>
+
+<form id="cancelForm" action="/mypage/application_cancel.php" method="post" style="display:none;">
+    <input type="hidden" name="idx" value="">
+    <input type="hidden" name="table" value="competition">
+</form>
 
 <script type="text/javascript" language="javascript">
     // 생년월일
@@ -1125,52 +1431,59 @@ function printStatus($val)
         element.value = formattedPhoneNumber;
     }
 
-	/*
+    /*
     // 사진첨부
     function file_upload(val) {
         $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td .input_con > table > tbody > tr > .input_td .input").val(val).focus();
     }
-	*/
+    */
 
-	// 추가 버튼 클릭 이벤트
-	$(document).on("click", ".add_btn", function(e){
-		e.preventDefault(); // a 태그 기본동작 방지
-		var lastRow = $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").last(); // 마지막 li
-		var newRow = lastRow.clone(); // 복제
-		// input[type=file] 비우기
-		newRow.find("input[type='file']").val(""); 
-		// input[type=text] 비우기 (파일명 표시 input)
-		newRow.find("input[name='upfile_name']").val("").attr("placeholder", "선택된 파일 없음");
-		// 새로운 행을 마지막 li 뒤에 추가
-		$(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul").append(newRow);
-	});
+    // 추가 버튼 클릭 이벤트
+    $(document).on("click", ".add_btn", function (e) {
+        e.preventDefault(); // a 태그 기본동작 방지
+        var lastRow = $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").last(); // 마지막 li
+        var newRow = lastRow.clone(); // 복제
+        // input[type=file] 비우기
+        newRow.find("input[type='file']").val("");
+        // input[type=text] 비우기 (파일명 표시 input)
+        newRow.find("input[name='upfile_name']").val("").attr("placeholder", "선택된 파일 없음");
+        // 새로운 행을 마지막 li 뒤에 추가
+        $(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul").append(newRow);
+    });
 
-	// 삭제 버튼 클릭 이벤트
-	$(document).on("click", ".delete_btn", function(e){
-		e.preventDefault(); // a 태그 기본동작 방지
-		if($(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").length > 1) {
-			$(this).closest('.file_div').closest('li').remove();
-		}
-	});
+    // 삭제 버튼 클릭 이벤트
+    $(document).on("click", ".delete_btn", function (e) {
+        e.preventDefault(); // a 태그 기본동작 방지
+        if ($(".apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li").length > 1) {
+            $(this).closest('.file_div').closest('li').remove();
+        }
+    });
 
-	// 파일 선택 시 파일명 표시
-	function file_upload(val){
-		// 파일 경로에서 파일명만 추출
-		var fileName = val.split('\\').pop().split('/').pop();
-		
-		// 현재 클릭된 파일 input의 부모 요소에서 파일명 표시 input 찾기
-		var fileInput = event.target;
-		var fileNameInput = $(fileInput).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']");
-		
-		// 파일명 표시
-		fileNameInput.val(fileName);
-	}
+    // 파일 선택 시 파일명 표시
+    function file_upload(val) {
+        // 파일 경로에서 파일명만 추출
+        var fileName = val.split('\\').pop().split('/').pop();
 
-	// 파일 input change 이벤트도 추가로 처리
-	$(document).on("change", "input[type='file'][name='upfile']", function(){
-		var fileName = this.value.split('\\').pop().split('/').pop();
-		$(this).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']").val(fileName);
-	});
+        // 현재 클릭된 파일 input의 부모 요소에서 파일명 표시 input 찾기
+        var fileInput = event.target;
+        var fileNameInput = $(fileInput).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']");
+
+        // 파일명 표시
+        fileNameInput.val(fileName);
+    }
+
+    // 파일 input change 이벤트도 추가로 처리
+    $(document).on("change", "input[type='file'][name='upfile']", function () {
+        var fileName = this.value.split('\\').pop().split('/').pop();
+        $(this).closest('.apply_con > .contents_con .write_con > .contents_con > .input_con .list_div > table > tbody > tr > .info_td .file_con > table > tbody > tr > .info_td > ul > li .file_div').find("input[name='upfile_name']").val(fileName);
+    });
+
+    function submitCancelForm(idx, table) {
+        const form = document.getElementById('cancelForm');
+        form.idx.value = idx;
+        form.table.value = table;
+        form.submit();
+    }
 </script>
 
 <?php
