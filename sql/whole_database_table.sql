@@ -515,6 +515,7 @@ CREATE TABLE `df_site_member` (
 	`f_password` VARCHAR(500) NOT NULL COMMENT '비밀번호(해시)' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_email` VARCHAR(255) NOT NULL COMMENT '이메일' COLLATE 'utf8mb4_0900_ai_ci',
 	`f_email_consent` ENUM('N','Y') NOT NULL DEFAULT 'Y' COMMENT '이메일 수신 동' COLLATE 'utf8mb4_0900_ai_ci',
+	`f_marketing_agree` ENUM('Y','N') NULL DEFAULT 'N' COMMENT '마켓팅 동의 여부' COLLATE 'utf8mb4_0900_ai_ci',
 	`is_out` TINYINT NULL DEFAULT '1' COMMENT '회원 탈퇴 여부 1: 미탈퇴, 2: 탈퇴',
 	PRIMARY KEY (`idx`) USING BTREE,
 	UNIQUE INDEX `f_user_id` (`f_user_id`) USING BTREE
@@ -522,8 +523,9 @@ CREATE TABLE `df_site_member` (
 COMMENT='개인/단체 회원 통합 테이블'
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=19
+AUTO_INCREMENT=20
 ;
+
 
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.

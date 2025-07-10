@@ -48,6 +48,7 @@ $list = $db->query("SELECT t1.*, t2.f_item_name, s.f_year, s.f_round, s.f_type
 echo "<table border='1'>";
 echo "<tr>";
 echo "<th>번호</th>";
+echo "<th>구분</th>";
 echo "<th>분야</th>";
 echo "<th>자격종목</th>";
 echo "<th>시험일정</th>";
@@ -64,6 +65,7 @@ foreach ($list as $row) {
     $category = $category_map[$row['f_category']] ?? '';
     echo "<tr>";
     echo "<td>{$no}</td>";
+    echo "<td>" . $row['f_applicant_type'] === 'P' ? '개인' : '단체' . "</td>";
     echo "<td>" . safeAdminOutput($category) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_item_name']) . "</td>";
     if (!empty($row['f_year'])) {

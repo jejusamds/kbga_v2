@@ -32,6 +32,7 @@ $list = $db->query("SELECT t1.*, t2.f_title
 echo "<table border='1'>";
 echo "<tr>";
 echo "<th>번호</th>";
+echo "<th>구분</th>";
 echo "<th>대회명</th>";
 echo "<th>참가부문</th>";
 echo "<th>참가분야</th>";
@@ -47,6 +48,7 @@ $no = count($list);
 foreach ($list as $row) {
     echo "<tr>";
     echo "<td>{$no}</td>";
+    echo "<td>" . $row['f_applicant_type'] === 'P' ? '개인' : '단체' . "</td>";
     echo "<td>" . safeAdminOutput($row['f_title']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_part']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_field']) . "</td>";

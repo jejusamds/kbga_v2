@@ -41,7 +41,7 @@ $no = count($list);
 foreach ($list as $row) {
     echo "<tr>";
     echo "<td>{$no}</td>";
-    echo "<td>" . safeAdminOutput($row['f_type']) . "</td>";
+    echo "<td>" . $row['f_applicant_type'] === 'P' ? '개인' : '단체' . "</td>";
     echo "<td>" . safeAdminOutput($row['f_edu_type_title']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_user_name']) . "</td>";
     echo "<td>" . safeAdminOutput($row['f_tel']) . "</td>";

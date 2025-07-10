@@ -110,6 +110,7 @@ $status_map = [
         <div class="panel">
             <table class="table" cellpadding="0" cellspacing="0">
                 <col width="60" />
+                <col width="60" />
                 <col width="150" />
                 <col width="150" />
                 <col width="140" />
@@ -122,6 +123,7 @@ $status_map = [
                 <thead>
                     <tr>
                         <td>번호</td>
+                        <td>구분</td>
                         <td>분야</td>
                         <td>자격종목</td>
                         <td>시험일정</td>
@@ -138,6 +140,7 @@ $status_map = [
                         <?php foreach ($list as $i => $row): ?>
                             <tr>
                                 <td><?= $total - ($page - 1) * $page_set - $i ?></td>
+                                <td><?= $row['f_applicant_type'] === 'P' ? '개인' : '단체' ?></td>
                                 <td><?= htmlspecialchars($category_map[$row['f_category']], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?></td>
                                 <td>

@@ -344,7 +344,7 @@ function printStatus($val)
                                                                                                                     </td>
                                                                                                                     <!--
                                                                                                                 <td align="left" class="btn_td">
-                                                                                                                    <a href="#" class="a_btn">
+                                                                                                                    <a href="javascript:void(0);" class="a_btn">
                                                                                                                         검색
                                                                                                                     </a>
                                                                                                                 </td>
@@ -658,7 +658,7 @@ function printStatus($val)
                                                                                                                     </td>
                                                                                                                     <!--
                                                                                                                 <td align="left" class="btn_td">
-                                                                                                                    <a href="#" class="a_btn">
+                                                                                                                    <a href="javascript:void(0);" class="a_btn">
                                                                                                                         검색
                                                                                                                     </a>
                                                                                                                 </td>
@@ -797,72 +797,71 @@ function printStatus($val)
                                                                                     <table cellpadding="0" cellspacing="0">
                                                                                         <tbody>
                                                                                             <tr>
-                                                                                                <td align="left"
-                                                                                                    class="title_td title_td03">
+                                                                                                <td align="left" class="title_td title_td03 valign_top_td">
                                                                                                     <span>
                                                                                                         단체교육신청서
                                                                                                     </span>
                                                                                                 </td>
-                                                                                                <td align="left"
-                                                                                                    class="info_td">
+                                                                                                <td align="left" class="info_td">
                                                                                                     <div class="file_con">
-                                                                                                        <table
-                                                                                                            cellpadding="0"
-                                                                                                            cellspacing="0">
+                                                                                                        <table cellpadding="0" cellspacing="0">
                                                                                                             <tbody>
                                                                                                                 <tr>
-                                                                                                                    <td align="left"
-                                                                                                                        class="title_td">
+																													<!--
+                                                                                                                    <td align="left" class="title_td">
                                                                                                                         <span>
                                                                                                                             사진첨부
                                                                                                                         </span>
                                                                                                                     </td>
-                                                                                                                    <td align="left"
-                                                                                                                        class="info_td">
+																													-->
+                                                                                                                    <td align="left" class="info_td">
                                                                                                                         <!--
-                                                                                                                    <div class="input_con">
-                                                                                                                        <table cellpadding="0" cellspacing="0">
-                                                                                                                            <tbody>
-                                                                                                                                <tr>
-                                                                                                                                    <td align="left" class="input_td">
-                                                                                                                                        <input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
-                                                                                                                                    </td>
-                                                                                                                                    <td align="left" class="btn_td">
-                                                                                                                                        <label>
-                                                                                                                                            <span>
-                                                                                                                                                파일선택
-                                                                                                                                            </span>
-                                                                                                                                            <input type="file" name="upfile" class="input" onchange="file_upload(this.value)" />
-                                                                                                                                        </label>
-                                                                                                                                    </td>
-                                                                                                                                </tr>
-                                                                                                                            </tbody>
-                                                                                                                        </table>
-                                                                                                                    </div>
-                                                                                                                    -->
+																														<div class="input_con">
+																															<table cellpadding="0" cellspacing="0">
+																																<tbody>
+																																	<tr>
+																																		<td align="left" class="input_td">
+																																			<input type="text" name="upfile_name" placeholder="선택된 파일 없음" class="file_upload input" readonly="readonly" />
+																																		</td>
+																																		<td align="left" class="btn_td">
+																																			<label>
+																																				<span>
+																																					파일선택
+																																				</span>
+																																				<input type="file" name="upfile" class="input" onchange="file_upload(this.value)" />
+																																			</label>
+																																		</td>
+																																	</tr>
+																																</tbody>
+																															</table>
+																														</div>
+																														-->
 
-                                                                                                                        <!-- <input
-                                                                                                                        type="text"
-                                                                                                                        name=""
-                                                                                                                        value="<?= htmlspecialchars($row['f_issue_file'], ENT_QUOTES) ?>"
-                                                                                                                        class="input"
-                                                                                                                        readonly="readonly" /> -->
-                                                                                                                        <?php if (!empty($row['f_issue_file'])): ?>
-                                                                                                                            <?php
-                                                                                                                            $fileName = $row['f_issue_file'];
-                                                                                                                            $fileUrl = '/userfiles/education/' . rawurlencode($fileName);
-                                                                                                                            ?>
-                                                                                                                            <a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
-                                                                                                                                download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>"
-                                                                                                                                class="download-link">
-                                                                                                                                <?= htmlspecialchars($fileName, ENT_QUOTES) ?>
-                                                                                                                            </a>
-                                                                                                                        <?php else: ?>
-                                                                                                                            <span
-                                                                                                                                class="no-file">
-                                                                                                                                파일이
-                                                                                                                                없습니다.</span>
-                                                                                                                        <?php endif; ?>
+                                                                                                                        <!-- 
+																														<input type="text" name="" value="<?= htmlspecialchars($row['f_issue_file'], ENT_QUOTES) ?>" class="input" readonly="readonly" /> 
+																														-->
+																														<ul>
+																														<?php if (!empty($row['f_issue_file'])): ?>
+																															<?php $files_arr = explode(',', $row['f_issue_file']);
+																															foreach ($files_arr as $fileName):
+																																$fileUrl = '/userfiles/education/' . rawurlencode($fileName);
+																															?>
+																																<li>
+																																	<a href="<?= htmlspecialchars($fileUrl, ENT_QUOTES) ?>"
+																																		download="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>"
+																																		class="download-link">
+																																		<?= htmlspecialchars($fileName, ENT_QUOTES) ?>
+																																	</a>
+																																</li>
+																															<?php endforeach; ?>
+																														<?php else: ?>
+																															<li>
+																																<span class="no-file">
+																																	파일이 없습니다.
+																																</span>
+																															</li>
+																														<?php endif; ?>
+																														</ul>
                                                                                                                     </td>
                                                                                                                 </tr>
                                                                                                             </tbody>
@@ -1011,7 +1010,7 @@ function printStatus($val)
                                 </div>
 
                                 <div class="btn_con">
-                                    <a href="#" class="a_btn a_btn01"
+                                    <a href="javascript:void(0);" class="a_btn a_btn01"
                                         onclick="submitCancelForm(<?= $idx ?>); return false;">신청취소</a>
 
                                     <a href="/mypage/history.html" class="a_btn a_btn02">

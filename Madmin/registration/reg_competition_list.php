@@ -91,6 +91,7 @@ if ($total > 0) {
         <div class="panel">
             <table class="table" cellpadding="0" cellspacing="0">
                 <col width="60" />
+                <col width="60" />
                 <col width="200" />
                 <col width="150" />
                 <col width="150" />
@@ -103,6 +104,7 @@ if ($total > 0) {
                 <thead>
                     <tr>
                         <td>번호</td>
+                        <td>구분</td>
                         <td>대회명</td>
                         <td>참가부문</td>
                         <td>참가분야</td>
@@ -119,6 +121,7 @@ if ($total > 0) {
                         <?php foreach ($list as $i => $row): ?>
                             <tr>
                                 <td><?= $total - ($page - 1) * $page_set - $i ?></td>
+                                <td><?= $row['f_applicant_type'] === 'P' ? '개인' : '단체' ?></td>
                                 <td><?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_part_title'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_field_title'], ENT_QUOTES) ?></td>
@@ -134,7 +137,7 @@ if ($total > 0) {
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="10" align="center">등록된 데이터가 없습니다.</td>
+                            <td colspan="11" align="center">등록된 데이터가 없습니다.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

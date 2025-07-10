@@ -1,69 +1,90 @@
 <?php
-	$Menu = "07";
-	$sMenu = "07-2";
+$Menu = "07";
+$sMenu = "07-2";
 
-        include $_SERVER['DOCUMENT_ROOT'].'/include/header.html';
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.html';
 
-        $user_idx = $login_user_info['idx'] ?? 0;
-        $user_id = $_SESSION['kbga_user_id'];
+$user_idx = $login_user_info['idx'] ?? 0;
+$user_id = $_SESSION['kbga_user_id'];
 
-        $exam_rows = $db->query(
-            "SELECT r.idx, r.f_applicant_status, i.f_item_name, r.wdate as reg_date
+$exam_rows = $db->query(
+    "SELECT r.f_applicant_type, r.idx, r.f_applicant_status, i.f_item_name, r.wdate as reg_date
                FROM df_site_application_registration r
                LEFT JOIN df_site_qualification_item i ON r.f_item_idx = i.idx
               WHERE r.f_user_id = :uid AND r.f_application_type = 'exam'
               ORDER BY r.idx DESC",
-            ['uid' => $user_id]
-        );
+    ['uid' => $user_id]
+);
 
-        $cert_rows = $db->query(
-            "SELECT r.idx, r.f_applicant_status, i.f_item_name, r.wdate as reg_date
+$cert_rows = $db->query(
+    "SELECT r.f_applicant_type, r.idx, r.f_applicant_status, i.f_item_name, r.wdate as reg_date
                FROM df_site_application_registration r
                LEFT JOIN df_site_qualification_item i ON r.f_item_idx = i.idx
               WHERE r.f_user_id = :uid AND r.f_application_type = 'cert'
               ORDER BY r.idx DESC",
-            ['uid' => $user_id]
-        );
+    ['uid' => $user_id]
+);
 
-        $edu_rows = $db->query(
-            "SELECT r.idx, b.subject, r.reg_date, r.f_applicant_status
+$edu_rows = $db->query(
+    "SELECT r.f_type as f_applicant_type, r.idx, b.subject, r.reg_date, r.f_applicant_status
                FROM df_site_edu_registration r
                LEFT JOIN df_site_bbs b ON r.f_news_idx = b.idx
               WHERE r.f_user_id = :uid
               ORDER BY r.idx DESC",
-            ['uid' => $user_id]
-        );
+    ['uid' => $user_id]
+);
 
-        function printStatus($val)
-        {
-            switch ($val) {
-                case 'ing':
-                    return '접수중';
-                case 'done':
-                    return '완료';
-                case 'cancle':
-                    return '취소';
-                case 'hold':
-                    return '보류';
-                default:
-                    return $val;
-            }
-        }
+$competition_rows = $db->query(
+    "SELECT r.f_applicant_type, r.idx, r.reg_date, r.f_applicant_status, t2.f_title
+               FROM df_site_competition_registration r
+               LEFT JOIN df_site_competition t2 ON r.f_competition_idx = t2.idx
+              WHERE r.f_user_id = :uid
+              ORDER BY r.idx DESC",
+    ['uid' => $user_id]
+);
+
+function printStatus($val)
+{
+    switch ($val) {
+        case 'ing':
+            return '접수중';
+        case 'done':
+            return '완료';
+        case 'cancle':
+            return '취소';
+        case 'hold':
+            return '보류';
+        default:
+            return $val;
+    }
+}
+
+function printAppType($val)
+{
+    switch ($val) {
+        case 'P':
+            return '개인';
+        case 'O':
+            return '단체';
+        default:
+            return $val;
+    }
+}
 ?>
 
 <div id="container">
     <div id="sub_con">
         <?php
-			include $_SERVER['DOCUMENT_ROOT'].'/include/sub_banner.html'; 
-		?>
+        include $_SERVER['DOCUMENT_ROOT'] . '/include/sub_banner.html';
+        ?>
 
         <div class="contents_con">
 
             <div class="mypage_con">
                 <div class="contents_con">
                     <?php
-						include $_SERVER['DOCUMENT_ROOT'].'/mypage/include/mypage_nav.html'; 
-					?>
+                    include $_SERVER['DOCUMENT_ROOT'] . '/mypage/include/mypage_nav.html';
+                    ?>
 
                     <div class="contents_con">
                         <div class="title_con">
@@ -101,29 +122,34 @@
                                                 <div class="list_con">
                                                     <ul>
                                                         <?php if (empty($exam_rows)): ?>
-                                                        <li class="none_li"><span>신청 이력이 없습니다.</span></li>
+                                                            <li class="none_li"><span>신청 이력이 없습니다.</span></li>
                                                         <?php else: ?>
-                                                        <?php foreach ($exam_rows as $row): ?>
-                                                        <li>
-                                                                               <a href="/mypage/history_view_license.html?idx=<?= $row['idx'] ?>">
-																<table cellpadding="0" cellspacing="0">
-																	<tbody>
-																		<tr>
-																			<td align="center"><span>시험접수</span></td>
-																			<td align="center"><span>
-																					<?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
-																				</span></td>
-																			<td align="center"><span><?= printStatus($row['f_applicant_status']) ?></span></td>
-																			<td align="center"><span>
-																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
-																				</span></td>
-																			<td align="center"><span>자세히 보기</span></td>
-																		</tr>
-																	</tbody>
-																</table>
-															</a>
-                                                        </li>
-                                                        <?php endforeach; ?>
+                                                            <?php foreach ($exam_rows as $row): ?>
+                                                                <li>
+                                                                    <a
+                                                                        href="/mypage/history_view_license.html?idx=<?= $row['idx'] ?>">
+                                                                        <table cellpadding="0" cellspacing="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="center">
+                                                                                        <span><?= printAppType($row['f_applicant_type']) ?></span>
+                                                                                    </td>
+                                                                                    <td align="center"><span>
+                                                                                            <?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
+                                                                                        </span></td>
+                                                                                    <td align="center">
+                                                                                        <span><?= printStatus($row['f_applicant_status']) ?></span>
+                                                                                    </td>
+                                                                                    <td align="center"><span>
+                                                                                            <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+                                                                                        </span></td>
+                                                                                    <td align="center"><span>자세히 보기</span></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </a>
+                                                                </li>
+                                                            <?php endforeach; ?>
                                                         <?php endif; ?>
                                                     </ul>
                                                 </div>
@@ -146,7 +172,7 @@
                                                                 <td align="center"><span>명칭</span></td>
                                                                 <td align="center"><span>결과</span></td>
                                                                 <td align="center"><span>날짜</span></td>
-																<td align="center"><span>상세</span></td>
+                                                                <td align="center"><span>상세</span></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -155,30 +181,35 @@
                                                 <div class="list_con">
                                                     <ul>
                                                         <?php if (empty($cert_rows)): ?>
-                                                        <li class="none_li"><span>신청 이력이 없습니다.</span></li>
+                                                            <li class="none_li"><span>신청 이력이 없습니다.</span></li>
                                                         <?php else: ?>
-                                                        <?php foreach ($cert_rows as $row): ?>
-                                                        <li>
-                                                                               <a href="/mypage/history_view_license.html?idx=<?= $row['idx'] ?>">
-																<table cellpadding="0" cellspacing="0">
-																	<tbody>
-																		<tr>
-																			<td align="center"><span>자격증 발급</span></td>
-																			<td align="center"><span>
-																					<?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
-																				</span></td>
-																			<td align="center"><span><?= printStatus($row['f_applicant_status']) ?></span></td>
-																			<td align="center"><span>
-																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
-																				</span></td>
-																			
-																			<td align="center"><span>자세히 보기</span></td>
-																		</tr>
-																	</tbody>
-																</table>
-															</a>
-                                                        </li>
-                                                        <?php endforeach; ?>
+                                                            <?php foreach ($cert_rows as $row): ?>
+                                                                <li>
+                                                                    <a
+                                                                        href="/mypage/history_view_license.html?idx=<?= $row['idx'] ?>">
+                                                                        <table cellpadding="0" cellspacing="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="center">
+                                                                                        <span><?= printAppType($row['f_applicant_type']) ?></span>
+                                                                                    </td>
+                                                                                    <td align="center"><span>
+                                                                                            <?= htmlspecialchars($row['f_item_name'], ENT_QUOTES) ?>
+                                                                                        </span></td>
+                                                                                    <td align="center">
+                                                                                        <span><?= printStatus($row['f_applicant_status']) ?></span>
+                                                                                    </td>
+                                                                                    <td align="center"><span>
+                                                                                            <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+                                                                                        </span></td>
+
+                                                                                    <td align="center"><span>자세히 보기</span></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </a>
+                                                                </li>
+                                                            <?php endforeach; ?>
                                                         <?php endif; ?>
                                                     </ul>
                                                 </div>
@@ -201,7 +232,7 @@
                                                                 <td align="center"><span>명칭</span></td>
                                                                 <td align="center"><span>결과</span></td>
                                                                 <td align="center"><span>날짜</span></td>
-																<td align="center"><span>상세</span></td>
+                                                                <td align="center"><span>상세</span></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -210,29 +241,105 @@
                                                 <div class="list_con">
                                                     <ul>
                                                         <?php if (empty($edu_rows)): ?>
-                                                        <li class="none_li"><span>신청 이력이 없습니다.</span></li>
+                                                            <li class="none_li"><span>신청 이력이 없습니다.</span></li>
                                                         <?php else: ?>
-                                                        <?php foreach ($edu_rows as $row): ?>
-                                                        <li>
-                                                                               <a href="/mypage/history_view_education.html?idx=<?= $row['idx'] ?>">
-																<table cellpadding="0" cellspacing="0">
-																	<tbody>
-																		<tr>
-																			<td align="center"><span>교육/세미나</span></td>
-																			<td align="center"><span>
-																					<?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
-																				</span></td>
-																			<td align="center"><span><?= printStatus($row['f_applicant_status']) ?></span></td>
-																			<td align="center"><span>
-																					<?= date('Y.m.d', strtotime($row['reg_date'])) ?>
-																				</span></td>
-																			<td align="center"><span>자세히 보기</span></td>
-																		</tr>
-																	</tbody>
-																</table>
-															</a>
-                                                        </li>
-                                                        <?php endforeach; ?>
+                                                            <?php foreach ($edu_rows as $row): ?>
+                                                                <li>
+                                                                    <a
+                                                                        href="/mypage/history_view_education.html?idx=<?= $row['idx'] ?>">
+                                                                        <table cellpadding="0" cellspacing="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="center">
+                                                                                        <span><?= printAppType($row['f_applicant_type']) ?></span>
+                                                                                    </td>
+                                                                                    <td align="center"><span>
+                                                                                            <?= htmlspecialchars($row['subject'], ENT_QUOTES) ?>
+                                                                                        </span></td>
+                                                                                    <td align="center">
+                                                                                        <span><?= printStatus($row['f_applicant_status']) ?></span>
+                                                                                    </td>
+                                                                                    <td align="center"><span>
+                                                                                            <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+                                                                                        </span></td>
+                                                                                    <td align="center"><span>자세히 보기</span></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </a>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="list_div">
+                                            <div class="title_con">
+                                                <div class="dot"></div>
+                                                <span>대회접수</span>
+                                            </div>
+
+                                            <div class="list_con">
+                                                <div class="title_con">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td align="center"><span>신청 구분</span></td>
+                                                                <td align="center"><span>명칭</span></td>
+                                                                <td align="center"><span>결과</span></td>
+                                                                <td align="center"><span>날짜</span></td>
+                                                                <td align="center"><span>상세</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div class="list_con">
+                                                    <ul>
+                                                        <?php if (empty($competition_rows)): ?>
+                                                            <li class="none_li"><span>신청 이력이 없습니다.</span></li>
+                                                        <?php else: ?>
+                                                            <?php foreach ($competition_rows as $row): ?>
+                                                                <li>
+                                                                    <a
+                                                                        href="/mypage/history_view_contest.html?idx=<?= $row['idx'] ?>">
+                                                                        <table cellpadding="0" cellspacing="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="center">
+                                                                                        <span>
+                                                                                            <?= printAppType($row['f_applicant_type']) ?>
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <span>
+                                                                                            <?= htmlspecialchars($row['f_title'], ENT_QUOTES) ?>
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <span>
+                                                                                            <?= printStatus($row['f_applicant_status']) ?>
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <span>
+                                                                                            <?= date('Y.m.d', strtotime($row['reg_date'])) ?>
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td align="center">
+                                                                                        <span>
+                                                                                            자세히 보기
+                                                                                        </span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </a>
+                                                                </li>
+                                                            <?php endforeach; ?>
                                                         <?php endif; ?>
                                                     </ul>
                                                 </div>
@@ -253,5 +360,5 @@
 </div>
 
 <?php
-	include $_SERVER['DOCUMENT_ROOT'].'/include/footer.html'; 
+include $_SERVER['DOCUMENT_ROOT'] . '/include/footer.html';
 ?>

@@ -1,0 +1,7 @@
+Time : 11:28:56
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'r.f_applicant_type' in 'field list'
+Raw SQL : SELECT r.f_applicant_type, r.idx, b.subject, r.reg_date, r.f_applicant_status
+               FROM df_site_edu_registration r
+               LEFT JOIN df_site_bbs b ON r.f_news_idx = b.idx
+              WHERE r.f_user_id = :uid
+              ORDER BY r.idx DESC

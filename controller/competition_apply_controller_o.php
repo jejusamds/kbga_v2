@@ -37,6 +37,26 @@ function upload_file(array $file): array {
     return ['saved' => $new, 'original' => $orig];
 }
 
+function upload_files(array $files): array {
+    $list = [];
+    if (!isset($files['name']) || !is_array($files['name'])) {
+        return $list;
+    }
+    $cnt = count($files['name']);
+    for ($i = 0; $i < $cnt; $i++) {
+        if (empty($files['name'][$i])) {
+            continue;
+        }
+        $info = [
+            'name' => $files['name'][$i],
+            'tmp_name' => $files['tmp_name'][$i] ?? '',
+            'error' => $files['error'][$i] ?? UPLOAD_ERR_NO_FILE,
+        ];
+        $list[] = upload_file($info);
+    }
+    return $list;
+}
+
 // 1) POST + mode 체크
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || ($_POST['mode'] ?? '') !== 'register') {
     return_json(['result'=>'error','msg'=>'잘못된 요청입니다.']);
@@ -98,9 +118,11 @@ $birth_date  = str_replace('.', '-', $filtered['f_birth_date']); // 'YYYY-MM-DD'
 $payment_cat = implode(',', $filtered['f_payment_category']);    // checkbox → comma list
 
 $uploadName = null;
-if (!empty($_FILES['f_issue_file']['name'])) {
-    $info = upload_file($_FILES['f_issue_file']);
-    $uploadName = $info['saved'];
+if (!empty($_FILES['upfile']['name'])) {
+    $uploaded = upload_files($_FILES['upfile']);
+    if ($uploaded) {
+        $uploadName = implode(',', array_column($uploaded, 'saved'));
+    }
 }
 
 $f_user_id = isset($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '' ? $_SESSION['kbga_user_id'] : '';

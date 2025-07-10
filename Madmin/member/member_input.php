@@ -28,6 +28,7 @@ $row = [
     'f_password' => '',
     'f_email' => '',
     'f_email_consent' => 'Y',
+    'f_marketing_agree' => 'N',
     'wdate' => ''
 ];
 
@@ -187,6 +188,15 @@ if ($idx) {
                             <select name="f_email_consent" class="form-control" style="width:auto;">
                                 <option value="Y" <?= $row['f_email_consent'] == 'Y' ? 'selected' : '' ?>>Y</option>
                                 <option value="N" <?= $row['f_email_consent'] == 'N' ? 'selected' : '' ?>>N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>마케팅 동의</th>
+                        <td class="comALeft">
+                            <select name="f_marketing_agree" class="form-control" style="width:auto;">
+                                <option value="Y" <?= $row['f_marketing_agree'] == 'Y' ? 'selected' : '' ?>>Y</option>
+                                <option value="N" <?= $row['f_marketing_agree'] == 'N' ? 'selected' : '' ?>>N</option>
                             </select>
                         </td>
                     </tr>

@@ -363,7 +363,7 @@ unset($sc);
                                                                                             value="<?= $default['f_zip'] ?? '' ?>" />
                                                                                     </td>
                                                                                     <td align="left" class="btn_td">
-                                                                                        <a href="#" class="a_btn"
+                                                                                        <a href="javascript:void(0);" class="a_btn"
                                                                                             onclick="openPostcode(); return false;">
                                                                                             검색
                                                                                         </a>
