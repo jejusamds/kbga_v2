@@ -1,6 +1,7 @@
 CREATE TABLE `df_site_edu_registration` (
 	`idx` INT NOT NULL AUTO_INCREMENT,
 	`f_applicant_status` ENUM('ing','done','cancle','hold','re') NOT NULL DEFAULT 'ing' COLLATE 'utf8_general_ci',
+	`f_status_reason` TEXT NOT NULL COLLATE 'utf8_general_ci',
 	`f_type` CHAR(1) NOT NULL COMMENT 'P:개인, O:단체' COLLATE 'utf8_general_ci',
 	`f_news_idx` INT NOT NULL,
 	`f_edu_type_idx` INT NOT NULL,
@@ -16,7 +17,7 @@ CREATE TABLE `df_site_edu_registration` (
 	`f_address2` VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci',
 	`f_email` VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci',
 	`f_issue_file` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
-	`f_issue_file_name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`f_issue_file_name` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
 	`f_payer_name` VARCHAR(100) NOT NULL COLLATE 'utf8_general_ci',
 	`f_payer_bank` VARCHAR(100) NOT NULL COLLATE 'utf8_general_ci',
 	`f_payment_category` VARCHAR(100) NOT NULL COLLATE 'utf8_general_ci',
@@ -27,5 +28,5 @@ CREATE TABLE `df_site_edu_registration` (
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=9
+AUTO_INCREMENT=10
 ;
