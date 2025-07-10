@@ -38,6 +38,7 @@ $list = $db->query("SELECT * FROM {$this_table} ORDER BY prior DESC");
                     <col width="80" />
                     <col width="80" />
                     <col width="120" />
+                    <col width="60" />
                 </colgroup>
                 <thead>
                     <tr>
@@ -48,6 +49,7 @@ $list = $db->query("SELECT * FROM {$this_table} ORDER BY prior DESC");
                         <th>타입</th>
                         <th>순서</th>
                         <th>작성일</th>
+                        <th>수정</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,18 +59,14 @@ $list = $db->query("SELECT * FROM {$this_table} ORDER BY prior DESC");
                                 <td><input type="checkbox" class="select_checkbox" value="<?= $row['idx'] ?>"></td>
                                 <td><?= count($list) - $i ?></td>
                                 <td class="comALeft">
-                                    <a href="main_slide_input.php?idx=<?= $row['idx'] ?>">
-                                        <?php if ($row['thumbnail_pc']): ?>
-                                            <img src="/userfiles/main_slide/<?= $row['thumbnail_pc'] ?>" style="height:50px;">
-                                        <?php endif; ?>
-                                    </a>
+                                    <?php if ($row['thumbnail_pc']): ?>
+                                        <img src="/userfiles/main_slide/<?= $row['thumbnail_pc'] ?>" style="height:50px;">
+                                    <?php endif; ?>
                                 </td>
                                 <td class="comALeft">
-                                    <a href="main_slide_input.php?idx=<?= $row['idx'] ?>">
-                                        <?php if ($row['thumbnail_m']): ?>
-                                            <img src="/userfiles/main_slide/<?= $row['thumbnail_m'] ?>" style="height:50px;">
-                                        <?php endif; ?>
-                                    </a>
+                                    <?php if ($row['thumbnail_m']): ?>
+                                        <img src="/userfiles/main_slide/<?= $row['thumbnail_m'] ?>" style="height:50px;">
+                                    <?php endif; ?>
                                 </td>
                                 <td><?= $row['media_type'] ?></td>
                                 <td>
@@ -103,6 +101,11 @@ $list = $db->query("SELECT * FROM {$this_table} ORDER BY prior DESC");
                                     <div class="clear"></div>
                                 </td>
                                 <td><?= substr($row['wdate'], 0, 10) ?></td>
+                                <td>
+                                    <!-- <a href="main_slide_input.php?idx<?= $row['idx'] ?>" class="btn btn-success btn-sm">수정</a> -->
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="location.href='main_slide_input.php?idx=<?= $row['idx'] ?>';">수정</button>
+                                </td>
                             </tr>
                         <?php endforeach; else: ?>
                         <tr>

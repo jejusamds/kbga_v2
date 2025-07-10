@@ -1,3 +1,15 @@
+Time : 16:13:25
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_status_reason' in 'field list'
+Raw SQL : UPDATE df_site_application_registration SET f_applicant_status=:st, f_status_reason=:rs WHERE idx=:idx
+
+Time : 16:11:31
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_status_reason' in 'field list'
+Raw SQL : UPDATE df_site_application_registration SET f_applicant_status=:st, f_status_reason=:rs WHERE idx=:idx
+
+Time : 16:11:21
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'f_status_reason' in 'field list'
+Raw SQL : UPDATE df_site_application_registration SET f_applicant_status=:st, f_status_reason=:rs WHERE idx=:idx
+
 Time : 11:28:56
 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'r.f_applicant_type' in 'field list'
 Raw SQL : SELECT r.f_applicant_type, r.idx, b.subject, r.reg_date, r.f_applicant_status

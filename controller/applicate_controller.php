@@ -125,18 +125,22 @@ if (empty($filtered['agree_privacy'])) {
 $birth_date = str_replace('.', '-', $filtered['f_birth_date']);
 $payment_cat = implode(',', $filtered['f_payment_category']);
 
-$uploadNames = [];
+$uploadSaved = [];
+$uploadOriginal = [];
 if (!empty($_FILES['f_issue_file']['name'])) {
     $info = upload_file($_FILES['f_issue_file']);
-    $uploadNames[] = $info['saved'];
+    $uploadSaved[] = $info['saved'];
+    $uploadOriginal[] = $info['original'];
 }
 if (!empty($_FILES['upfile']['name'])) {
     $uploaded = upload_files($_FILES['upfile']);
     if ($uploaded) {
-        $uploadNames = array_merge($uploadNames, $uploaded);
+        $uploadSaved = array_merge($uploadSaved, array_column($uploaded, 'saved'));
+        $uploadOriginal = array_merge($uploadOriginal, array_column($uploaded, 'original'));
     }
 }
-$uploadName = $uploadNames ? implode(',', $uploadNames) : null;
+$uploadName = $uploadSaved ? implode(',', $uploadSaved) : null;
+$uploadOrig = $uploadOriginal ? implode(',', $uploadOriginal) : null;
 
 $f_user_id = isset($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '' ? $_SESSION['kbga_user_id'] : '';
 
@@ -158,6 +162,7 @@ $params = [
     'f_application_type' => $filtered['f_application_type'],
     'f_issue_desire' => (int) $filtered['f_issue_desire'],
     'f_issue_file' => $uploadName,
+    'f_issue_file_name' => $uploadOrig,
     'f_payer_name' => $filtered['f_payer_name'],
     'f_payer_bank' => $filtered['f_payer_bank'],
     'f_payment_category' => $payment_cat,
@@ -169,13 +174,13 @@ $sql = "INSERT INTO df_site_application_registration (
             f_applicant_type, f_category, f_item_idx, f_schedule_idx,
             f_user_name, f_user_name_en, f_tel, f_birth_date,
             f_zip, f_address1, f_address2, f_email,
-            f_application_type, f_issue_desire, f_issue_file,
+            f_application_type, f_issue_desire, f_issue_file, f_issue_file_name,
             f_payer_name, f_payer_bank, f_payment_category, f_user_id
         ) VALUES (
             :f_applicant_type, :f_category, :f_item_idx, :f_schedule_idx,
             :f_user_name, :f_user_name_en, :f_tel, :f_birth_date,
             :f_zip, :f_address1, :f_address2, :f_email,
-            :f_application_type, :f_issue_desire, :f_issue_file,
+            :f_application_type, :f_issue_desire, :f_issue_file, :f_issue_file_name,
             :f_payer_name, :f_payer_bank, :f_payment_category, :f_user_id
         )";
 //return_json(['result' => 'test', 'sql' => $sql, 'params' => $params]);

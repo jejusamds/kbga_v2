@@ -3,7 +3,10 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Madmin/inc/top.php";
 
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $status = $_GET['status'] ?? '';
-$param = "status={$status}";
+$type = $_GET['type'] ?? '';
+$search_field = $_GET['search_field'] ?? '';
+$keyword = trim($_GET['keyword'] ?? '');
+$param = "status={$status}&type={$type}&search_field={$search_field}&keyword=" . urlencode($keyword);
 $page_set = 15;
 $block_set = 10;
 
@@ -12,6 +15,23 @@ $params = [];
 if ($status !== '') {
     $where .= ' AND t1.f_applicant_status=:status';
     $params['status'] = $status;
+}
+
+if ($type !== '') {
+    $where .= ' AND t1.f_applicant_type=:type';
+    $params['type'] = $type;
+}
+
+if ($keyword !== '' && $search_field !== '') {
+    $field_map = [
+        'id'   => 'f_user_id',
+        'name' => 'f_user_name',
+        'tel'  => 'f_tel',
+    ];
+    if (isset($field_map[$search_field])) {
+        $where .= " AND t1." . $field_map[$search_field] . " LIKE :keyword";
+        $params['keyword'] = "%{$keyword}%";
+    }
 }
 
 $sql = "SELECT COUNT(*) FROM df_site_application_registration t1 {$where}";
@@ -87,6 +107,17 @@ $status_map = [
                                     <option value="cancle" <?= $status === 'cancle' ? 'selected' : '' ?>>취소</option>
                                     <option value="hold" <?= $status === 'hold' ? 'selected' : '' ?>>보류</option>
                                 </select>
+                                <select name="type" class="form-control" style="width:auto; display:inline-block;">
+                                    <option value="" <?= $type === '' ? 'selected' : '' ?>>전체</option>
+                                    <option value="P" <?= $type === 'P' ? 'selected' : '' ?>>개인</option>
+                                    <option value="O" <?= $type === 'O' ? 'selected' : '' ?>>단체</option>
+                                </select>
+                                <select name="search_field" class="form-control" style="width:auto; display:inline-block;">
+                                    <option value="id" <?= $search_field === 'id' ? 'selected' : '' ?>>아이디</option>
+                                    <option value="name" <?= $search_field === 'name' ? 'selected' : '' ?>>이름</option>
+                                    <option value="tel" <?= $search_field === 'tel' ? 'selected' : '' ?>>전화번호</option>
+                                </select>
+                                <input type="text" name="keyword" class="form-control" style="width:auto; display:inline-block;" value="<?= htmlspecialchars($keyword, ENT_QUOTES) ?>" />
                                 <button class="btn btn-info btn-sm" type="submit">검색</button>
                             </td>
                         </tr>

@@ -475,7 +475,7 @@ if ($filtered['mode'] === 'modify_profile') {
             'f_address2 = :f_address2',
             'f_email = :f_email',
             'f_email_consent = :f_email_consent',
-            'f_marketing_agree = :f_marketing_agree',
+            
             'f_affiliation_flag = :f_affiliation_flag',
             'f_affiliation_name = :f_affiliation_name'
         ];
@@ -495,7 +495,7 @@ if ($filtered['mode'] === 'modify_profile') {
             'f_address2' => $filtered['f_address2'] ?? null,
             'f_email' => $filtered['f_email'],
             'f_email_consent' => ($filtered['f_email_consent'] === 'Y' ? 'Y' : 'N'),
-            'f_marketing_agree' => ($filtered['f_marketing_agree'] === 'Y' ? 'Y' : 'N'),
+            
             'f_affiliation_flag' => ($filtered['f_affiliation_flag'] === 'Y' ? 'Y' : 'N'),
             'f_affiliation_name' => $filtered['f_affiliation_name'] ?? null,
             'f_user_id' => $_SESSION['kbga_user_id']
@@ -541,8 +541,8 @@ if ($filtered['mode'] === 'modify_profile') {
             'f_address1       = :f_address1',
             'f_address2       = :f_address2',
             'f_email          = :f_email',
-            'f_email_consent  = :f_email_consent',
-            'f_marketing_agree  = :f_marketing_agree'
+            'f_email_consent  = :f_email_consent'
+            
         ];
 
         $params = [
@@ -555,7 +555,6 @@ if ($filtered['mode'] === 'modify_profile') {
             'f_address2' => $filtered['f_address2'] ?? null,
             'f_email' => $filtered['f_email'],
             'f_email_consent' => ($filtered['f_email_consent'] === 'Y' ? 'Y' : 'N'),
-            'f_marketing_agree' => ($filtered['f_marketing_agree'] === 'Y' ? 'Y' : 'N'),
             'f_user_id' => $_SESSION['kbga_user_id']
         ];
 

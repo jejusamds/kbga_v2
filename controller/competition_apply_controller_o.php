@@ -117,13 +117,17 @@ if (empty($filtered['agree_terms']) || empty($filtered['agree_privacy'])) {
 $birth_date  = str_replace('.', '-', $filtered['f_birth_date']); // 'YYYY-MM-DD'
 $payment_cat = implode(',', $filtered['f_payment_category']);    // checkbox → comma list
 
-$uploadName = null;
+$uploadSaved = [];
+$uploadOriginal = [];
 if (!empty($_FILES['upfile']['name'])) {
     $uploaded = upload_files($_FILES['upfile']);
     if ($uploaded) {
-        $uploadName = implode(',', array_column($uploaded, 'saved'));
+        $uploadSaved = array_merge($uploadSaved, array_column($uploaded, 'saved'));
+        $uploadOriginal = array_merge($uploadOriginal, array_column($uploaded, 'original'));
     }
 }
+$uploadName = $uploadSaved ? implode(',', $uploadSaved) : null;
+$uploadOrig = $uploadOriginal ? implode(',', $uploadOriginal) : null;
 
 $f_user_id = isset($_SESSION['kbga_user_id']) && $_SESSION['kbga_user_id'] != '' ? $_SESSION['kbga_user_id'] : '';
 
@@ -152,6 +156,7 @@ $params = [
     'f_tel'             => $filtered['f_tel'],
     'f_email'           => $filtered['f_email'],
     'f_issue_file'      => $uploadName,
+    'f_issue_file_name' => $uploadOrig,
     'f_zip'             => $filtered['f_zip'],
     'f_address1'        => $filtered['f_address1'],
     'f_address2'        => $filtered['f_address2'],
@@ -180,6 +185,7 @@ INSERT INTO df_site_competition_registration (
     f_tel,
     f_email,
     f_issue_file,
+    f_issue_file_name,
     f_zip,
     f_address1,
     f_address2,
@@ -204,6 +210,7 @@ INSERT INTO df_site_competition_registration (
     :f_tel,
     :f_email,
     :f_issue_file,
+    :f_issue_file_name,
     :f_zip,
     :f_address1,
     :f_address2,
