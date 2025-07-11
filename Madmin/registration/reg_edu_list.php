@@ -151,7 +151,7 @@ if ($total > 0) {
                                 </td>
                                 <td><?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?></td>
-                                <td><?= htmlspecialchars($status_map[$row['f_applicant_status']] ?? $row['f_applicant_status'], ENT_QUOTES) ?></td>
+                                <td style="<?=$row['f_applicant_status'] === 're' ? 'color: blue;' : ''?>"><?= htmlspecialchars($status_map[$row['f_applicant_status']] ?? $row['f_applicant_status'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['reg_date'], ENT_QUOTES) ?></td>
                             </tr>
                         <?php endforeach; ?>

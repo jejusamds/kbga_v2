@@ -33,6 +33,8 @@ function printStatus($val)
             return '취소';
         case 'hold':
             return '보류';
+        case 're':
+            return '수정됨';
         default:
             return $val;
     }
@@ -132,22 +134,24 @@ $p_value = implode(', ', $labels);
                                             </tbody>
                                         </table>
 
-										<div class="reason_con">
-											<table cellpadding="0" cellspacing="0">
-												<tbody>
-													<tr>
-														<td valign="top" align="left" class="icon_td">
-															<img src="/img/sub/reason_icon.svg" alt="사유 아이콘" class="fx" />
-														</td>
-														<td align="top "align="left" class="text_td">
-															<span>
-																해당 신청서가 보류된 사유를 알려드리는 공간입니다.
-															</span>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
+<?php if (!empty($row['f_status_reason'])): ?>
+                                                                               <div class="reason_con">
+                                                                               <table cellpadding="0" cellspacing="0">
+                                                                               <tbody>
+                                                                               <tr>
+                                                                               <td valign="top" align="left" class="icon_td">
+                                                                               <img src="/img/sub/reason_icon.svg" alt="사유 아이콘" class="fx" />
+                                                                               </td>
+                                                                               <td align="top" align="left" class="text_td">
+                                                                               <span>
+                                                                               <?= htmlspecialchars($row['f_status_reason'], ENT_QUOTES) ?>
+                                                                               </span>
+                                                                               </td>
+                                                                               </tr>
+                                                                               </tbody>
+                                                                               </table>
+                                                                               </div>
+<?php endif; ?>
                                     </div>
 
                                     <div class="contents_con">
@@ -156,7 +160,11 @@ $p_value = implode(', ', $labels);
                                             <div class="apply_con">
                                                 <div class="contents_con">
 
-                                                    <form action="" method="" autocomplete="off">
+                                                   <form id="fileModifyForm" action="/mypage/file_modify.php" method="post" enctype="multipart/form-data" autocomplete="off">
+                                                       <input type="hidden" name="table" value="application" />
+                                                       <input type="hidden" name="idx" value="<?= $idx ?>" />
+                                                       <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
+                                                       <div id="deleted_file_inputs"></div>
                                                         <div class="write_con">
                                                             <div class="contents_con">
                                                                 <div class="input_con">
@@ -595,7 +603,9 @@ $p_value = implode(', ', $labels);
 																																				<tbody>
 																																					<tr>
 																																						<td align="left" class="input_td">
-																																							<input type="text" name="" value="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" class="input" readonly="readonly" />
+                                                                               <input type="hidden" name="existing_files[]" value="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" />
+                                                                               <input type="hidden" name="existing_files[]" value="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" />
+                                                                               <input type="text" name="" value="<?= htmlspecialchars($fileName, ENT_QUOTES) ?>" class="input" readonly="readonly" />
 																																						</td>
 																																					</tr>
 																																				</tbody>
@@ -861,7 +871,11 @@ $p_value = implode(', ', $labels);
                                             <div class="apply_con" style="">
                                                 <div class="contents_con">
 
-                                                    <form action="" method="" autocomplete="off">
+                                                    <form id="fileModifyForm" action="/mypage/file_modify.php" method="post" enctype="multipart/form-data" autocomplete="off">
+                                                        <input type="hidden" name="table" value="application" />
+                                                        <input type="hidden" name="idx" value="<?= $idx ?>" />
+                                                        <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>" />
+                                                        <div id="deleted_file_inputs"></div>
                                                         <div class="write_con">
                                                             <div class="contents_con">
                                                                 <div class="input_con">
@@ -1540,7 +1554,7 @@ $p_value = implode(', ', $labels);
                                 </div>
 
                                 <div class="btn_con">
-                                    <a href="javascript:void(0);" class="a_btn a_btn00" onclick="">수정하기</a>
+                                    <a href="javascript:void(0);" class="a_btn a_btn00" onclick="submitModifyForm(); return false;">수정하기</a>
 
                                     <a href="javascript:void(0);" class="a_btn a_btn01" onclick="submitCancelForm(<?= $idx ?>, 'application'); return false;">신청취소</a>
 
@@ -1658,6 +1672,21 @@ $p_value = implode(', ', $labels);
         form.table.value = table;
         form.submit();
     }
+
+    function submitModifyForm() {
+        const form = document.getElementById('fileModifyForm');
+        if (form) form.submit();
+    }
+
+    $(function(){
+        $(document).on('click', '.existing_delete_btn', function(e){
+            e.preventDefault();
+            var fileName = $(this).closest('.file_div').find('input[name="existing_files[]"]').val();
+            $('<input>').attr({type:'hidden', name:'delete_files[]', value:fileName}).appendTo('#deleted_file_inputs');
+            $(this).closest('.file_div').parent('li').remove();
+        });
+    });
+
 </script>
 
 <?php

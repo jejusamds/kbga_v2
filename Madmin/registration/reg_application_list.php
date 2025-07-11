@@ -190,7 +190,7 @@ $status_map = [
                                 <td><?= htmlspecialchars($application_type_map[$row['f_application_type']], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_tel'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['f_email'], ENT_QUOTES) ?></td>
-                                <td><?= htmlspecialchars($status_map[$row['f_applicant_status']] ?? $row['f_applicant_status'], ENT_QUOTES) ?></td>
+                                <td style="<?=$row['f_applicant_status'] === 're' ? 'color: blue;' : ''?>"><?= htmlspecialchars($status_map[$row['f_applicant_status']] ?? $row['f_applicant_status'], ENT_QUOTES) ?></td>
                                 <td><?= htmlspecialchars($row['wdate'], ENT_QUOTES) ?></td>
                             </tr>
                         <?php endforeach; ?>
