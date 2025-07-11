@@ -336,7 +336,7 @@ if ($filtered['mode'] === 'sign_up') {
 
         return_json([
             'result' => 'ok',
-            'msg' => '회원가입이 완료되었습니다.',
+            'msg' => '',
             //'params' => $params,
             //'sql' => $sql,
             'redirect' => '/member/join_step03_group.html'
