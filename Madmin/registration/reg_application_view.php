@@ -150,7 +150,7 @@ $p_value = implode(', ', $labels);
                     <td><?= $row['f_issue_desire'] == '1' ? '희망' : '희망하지 않음' ?></td>
                 </tr>
                 <tr>
-                    <td style="width:200px;">사진첨부</td>
+                    <td style="width:200px;">첨부파일</td>
                     <td>
                         <!-- <?= printValue($row['f_issue_file']) ?> -->
                         <?php

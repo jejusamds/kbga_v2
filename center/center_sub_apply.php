@@ -506,7 +506,7 @@ unset($sc);
                                                     </table>
                                                 </div>
 
-                                                <div class="list_div fr">
+                                                <div class="list_div fr file">
                                                     <table cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                             <tr>
@@ -848,6 +848,15 @@ unset($sc);
 
         element.value = formattedPhoneNumber;
     }
+
+	// 자격증 발급희망 여부
+	$(document).on("click", "input[name=f_issue_desire]", function() {
+		if ($(this).val() === "0") {
+			$(".apply_con > .contents_con .write_con > .contents_con > .input_con > .form01_con > ul > li .list_div.file").hide();
+		} else {
+			$(".apply_con > .contents_con .write_con > .contents_con > .input_con > .form01_con > ul > li .list_div.file").show();
+		}
+	});
 
 	/*
     // 사진첨부

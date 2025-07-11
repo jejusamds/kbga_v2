@@ -43,9 +43,9 @@ function upload_file(array $file): array
 
 function upload_files(array $files): array
 {
-    $saved = [];
+    $list = [];
     if (!isset($files['name']) || !is_array($files['name'])) {
-        return $saved;
+        return $list;
     }
     $cnt = count($files['name']);
     for ($i = 0; $i < $cnt; $i++) {
@@ -58,10 +58,9 @@ function upload_files(array $files): array
             'size' => $files['size'][$i] ?? 0,
             'error' => $files['error'][$i] ?? UPLOAD_ERR_NO_FILE,
         ];
-        $info = upload_file($fileInfo);
-        $saved[] = $info['saved'];
+        $list[] = upload_file($fileInfo);
     }
-    return $saved;
+    return $list;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -132,13 +131,18 @@ if (!empty($_FILES['f_issue_file']['name'])) {
     $uploadSaved[] = $info['saved'];
     $uploadOriginal[] = $info['original'];
 }
-if (!empty($_FILES['upfile']['name'])) {
-    $uploaded = upload_files($_FILES['upfile']);
-    if ($uploaded) {
-        $uploadSaved = array_merge($uploadSaved, array_column($uploaded, 'saved'));
-        $uploadOriginal = array_merge($uploadOriginal, array_column($uploaded, 'original'));
+
+// 발급 희망시에만 업로드 실행.
+if ($filtered['f_issue_desire'] === '1') {
+    if (!empty($_FILES['upfile']['name'])) {
+        $uploaded = upload_files($_FILES['upfile']);
+        if ($uploaded) {
+            $uploadSaved = array_merge($uploadSaved, array_column($uploaded, 'saved'));
+            $uploadOriginal = array_merge($uploadOriginal, array_column($uploaded, 'original'));
+        }
     }
 }
+
 $uploadName = $uploadSaved ? implode(',', $uploadSaved) : null;
 $uploadOrig = $uploadOriginal ? implode(',', $uploadOriginal) : null;
 
@@ -166,7 +170,7 @@ $params = [
     'f_payer_name' => $filtered['f_payer_name'],
     'f_payer_bank' => $filtered['f_payer_bank'],
     'f_payment_category' => $payment_cat,
-    'f_user_id'         => $f_user_id
+    'f_user_id' => $f_user_id
 ];
 // error_reporting(E_ALL);
 // ini_set("display_errors", 1);

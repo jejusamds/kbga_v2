@@ -377,40 +377,7 @@
 															<td valign="top" align="left" class="info_td">
 																<div class="email_con">
 																	<div class="input_con">
-																		<ul>
-																			<li>
-																				<table cellpadding="0" cellspacing="0">
-																					<tbody>
-																						<tr>
-																							<td align="left" class="input_td">
-                                                                               <input type="text" name="f_email_id" value="" class="input" data-required="y" data-label="이메일을"/>
-																							</td>
-																							<td align="center" class="text_td">
-																								<span>
-																									@
-																								</span>
-																							</td>
-																							<td align="left" class="input_td">
-                                                                               <input type="text" name="f_email_domain" value="" class="input email_address_input" data-required="y" data-label="이메일을"/>
-																							</td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</li>
-																			<li>
-																				<select class="select email_select" onchange="email_address_select(this.value)">
-																					<option value="">직접입력</option>
-																					<option value="naver.com">naver.com</option>
-																					<option value="hanmail.net">hanmail.net</option>
-																					<option value="gmail.com">gmail.com</option>
-																					<option value="nate.com">nate.com</option>
-																					<option value="daum.net">daum.net</option>
-																					<option value="hotmail.com">hotmail.com</option>
-																					<option value="yahoo.co.kr">yahoo.co.kr</option>
-																					<option value="lycos.co.kr">lycos.co.kr</option>
-																				</select>
-																			</li>
-																		</ul>
+                                                                        <input type="text" name="f_email" id="f_email" data-required="y" data-label="이메일을" placeholder="이메일을 적어주세요." class="input" />
 																	</div>
 
 																	<div class="intro_con">
@@ -572,16 +539,6 @@
 			$(obj).keyup(function(){
 				$(this).val($(this).val().replace(/[^0-9]/g,""));
 			}); 
-		}
-
-		// 이메일
-		function email_address_select(val){
-			var state = $(".email_select option:selected").val();
-			if ( state == "" ) {
-				$(".email_address_input").val("").attr("readonly",false).focus();
-			}else{
-				$(".email_address_input").val(val).attr("readonly",true);
-			}
 		}
         </script>
 

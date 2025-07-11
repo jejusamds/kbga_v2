@@ -149,7 +149,7 @@ class FormSubmitter {
     }
 
     handleResponse(data) {
-        console.log(data);
+        //console.log(data);
         if (data.result != 'ok') {
             alert(data.msg);
         }

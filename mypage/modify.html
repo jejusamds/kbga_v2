@@ -1536,6 +1536,15 @@ list($emailId, $emailDomain) = explode('@', $row['f_email']);
                         $(".email_address_input").val(val).attr("readonly",true);
                 }
         }
+
+		// 소속단체 여부
+		$(document).on("click", "input[name=f_affiliation_flag]", function() {
+			if ($(this).val() === "N") {
+				$("#f_affiliation_name").val("").attr("readonly", true);
+			} else {
+				$("#f_affiliation_name").removeAttr("readonly");
+			}
+		});
 </script>
 
 <script>

@@ -336,7 +336,7 @@ if ($filtered['mode'] === 'sign_up') {
 
         return_json([
             'result' => 'ok',
-            'msg' => '회원가입이 완료되었습니다.',
+            'msg' => '',
             //'params' => $params,
             //'sql' => $sql,
             'redirect' => '/member/join_step03_group.html'
@@ -421,6 +421,8 @@ if ($filtered['mode'] === 'secession') {
 
 
 if ($filtered['mode'] === 'modify_profile') {
+
+    $changePwd = false;
 
     if (!empty($filtered['f_honey'])) {
         return_json(['result' => 'error', 'msg' => '잘못된 요청입니다.']);

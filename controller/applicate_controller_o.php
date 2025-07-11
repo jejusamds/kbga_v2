@@ -43,9 +43,9 @@ function upload_file(array $file): array
 
 function upload_files(array $files): array
 {
-    $saved = [];
+    $list = [];
     if (!isset($files['name']) || !is_array($files['name'])) {
-        return $saved;
+        return $list;
     }
     $cnt = count($files['name']);
     for ($i = 0; $i < $cnt; $i++) {
@@ -58,10 +58,9 @@ function upload_files(array $files): array
             'size' => $files['size'][$i] ?? 0,
             'error' => $files['error'][$i] ?? UPLOAD_ERR_NO_FILE,
         ];
-        $info = upload_file($fileInfo);
-        $saved[] = $info['saved'];
+        $list[] = upload_file($fileInfo);
     }
-    return $saved;
+    return $list;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
