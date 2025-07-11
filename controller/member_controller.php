@@ -422,6 +422,8 @@ if ($filtered['mode'] === 'secession') {
 
 if ($filtered['mode'] === 'modify_profile') {
 
+    $changePwd = false;
+
     if (!empty($filtered['f_honey'])) {
         return_json(['result' => 'error', 'msg' => '잘못된 요청입니다.']);
     }
